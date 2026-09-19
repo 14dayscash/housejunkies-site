@@ -3,9 +3,9 @@ import { supabaseServer } from "@/lib/supabase";
 
 export async function POST(req: NextRequest) {
   const body = await req.json();
-  const { full_name, email, phone, subject, message } = body;
+  const { full_name, email, phone, property_address, description } = body;
 
-  if (!full_name || !message) {
+  if (!full_name || !phone) {
     return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
   }
 
@@ -14,8 +14,8 @@ export async function POST(req: NextRequest) {
     full_name,
     email,
     phone,
-    subject,
-    message,
+    subject: property_address ? `Property: ${property_address}` : null,
+    message: description,
   });
 
   if (error) {
@@ -29,12 +29,13 @@ export async function POST(req: NextRequest) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         access_key: process.env.WEB3FORMS_ACCESS_KEY,
-        subject: subject || `New contact message from ${full_name}`,
+        subject: `New contact form submission from ${full_name}`,
         from_name: "House Junkies Website",
         full_name,
         email,
         phone,
-        message,
+        property_address,
+        description,
       }),
     });
   } catch (e) {

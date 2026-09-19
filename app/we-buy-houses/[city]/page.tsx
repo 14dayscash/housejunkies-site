@@ -38,30 +38,37 @@ export default function CityPage({ params }: { params: { city: string } }) {
       question: `What condition does my ${city.name} house need to be in?`,
       answer: "Any condition. We buy houses as-is, including major repair needs, fire or water damage, and code violations.",
     },
+    {
+      question: `Do you buy houses outside ${city.name} too?`,
+      answer: `Yes. We buy throughout ${city.county} and the surrounding Central Valley. Call us if your property isn't listed on our service area page.`,
+    },
   ];
 
   return (
     <div>
-      {city.needsRealContent && (
-        <div className="bg-yellow-50 px-4 py-2 text-center text-xs text-yellow-800">
-          Draft page: needs real neighborhoods, zip codes, and a linked project before this goes live.
-        </div>
-      )}
       <FaqJsonLd items={faqs} />
-      <section className="mx-auto grid max-w-6xl gap-10 px-4 py-12 md:grid-cols-2">
-        <div>
-          <p className="text-sm font-semibold text-brand-green">{city.county}</p>
+      <section className="bg-brand-black text-white">
+        <div className="mx-auto max-w-6xl px-4 py-14">
+          <p className="text-sm font-semibold uppercase tracking-wide text-brand-yellow">{city.county}</p>
           <h1 className="mt-1 text-3xl font-bold md:text-4xl">
             Sell Your House Fast for Cash in {city.name}, CA
           </h1>
-          <p className="mt-4 text-gray-600">
-            {city.description ||
-              `We buy houses as-is in ${city.name}. No repairs, no fees, no hassle.`}
+          <p className="mt-4 max-w-2xl text-white/70">
+            {city.description}
           </p>
+        </div>
+      </section>
+
+      <section className="mx-auto grid max-w-6xl gap-10 px-4 py-12 md:grid-cols-2">
+        <div>
+          {city.marketNote && (
+            <p className="text-sm text-gray-500">{city.marketNote}</p>
+          )}
           {city.neighborhoods.length > 0 && (
-            <p className="mt-4 text-sm text-gray-500">
+            <p className="mt-3 text-sm text-gray-500">
               Serving {city.neighborhoods.join(", ")}
-              {city.zipCodes.length > 0 ? ` (${city.zipCodes.join(", ")})` : ""}.
+              {city.zipCodes.length > 0 ? ` (${city.zipCodes.slice(0, 6).join(", ")}${city.zipCodes.length > 6 ? "…" : ""})` : ""}.
+              Population approximately {city.population}.
             </p>
           )}
           <ul className="mt-6 space-y-2 text-gray-700">
@@ -70,22 +77,30 @@ export default function CityPage({ params }: { params: { city: string } }) {
             <li>✓ No realtor commissions, no escrow fees</li>
             <li>✓ You choose the closing date</li>
           </ul>
+          <p className="mt-6 text-sm text-gray-500">
+            {site.name} is a vertically integrated buyer, meaning we buy, renovate,
+            and resell with our own capital and our own licensed crew
+            ({site.licenses.generalContractor}), not a wholesaler shopping your
+            house to a stranger.
+          </p>
         </div>
         <LeadForm sourcePage={`/we-buy-houses/${city.slug}`} />
       </section>
 
-      <section className="mx-auto max-w-6xl px-4 pb-16">
-        <h2 className="text-xl font-bold">
-          {city.name} Cash Home Sale FAQ
-        </h2>
-        <dl className="mt-4 space-y-4">
-          {faqs.map((f) => (
-            <div key={f.question}>
-              <dt className="font-semibold text-gray-900">{f.question}</dt>
-              <dd className="mt-1 text-gray-600">{f.answer}</dd>
-            </div>
-          ))}
-        </dl>
+      <section className="bg-gray-50">
+        <div className="mx-auto max-w-6xl px-4 py-12">
+          <h2 className="text-xl font-bold text-brand-black">
+            {city.name} Cash Home Sale FAQ
+          </h2>
+          <dl className="mt-4 space-y-4">
+            {faqs.map((f) => (
+              <div key={f.question}>
+                <dt className="font-semibold text-brand-black">{f.question}</dt>
+                <dd className="mt-1 text-gray-600">{f.answer}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
       </section>
     </div>
   );

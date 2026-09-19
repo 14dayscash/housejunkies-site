@@ -21,7 +21,7 @@ export default function HowItWorksPage() {
       <ol className="mt-8 space-y-8">
         {steps.map((s, i) => (
           <li key={s.title} className="flex gap-4">
-            <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-brand-green font-bold text-white">
+            <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-brand-yellow font-bold text-black">
               {i + 1}
             </div>
             <div>

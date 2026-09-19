@@ -13,7 +13,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }));
 
   const cityRoutes = cities
-    .filter((c) => !c.needsRealContent)
     .map((c) => ({
       url: `${site.url}/we-buy-houses/${c.slug}`,
       lastModified: new Date(),

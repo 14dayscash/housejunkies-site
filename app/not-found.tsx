@@ -11,9 +11,9 @@ export default function NotFound() {
         That page may have moved. Try the homepage, or one of the links below.
       </p>
       <div className="mt-6 flex justify-center gap-4">
-        <Link href="/" className="text-brand-green underline">Home</Link>
-        <Link href="/we-buy-houses/visalia" className="text-brand-green underline">We Buy Houses</Link>
-        <Link href="/contact" className="text-brand-green underline">Contact</Link>
+        <Link href="/" className="text-brand-yellow-dark underline">Home</Link>
+        <Link href="/we-buy-houses/visalia" className="text-brand-yellow-dark underline">We Buy Houses</Link>
+        <Link href="/contact" className="text-brand-yellow-dark underline">Contact</Link>
       </div>
     </div>
   );

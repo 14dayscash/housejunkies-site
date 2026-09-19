@@ -34,15 +34,15 @@ export function LeadForm({ sourcePage }: { sourcePage: string }) {
 
   if (status === "sent") {
     return (
-      <div className="rounded-lg bg-brand-green/10 p-6 text-brand-green">
-        <p className="font-semibold">Got it, thanks.</p>
-        <p className="mt-1 text-sm">We'll call you within 24 hours to talk through your offer. No obligation.</p>
+      <div className="rounded-lg border border-brand-yellow/30 bg-brand-yellow/10 p-6 text-white">
+        <p className="font-semibold text-brand-yellow">Got it, thanks.</p>
+        <p className="mt-1 text-sm text-white/80">We'll call you within 24 hours to talk through your offer. No obligation.</p>
       </div>
     );
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
+    <form onSubmit={handleSubmit} className="space-y-4 rounded-lg border border-gray-200 bg-white p-6 shadow-xl">
       <div>
         <label htmlFor="full_name" className="block text-sm font-medium text-gray-700">Full name</label>
         <input
@@ -67,7 +67,7 @@ export function LeadForm({ sourcePage }: { sourcePage: string }) {
       <button
         type="submit"
         disabled={status === "sending"}
-        className="w-full rounded-md bg-brand-green px-4 py-3 font-semibold text-white hover:bg-brand-green/90 disabled:opacity-60"
+        className="w-full rounded-md bg-brand-yellow px-4 py-3 font-bold text-black hover:bg-brand-yellow-dark disabled:opacity-60"
       >
         {status === "sending" ? "Sending..." : "Get My Cash Offer"}
       </button>

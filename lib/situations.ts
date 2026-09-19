@@ -8,14 +8,24 @@
 export type SituationData = {
   slug: string;
   title: string;
+  navLabel: string; // one word, for the header dropdown
   metaTitle: string;
   metaDescription: string;
   summary: string;
+  // Optional richer content, used only where we have real, sourced detail to
+  // back it up (adapted from Dominic's own dominicmcclelland.com posts, which
+  // cover California law in real depth). Situations without this just show
+  // the summary — we don't pad every page to the same length artificially.
+  details?: string[];
+  keySteps?: { title: string; body: string }[];
+  faqs?: { question: string; answer: string }[];
+  legalDisclaimer?: string;
 };
 
 export const situations: SituationData[] = [
   {
     slug: "inherited-property",
+    navLabel: "Inherited",
     title: "Sell an Inherited House",
     metaTitle: "Sell an Inherited House in Visalia & Tulare County | House Junkies",
     metaDescription:
@@ -25,24 +35,64 @@ export const situations: SituationData[] = [
   },
   {
     slug: "probate",
+    navLabel: "Probate",
     title: "Sell a House in Probate",
-    metaTitle: "Sell a House in Probate | Tulare County | House Junkies",
+    metaTitle: "Sell an Inherited House During Probate in Visalia, CA | House Junkies",
     metaDescription:
-      "Selling a house during California probate has its own timeline and rules. We buy probate properties and work with the process, not against it.",
+      "How California probate actually works, and how House Junkies can get you paid faster than waiting out a full 12 to 18 month probate.",
     summary:
-      "California probate has real timelines and real paperwork. We buy houses that are in or entering probate, and we're comfortable working alongside the executor, the attorney, and the court's process rather than pressuring anyone to skip steps.",
+      "When someone dies owning property with no trust in place, it generally has to go through probate before anyone can sell it. Formal probate typically runs 12 to 18 months, but a lot of families qualify for a faster path without realizing it, and we can often move before probate fully closes.",
+    details: [
+      "California has simplified procedures for smaller estates. A Petition to Determine Succession to Primary Residence (Probate Code §§13150-13157) lets a decedent's primary residence, valued up to $750,000, transfer through a shortened court petition instead of full probate. There's also a small estate affidavit for personal property, and a simplified process for other real property valued at roughly $69,625 or less.",
+      "If you're an heir with a right to a share of an estate that hasn't closed yet, you can assign that interest to us for a cash payment now instead of waiting out the process. California courts (Probate Code §11604) actively review these assignments to make sure the consideration is fair, and we do them by the book, in writing, reviewed by counsel.",
+      "We don't wing the legal side. On paperwork and filings, we work with a paralegal and an attorney to make sure assignments and deed transfers happen correctly and in order. You're always welcome to have your own independent counsel review anything before you sign.",
+    ],
+    keySteps: [
+      { title: "Info", body: "Tell us about the property: is there a will, has a personal representative been appointed, are there other heirs." },
+      { title: "Consult", body: "We walk through your specific situation, whether you likely qualify for a small estate procedure or an assignment of interest." },
+      { title: "Process", body: "We coordinate whatever paperwork the specific path requires: small estate petition, assignment agreement, or standard purchase contract." },
+      { title: "Escrow & Close", body: "We open escrow with a local Tulare County title company once the legal path is clear, and you get paid." },
+    ],
+    faqs: [
+      { question: "Do I need my own attorney if I sell to House Junkies during probate?", answer: "You're not required to, but we recommend it, especially for an assignment of interest. It's your inheritance, and a fair, independent second opinion is worth having." },
+      { question: "Can you buy the house before probate is finished?", answer: "Sometimes, through an assignment of interest if you're an heir with a right to a share. Whether that fits depends on where the estate is in the process." },
+      { question: "Does the house need to be cleaned out or repaired first?", answer: "No. We buy as-is, including probate properties still full of belongings. Take what you want, leave the rest." },
+    ],
+    legalDisclaimer:
+      "This is general information based on current California probate law, not legal advice. Thresholds and procedures change, and every estate is different — talk to a licensed probate attorney about your specific situation.",
   },
   {
     slug: "foreclosure",
+    navLabel: "Foreclosure",
     title: "Sell Before Foreclosure",
-    metaTitle: "Facing Foreclosure in Visalia? We Buy Houses Fast | House Junkies",
+    metaTitle: "Facing Foreclosure in Visalia? What California Law Says, and Your 5 Options | House Junkies",
     metaDescription:
-      "Behind on your mortgage in the Central Valley? We buy houses in pre-foreclosure and can often close before a trustee sale date.",
+      "California's foreclosure process has real deadlines built in. Most homeowners have more time and more options than they think, at every stage.",
     summary:
-      "Pre-foreclosure has a clock attached to it. We buy houses in this situation and move at the pace the timeline requires, with a cash offer and no repairs needed.",
+      "Pre-foreclosure is the period after you fall behind on payments but before your home is actually sold. California is a non-judicial foreclosure state, and the realistic minimum from a first missed payment to an actual sale is around 230 days, roughly seven and a half months. That's not a reason to wait, it's time you can use.",
+    details: [
+      "The timeline: after 120+ days delinquent, a Notice of Default gets recorded, opening a 90-day window to reinstate the loan by paying what you owe (you can actually reinstate up until 5 business days before the eventual sale date). If the default isn't cured, a Notice of Trustee Sale can be recorded, which has to happen at least 20 days before the sale itself. California gives no redemption period after the sale.",
+      "As of January 1, 2025, California law (AB 2424) added a real tool for homeowners who want to sell instead of losing the house at auction: if you submit a signed listing agreement with a licensed California real estate broker at least 5 business days before your scheduled trustee sale, the trustee has to postpone the sale by 45 days so the property can be marketed.",
+      "Never pay anyone upfront for mortgage relief help — that's illegal in California under SB 94. A HUD-approved housing counselor can tell you what assistance is available, and it's always free.",
+    ],
+    keySteps: [
+      { title: "1. Reinstatement", body: "Pay the full past-due amount and the foreclosure stops outright. The hard part is having that amount available all at once." },
+      { title: "2. Loan Modification", body: "Your lender adjusts the terms of your existing mortgage. Stops foreclosure and lowers your payment, but restructures what you owe rather than erasing it." },
+      { title: "3. Bankruptcy", body: "Filing generally triggers an automatic stay that halts foreclosure, at least temporarily. A serious step with long-term credit impact — talk to a bankruptcy attorney, not a blog post." },
+      { title: "4. List the Property", body: "List with a licensed brokerage and let the market pay what the house is worth. No guaranteed closing date, and typically takes 60-90 days, but AB 2424 can buy time if you're close to a sale date." },
+      { title: "5. Cash Offer", body: "Sell as-is directly to House Junkies. Fast, certain, closing in as little as 14 days, no closing costs or fees." },
+    ],
+    faqs: [
+      { question: "How does foreclosure work in California?", answer: "Non-judicial, through a trustee, no courtroom in most cases. A Notice of Default starts a 90-day reinstatement window, then a Notice of Trustee Sale requires at least 20 days' notice before the sale." },
+      { question: "Can I stop a foreclosure sale once the Notice of Trustee Sale has been filed?", answer: "Yes, more than one way: reinstate the loan up until 5 business days before the sale, submit a signed listing agreement to trigger the AB 2424 postponement, or sell for cash before the sale date." },
+      { question: "Do I need a foreclosure attorney?", answer: "Not always, but for bankruptcy, deed-in-lieu negotiations, or a dispute with your servicer, it's worth the conversation. For a straightforward sale, that's where we can help without needing one." },
+    ],
+    legalDisclaimer:
+      "This covers general information about the California foreclosure process and is not legal advice. Program availability and deadlines change — confirm your specific timeline with your loan servicer and consider a HUD-approved housing counselor or an attorney.",
   },
   {
     slug: "divorce",
+    navLabel: "Divorce",
     title: "Sell a House During Divorce",
     metaTitle: "Selling a House During Divorce in Visalia | House Junkies",
     metaDescription:
@@ -52,6 +102,7 @@ export const situations: SituationData[] = [
   },
   {
     slug: "fire-damage",
+    navLabel: "Fire Damage",
     title: "Sell a Fire-Damaged House",
     metaTitle: "Sell a Fire-Damaged House in the Central Valley | House Junkies",
     metaDescription:
@@ -61,6 +112,7 @@ export const situations: SituationData[] = [
   },
   {
     slug: "water-damage",
+    navLabel: "Water Damage",
     title: "Sell a Water-Damaged House",
     metaTitle: "Sell a Water-Damaged House in the Central Valley | House Junkies",
     metaDescription:
@@ -70,6 +122,7 @@ export const situations: SituationData[] = [
   },
   {
     slug: "code-violations",
+    navLabel: "Violations",
     title: "Sell a House With Code Violations",
     metaTitle: "Sell a House With Code Violations in Visalia | House Junkies",
     metaDescription:
@@ -79,6 +132,7 @@ export const situations: SituationData[] = [
   },
   {
     slug: "with-tenants",
+    navLabel: "Tenants",
     title: "Sell a Rental With Tenants",
     metaTitle: "Sell a Rental Property With Tenants in Visalia | House Junkies",
     metaDescription:
@@ -88,6 +142,7 @@ export const situations: SituationData[] = [
   },
   {
     slug: "vacant",
+    navLabel: "Vacant",
     title: "Sell a Vacant House",
     metaTitle: "Sell a Vacant House in the Central Valley | House Junkies",
     metaDescription:
@@ -97,6 +152,7 @@ export const situations: SituationData[] = [
   },
   {
     slug: "liens",
+    navLabel: "Liens",
     title: "Sell a House With Liens or Back Taxes",
     metaTitle: "Sell a House With Liens or Tax Debt in Tulare County | House Junkies",
     metaDescription:
@@ -106,12 +162,23 @@ export const situations: SituationData[] = [
   },
   {
     slug: "as-is",
+    navLabel: "As-Is",
     title: "Sell As-Is, No Repairs",
     metaTitle: "Sell Your House As-Is in Visalia | No Repairs Needed | House Junkies",
     metaDescription:
       "Skip the repair list. We buy houses as-is throughout the Central Valley, from small fixes to major renovation needs.",
     summary:
       "Not every seller has a specific hardship, some just don't want to deal with repairs, showings, or a drawn-out listing process. We buy as-is, in any condition, no repairs required.",
+  },
+  {
+    slug: "relocating",
+    navLabel: "Relocating",
+    title: "Sell Fast Because You're Relocating",
+    metaTitle: "Relocating? Sell Your House Fast in Visalia | House Junkies",
+    metaDescription:
+      "Moving for work or family and need to sell on a tight timeline? We buy houses as-is throughout the Central Valley and close on your schedule.",
+    summary:
+      "A job change or family move often comes with a deadline the traditional listing process can't match. We buy houses as-is and can close in as little as 7 days, so the house isn't the thing holding up your move.",
   },
 ];
 

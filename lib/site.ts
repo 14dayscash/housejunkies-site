@@ -20,6 +20,22 @@ export const site = {
     country: "US",
   },
 
+  // Each entity in the group has its own real address — the old Base44 site
+  // conflated these into one schema block, which is exactly what the SEO
+  // audit flagged. Keep them distinct.
+  entityAddresses: {
+    acquisitions: "801 West Main Street, Visalia, CA", // House Junkies Inc.
+    construction: "1640 West Mineral King Ave, Visalia, CA", // House Junkies Construction
+    brokerage: "1814 West Dorothea Ave, Visalia, CA", // Legacy Real Estate
+  },
+
+  legacyRealEstate: {
+    name: "Legacy Real Estate",
+    dre: "DRE #02165291",
+    monthlySales: "80+",
+    monthlyVolume: "$30,000,000+",
+  },
+
   geo: {
     latitude: 36.3298857,
     longitude: -119.3001446,
@@ -36,11 +52,29 @@ export const site = {
   },
 
   people: {
-    ceo: { name: "Abel Ulloa", title: "CEO" },
-    ops: { name: "Dominic McClelland", title: "Operations Manager" },
+    ceo: { name: "Abel Ulloa", title: "CEO", bio: "Leads House Junkies Inc. and Ulloa Investment Group. Principal on the BBB file since the company's founding in 2019." },
+    ops: { name: "Dominic McClelland", title: "Operations Manager", bio: "Runs day-to-day acquisitions and operations. Partner at Ulloa Investment Group, currently pursuing a Business Administration degree at College of the Sequoias." },
+    broker: { name: "Jenny Madrid", title: "Broker", bio: "Broker of record for the House Junkies brokerage arm, DRE #02165291." },
+    projectManager: { name: "Omar Ayon", title: "Project Manager, House Junkies Construction", bio: "Runs renovation projects for House Junkies Construction, the in-house licensed crew that rehabs every property before resale." },
   },
 
   parentOrganization: "Ulloa Investment Group",
+
+  foundingYear: 2019, // BBB profile lists 7 years in business as of Sept 2026
+  yearsInBusiness: 7,
+
+  // Sourced, checkable numbers only. Every figure here should be traceable to a
+  // real source (BBB profile, SFR Analytics report, GBP) — never round up or
+  // invent a number that isn't backed by something a seller could verify.
+  stats: {
+    homesBought: "350+",
+    yearsInBusiness: "7+",
+    sfrAnalyticsRank: "#1",
+    sfrAnalyticsVolume: "$16.0M",
+    sfrAnalyticsDeals: "110",
+    sfrAnalyticsSource: "SFR Analytics, Sept 2026",
+    bbbRating: "A+",
+  },
 
   sameAs: [
     "https://www.facebook.com/housejunkiesinc/",

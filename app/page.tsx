@@ -4,25 +4,31 @@ import { site } from "@/lib/site";
 import { cities } from "@/lib/cities";
 import { situations } from "@/lib/situations";
 
+const liveCities = cities;
+
 export default function HomePage() {
   return (
     <div>
-      <section className="bg-gradient-to-b from-brand-blue/5 to-white">
+      {/* Hero */}
+      <section className="bg-brand-black text-white">
         <div className="mx-auto grid max-w-6xl gap-10 px-4 py-16 md:grid-cols-2 md:py-24">
           <div>
-            <h1 className="text-4xl font-bold leading-tight text-gray-900 md:text-5xl">
-              Sell Your Visalia House As-Is. We Buy It, We Renovate It, We Cover Every Fee.
-            </h1>
-            <p className="mt-4 text-lg text-gray-600">
-              {site.name} has bought, renovated, and resold 350+ homes across the Central
-              Valley. We're not a lead service and we're not a wholesaler, we buy the
-              property with our own capital and renovate it with our own licensed crew
-              ({site.licenses.generalContractor}).
+            <p className="text-sm font-semibold uppercase tracking-wide text-brand-yellow">
+              Visalia & the Central Valley
             </p>
-            <ul className="mt-6 space-y-2 text-gray-700">
-              <li>✓ No repairs, no cleaning, any condition</li>
-              <li>✓ We cover escrow and closing costs</li>
-              <li>✓ You choose the closing date, 7 to 30 days</li>
+            <h1 className="mt-2 text-4xl font-bold leading-tight md:text-5xl">
+              Sell Your House As-Is. We Buy It, We Renovate It, We Cover Every Fee.
+            </h1>
+            <p className="mt-4 text-lg text-white/70">
+              {site.name} has bought, renovated, and resold {site.stats.homesBought} homes across the
+              Central Valley over {site.stats.yearsInBusiness} years. We're not a lead service and we're
+              not a wholesaler, we buy the property with our own capital and renovate it with our own
+              licensed crew ({site.licenses.generalContractor}).
+            </p>
+            <ul className="mt-6 grid grid-cols-2 gap-2 text-sm text-white/80">
+              <li>✓ No repairs, any condition</li>
+              <li>✓ We cover closing costs</li>
+              <li>✓ Close in 7 to 30 days</li>
               <li>✓ Se habla espanol</li>
             </ul>
           </div>
@@ -30,62 +36,122 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-4 py-12">
-        <h2 className="text-2xl font-bold">We Buy Houses in Any Situation</h2>
-        <div className="mt-6 grid grid-cols-2 gap-3 md:grid-cols-4">
-          {situations.map((s) => (
-            <Link
-              key={s.slug}
-              href={`/sell-your-house/${s.slug}`}
-              className="rounded-md border border-gray-200 px-4 py-3 text-center text-sm font-medium hover:border-brand-green hover:text-brand-green"
-            >
-              {s.title}
-            </Link>
-          ))}
+      {/* Trust bar - sourced stats only */}
+      <section className="border-b border-gray-200 bg-white">
+        <div className="mx-auto grid max-w-6xl grid-cols-2 gap-6 px-4 py-10 text-center md:grid-cols-4">
+          <div>
+            <div className="text-3xl font-bold text-brand-black">{site.stats.homesBought}</div>
+            <div className="mt-1 text-sm text-gray-500">Homes bought & renovated</div>
+          </div>
+          <div>
+            <div className="text-3xl font-bold text-brand-black">{site.stats.yearsInBusiness}</div>
+            <div className="mt-1 text-sm text-gray-500">Years in business</div>
+          </div>
+          <div>
+            <div className="text-3xl font-bold text-brand-black">{site.stats.bbbRating}</div>
+            <div className="mt-1 text-sm text-gray-500">BBB Rating</div>
+          </div>
+          <div>
+            <div className="text-3xl font-bold text-brand-black">{site.stats.sfrAnalyticsRank}</div>
+            <div className="mt-1 text-sm text-gray-500">Investor in Visalia</div>
+          </div>
+        </div>
+        <div className="border-t border-gray-100 bg-gray-50 px-4 py-3 text-center text-xs text-gray-500">
+          Ranked #1 by transaction volume in Visalia ({site.stats.sfrAnalyticsVolume} across{" "}
+          {site.stats.sfrAnalyticsDeals} deals) by{" "}
+          <span className="font-medium text-gray-700">{site.stats.sfrAnalyticsSource}</span>, an
+          independent, third-party market data source.
         </div>
       </section>
 
+      {/* Why us / authority */}
+      <section className="mx-auto max-w-6xl px-4 py-14">
+        <h2 className="text-2xl font-bold text-brand-black">
+          Vertically Integrated, Start to Finish
+        </h2>
+        <p className="mt-2 max-w-2xl text-gray-600">
+          Most cash-offer companies are a lead form with a phone number behind it. {site.name} is
+          different: acquisitions, construction, and brokerage all happen under one roof, part of{" "}
+          {site.parentOrganization}. That's what lets us pay more than a wholesaler and close faster
+          than a company that has to shop your house to a stranger before they can buy it.
+        </p>
+        <div className="mt-8 grid gap-6 md:grid-cols-3">
+          <div className="rounded-lg border border-gray-200 p-6">
+            <div className="text-sm font-bold uppercase tracking-wide text-brand-yellow-dark">Step 1 — Acquisitions</div>
+            <p className="mt-2 font-semibold text-brand-black">{site.name} buys directly</p>
+            <p className="mt-1 text-sm text-gray-600">
+              Private capital, no banks, no outside brokers. Led by {site.people.ceo.name} ({site.people.ceo.title}) and {site.people.ops.name} ({site.people.ops.title}).
+            </p>
+          </div>
+          <div className="rounded-lg border border-gray-200 p-6">
+            <div className="text-sm font-bold uppercase tracking-wide text-brand-yellow-dark">Step 2 — Construction</div>
+            <p className="mt-2 font-semibold text-brand-black">Renovated in-house</p>
+            <p className="mt-1 text-sm text-gray-600">
+              Our own licensed general contractor crew, {site.licenses.generalContractor}, handles
+              every rehab, no out-of-town subcontractors.
+            </p>
+          </div>
+          <div className="rounded-lg border border-gray-200 p-6">
+            <div className="text-sm font-bold uppercase tracking-wide text-brand-yellow-dark">Step 3 — Brokerage</div>
+            <p className="mt-2 font-semibold text-brand-black">Resold in-house</p>
+            <p className="mt-1 text-sm text-gray-600">
+              Listed and sold through our own licensed brokerage, {site.licenses.brokerage}.
+            </p>
+          </div>
+        </div>
+        <Link href="/about" className="mt-6 inline-block text-sm font-semibold text-brand-yellow-dark hover:underline">
+          Meet the team behind it →
+        </Link>
+      </section>
+
+      {/* Situations - 12, even grid */}
       <section className="bg-gray-50">
-        <div className="mx-auto max-w-6xl px-4 py-12">
-          <h2 className="text-2xl font-bold">Service Areas</h2>
-          <p className="mt-2 text-gray-600">
-            Proudly serving homeowners throughout Tulare, Kings, Fresno, and Kern counties.
-          </p>
-          <div className="mt-6 flex flex-wrap gap-3">
-            {cities.map((c) => (
+        <div className="mx-auto max-w-6xl px-4 py-14">
+          <h2 className="text-2xl font-bold text-brand-black">We Buy Houses in Any Situation</h2>
+          <div className="mt-6 grid grid-cols-2 gap-3 md:grid-cols-4">
+            {situations.map((s) => (
               <Link
-                key={c.slug}
-                href={`/we-buy-houses/${c.slug}`}
-                className="rounded-full border border-gray-300 px-4 py-2 text-sm hover:border-brand-green hover:text-brand-green"
+                key={s.slug}
+                href={`/sell-your-house/${s.slug}`}
+                className="rounded-md border border-gray-200 bg-white px-4 py-3 text-center text-sm font-medium text-brand-black hover:border-brand-yellow-dark hover:text-brand-yellow-dark"
               >
-                {c.name}
+                {s.navLabel}
               </Link>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-4 py-12">
-        <h2 className="text-2xl font-bold">Vertically Integrated, Start to Finish</h2>
-        <div className="mt-6 grid gap-6 md:grid-cols-3">
-          <div className="rounded-lg border border-gray-200 p-6">
-            <div className="text-sm font-semibold text-brand-green">Acquisitions</div>
-            <p className="mt-2 text-sm text-gray-600">
-              {site.name} buys directly with private capital. No banks, no outside brokers.
-            </p>
-          </div>
-          <div className="rounded-lg border border-gray-200 p-6">
-            <div className="text-sm font-semibold text-brand-green">Construction</div>
-            <p className="mt-2 text-sm text-gray-600">
-              Renovated by our own licensed general contractor, {site.licenses.generalContractor}, not an out-of-town crew.
-            </p>
-          </div>
-          <div className="rounded-lg border border-gray-200 p-6">
-            <div className="text-sm font-semibold text-brand-green">Brokerage</div>
-            <p className="mt-2 text-sm text-gray-600">
-              Resold through our own licensed brokerage, {site.licenses.brokerage}.
-            </p>
-          </div>
+      {/* Service areas */}
+      <section className="mx-auto max-w-6xl px-4 py-14">
+        <h2 className="text-2xl font-bold text-brand-black">Service Areas</h2>
+        <p className="mt-2 text-gray-600">
+          Proudly serving homeowners throughout Tulare, Kings, Fresno, and Kern counties.
+        </p>
+        <div className="mt-6 flex flex-wrap gap-3">
+          {liveCities.map((c) => (
+            <Link
+              key={c.slug}
+              href={`/we-buy-houses/${c.slug}`}
+              className="rounded-full border border-gray-300 px-4 py-2 text-sm text-brand-black hover:border-brand-yellow-dark hover:text-brand-yellow-dark"
+            >
+              {c.name}
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* CTA band */}
+      <section className="bg-brand-black">
+        <div className="mx-auto max-w-6xl px-4 py-12 text-center text-white">
+          <h2 className="text-2xl font-bold">Ready for a No-Obligation Cash Offer?</h2>
+          <p className="mt-2 text-white/70">Call, text, or fill out the form. We respond within 24 hours.</p>
+          <a
+            href={`tel:${site.phoneE164}`}
+            className="mt-6 inline-block rounded-md bg-brand-yellow px-6 py-3 font-bold text-black hover:bg-brand-yellow-dark"
+          >
+            Call {site.phone}
+          </a>
         </div>
       </section>
     </div>
