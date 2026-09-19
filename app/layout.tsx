@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { ExitIntentModal } from "@/components/ExitIntentModal";
 import { OrganizationJsonLd, PersonJsonLd } from "@/components/JsonLd";
 import { site } from "@/lib/site";
 
@@ -25,6 +26,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />
+        <ExitIntentModal />
       </body>
     </html>
   );

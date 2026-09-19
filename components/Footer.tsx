@@ -22,9 +22,23 @@ export function Footer() {
               <a href={`tel:${site.phoneE164}`} className="text-brand-yellow hover:underline">{site.phone}</a>
             </p>
             <p className="mt-4 text-xs text-white/40">
-              Part of {site.parentOrganization}. {site.stats.homesBought} homes bought,
-              renovated, and resold across the group.
+              Part of {site.parentOrganization}.
+              <br />
+              {site.stats.homesBought} homes bought, renovated, and resold.
+              <br />
+              {site.stats.sfrAnalyticsRank} in Visalia and Tulare County.
             </p>
+            <div className="mt-4 flex gap-4">
+              <a href={site.social.facebook} target="_blank" rel="noopener noreferrer" className="text-white/60 hover:text-brand-yellow" aria-label="Facebook">
+                Facebook
+              </a>
+              <a href={site.social.instagram} target="_blank" rel="noopener noreferrer" className="text-white/60 hover:text-brand-yellow" aria-label="Instagram">
+                Instagram
+              </a>
+              <a href={site.social.youtube} target="_blank" rel="noopener noreferrer" className="text-white/60 hover:text-brand-yellow" aria-label="YouTube">
+                YouTube
+              </a>
+            </div>
           </div>
           <div>
             <div className="font-semibold text-white">We Buy Houses</div>

@@ -6,7 +6,7 @@ import { situations } from "@/lib/situations";
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes = [
     "", "about", "contact", "reviews", "how-it-works",
-    "how-we-calculate-your-offer", "partners/agents", "projects", "privacy", "terms",
+    "how-we-calculate-your-offer", "partners/agents", "projects", "blog", "privacy", "terms",
   ].map((route) => ({
     url: `${site.url}/${route}`,
     lastModified: new Date(),

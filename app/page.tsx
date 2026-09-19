@@ -17,13 +17,17 @@ export default function HomePage() {
               Visalia & the Central Valley
             </p>
             <h1 className="mt-2 text-4xl font-bold leading-tight md:text-5xl">
-              Sell Your House As-Is. We Buy It, We Renovate It, We Cover Every Fee.
+              SELL YOUR HOME AS-IS FOR CASH IN THE CENTRAL VALLEY
             </h1>
+            <p className="mt-3 text-lg font-medium text-white/90">
+              A local, vertically integrated buyer with the numbers to back it up. No fees. No
+              obligation. Get a real offer today.
+            </p>
             <p className="mt-4 text-lg text-white/70">
               {site.name} has bought, renovated, and resold {site.stats.homesBought} homes across the
               Central Valley over {site.stats.yearsInBusiness} years. We're not a lead service and we're
               not a wholesaler, we buy the property with our own capital and renovate it with our own
-              licensed crew ({site.licenses.generalContractor}).
+              licensed construction crew ({site.licenses.generalContractor}).
             </p>
             <ul className="mt-6 grid grid-cols-2 gap-2 text-sm text-white/80">
               <li>✓ No repairs, any condition</li>
@@ -77,14 +81,16 @@ export default function HomePage() {
         </p>
         <div className="mt-8 grid gap-6 md:grid-cols-3">
           <div className="rounded-lg border border-gray-200 p-6">
-            <div className="text-sm font-bold uppercase tracking-wide text-brand-yellow-dark">Step 1 — Acquisitions</div>
-            <p className="mt-2 font-semibold text-brand-black">{site.name} buys directly</p>
+            <div className="text-sm font-bold uppercase tracking-wide text-brand-yellow-dark">Step 1 - Acquisitions</div>
+            <p className="mt-2 font-semibold text-brand-black">{site.stats.sfrAnalyticsVolume} across {site.stats.sfrAnalyticsDeals} deals</p>
             <p className="mt-1 text-sm text-gray-600">
-              Private capital, no banks, no outside brokers. Led by {site.people.ceo.name} ({site.people.ceo.title}) and {site.people.ops.name} ({site.people.ops.title}).
+              Funded entirely with private capital, no banks, no outside brokers, no financing that
+              can collapse a week before closing. That's what {site.stats.sfrAnalyticsRank}-ranked
+              volume in Visalia (per {site.stats.sfrAnalyticsSource}) actually looks like.
             </p>
           </div>
           <div className="rounded-lg border border-gray-200 p-6">
-            <div className="text-sm font-bold uppercase tracking-wide text-brand-yellow-dark">Step 2 — Construction</div>
+            <div className="text-sm font-bold uppercase tracking-wide text-brand-yellow-dark">Step 2 - Construction</div>
             <p className="mt-2 font-semibold text-brand-black">Renovated in-house</p>
             <p className="mt-1 text-sm text-gray-600">
               Our own licensed general contractor crew, {site.licenses.generalContractor}, handles
@@ -92,10 +98,12 @@ export default function HomePage() {
             </p>
           </div>
           <div className="rounded-lg border border-gray-200 p-6">
-            <div className="text-sm font-bold uppercase tracking-wide text-brand-yellow-dark">Step 3 — Brokerage</div>
-            <p className="mt-2 font-semibold text-brand-black">Resold in-house</p>
+            <div className="text-sm font-bold uppercase tracking-wide text-brand-yellow-dark">Step 3 - Brokerage</div>
+            <p className="mt-2 font-semibold text-brand-black">{site.legacyRealEstate.agentCount} agents, {site.legacyRealEstate.monthlyVolume}/mo</p>
             <p className="mt-1 text-sm text-gray-600">
-              Listed and sold through our own licensed brokerage, {site.licenses.brokerage}.
+              Resold through {site.legacyRealEstate.name} ({site.licenses.brokerage}),{" "}
+              {site.legacyRealEstate.countyRank.toLowerCase()}, averaging {site.legacyRealEstate.monthlySales} home
+              sales a month.
             </p>
           </div>
         </div>

@@ -36,11 +36,26 @@ export default function SituationPage({ params }: { params: { situation: string 
 
       <section className="mx-auto grid max-w-6xl gap-10 px-4 py-12 md:grid-cols-3">
         <div className="md:col-span-2">
-          {situation.details?.map((paragraph, i) => (
-            <p key={i} className="mt-4 text-gray-600 first:mt-0">
-              {paragraph}
-            </p>
-          ))}
+          <h2 className="text-xl font-bold text-brand-black">Quick Facts</h2>
+          <ul className="mt-4 space-y-3">
+            {situation.quickFacts.map((fact, i) => (
+              <li key={i} className="flex gap-3 text-gray-600">
+                <span className="mt-1 text-brand-yellow-dark">•</span>
+                <span>{fact}</span>
+              </li>
+            ))}
+          </ul>
+
+          {situation.details && (
+            <>
+              <h2 className="mt-10 text-xl font-bold text-brand-black">More Detail</h2>
+              {situation.details.map((paragraph, i) => (
+                <p key={i} className="mt-4 text-gray-600">
+                  {paragraph}
+                </p>
+              ))}
+            </>
+          )}
 
           {situation.keySteps && (
             <div className="mt-8">

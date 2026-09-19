@@ -70,6 +70,7 @@ export function Header() {
           </div>
 
           <Link href="/projects" className="rounded-md px-3 py-2 hover:bg-white/10 hover:text-white">Projects</Link>
+          <Link href="/blog" className="rounded-md px-3 py-2 hover:bg-white/10 hover:text-white">Blog</Link>
           <Link href="/about" className="rounded-md px-3 py-2 hover:bg-white/10 hover:text-white">About</Link>
           <Link href="/reviews" className="rounded-md px-3 py-2 hover:bg-white/10 hover:text-white">Reviews</Link>
           <Link href="/contact" className="rounded-md px-3 py-2 hover:bg-white/10 hover:text-white">Contact</Link>
@@ -114,6 +115,7 @@ export function Header() {
           </div>
           <div className="mt-4 flex flex-col gap-2 border-t border-white/10 pt-4 text-sm text-white/80">
             <Link href="/projects">Projects</Link>
+            <Link href="/blog">Blog</Link>
             <Link href="/about">About</Link>
             <Link href="/reviews">Reviews</Link>
             <Link href="/contact">Contact</Link>

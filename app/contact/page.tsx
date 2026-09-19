@@ -39,6 +39,11 @@ export default function ContactPage() {
             <p className="pt-2 text-sm text-gray-500">
               {site.hours.weekday} · Weekends {site.hours.weekend}
             </p>
+            <div className="flex gap-4 pt-3 text-sm">
+              <a href={site.social.facebook} target="_blank" rel="noopener noreferrer" className="text-brand-yellow-dark hover:underline">Facebook</a>
+              <a href={site.social.instagram} target="_blank" rel="noopener noreferrer" className="text-brand-yellow-dark hover:underline">Instagram</a>
+              <a href={site.social.youtube} target="_blank" rel="noopener noreferrer" className="text-brand-yellow-dark hover:underline">YouTube</a>
+            </div>
           </div>
 
           {/* Google Maps embed, same pattern as dominicmcclelland.com */}

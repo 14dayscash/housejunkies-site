@@ -67,10 +67,10 @@ export default function OfferCalcPage() {
 
         <p className="mt-8 text-gray-600">
           Because our renovation numbers come from the crew that actually does the
-          work, and because we fund every deal ourselves with no bank or outside
-          partner who can back out, there's nothing left to "discover" during an
-          inspection a week before closing. The number we give you on day one is
-          the number you get paid.
+          work, and because we fund every deal ourselves there is no bank or
+          outside partner to back out, there's nothing left to "discover" during
+          an inspection a week before closing. The number we give you on day one
+          is the number you get paid.
         </p>
 
         <p className="mt-6 text-sm text-gray-500">

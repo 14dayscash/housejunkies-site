@@ -2,7 +2,7 @@ import { site } from "@/lib/site";
 
 // Corrected Organization + LocalBusiness + Person schema.
 // Replaces the broken block from the Base44 app (wrong url, wrong sameAs, address
-// conflicting with the GBP). Everything here pulls from lib/site.ts — update there,
+// conflicting with the GBP). Everything here pulls from lib/site.ts - update there,
 // this component never needs to change.
 
 export function OrganizationJsonLd() {

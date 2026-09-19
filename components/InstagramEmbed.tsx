@@ -9,7 +9,7 @@ declare global {
 }
 
 // Renders a real, live Instagram post via Instagram's own official embed
-// widget — not a screenshot or a copy. Nothing here is rehosted; the post
+// widget - not a screenshot or a copy. Nothing here is rehosted; the post
 // stays on Instagram's servers and Instagram's script renders it in place.
 export function InstagramEmbed({ permalink }: { permalink: string }) {
   const ref = useRef<HTMLDivElement>(null);
