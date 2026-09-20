@@ -97,32 +97,35 @@ export function Header() {
 
       {mobileOpen && (
         <div className="border-t border-white/10 bg-brand-black px-4 pb-4 md:hidden">
-          <div className="pt-3 text-xs font-semibold uppercase tracking-wide text-white/40">We Buy Houses</div>
+          <div className="flex flex-col gap-2 pt-4 text-sm text-white/80">
+            <Link href="/projects" onClick={() => setMobileOpen(false)}>Projects</Link>
+            <Link href="/blog" onClick={() => setMobileOpen(false)}>Blog</Link>
+            <Link href="/about" onClick={() => setMobileOpen(false)}>About</Link>
+            <Link href="/reviews" onClick={() => setMobileOpen(false)}>Reviews</Link>
+            <Link href="/contact" onClick={() => setMobileOpen(false)}>Contact</Link>
+          </div>
+
+          <div className="pt-4 text-xs font-semibold uppercase tracking-wide text-white/40">We Buy Houses</div>
           <div className="mt-1 flex flex-wrap gap-2">
             {liveCities.map((c) => (
-              <Link key={c.slug} href={`/we-buy-houses/${c.slug}`} className="rounded-full border border-white/20 px-3 py-1 text-sm text-white/80">
+              <Link key={c.slug} href={`/we-buy-houses/${c.slug}`} onClick={() => setMobileOpen(false)} className="rounded-full border border-white/20 px-3 py-1 text-sm text-white/80">
                 {c.name}
               </Link>
             ))}
           </div>
+
           <div className="pt-4 text-xs font-semibold uppercase tracking-wide text-white/40">Situations</div>
           <div className="mt-1 flex flex-wrap gap-2">
             {situations.map((s) => (
-              <Link key={s.slug} href={`/sell-your-house/${s.slug}`} className="rounded-full border border-white/20 px-3 py-1 text-sm text-white/80">
+              <Link key={s.slug} href={`/sell-your-house/${s.slug}`} onClick={() => setMobileOpen(false)} className="rounded-full border border-white/20 px-3 py-1 text-sm text-white/80">
                 {s.navLabel}
               </Link>
             ))}
           </div>
-          <div className="mt-4 flex flex-col gap-2 border-t border-white/10 pt-4 text-sm text-white/80">
-            <Link href="/projects">Projects</Link>
-            <Link href="/blog">Blog</Link>
-            <Link href="/about">About</Link>
-            <Link href="/reviews">Reviews</Link>
-            <Link href="/contact">Contact</Link>
-            <a href={`tel:${site.phoneE164}`} className="mt-2 rounded-md bg-brand-yellow px-4 py-2 text-center font-bold text-black">
-              Call {site.phone}
-            </a>
-          </div>
+
+          <a href={`tel:${site.phoneE164}`} className="mt-4 block rounded-md bg-brand-yellow px-4 py-2 text-center font-bold text-black">
+            Call {site.phone}
+          </a>
         </div>
       )}
     </header>

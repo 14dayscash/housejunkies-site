@@ -103,7 +103,7 @@ export default function HomePage() {
             <p className="mt-2 font-semibold text-brand-black">{site.legacyRealEstate.agentCount} agents, {site.legacyRealEstate.monthlyVolume}/mo</p>
             <p className="mt-1 text-sm text-gray-600">
               Resold through {site.legacyRealEstate.name} ({site.licenses.brokerage}),{" "}
-              {site.legacyRealEstate.countyRank.toLowerCase()}, averaging {site.legacyRealEstate.monthlySales} home
+              {site.legacyRealEstate.countyRank}, averaging {site.legacyRealEstate.monthlySales} home
               sales a month. Led by our broker, {site.people.broker.name}.
             </p>
           </div>

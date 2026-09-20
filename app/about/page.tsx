@@ -94,7 +94,7 @@ export default function AboutPage() {
             <p className="mt-1 text-sm text-gray-500">{site.entityAddresses.brokerage}</p>
             <p className="mt-2 text-sm text-gray-600">
               The brokerage arm, {site.legacyRealEstate.dre}, led by {site.people.broker.name},
-              Broker of Record, and {site.legacyRealEstate.countyRank.toLowerCase()} with{" "}
+              Broker of Record, and {site.legacyRealEstate.countyRank} with{" "}
               {site.legacyRealEstate.agentCount} agents. Averaging {site.legacyRealEstate.monthlySales}{" "}
               sales and over {site.legacyRealEstate.monthlyVolume} in closed volume per month. Because
               we own a brokerage too, we can tell you what your house would list for and what we'd pay

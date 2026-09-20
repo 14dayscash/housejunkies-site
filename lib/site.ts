@@ -33,7 +33,7 @@ export const site = {
     name: "Legacy Real Estate",
     dre: "DRE #02165291",
     agentCount: "220+",
-    countyRank: "The largest brokerage in Tulare County",
+    countyRank: "the largest brokerage in Tulare County",
     monthlySales: "80+",
     monthlyVolume: "$30,000,000+",
   },
