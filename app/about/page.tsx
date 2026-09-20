@@ -8,11 +8,20 @@ export const metadata: Metadata = {
   alternates: { canonical: "/about" },
 };
 
-const team = [
+type TeamMember = {
+  name: string;
+  title: string;
+  bio: string;
+  phone: string | null;
+  email: string | null;
+  photo: string | null;
+};
+
+const team: TeamMember[] = [
   { ...site.people.ceo, photo: "/images/team/abel.png" },
   { ...site.people.ops, photo: "/images/team/dominic.png" },
-  { ...site.people.broker, photo: null as string | null },
-  { ...site.people.projectManager, photo: null as string | null },
+  { ...site.people.broker, photo: "/images/team/jenny.png" },
+  { ...site.people.projectManager, photo: "/images/team/omar-tools.png" },
 ];
 
 export default function AboutPage() {
@@ -180,7 +189,7 @@ export default function AboutPage() {
               </div>
             ))}
           </div>
-          {/* Jenny and Omar photos: add when available, currently showing initials */}
+          {/* All four team members now have real photos (Omar's is a tools graphic, not a headshot, per his preference) */}
         </div>
       </section>
 

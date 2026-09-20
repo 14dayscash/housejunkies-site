@@ -70,17 +70,17 @@ export const site = {
     },
     broker: {
       name: "Jenny Madrid",
-      title: "Broker",
-      bio: "Broker of record for Legacy Real Estate (DRE #02165291), the brokerage arm of Ulloa Investment Group and the largest brokerage in Tulare County, leading a team of 220+ agents averaging 80+ home sales and $30,000,000+ in closed volume per month. Because House Junkies and Legacy Real Estate share ownership, Jenny's team can tell a seller what their house would list for and what House Junkies would pay off-market, from the same data, in the same conversation.",
-      phone: null,
-      email: null,
+      title: "Broker, Owner",
+      bio: "Broker of record for Legacy Real Estate (DRE #02165291), the brokerage arm of Ulloa Investment Group and the largest brokerage in Tulare County, leading a team of 220+ agents averaging 80+ home sales and $30,000,000+ in closed volume per month. Personally licensed as DRE #01882650. Because House Junkies and Legacy Real Estate share ownership, Jenny's team can tell a seller what their house would list for and what House Junkies would pay off-market, from the same data, in the same conversation.",
+      phone: "(559) 737-7363",
+      email: "jennymadridre@gmail.com",
     },
     projectManager: {
       name: "Omar Ayon",
       title: "Project Manager, House Junkies Construction",
       bio: "Runs every renovation and ADU project for House Junkies Construction, the in-house licensed crew (CA LIC#1077593) that rehabs each property before resale instead of subcontracting the work out piece by piece. Also takes on outside construction and ADU clients across Tulare, Kings, Kern, and Fresno counties, handling design, permitting, and construction under one roof so projects move faster than starting from a blank page with a new architect. Manages both pre-approved ADU plans, already cleared for permitting in four counties, and fully custom builds sized to a property's specific lot and goals.",
       phone: "(559) 350-1804",
-      email: null,
+      email: null as string | null,
     },
   },
 
