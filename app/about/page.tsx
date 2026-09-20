@@ -68,8 +68,14 @@ export default function AboutPage() {
             <div className="font-semibold text-brand-black">{site.name} - We Buy</div>
             <p className="mt-1 text-sm text-gray-500">{site.entityAddresses.acquisitions}</p>
             <p className="mt-2 text-sm text-gray-600">
-              The acquisitions and investment arm. Cash offers on any-condition properties,
-              funded entirely in-house, no bank or outside partner to back out.
+              The acquisitions and investment arm, and the entity ranked {site.stats.sfrAnalyticsRank} in
+              Visalia by transaction volume ({site.stats.sfrAnalyticsVolume} across{" "}
+              {site.stats.sfrAnalyticsDeals} deals) per {site.stats.sfrAnalyticsSource}. Cash offers
+              on any-condition properties, funded entirely in-house with private capital, no bank
+              or outside partner to back out and nothing to fall through during underwriting.
+              Every offer is built from a real four-number formula (after-repair value, renovation
+              cost, holding and closing costs, and margin), not a lowball starting point meant to
+              get negotiated up.
             </p>
           </div>
           <div className="rounded-lg border border-gray-200 p-5">
@@ -114,6 +120,24 @@ export default function AboutPage() {
                 <div className="font-semibold text-brand-black">{person.name}</div>
                 <div className="text-sm font-medium text-brand-yellow-dark">{person.title}</div>
                 <p className="mt-2 text-sm text-gray-600">{person.bio}</p>
+                {(person.phone || person.email) && (
+                  <div className="mt-3 space-y-0.5 border-t border-gray-100 pt-3 text-sm">
+                    {person.phone && (
+                      <p>
+                        <a href={`tel:${person.phone.replace(/[^\d]/g, "")}`} className="text-brand-yellow-dark hover:underline">
+                          {person.phone}
+                        </a>
+                      </p>
+                    )}
+                    {person.email && (
+                      <p>
+                        <a href={`mailto:${person.email}`} className="text-brand-yellow-dark hover:underline">
+                          {person.email}
+                        </a>
+                      </p>
+                    )}
+                  </div>
+                )}
               </div>
             ))}
           </div>

@@ -40,6 +40,10 @@ export const situations: SituationData[] = [
       "You aren't required to use a realtor to sell an inherited house, an off-market cash sale skips the listing process entirely.",
       "There's no fixed deadline to sell an inherited house in California, though ongoing taxes, insurance, and upkeep make sitting on it expensive.",
     ],
+    faqs: [
+      { question: "Do I have to go through probate to sell an inherited house?", answer: "Only if there's no trust and no other automatic way the property passes, like joint tenancy. If the house is in a living trust, you may be able to sell without probate at all." },
+      { question: "What if my siblings and I disagree about selling?", answer: "This comes up often. We can work with whoever has legal authority to act, or structure a deal where one heir's interest is bought out while others are still deciding." },
+    ],
   },
   {
     slug: "probate",
@@ -128,6 +132,10 @@ export const situations: SituationData[] = [
       "A married couple selling a primary residence may each be able to exclude up to $250,000 of capital gains, subject to the usual ownership and use rules.",
       "A direct buyout (one spouse pays the other for their share) is a different path than an outright sale to a third party, and either can work depending on the situation.",
     ],
+    faqs: [
+      { question: "Can I sell the house before the divorce is finalized?", answer: "Sometimes, if both spouses agree and are willing to sign. Otherwise it usually has to wait until the settlement addresses the property." },
+      { question: "Does a cash sale affect how the proceeds get split?", answer: "No. A faster sale just converts the asset to cash sooner, how it's split is still determined by your settlement or the court." },
+    ],
   },
   {
     slug: "fire-damage",
@@ -144,6 +152,10 @@ export const situations: SituationData[] = [
       "Rebuilding after a fire typically requires new permits, even for a like-for-like reconstruction.",
       "Traditional, financed buyers often can't get a loan approved on a house with significant fire damage.",
       "Because House Junkies renovates with our own licensed crew, we can accurately price fire-damaged properties instead of guessing.",
+    ],
+    faqs: [
+      { question: "Do I need to file an insurance claim before selling?", answer: "Not necessarily. We can factor an in-progress claim into the offer, or buy the property as-is if you'd rather not deal with the claims process at all." },
+      { question: "Will the fire damage need to be disclosed?", answer: "Yes, California generally requires disclosing known material defects, including fire damage, regardless of who you sell to." },
     ],
   },
   {
@@ -162,6 +174,10 @@ export const situations: SituationData[] = [
       "Water damage findings during a buyer's inspection are one of the most common reasons a traditional sale falls through.",
       "We buy water-damaged properties in any condition and handle the repair ourselves after closing.",
     ],
+    faqs: [
+      { question: "What if there's visible mold?", answer: "We still buy properties with mold, in any condition. Just let us know so we can plan for it in the offer." },
+      { question: "Do I need a mold inspection before selling to you?", answer: "No, we don't require inspections or appraisals of any kind." },
+    ],
   },
   {
     slug: "code-violations",
@@ -178,6 +194,10 @@ export const situations: SituationData[] = [
       "Unresolved violations can turn into liens recorded by the city or county against the property.",
       "You can sell a house with open permits or violations, it usually just narrows your buyer pool to cash buyers.",
       "Because House Junkies Construction deals with local code enforcement regularly, we can evaluate violation properties realistically.",
+    ],
+    faqs: [
+      { question: "Can I sell a house that's currently red-tagged?", answer: "Yes, we buy red-tagged and code-violation properties regularly." },
+      { question: "Will the violations show up when you research my property?", answer: "Likely yes, and that's fine, our construction arm is used to working through the local code enforcement process." },
     ],
   },
   {
@@ -196,6 +216,10 @@ export const situations: SituationData[] = [
       "A property with a difficult tenant situation often scares off traditional buyers who plan to move in themselves.",
       "We buy occupied rentals regularly and handle the tenant situation after closing.",
     ],
+    faqs: [
+      { question: "Do I need to evict my tenant before selling?", answer: "No, we buy occupied rentals and can work with the situation as-is." },
+      { question: "What happens to my tenant after closing?", answer: "That depends on the deal, options include a cash-for-keys arrangement or simply taking over as the new landlord." },
+    ],
   },
   {
     slug: "vacant",
@@ -212,6 +236,10 @@ export const situations: SituationData[] = [
       "Standard homeowners insurance policies often limit or exclude coverage once a house has been vacant past a certain number of days.",
       "A vacant house still accrues property taxes, insurance, and utility costs even while producing no income.",
       "We buy vacant properties in any condition, no matter how long they've been sitting empty.",
+    ],
+    faqs: [
+      { question: "How long can a vacant house sit before it becomes a problem for insurance?", answer: "It varies by policy, but many insurers restrict or void coverage after 30 to 60 days of vacancy, worth checking your policy directly." },
+      { question: "Do I need to winterize or secure the property before selling?", answer: "No, we buy vacant properties as-is, in whatever condition they're currently in." },
     ],
   },
   {
@@ -230,6 +258,10 @@ export const situations: SituationData[] = [
       "Delinquent property taxes in California can eventually lead to a tax default and, if unresolved long enough, a county tax sale.",
       "A title search almost always surfaces liens before closing, so it's better to know about them upfront than be surprised at the table.",
     ],
+    faqs: [
+      { question: "Will I still get paid if there's a lien on the property?", answer: "In most cases, yes. The lien is paid off out of the proceeds at closing, and you receive what's left." },
+      { question: "What if the lien is more than the property is worth?", answer: "We can still evaluate the deal, though the numbers may not work in every case, that's part of the free consult." },
+    ],
   },
   {
     slug: "as-is",
@@ -247,6 +279,10 @@ export const situations: SituationData[] = [
       "California law still generally requires disclosing known material defects, even in an as-is sale.",
       "An as-is sale usually closes faster than a listed sale, since there's no repair negotiation period.",
     ],
+    faqs: [
+      { question: "Do I have to disclose anything if I'm selling as-is?", answer: "Yes, California generally still requires disclosing known material defects even in an as-is sale." },
+      { question: "Is an as-is sale always faster?", answer: "Usually, since there's no repair negotiation period, but the real speed comes from paying cash and skipping financing contingencies." },
+    ],
   },
   {
     slug: "relocating",
@@ -263,6 +299,10 @@ export const situations: SituationData[] = [
       "A cash sale can close in as little as 7 days, which matters when a relocation date is fixed.",
       "Renting out the house instead of selling is an option, but comes with ongoing landlord responsibilities from out of the area.",
       "Temporary housing near your new job while the sale finalizes is common when timelines don't line up perfectly.",
+    ],
+    faqs: [
+      { question: "Can you close before I actually move?", answer: "Yes, we can typically close in as little as 7 days, well ahead of most relocation timelines." },
+      { question: "What if I've already moved out of state?", answer: "That's fine, the whole process can be handled remotely with a local title company handling the closing." },
     ],
   },
 ];

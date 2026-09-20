@@ -16,7 +16,6 @@ export const revalidate = 3600;
 const instagramPosts = [
   "https://www.instagram.com/p/Cmaf_avLLv4/",
   "https://www.instagram.com/p/ClNklDvOjy2/",
-  "https://www.instagram.com/p/DdEm_F0IFvc/",
 ];
 
 export default async function ProjectsPage() {

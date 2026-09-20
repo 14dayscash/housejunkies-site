@@ -23,6 +23,13 @@ export default function SituationPage({ params }: { params: { situation: string 
   const situation = getSituation(params.situation);
   if (!situation) notFound();
 
+  const keySteps = situation.keySteps ?? [
+    { title: "Info", body: `Tell us about your property and situation, including anything specific to ${situation.title.toLowerCase()}.` },
+    { title: "Consult", body: "We walk through your specific situation and what a cash offer would look like." },
+    { title: "Process", body: "We handle whatever paperwork or coordination the situation calls for." },
+    { title: "Escrow & Close", body: "We open escrow with a local title company and you get paid on your timeline." },
+  ];
+
   return (
     <div>
       {situation.faqs && <FaqJsonLd items={situation.faqs} />}
@@ -57,19 +64,17 @@ export default function SituationPage({ params }: { params: { situation: string 
             </>
           )}
 
-          {situation.keySteps && (
-            <div className="mt-8">
-              <h2 className="text-xl font-bold text-brand-black">How It Works</h2>
-              <div className="mt-4 space-y-4">
-                {situation.keySteps.map((step) => (
-                  <div key={step.title} className="rounded-lg border border-gray-200 p-4">
-                    <div className="font-semibold text-brand-black">{step.title}</div>
-                    <p className="mt-1 text-sm text-gray-600">{step.body}</p>
-                  </div>
-                ))}
-              </div>
+          <div className="mt-8">
+            <h2 className="text-xl font-bold text-brand-black">How It Works</h2>
+            <div className="mt-4 space-y-4">
+              {keySteps.map((step) => (
+                <div key={step.title} className="rounded-lg border border-gray-200 p-4">
+                  <div className="font-semibold text-brand-black">{step.title}</div>
+                  <p className="mt-1 text-sm text-gray-600">{step.body}</p>
+                </div>
+              ))}
             </div>
-          )}
+          </div>
 
           {situation.faqs && (
             <div className="mt-10">

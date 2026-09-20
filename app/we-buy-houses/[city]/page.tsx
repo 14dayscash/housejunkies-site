@@ -87,6 +87,18 @@ export default function CityPage({ params }: { params: { city: string } }) {
         <LeadForm sourcePage={`/we-buy-houses/${city.slug}`} />
       </section>
 
+      <section className="mx-auto max-w-6xl px-4 pb-4">
+        <h2 className="text-xl font-bold text-brand-black">{city.name} Quick Facts</h2>
+        <ul className="mt-4 grid gap-3 sm:grid-cols-2">
+          {city.quickFacts.map((fact, i) => (
+            <li key={i} className="flex gap-3 text-gray-600">
+              <span className="mt-1 text-brand-yellow-dark">•</span>
+              <span>{fact}</span>
+            </li>
+          ))}
+        </ul>
+      </section>
+
       <section className="bg-gray-50">
         <div className="mx-auto max-w-6xl px-4 py-12">
           <h2 className="text-xl font-bold text-brand-black">

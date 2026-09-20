@@ -30,10 +30,10 @@ export default function HomePage() {
               licensed construction crew ({site.licenses.generalContractor}).
             </p>
             <ul className="mt-6 grid grid-cols-2 gap-2 text-sm text-white/80">
-              <li>✓ No repairs, any condition</li>
-              <li>✓ We cover closing costs</li>
-              <li>✓ Close in 7 to 30 days</li>
-              <li>✓ Se habla espanol</li>
+              <li>✓ No Repairs, Any Condition</li>
+              <li>✓ We Cover Closing Costs</li>
+              <li>✓ Close in 7 to 30 Days</li>
+              <li>✓ Se Habla Espanol</li>
             </ul>
           </div>
           <LeadForm sourcePage="/" />
@@ -86,7 +86,7 @@ export default function HomePage() {
             <p className="mt-1 text-sm text-gray-600">
               Funded entirely with private capital, no banks, no outside brokers, no financing that
               can collapse a week before closing. That's what {site.stats.sfrAnalyticsRank}-ranked
-              volume in Visalia (per {site.stats.sfrAnalyticsSource}) actually looks like.
+              volume in Visalia actually looks like.
             </p>
           </div>
           <div className="rounded-lg border border-gray-200 p-6">
@@ -94,7 +94,8 @@ export default function HomePage() {
             <p className="mt-2 font-semibold text-brand-black">Renovated in-house</p>
             <p className="mt-1 text-sm text-gray-600">
               Our own licensed general contractor crew, {site.licenses.generalContractor}, handles
-              every rehab, no out-of-town subcontractors.
+              every rehab, no out-of-town subcontractors. The same crew also builds ground-up new
+              construction and full ADUs, from design through permitting to turnkey delivery.
             </p>
           </div>
           <div className="rounded-lg border border-gray-200 p-6">
@@ -103,7 +104,7 @@ export default function HomePage() {
             <p className="mt-1 text-sm text-gray-600">
               Resold through {site.legacyRealEstate.name} ({site.licenses.brokerage}),{" "}
               {site.legacyRealEstate.countyRank.toLowerCase()}, averaging {site.legacyRealEstate.monthlySales} home
-              sales a month.
+              sales a month. Led by our broker, {site.people.broker.name}.
             </p>
           </div>
         </div>
