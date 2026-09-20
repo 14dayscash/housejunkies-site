@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { supabaseServer } from "@/lib/supabase";
 import { InstagramEmbed } from "@/components/InstagramEmbed";
 
@@ -39,6 +40,34 @@ export default async function ProjectsPage() {
       </section>
 
       <section className="mx-auto max-w-6xl px-4 py-12">
+        <h2 className="text-xl font-bold text-brand-black">Featured Renovation</h2>
+        <div className="mt-6 grid gap-4 sm:grid-cols-2">
+          <div>
+            <div className="overflow-hidden rounded-lg border border-gray-200">
+              <Image
+                src="/images/projects/property-1/before.jpg"
+                alt="Property before renovation"
+                width={1600}
+                height={1067}
+                className="w-full object-cover"
+              />
+            </div>
+            <p className="mt-2 text-center text-sm font-semibold uppercase tracking-wide text-gray-400">Before</p>
+          </div>
+          <div>
+            <div className="overflow-hidden rounded-lg border border-gray-200">
+              <Image
+                src="/images/projects/property-1/after.jpg"
+                alt="Property after renovation"
+                width={1600}
+                height={1067}
+                className="w-full object-cover"
+              />
+            </div>
+            <p className="mt-2 text-center text-sm font-semibold uppercase tracking-wide text-brand-yellow-dark">After</p>
+          </div>
+        </div>
+
         {projects && projects.length > 0 && (
           <div className="mb-12 grid gap-6 sm:grid-cols-2 md:grid-cols-3">
             {projects.map((p) => (
@@ -55,7 +84,8 @@ export default async function ProjectsPage() {
           </div>
         )}
 
-        <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-3">
+        <h2 className="mt-12 text-xl font-bold text-brand-black">From Our Instagram</h2>
+        <div className="mt-6 grid gap-8 sm:grid-cols-2 md:grid-cols-3">
           {instagramPosts.map((url) => (
             <InstagramEmbed key={url} permalink={url} />
           ))}

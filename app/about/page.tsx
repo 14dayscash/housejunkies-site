@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -8,10 +9,10 @@ export const metadata: Metadata = {
 };
 
 const team = [
-  site.people.ceo,
-  site.people.ops,
-  site.people.broker,
-  site.people.projectManager,
+  { ...site.people.ceo, photo: "/images/team/abel.png" },
+  { ...site.people.ops, photo: "/images/team/dominic.png" },
+  { ...site.people.broker, photo: null as string | null },
+  { ...site.people.projectManager, photo: null as string | null },
 ];
 
 export default function AboutPage() {
@@ -52,6 +53,18 @@ export default function AboutPage() {
         </div>
       </section>
 
+      <section className="mx-auto max-w-4xl px-4 py-10">
+        <div className="overflow-hidden rounded-lg border border-gray-200">
+          <Image
+            src="/images/team/team-photo.png"
+            alt={`The ${site.name} team`}
+            width={1535}
+            height={1024}
+            className="w-full object-cover"
+          />
+        </div>
+      </section>
+
       <section className="mx-auto max-w-4xl px-4 py-14">
         <h2 className="text-2xl font-bold text-brand-black">What "Vertically Integrated" Actually Means</h2>
         <p className="mt-4 text-gray-600">
@@ -65,7 +78,10 @@ export default function AboutPage() {
         </p>
         <div className="mt-6 space-y-4">
           <div className="rounded-lg border border-gray-200 p-5">
-            <div className="font-semibold text-brand-black">{site.name} - We Buy</div>
+            <div className="flex items-center gap-3">
+              <Image src="/images/logo-black.png" alt={site.name} width={40} height={40} className="h-10 w-10 object-contain" />
+              <div className="font-semibold text-brand-black">{site.name} - We Buy</div>
+            </div>
             <p className="mt-1 text-sm text-gray-500">{site.entityAddresses.acquisitions}</p>
             <p className="mt-2 text-sm text-gray-600">
               The acquisitions and investment arm, and the entity ranked {site.stats.sfrAnalyticsRank} in
@@ -79,7 +95,10 @@ export default function AboutPage() {
             </p>
           </div>
           <div className="rounded-lg border border-gray-200 p-5">
-            <div className="font-semibold text-brand-black">House Junkies Construction - We Build</div>
+            <div className="flex items-center gap-3">
+              <Image src="/images/logos/construction.png" alt="House Junkies Construction" width={40} height={40} className="h-10 w-10 rounded-full object-contain" />
+              <div className="font-semibold text-brand-black">House Junkies Construction - We Build</div>
+            </div>
             <p className="mt-1 text-sm text-gray-500">{site.entityAddresses.construction}</p>
             <p className="mt-2 text-sm text-gray-600">
               Our licensed California general contractor crew, {site.licenses.generalContractor},
@@ -90,7 +109,10 @@ export default function AboutPage() {
             </p>
           </div>
           <div className="rounded-lg border border-gray-200 p-5">
-            <div className="font-semibold text-brand-black">{site.legacyRealEstate.name} - We Sell</div>
+            <div className="flex items-center gap-3">
+              <Image src="/images/logos/legacy.png" alt={site.legacyRealEstate.name} width={40} height={40} className="h-10 w-10 rounded-full object-contain" />
+              <div className="font-semibold text-brand-black">{site.legacyRealEstate.name} - We Sell</div>
+            </div>
             <p className="mt-1 text-sm text-gray-500">{site.entityAddresses.brokerage}</p>
             <p className="mt-2 text-sm text-gray-600">
               The brokerage arm, {site.legacyRealEstate.dre}, led by {site.people.broker.name},
@@ -117,9 +139,26 @@ export default function AboutPage() {
           <div className="mt-6 grid gap-6 sm:grid-cols-2">
             {team.map((person) => (
               <div key={person.name} className="rounded-lg border border-gray-200 bg-white p-6">
-                <div className="font-semibold text-brand-black">{person.name}</div>
-                <div className="text-sm font-medium text-brand-yellow-dark">{person.title}</div>
-                <p className="mt-2 text-sm text-gray-600">{person.bio}</p>
+                <div className="flex items-center gap-4">
+                  {person.photo ? (
+                    <Image
+                      src={person.photo}
+                      alt={person.name}
+                      width={64}
+                      height={64}
+                      className="h-16 w-16 flex-shrink-0 rounded-full object-cover object-top"
+                    />
+                  ) : (
+                    <div className="flex h-16 w-16 flex-shrink-0 items-center justify-center rounded-full bg-brand-black text-lg font-bold text-brand-yellow">
+                      {person.name.split(" ").map((p) => p[0]).slice(0, 2).join("")}
+                    </div>
+                  )}
+                  <div>
+                    <div className="font-semibold text-brand-black">{person.name}</div>
+                    <div className="text-sm font-medium text-brand-yellow-dark">{person.title}</div>
+                  </div>
+                </div>
+                <p className="mt-3 text-sm text-gray-600">{person.bio}</p>
                 {(person.phone || person.email) && (
                   <div className="mt-3 space-y-0.5 border-t border-gray-100 pt-3 text-sm">
                     {person.phone && (
@@ -141,7 +180,7 @@ export default function AboutPage() {
               </div>
             ))}
           </div>
-          {/* TODO: real headshots once photos are ready to add */}
+          {/* Jenny and Omar photos: add when available, currently showing initials */}
         </div>
       </section>
 
@@ -160,6 +199,21 @@ export default function AboutPage() {
               <div className="text-sm font-semibold text-brand-yellow-dark">{loc.label}</div>
               <p className="mt-1 text-sm text-gray-600">{loc.street}</p>
               <p className="text-sm text-gray-600">{loc.city}, {loc.region} {loc.postalCode}</p>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-6 grid gap-4 sm:grid-cols-3">
+          {[
+            { src: "/images/office/main-st-exterior.jpg", alt: "House Junkies Main Street office", w: 1600, h: 1067 },
+            { src: "/images/office/dorothea-exterior.jpg", alt: "Dorothea Ave office", w: 1600, h: 1200 },
+            { src: "/images/office/office-interior.jpg", alt: "Office interior", w: 1494, h: 1600 },
+            { src: "/images/office/office-door.jpg", alt: "House Junkies office door", w: 1600, h: 1600 },
+            { src: "/images/office/marketing-table.jpg", alt: "House Junkies marketing materials", w: 1600, h: 1200 },
+            { src: "/images/office/event-booth.jpg", alt: "House Junkies at a community event", w: 1179, h: 728 },
+          ].map((img) => (
+            <div key={img.src} className="overflow-hidden rounded-lg border border-gray-200">
+              <Image src={img.src} alt={img.alt} width={img.w} height={img.h} className="aspect-square w-full object-cover" />
             </div>
           ))}
         </div>
