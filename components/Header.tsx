@@ -30,18 +30,18 @@ export function Header() {
 
         <nav className="hidden items-center gap-1 text-sm font-medium text-white/80 md:flex">
           <div className="group/cities relative">
-            <button className="flex items-center gap-1 rounded-md px-3 py-2 hover:bg-white/10 hover:text-white">
+            <button aria-haspopup="true" className="flex items-center gap-1 rounded-md px-3 py-2 hover:bg-white/10 hover:text-white focus-visible:bg-white/10 focus-visible:text-white">
               We Buy Houses
               <svg width="10" height="6" viewBox="0 0 10 6" fill="none" className="mt-0.5">
                 <path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="1.5" />
               </svg>
             </button>
-            <div className="invisible absolute left-0 top-full grid w-56 grid-cols-2 gap-1 rounded-md border border-white/10 bg-brand-charcoal p-2 opacity-0 shadow-xl transition group-hover/cities:visible group-hover/cities:opacity-100">
+            <div className="invisible absolute left-0 top-full grid w-56 grid-cols-2 gap-1 rounded-md border border-white/10 bg-brand-charcoal p-2 opacity-0 shadow-xl transition group-hover/cities:visible group-hover/cities:opacity-100 group-focus-within/cities:visible group-focus-within/cities:opacity-100">
               {liveCities.map((c) => (
                 <Link
                   key={c.slug}
                   href={`/we-buy-houses/${c.slug}`}
-                  className="rounded px-3 py-2 text-sm text-white/80 hover:bg-white/10 hover:text-brand-yellow"
+                  className="rounded px-3 py-2 text-sm text-white/80 hover:bg-white/10 hover:text-brand-yellow focus-visible:bg-white/10 focus-visible:text-brand-yellow"
                 >
                   {c.name}
                 </Link>
@@ -50,18 +50,18 @@ export function Header() {
           </div>
 
           <div className="group/situations relative">
-            <button className="flex items-center gap-1 rounded-md px-3 py-2 hover:bg-white/10 hover:text-white">
+            <button aria-haspopup="true" className="flex items-center gap-1 rounded-md px-3 py-2 hover:bg-white/10 hover:text-white focus-visible:bg-white/10 focus-visible:text-white">
               Situations
               <svg width="10" height="6" viewBox="0 0 10 6" fill="none" className="mt-0.5">
                 <path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="1.5" />
               </svg>
             </button>
-            <div className="invisible absolute left-0 top-full grid w-52 grid-cols-2 gap-1 rounded-md border border-white/10 bg-brand-charcoal p-2 opacity-0 shadow-xl transition group-hover/situations:visible group-hover/situations:opacity-100">
+            <div className="invisible absolute left-0 top-full grid w-52 grid-cols-2 gap-1 rounded-md border border-white/10 bg-brand-charcoal p-2 opacity-0 shadow-xl transition group-hover/situations:visible group-hover/situations:opacity-100 group-focus-within/situations:visible group-focus-within/situations:opacity-100">
               {situations.map((s) => (
                 <Link
                   key={s.slug}
                   href={`/sell-your-house/${s.slug}`}
-                  className="rounded px-3 py-2 text-sm text-white/80 hover:bg-white/10 hover:text-brand-yellow"
+                  className="rounded px-3 py-2 text-sm text-white/80 hover:bg-white/10 hover:text-brand-yellow focus-visible:bg-white/10 focus-visible:text-brand-yellow"
                 >
                   {s.navLabel}
                 </Link>
@@ -97,15 +97,15 @@ export function Header() {
 
       {mobileOpen && (
         <div className="border-t border-white/10 bg-brand-black px-4 pb-4 md:hidden">
-          <div className="flex flex-col gap-2 pt-4 text-sm text-white/80">
-            <Link href="/projects" onClick={() => setMobileOpen(false)}>Projects</Link>
-            <Link href="/blog" onClick={() => setMobileOpen(false)}>Blog</Link>
-            <Link href="/about" onClick={() => setMobileOpen(false)}>About</Link>
-            <Link href="/reviews" onClick={() => setMobileOpen(false)}>Reviews</Link>
-            <Link href="/contact" onClick={() => setMobileOpen(false)}>Contact</Link>
+          <div className="flex flex-col pt-2 text-sm text-white/80">
+            <Link href="/projects" onClick={() => setMobileOpen(false)} className="rounded-md py-3">Projects</Link>
+            <Link href="/blog" onClick={() => setMobileOpen(false)} className="rounded-md py-3">Blog</Link>
+            <Link href="/about" onClick={() => setMobileOpen(false)} className="rounded-md py-3">About</Link>
+            <Link href="/reviews" onClick={() => setMobileOpen(false)} className="rounded-md py-3">Reviews</Link>
+            <Link href="/contact" onClick={() => setMobileOpen(false)} className="rounded-md py-3">Contact</Link>
           </div>
 
-          <div className="pt-4 text-xs font-semibold uppercase tracking-wide text-white/40">We Buy Houses</div>
+          <div className="pt-4 text-xs font-semibold uppercase tracking-wide text-white/60">We Buy Houses</div>
           <div className="mt-1 flex flex-wrap gap-2">
             {liveCities.map((c) => (
               <Link key={c.slug} href={`/we-buy-houses/${c.slug}`} onClick={() => setMobileOpen(false)} className="rounded-full border border-white/20 px-3 py-1 text-sm text-white/80">
@@ -114,7 +114,7 @@ export function Header() {
             ))}
           </div>
 
-          <div className="pt-4 text-xs font-semibold uppercase tracking-wide text-white/40">Situations</div>
+          <div className="pt-4 text-xs font-semibold uppercase tracking-wide text-white/60">Situations</div>
           <div className="mt-1 flex flex-wrap gap-2">
             {situations.map((s) => (
               <Link key={s.slug} href={`/sell-your-house/${s.slug}`} onClick={() => setMobileOpen(false)} className="rounded-full border border-white/20 px-3 py-1 text-sm text-white/80">

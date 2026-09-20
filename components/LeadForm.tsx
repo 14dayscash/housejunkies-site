@@ -91,7 +91,7 @@ export function LeadForm({ sourcePage }: { sourcePage: string }) {
       {status === "error" && (
         <p className="text-sm text-red-600">Something went wrong, call us instead at the number above.</p>
       )}
-      <p className="text-xs text-gray-400">No obligation. No fees. We respond within 24 hours.</p>
+      <p className="text-xs text-gray-600">No obligation. No fees. We respond within 24 hours.</p>
     </form>
   );
 }

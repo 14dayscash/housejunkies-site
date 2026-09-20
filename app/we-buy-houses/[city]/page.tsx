@@ -59,8 +59,8 @@ export default function CityPage({ params }: { params: { city: string } }) {
         </div>
       </section>
 
-      <section className="mx-auto grid max-w-6xl gap-10 px-4 py-12 md:grid-cols-2">
-        <div>
+      <section className="mx-auto grid max-w-6xl gap-10 px-4 py-12 md:grid-cols-3">
+        <div className="md:col-span-2">
           {city.marketNote && (
             <p className="text-sm text-gray-500">{city.marketNote}</p>
           )}
@@ -84,7 +84,9 @@ export default function CityPage({ params }: { params: { city: string } }) {
             house to a stranger.
           </p>
         </div>
-        <LeadForm sourcePage={`/we-buy-houses/${city.slug}`} />
+        <div>
+          <LeadForm sourcePage={`/we-buy-houses/${city.slug}`} />
+        </div>
       </section>
 
       <section className="mx-auto max-w-6xl px-4 pb-4">

@@ -29,7 +29,7 @@ export default function HomePage() {
               not a wholesaler, we buy the property with our own capital and renovate it with our own
               licensed construction crew ({site.licenses.generalContractor}).
             </p>
-            <ul className="mt-6 grid grid-cols-2 gap-2 text-sm text-white/80">
+            <ul className="mt-6 grid grid-cols-1 gap-2 text-sm text-white/80 sm:grid-cols-2">
               <li>✓ No Repairs, Any Condition</li>
               <li>✓ We Cover Closing Costs</li>
               <li>✓ Close in 7 to 30 Days</li>
@@ -60,7 +60,7 @@ export default function HomePage() {
             <div className="mt-1 text-sm text-gray-500">Investor in Visalia</div>
           </div>
         </div>
-        <div className="border-t border-gray-100 bg-gray-50 px-4 py-3 text-center text-xs text-gray-500">
+        <div className="border-t border-gray-100 bg-gray-50 px-4 py-3 text-center text-xs text-gray-600">
           Ranked #1 by transaction volume in Visalia ({site.stats.sfrAnalyticsVolume} across{" "}
           {site.stats.sfrAnalyticsDeals} deals) by{" "}
           <span className="font-medium text-gray-700">{site.stats.sfrAnalyticsSource}</span>, an

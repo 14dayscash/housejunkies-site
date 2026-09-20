@@ -91,7 +91,7 @@ export default function SituationPage({ params }: { params: { situation: string 
           )}
 
           {situation.legalDisclaimer && (
-            <p className="mt-10 border-t border-gray-200 pt-4 text-xs text-gray-400">
+            <p className="mt-10 border-t border-gray-200 pt-4 text-xs text-gray-600">
               {situation.legalDisclaimer}
             </p>
           )}
