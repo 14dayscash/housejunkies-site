@@ -68,6 +68,34 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* How It Works - the simple process before we explain the company behind it */}
+      <section className="mx-auto max-w-6xl px-4 py-14">
+        <h2 className="text-2xl font-bold text-brand-black">How It Works - 3 Simple Steps</h2>
+        <div className="mt-8 grid gap-6 md:grid-cols-3">
+          <div className="relative rounded-lg border border-gray-200 p-6">
+            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-brand-yellow font-bold text-black">1</div>
+            <p className="mt-4 font-semibold text-brand-black">Contact Us</p>
+            <p className="mt-1 text-sm text-gray-600">
+              Fill out our form or call us. Tell us about your property, no matter its condition.
+            </p>
+          </div>
+          <div className="relative rounded-lg border border-gray-200 p-6">
+            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-brand-yellow font-bold text-black">2</div>
+            <p className="mt-4 font-semibold text-brand-black">Get Your Offer</p>
+            <p className="mt-1 text-sm text-gray-600">
+              We'll analyze your property and present a fair, no-obligation cash offer within 24 hours.
+            </p>
+          </div>
+          <div className="relative rounded-lg border border-gray-200 p-6">
+            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-brand-yellow font-bold text-black">3</div>
+            <p className="mt-4 font-semibold text-brand-black">Get Paid</p>
+            <p className="mt-1 text-sm text-gray-600">
+              Accept our offer, choose your closing date, and get paid. We cover all fees.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* Why us / authority */}
       <section className="mx-auto max-w-6xl px-4 py-14">
         <h2 className="text-2xl font-bold text-brand-black">
