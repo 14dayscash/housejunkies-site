@@ -44,7 +44,7 @@ export function LeadForm({ sourcePage }: { sourcePage: string }) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 rounded-lg border border-gray-200 bg-white p-6 shadow-xl">
+    <form onSubmit={handleSubmit} className="space-y-4 rounded-lg border border-gray-200 bg-white p-6 text-brand-black shadow-xl">
       <div>
         <label htmlFor="full_name" className="block text-sm font-medium text-gray-700">Full Name</label>
         <input
