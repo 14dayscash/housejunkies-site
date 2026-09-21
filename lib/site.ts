@@ -2,7 +2,7 @@
 // Update here, not in individual pages. Every JSON-LD block and footer pulls from this file.
 
 export const site = {
-  name: "House Junkies Inc.",
+  name: "House Junkies",
   shortName: "House Junkies",
   url: "https://housejunkiesinc.org",
   description:
@@ -24,7 +24,7 @@ export const site = {
   // conflated these into one schema block, which is exactly what the SEO
   // audit flagged. Keep them distinct.
   entityAddresses: {
-    acquisitions: "801 West Main Street, Visalia, CA", // House Junkies Inc.
+    acquisitions: "801 West Main Street, Visalia, CA", // House Junkies
     construction: "1640 West Mineral King Ave, Visalia, CA", // House Junkies Construction
     brokerage: "1814 West Dorothea Ave, Visalia, CA", // Legacy Real Estate
   },
@@ -57,14 +57,14 @@ export const site = {
     ceo: {
       name: "Abel Ulloa",
       title: "CEO",
-      bio: "Founder and CEO of House Junkies Inc. and partner in Ulloa Investment Group. Also a licensed realtor with Legacy Real Estate (Lic #01957925). Per SFR Analytics' September 2026 Visalia investor ranking, Abel is personally named on three of the market's top entities, Ulloa Investment Group (#1, $16.0M), One Stop Investments (#6, $4.06M), and Legacy Faith Homes (#12, $1.99M), totaling over $22M in verified transaction volume across 147 deals.",
+      bio: "Founder and CEO of House Junkies and partner in Ulloa Investment Group. Also a licensed realtor with Legacy Real Estate (Lic #01957925). Per SFR Analytics' September 2026 Visalia investor ranking, Abel is personally named on three of the market's top entities, Ulloa Investment Group (#1, $16.0M), One Stop Investments (#6, $4.06M), and Legacy Faith Homes (#12, $1.99M), totaling over $22M in verified transaction volume across 147 deals.",
       phone: "(559) 310-5004",
       email: "14dayscash@gmail.com",
     },
     ops: {
       name: "Dominic McClelland",
       title: "Operations Manager",
-      bio: "Runs day-to-day acquisitions and operations for House Junkies Inc. and is a partner at Ulloa Investment Group. His work sits inside the fully vertically integrated stack, acquisitions, private funding, construction, and brokerage, with no banks, no outside brokers, and no out-of-town contractors involved in a deal from acquisition to resale. Leads the company's probate program alongside outside counsel.",
+      bio: "Runs day-to-day acquisitions and operations for House Junkies and is a partner at Ulloa Investment Group. His work sits inside the fully vertically integrated stack, acquisitions, private funding, construction, and brokerage, with no banks, no outside brokers, and no out-of-town contractors involved in a deal from acquisition to resale. Leads the company's probate program alongside outside counsel.",
       phone: "(559) 368-8956",
       email: "dominicmccllelland@gmail.com",
     },

@@ -58,7 +58,7 @@ export const blogPosts: BlogPostSummary[] = [
     url: "https://www.dominicmcclelland.com/blog/vertical-integration-real-estate-visalia",
     date: "September 6, 2026",
     summary:
-      "A plain-language breakdown of the three-branch Ulloa Investment Group structure (House Junkies Inc, House Junkies Construction, Legacy Real Estate) and why owning all three protects sellers, not just the company.",
+      "A plain-language breakdown of the three-branch Ulloa Investment Group structure (House Junkies, House Junkies Construction, Legacy Real Estate) and why owning all three protects sellers, not just the company.",
   },
   {
     title: "How to Sell a House Fast in Visalia Without Listing It",

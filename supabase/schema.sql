@@ -1,4 +1,4 @@
--- House Junkies Inc. — Supabase schema
+-- House Junkies - Supabase schema
 -- Run this once in the Supabase SQL Editor (Project → SQL Editor → New query → paste → Run).
 -- Mirrors the Lead / ContactMessage / PartnerInquiry entities from the old Base44 app,
 -- so no field gets lost in the migration, plus new tables for the case-study/proof engine
@@ -39,7 +39,7 @@ create table if not exists partner_inquiries (
   created_at timestamptz not null default now()
 );
 
--- Case study archive — the moat. One row per closed deal.
+-- Case study archive - the moat. One row per closed deal.
 create table if not exists projects (
   id uuid primary key default gen_random_uuid(),
   slug text unique not null,
@@ -96,5 +96,5 @@ create policy "anon can read published blog_posts" on blog_posts for select to a
 create policy "anon can read published market_reports" on market_reports for select to anon using (published_at is not null);
 
 -- Everything else (reading leads, updating/deleting anything) only happens via the
--- service role key from server-side code — that key bypasses RLS entirely, so no
+-- service role key from server-side code - that key bypasses RLS entirely, so no
 -- policy is needed for it, and none of these tables need one for authenticated/service use.

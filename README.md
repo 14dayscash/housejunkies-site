@@ -1,4 +1,4 @@
-# House Junkies Inc. - housejunkiesinc.org
+# House Junkies - housejunkiesinc.org
 
 Next.js 14 (App Router) + Tailwind CSS + Supabase + Web3Forms + Vercel.
 
