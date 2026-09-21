@@ -21,7 +21,7 @@ export function Footer() {
             <p className="mt-2">
               <a href={`tel:${site.phoneE164}`} className="text-brand-yellow hover:underline">{site.phone}</a>
             </p>
-            <p className="mt-4 text-xs text-white/40">
+            <p className="mt-4 text-xs text-white/60">
               Part of {site.parentOrganization}.
               <br />
               {site.stats.homesBought} homes bought, renovated, and resold.
@@ -70,13 +70,13 @@ export function Footer() {
               <li><Link href="/partners/agents" className="hover:text-brand-yellow">Partner With Us</Link></li>
               <li><Link href="/contact" className="hover:text-brand-yellow">Contact</Link></li>
             </ul>
-            <div className="mt-4 text-xs text-white/40">
+            <div className="mt-4 text-xs text-white/60">
               <p>{site.licenses.generalContractor}</p>
               <p>{site.licenses.brokerage}</p>
             </div>
           </div>
         </div>
-        <div className="mt-8 flex flex-col justify-between gap-2 border-t border-white/10 pt-6 text-xs text-white/40 sm:flex-row">
+        <div className="mt-8 flex flex-col justify-between gap-2 border-t border-white/10 pt-6 text-xs text-white/60 sm:flex-row">
           <p>&copy; {new Date().getFullYear()} {site.name}. All rights reserved.</p>
           <p>
             <Link href="/privacy" className="hover:text-white">Privacy</Link>

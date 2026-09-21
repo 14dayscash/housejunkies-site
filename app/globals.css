@@ -5,3 +5,10 @@
 html {
   scroll-behavior: smooth;
 }
+
+@layer base {
+  h1,
+  h2 {
+    font-family: var(--font-display);
+  }
+}

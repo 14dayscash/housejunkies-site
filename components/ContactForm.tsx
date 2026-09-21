@@ -38,7 +38,7 @@ export function ContactForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
+    <form onSubmit={handleSubmit} className="space-y-4 rounded-lg border border-gray-200 bg-white p-6 text-brand-black shadow-sm">
       <div>
         <label htmlFor="full_name" className="block text-sm font-medium text-gray-700">Full Name</label>
         <input id="full_name" name="full_name" required className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2" />
