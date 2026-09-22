@@ -17,9 +17,7 @@ export function generateMetadata({ params }: { params: { city: string } }): Meta
   if (!city) return {};
   return {
     title: `Sell My House Fast in ${city.name}, CA | Cash Offer`,
-    description:
-      city.description ||
-      `We buy houses as-is in ${city.name}, CA. Fair cash offer, no fees, close on your timeline.`,
+    description: `We Buy Houses ${city.name}, CA for cash. Call ${site.phone} for a free offer. No fees, no repairs, close in 7 to 30 days.`,
     alternates: { canonical: `/we-buy-houses/${city.slug}` },
   };
 }

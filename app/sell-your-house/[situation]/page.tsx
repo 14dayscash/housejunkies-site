@@ -16,7 +16,7 @@ export function generateMetadata({ params }: { params: { situation: string } }):
   if (!situation) return {};
   return {
     title: situation.metaTitle,
-    description: situation.metaDescription,
+    description: `${situation.metaDescription} Call ${site.phone}.`,
     alternates: { canonical: `/sell-your-house/${situation.slug}` },
   };
 }

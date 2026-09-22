@@ -6,7 +6,7 @@ export const site = {
   shortName: "House Junkies",
   url: "https://housejunkiesinc.org",
   description:
-    "Cash home buyer in Visalia and the Central Valley. We buy, renovate, and resell properties with our own licensed construction crew.",
+    "We Buy Houses in Visalia & the Central Valley for cash. Call (559) 368-8956 for a free offer. No fees, no repairs, any condition.",
 
   phone: "(559) 368-8956",
   phoneE164: "+15593688956",
