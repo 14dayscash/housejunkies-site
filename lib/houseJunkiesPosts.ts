@@ -39,9 +39,19 @@ export const houseJunkiesPosts: HouseJunkiesPost[] = [
     author: "Dominic McClelland",
     excerpt:
       "House Junkies has been buying houses across the Central Valley for 7+ years. We're finally building the online presence to match.",
+    summary: [
+      "House Junkies has bought, renovated, and resold homes across the Central Valley for 7+ years.",
+      "The new site includes a full team page, a real cash-offer calculator, and a city-by-city guide to every area we serve.",
+      "We're starting this blog to cover real homeowner situations: probate, foreclosure, fire damage, and more.",
+    ],
     body: [
       "House Junkies has been buying, renovating, and reselling homes across the Central Valley for 7+ years. Until now, our website hasn't kept up with what we actually do day to day, so we rebuilt it from the ground up.",
       "On the new site you can read about our team, see how we actually calculate a cash offer, compare selling to us against listing with an agent, and browse every city and county we serve. We're also starting this blog, where we'll write about the real situations Central Valley homeowners deal with: probate, foreclosure, fire damage, inherited property, and more.",
+      "What makes House Junkies different is that we're not just a buyer. We're part of Ulloa Investment Group, which also owns House Junkies Construction, our own licensed general contractor crew, and Legacy Real Estate, the largest brokerage in Tulare County. That means when we buy your house, we're not shopping it to someone else, we renovate it ourselves and resell it ourselves. That's also why we can move faster and pay more than companies that have to bring in an outside investor or contractor for every deal.",
+      "According to SFR Analytics' independent, third-party investor rankings, House Junkies is the #1 investment group in Visalia by transaction volume, $16.0 million across 110 deals as of their most recent report. That's not a number we made up for a website, it's from public deed and transaction records.",
+      "We buy houses throughout Tulare, Kings, Fresno, and Kern counties, from Visalia and Tulare out to Fresno, Bakersfield, and the smaller cities in between. Wherever you are in the Central Valley, there's a good chance we already buy houses near you, and if we don't yet, call us anyway.",
+      "Every homeowner's situation is different, and we've built out dedicated pages for the most common ones: inherited property and probate, foreclosure, divorce, fire and water damage, tenant-occupied rentals, vacant properties, liens, and more. If you're dealing with one of those right now, there's a good chance we've already written something that answers your specific questions.",
+      "We're a local company, not a national franchise. Our office is in Visalia, our crew works in Visalia, and the team behind this site lives here too. As we keep building this blog out, expect real, specific writing about the Central Valley market, not generic advice that could apply to any city in the country.",
       "This is our first post, and it won't be the last. If there's something you'd want us to write about, from your own experience selling a house or from a question you've had about the process, call us and tell us, we're building this out as we go.",
     ],
   },
