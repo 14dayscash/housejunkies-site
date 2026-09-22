@@ -9,7 +9,7 @@ import { teamProfiles } from "@/lib/teamProfiles";
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes = [
     "", "about", "team", "contact", "reviews", "how-it-works",
-    "how-we-calculate-your-offer", "compare", "faq", "we-buy-houses", "sell-your-house",
+    "how-we-calculate-your-offer", "compare", "faq", "we-buy-houses", "sell-your-house", "explore",
     "partners/agents", "projects", "blog", "privacy", "terms",
   ].map((route) => ({
     url: `${site.url}/${route}`,

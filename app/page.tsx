@@ -194,6 +194,22 @@ export default function HomePage() {
         </Link>
       </section>
 
+      {/* Explore the Site - the only link to /explore lives here, on purpose */}
+      <section className="bg-gray-50">
+        <div className="mx-auto max-w-6xl px-4 py-14 text-center">
+          <h2 className="text-2xl font-bold text-brand-black">Explore the Site</h2>
+          <p className="mx-auto mt-2 max-w-xl text-gray-600">
+            Every page on this site, laid out visually, cities, situations, the team, all of it.
+          </p>
+          <Link
+            href="/explore"
+            className="mt-6 inline-block rounded-full border-2 border-brand-yellow-dark bg-white px-6 py-3 font-semibold text-brand-black hover:bg-brand-yellow-dark hover:text-white"
+          >
+            See the Full Site Map →
+          </Link>
+        </div>
+      </section>
+
       {/* CTA band */}
       <section className="bg-brand-black">
         <div className="mx-auto max-w-6xl px-4 py-12 text-center text-white">

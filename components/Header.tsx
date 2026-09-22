@@ -81,11 +81,12 @@ export function Header() {
             </div>
           </div>
 
+          <Link href="/about" className="rounded-md px-3 py-2 hover:bg-white/10 hover:text-white">About</Link>
+          <Link href="/faq" className="rounded-md px-3 py-2 hover:bg-white/10 hover:text-white">FAQ</Link>
+          <Link href="/reviews" className="rounded-md px-3 py-2 hover:bg-white/10 hover:text-white">Reviews</Link>
           <Link href="/projects" className="rounded-md px-3 py-2 hover:bg-white/10 hover:text-white">Projects</Link>
           <Link href="/blog" className="rounded-md px-3 py-2 hover:bg-white/10 hover:text-white">Blog</Link>
-          <Link href="/about" className="rounded-md px-3 py-2 hover:bg-white/10 hover:text-white">About</Link>
-          <Link href="/reviews" className="rounded-md px-3 py-2 hover:bg-white/10 hover:text-white">Reviews</Link>
-          <Link href="/faq" className="rounded-md px-3 py-2 hover:bg-white/10 hover:text-white">FAQ</Link>
+          <Link href="/partners/agents" className="rounded-md px-3 py-2 hover:bg-white/10 hover:text-white">Partner</Link>
           <Link href="/contact" className="rounded-md px-3 py-2 hover:bg-white/10 hover:text-white">Contact</Link>
         </nav>
 
@@ -109,13 +110,14 @@ export function Header() {
       </div>
 
       {mobileOpen && (
-        <div className="border-t border-white/10 bg-brand-black px-4 pb-4 md:hidden">
+        <div className="max-h-[80vh] overflow-y-auto border-t border-white/10 bg-brand-black px-4 pb-4 md:hidden">
           <div className="flex flex-col pt-2 text-sm text-white/80">
+            <Link href="/about" onClick={() => setMobileOpen(false)} className="rounded-md py-3">About</Link>
+            <Link href="/faq" onClick={() => setMobileOpen(false)} className="rounded-md py-3">FAQ</Link>
+            <Link href="/reviews" onClick={() => setMobileOpen(false)} className="rounded-md py-3">Reviews</Link>
             <Link href="/projects" onClick={() => setMobileOpen(false)} className="rounded-md py-3">Projects</Link>
             <Link href="/blog" onClick={() => setMobileOpen(false)} className="rounded-md py-3">Blog</Link>
-            <Link href="/about" onClick={() => setMobileOpen(false)} className="rounded-md py-3">About</Link>
-            <Link href="/reviews" onClick={() => setMobileOpen(false)} className="rounded-md py-3">Reviews</Link>
-            <Link href="/faq" onClick={() => setMobileOpen(false)} className="rounded-md py-3">FAQ</Link>
+            <Link href="/partners/agents" onClick={() => setMobileOpen(false)} className="rounded-md py-3">Partner</Link>
             <Link href="/contact" onClick={() => setMobileOpen(false)} className="rounded-md py-3">Contact</Link>
           </div>
 
