@@ -26,6 +26,7 @@ export type HouseJunkiesPost = {
   category: string;
   author: string;
   excerpt: string;
+  summary?: string[]; // 3 short bullet points shown at the top of the post
   body: string[];
 };
 
