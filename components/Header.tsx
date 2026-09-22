@@ -7,7 +7,7 @@ import { site } from "@/lib/site";
 import { cities } from "@/lib/cities";
 import { situations } from "@/lib/situations";
 
-const liveCities = cities;
+const liveCities = cities.filter((c) => c.featured);
 
 export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -41,7 +41,7 @@ export function Header() {
                 href="/we-buy-houses"
                 className="col-span-2 rounded px-3 py-2 text-sm font-semibold text-brand-yellow hover:bg-white/10"
               >
-                All Areas →
+                All Cities →
               </Link>
               {liveCities.map((c) => (
                 <Link
@@ -63,6 +63,12 @@ export function Header() {
               </svg>
             </button>
             <div className="invisible absolute left-0 top-full grid w-52 grid-cols-2 gap-1 rounded-md border border-white/10 bg-brand-charcoal p-2 opacity-0 shadow-xl transition group-hover/situations:visible group-hover/situations:opacity-100 group-focus-within/situations:visible group-focus-within/situations:opacity-100">
+              <Link
+                href="/sell-your-house"
+                className="col-span-2 rounded px-3 py-2 text-sm font-semibold text-brand-yellow hover:bg-white/10"
+              >
+                All Situations →
+              </Link>
               {situations.map((s) => (
                 <Link
                   key={s.slug}
@@ -79,6 +85,7 @@ export function Header() {
           <Link href="/blog" className="rounded-md px-3 py-2 hover:bg-white/10 hover:text-white">Blog</Link>
           <Link href="/about" className="rounded-md px-3 py-2 hover:bg-white/10 hover:text-white">About</Link>
           <Link href="/reviews" className="rounded-md px-3 py-2 hover:bg-white/10 hover:text-white">Reviews</Link>
+          <Link href="/faq" className="rounded-md px-3 py-2 hover:bg-white/10 hover:text-white">FAQ</Link>
           <Link href="/contact" className="rounded-md px-3 py-2 hover:bg-white/10 hover:text-white">Contact</Link>
         </nav>
 
@@ -108,13 +115,14 @@ export function Header() {
             <Link href="/blog" onClick={() => setMobileOpen(false)} className="rounded-md py-3">Blog</Link>
             <Link href="/about" onClick={() => setMobileOpen(false)} className="rounded-md py-3">About</Link>
             <Link href="/reviews" onClick={() => setMobileOpen(false)} className="rounded-md py-3">Reviews</Link>
+            <Link href="/faq" onClick={() => setMobileOpen(false)} className="rounded-md py-3">FAQ</Link>
             <Link href="/contact" onClick={() => setMobileOpen(false)} className="rounded-md py-3">Contact</Link>
           </div>
 
           <div className="pt-4 text-xs font-semibold uppercase tracking-wide text-white/60">We Buy Houses</div>
           <div className="mt-1 flex flex-wrap gap-2">
             <Link href="/we-buy-houses" onClick={() => setMobileOpen(false)} className="rounded-full bg-brand-yellow px-3 py-1 text-sm font-semibold text-black">
-              All Areas
+              All Cities
             </Link>
             {liveCities.map((c) => (
               <Link key={c.slug} href={`/we-buy-houses/${c.slug}`} onClick={() => setMobileOpen(false)} className="rounded-full border border-white/20 px-3 py-1 text-sm text-white/80">
@@ -125,6 +133,9 @@ export function Header() {
 
           <div className="pt-4 text-xs font-semibold uppercase tracking-wide text-white/60">Situations</div>
           <div className="mt-1 flex flex-wrap gap-2">
+            <Link href="/sell-your-house" onClick={() => setMobileOpen(false)} className="rounded-full bg-brand-yellow px-3 py-1 text-sm font-semibold text-black">
+              All Situations
+            </Link>
             {situations.map((s) => (
               <Link key={s.slug} href={`/sell-your-house/${s.slug}`} onClick={() => setMobileOpen(false)} className="rounded-full border border-white/20 px-3 py-1 text-sm text-white/80">
                 {s.navLabel}

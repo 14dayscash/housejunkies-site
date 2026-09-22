@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { site } from "@/lib/site";
 import { ContactForm } from "@/components/ContactForm";
 
@@ -57,6 +58,14 @@ export default function ContactPage() {
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
             />
+          </div>
+          <div className="mt-4 flex flex-wrap gap-x-6 gap-y-1 text-sm">
+            <Link href="/faq" className="font-semibold text-brand-yellow-dark hover:underline">
+              Read our FAQ →
+            </Link>
+            <Link href="/compare" className="font-semibold text-brand-yellow-dark hover:underline">
+              Cash offer vs. listing →
+            </Link>
           </div>
         </div>
         <ContactForm />

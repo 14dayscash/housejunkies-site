@@ -100,6 +100,14 @@ export default async function ProjectsPage() {
             See more on Instagram @housejunkies.inc →
           </a>
         </p>
+        <p className="mt-4 flex justify-center gap-6 text-sm">
+          <Link href="/reviews" className="font-semibold text-brand-yellow-dark hover:underline">
+            Read our reviews →
+          </Link>
+          <Link href="/team" className="font-semibold text-brand-yellow-dark hover:underline">
+            Meet the team →
+          </Link>
+        </p>
       </section>
     </div>
   );

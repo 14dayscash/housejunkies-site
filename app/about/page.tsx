@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -9,6 +10,7 @@ export const metadata: Metadata = {
 };
 
 type TeamMember = {
+  slug: string;
   name: string;
   title: string;
   bio: string;
@@ -18,10 +20,10 @@ type TeamMember = {
 };
 
 const team: TeamMember[] = [
-  { ...site.people.ceo, photo: "/images/team/abel.png" },
-  { ...site.people.ops, photo: "/images/team/dominic.png" },
-  { ...site.people.broker, photo: "/images/team/jenny.png" },
-  { ...site.people.projectManager, photo: "/images/team/omar-tools.png" },
+  { ...site.people.ceo, slug: "abel-ulloa", photo: "/images/team/abel.png" },
+  { ...site.people.ops, slug: "dominic-mcclelland", photo: "/images/team/dominic.png" },
+  { ...site.people.broker, slug: "jenny-madrid", photo: "/images/team/jenny.png" },
+  { ...site.people.projectManager, slug: "omar-ayon", photo: "/images/team/omar-tools.png" },
 ];
 
 export default function AboutPage() {
@@ -144,7 +146,12 @@ export default function AboutPage() {
 
       <section className="bg-gray-50">
         <div className="mx-auto max-w-4xl px-4 py-14">
-          <h2 className="text-2xl font-bold text-brand-black">Leadership Team</h2>
+          <div className="flex flex-wrap items-baseline justify-between gap-2">
+            <h2 className="text-2xl font-bold text-brand-black">Leadership Team</h2>
+            <Link href="/team" className="text-sm font-semibold text-brand-yellow-dark hover:underline">
+              Full team page →
+            </Link>
+          </div>
           <div className="mt-6 grid gap-6 sm:grid-cols-2">
             {team.map((person) => (
               <div key={person.name} className="rounded-lg border border-gray-200 bg-white p-6">
@@ -186,6 +193,12 @@ export default function AboutPage() {
                     )}
                   </div>
                 )}
+                <Link
+                  href={`/team/${person.slug}`}
+                  className="mt-3 inline-block text-sm font-semibold text-brand-yellow-dark hover:underline"
+                >
+                  View full profile →
+                </Link>
               </div>
             ))}
           </div>

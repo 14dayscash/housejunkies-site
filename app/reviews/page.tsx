@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -96,6 +97,14 @@ export default function ReviewsPage() {
           >
             Leave a Google Review
           </a>
+          <div className="mt-4 flex justify-center gap-6 text-sm">
+            <Link href="/projects" className="font-semibold text-brand-yellow-dark hover:underline">
+              See our projects →
+            </Link>
+            <Link href="/team" className="font-semibold text-brand-yellow-dark hover:underline">
+              Meet the team →
+            </Link>
+          </div>
         </div>
       </section>
     </div>

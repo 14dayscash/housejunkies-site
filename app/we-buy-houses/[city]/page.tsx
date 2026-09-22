@@ -116,7 +116,7 @@ export default function CityPage({ params }: { params: { city: string } }) {
       <section className="mx-auto max-w-6xl px-4 pb-12">
         <h2 className="text-lg font-bold text-brand-black">Common Situations in {city.name}</h2>
         <div className="mt-4 flex flex-wrap gap-3">
-          {situations.map((s) => (
+          {situations.slice(0, 5).map((s) => (
             <Link
               key={s.slug}
               href={`/sell-your-house/${s.slug}`}
@@ -126,6 +126,9 @@ export default function CityPage({ params }: { params: { city: string } }) {
             </Link>
           ))}
         </div>
+        <Link href="/sell-your-house" className="mt-3 inline-block text-sm font-semibold text-brand-yellow-dark hover:underline">
+          See every situation we buy →
+        </Link>
         {countyMatch && (
           <p className="mt-6 text-sm text-gray-500">
             See every city we serve in{" "}

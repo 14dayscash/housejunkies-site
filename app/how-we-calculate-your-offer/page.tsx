@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -80,6 +81,10 @@ export default function OfferCalcPage() {
           list for on the open market and what we'd pay off-market in the same
           conversation. If listing nets you more, we'll tell you.
         </p>
+
+        <Link href="/compare" className="mt-6 inline-block text-sm font-semibold text-brand-yellow-dark hover:underline">
+          See a full side-by-side comparison →
+        </Link>
       </section>
     </div>
   );

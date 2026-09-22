@@ -118,9 +118,9 @@ export default function SituationPage({ params }: { params: { situation: string 
       </section>
 
       <section className="mx-auto max-w-6xl px-4 pb-12">
-        <h2 className="text-lg font-bold text-brand-black">Available in These Cities</h2>
+        <h2 className="text-lg font-bold text-brand-black">Top Cities We Buy In</h2>
         <div className="mt-4 flex flex-wrap gap-3">
-          {cities.map((c) => (
+          {cities.filter((c) => c.featured).slice(0, 5).map((c) => (
             <Link
               key={c.slug}
               href={`/we-buy-houses/${c.slug}`}
@@ -130,6 +130,9 @@ export default function SituationPage({ params }: { params: { situation: string 
             </Link>
           ))}
         </div>
+        <Link href="/we-buy-houses" className="mt-3 inline-block text-sm font-semibold text-brand-yellow-dark hover:underline">
+          See every city we serve →
+        </Link>
       </section>
     </div>
   );

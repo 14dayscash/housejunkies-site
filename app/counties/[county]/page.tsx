@@ -55,6 +55,9 @@ export default function CountyPage({ params }: { params: { county: string } }) {
           Don't see your city listed? Call {site.phone}, we buy throughout the Central Valley
           beyond this list too.
         </p>
+        <Link href="/we-buy-houses" className="mt-2 inline-block text-sm font-semibold text-brand-yellow-dark hover:underline">
+          ← See every county and city we serve
+        </Link>
       </section>
     </div>
   );

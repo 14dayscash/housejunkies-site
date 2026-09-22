@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -31,6 +32,17 @@ export default function HowItWorksPage() {
           </li>
         ))}
       </ol>
+      <div className="mt-10 flex flex-wrap gap-x-6 gap-y-2 border-t border-gray-100 pt-6 text-sm">
+        <Link href="/how-we-calculate-your-offer" className="font-semibold text-brand-yellow-dark hover:underline">
+          How we calculate your offer →
+        </Link>
+        <Link href="/compare" className="font-semibold text-brand-yellow-dark hover:underline">
+          Cash offer vs. listing →
+        </Link>
+        <Link href="/faq" className="font-semibold text-brand-yellow-dark hover:underline">
+          Read our FAQ →
+        </Link>
+      </div>
     </div>
   );
 }

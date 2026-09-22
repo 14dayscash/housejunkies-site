@@ -4,11 +4,12 @@ import { cities } from "@/lib/cities";
 import { situations } from "@/lib/situations";
 import { counties } from "@/lib/counties";
 import { houseJunkiesPosts } from "@/lib/houseJunkiesPosts";
+import { teamProfiles } from "@/lib/teamProfiles";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes = [
     "", "about", "team", "contact", "reviews", "how-it-works",
-    "how-we-calculate-your-offer", "compare", "faq", "we-buy-houses",
+    "how-we-calculate-your-offer", "compare", "faq", "we-buy-houses", "sell-your-house",
     "partners/agents", "projects", "blog", "privacy", "terms",
   ].map((route) => ({
     url: `${site.url}/${route}`,
@@ -30,6 +31,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: new Date(),
   }));
 
+  const teamRoutes = teamProfiles.map((p) => ({
+    url: `${site.url}/team/${p.slug}`,
+    lastModified: new Date(),
+  }));
+
   const houseJunkiesBlogRoutes = houseJunkiesPosts.map((p) => ({
     url: `${site.url}/blog/${p.slug}`,
     lastModified: new Date(),
@@ -40,6 +46,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...cityRoutes,
     ...situationRoutes,
     ...countyRoutes,
+    ...teamRoutes,
     ...houseJunkiesBlogRoutes,
   ];
 }

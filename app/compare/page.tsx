@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -96,6 +97,15 @@ export default function ComparePage() {
           which also owns {site.legacyRealEstate.name}, we can tell you honestly which path fits
           your situation, even if that means listing instead of selling to us directly.
         </p>
+
+        <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm">
+          <Link href="/faq" className="font-semibold text-brand-yellow-dark hover:underline">
+            Read our FAQ →
+          </Link>
+          <Link href="/how-it-works" className="font-semibold text-brand-yellow-dark hover:underline">
+            See how it works →
+          </Link>
+        </div>
       </section>
     </div>
   );

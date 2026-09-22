@@ -94,6 +94,14 @@ export default function HomePage() {
             </p>
           </div>
         </div>
+        <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm">
+          <Link href="/compare" className="font-semibold text-brand-yellow-dark hover:underline">
+            See how this compares to listing →
+          </Link>
+          <Link href="/faq" className="font-semibold text-brand-yellow-dark hover:underline">
+            Read frequently asked questions →
+          </Link>
+        </div>
       </section>
 
       {/* Why us / authority */}
@@ -136,9 +144,14 @@ export default function HomePage() {
             </p>
           </div>
         </div>
-        <Link href="/about" className="mt-6 inline-block text-sm font-semibold text-brand-yellow-dark hover:underline">
-          Meet the team behind it →
-        </Link>
+        <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2">
+          <Link href="/about" className="text-sm font-semibold text-brand-yellow-dark hover:underline">
+            Read our full story →
+          </Link>
+          <Link href="/team" className="text-sm font-semibold text-brand-yellow-dark hover:underline">
+            Meet the team →
+          </Link>
+        </div>
       </section>
 
       {/* Situations - 12, even grid */}
@@ -176,6 +189,9 @@ export default function HomePage() {
             </Link>
           ))}
         </div>
+        <Link href="/we-buy-houses" className="mt-4 inline-block text-sm font-semibold text-brand-yellow-dark hover:underline">
+          Browse every county and city we serve →
+        </Link>
       </section>
 
       {/* CTA band */}

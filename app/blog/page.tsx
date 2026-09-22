@@ -28,9 +28,6 @@ export default function BlogPage() {
 
       <section className="mx-auto max-w-4xl px-4 py-12">
         <h2 className="text-xl font-bold text-brand-black">Latest From Dominic McClelland</h2>
-        <p className="mt-1 text-sm text-gray-500">
-          Full posts live on dominicmcclelland.com, here's a summary of the 3 most recent.
-        </p>
         <div className="mt-6 grid gap-6 sm:grid-cols-3">
           {recentDominicPosts.map((post) => (
             <article key={post.url} className="rounded-lg border border-brand-yellow/40 bg-brand-yellow/5 p-5">

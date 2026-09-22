@@ -16,11 +16,13 @@ export type CityData = {
   description: string;
   marketNote: string; // one real, sourced fact about the local housing market
   quickFacts: string[]; // 5 short, real, locally-relevant facts
+  featured?: boolean; // top 12 by population, used to trim the nav dropdown/menu
 };
 
 export const cities: CityData[] = [
   {
     slug: "visalia",
+    featured: true,
     name: "Visalia",
     county: "Tulare County",
     zipCodes: ["93277", "93291", "93292"],
@@ -40,6 +42,7 @@ export const cities: CityData[] = [
   },
   {
     slug: "tulare",
+    featured: true,
     name: "Tulare",
     county: "Tulare County",
     zipCodes: ["93274", "93261"],
@@ -59,6 +62,7 @@ export const cities: CityData[] = [
   },
   {
     slug: "porterville",
+    featured: true,
     name: "Porterville",
     county: "Tulare County",
     zipCodes: ["93257", "93258"],
@@ -78,6 +82,7 @@ export const cities: CityData[] = [
   },
   {
     slug: "fresno",
+    featured: true,
     name: "Fresno",
     county: "Fresno County",
     zipCodes: ["93701", "93702", "93703", "93704", "93705", "93710", "93711"],
@@ -116,6 +121,7 @@ export const cities: CityData[] = [
   },
   {
     slug: "bakersfield",
+    featured: true,
     name: "Bakersfield",
     county: "Kern County",
     zipCodes: ["93301", "93304", "93305", "93306", "93307", "93309", "93311", "93312", "93313", "93314"],
@@ -192,6 +198,7 @@ export const cities: CityData[] = [
   },
   {
     slug: "hanford",
+    featured: true,
     name: "Hanford",
     county: "Kings County",
     zipCodes: ["93230"],
@@ -211,6 +218,7 @@ export const cities: CityData[] = [
   },
   {
     slug: "lemoore",
+    featured: true,
     name: "Lemoore",
     county: "Kings County",
     zipCodes: ["93245", "93246"],
@@ -262,6 +270,7 @@ export const cities: CityData[] = [
   },
   {
     slug: "clovis",
+    featured: true,
     name: "Clovis",
     county: "Fresno County",
     zipCodes: ["93611", "93612", "93619"],
@@ -279,6 +288,7 @@ export const cities: CityData[] = [
   },
   {
     slug: "sanger",
+    featured: true,
     name: "Sanger",
     county: "Fresno County",
     zipCodes: ["93657"],
@@ -330,6 +340,7 @@ export const cities: CityData[] = [
   },
   {
     slug: "delano",
+    featured: true,
     name: "Delano",
     county: "Kern County",
     zipCodes: ["93215"],
@@ -347,6 +358,7 @@ export const cities: CityData[] = [
   },
   {
     slug: "ridgecrest",
+    featured: true,
     name: "Ridgecrest",
     county: "Kern County",
     zipCodes: ["93555"],
@@ -364,6 +376,7 @@ export const cities: CityData[] = [
   },
   {
     slug: "wasco",
+    featured: true,
     name: "Wasco",
     county: "Kern County",
     zipCodes: ["93280"],

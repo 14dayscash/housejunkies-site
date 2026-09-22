@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { site } from "@/lib/site";
 import { partnerTiers, partnerFaqs, partnerDisclaimer } from "@/lib/partnerTiers";
 import { FaqJsonLd } from "@/components/JsonLd";
@@ -66,7 +67,12 @@ export default function PartnersPage() {
 
       <section className="bg-gray-50">
         <div className="mx-auto max-w-6xl px-4 py-14">
-          <h2 className="text-xl font-bold text-brand-black">Contact Us Directly</h2>
+          <div className="flex flex-wrap items-baseline justify-between gap-2">
+            <h2 className="text-xl font-bold text-brand-black">Contact Us Directly</h2>
+            <Link href="/team" className="text-sm font-semibold text-brand-yellow-dark hover:underline">
+              Meet the full team →
+            </Link>
+          </div>
           <div className="mt-6 grid gap-6 sm:grid-cols-2">
             <div className="rounded-lg border border-gray-200 bg-white p-5">
               <div className="font-semibold text-brand-black">{site.directContacts.ceo.name}</div>
