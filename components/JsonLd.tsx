@@ -111,3 +111,52 @@ export function BreadcrumbJsonLd({ items }: { items: { name: string; url: string
     />
   );
 }
+
+// Attaches AggregateRating + individual Review objects to the same
+// Organization @id used site-wide. Google explicitly excludes "self-serving"
+// reviews (an entity's own reviews on its own site) from showing rich-result
+// stars, per their Sept 2019 policy - this is implemented correctly and
+// matches visible page content exactly (required either way, or it risks a
+// manual action for mismatched markup), but it may not produce stars in
+// search regardless of correctness. Only pass reviews that have real text;
+// star-only reviews (no written text) are reflected in the aggregate
+// count/value but not as individual Review objects, since there's no real
+// reviewBody to attach.
+export function ReviewJsonLd({
+  ratingValue,
+  reviewCount,
+  reviews,
+}: {
+  ratingValue: number;
+  reviewCount: number;
+  reviews: { author: string; rating: number; text: string }[];
+}) {
+  const data = {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "@id": `${site.url}/#organization`,
+    name: site.name,
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: ratingValue.toFixed(1),
+      reviewCount,
+      bestRating: "5",
+    },
+    review: reviews.map((r) => ({
+      "@type": "Review",
+      author: { "@type": "Person", name: r.author },
+      reviewRating: {
+        "@type": "Rating",
+        ratingValue: r.rating,
+        bestRating: "5",
+      },
+      reviewBody: r.text,
+    })),
+  };
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
+    />
+  );
+}

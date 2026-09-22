@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { site } from "@/lib/site";
+import { ReviewJsonLd } from "@/components/JsonLd";
 
 export const metadata: Metadata = {
   title: `Reviews | ${site.name}`,
@@ -39,9 +40,17 @@ function initials(name: string) {
 
 export default function ReviewsPage() {
   const avg = googleReviews.reduce((sum, r) => sum + r.rating, 0) / googleReviews.length;
+  const reviewsWithText = googleReviews
+    .filter((r): r is { name: string; rating: number; text: string } => r.text !== null)
+    .map((r) => ({ author: r.name, rating: r.rating, text: r.text }));
 
   return (
     <div>
+      <ReviewJsonLd
+        ratingValue={avg}
+        reviewCount={googleReviews.length}
+        reviews={reviewsWithText}
+      />
       <section className="bg-brand-black text-white">
         <div className="mx-auto max-w-4xl px-4 py-14 text-center">
           <h1 className="text-3xl font-bold md:text-4xl">Reviews</h1>
