@@ -1,109 +1,91 @@
-// A schematic (not literal) view of how the site's page categories link to
-// each other. Decorative/illustrative, not a nav element itself, the pill
-// buttons below on the Explore page are the real, accessible way to click
-// through. Categories, not every individual page, since 60+ nodes would be
-// unreadable rather than useful.
+import Link from "next/link";
+import { counties } from "@/lib/counties";
+import { teamProfiles } from "@/lib/teamProfiles";
+import { houseJunkiesPosts } from "@/lib/houseJunkiesPosts";
 
-type Node = { id: string; label: string; x: number; y: number; primary?: boolean };
-type Edge = [string, string];
+// A real, clickable site tree, not a decorative graph. Every label here is
+// an actual Link. Cities and situations roll up to their overview pages
+// instead of listing all 21/12 individually, that's what keeps this
+// readable instead of a wall of nodes. Left border lines do the "connected
+// web" visual honestly, without fragile absolute-position SVG math that
+// breaks on narrow screens.
 
-const nodes: Node[] = [
-  { id: "home", label: "Home", x: 300, y: 220, primary: true },
-  { id: "we-buy-houses", label: "We Buy Houses", x: 130, y: 90 },
-  { id: "cities", label: "Cities (21)", x: 20, y: 20 },
-  { id: "counties", label: "Counties (4)", x: 40, y: 170 },
-  { id: "sell-your-house", label: "Sell Your House", x: 470, y: 90 },
-  { id: "situations", label: "Situations (12)", x: 580, y: 20 },
-  { id: "about", label: "About", x: 470, y: 350 },
-  { id: "team", label: "Our Team (4)", x: 580, y: 420 },
-  { id: "reviews", label: "Reviews", x: 130, y: 350 },
-  { id: "projects", label: "Projects", x: 30, y: 300 },
-  { id: "blog", label: "Blog", x: 300, y: 430 },
-  { id: "faq", label: "FAQ", x: 380, y: 40 },
-  { id: "contact", label: "Contact", x: 220, y: 40 },
+type TreeNode = {
+  label: string;
+  href: string;
+  children?: TreeNode[];
+};
+
+const tree: TreeNode[] = [
+  {
+    label: "About",
+    href: "/about",
+    children: teamProfiles.map((p) => ({ label: p.name, href: `/team/${p.slug}` })),
+  },
+  { label: "Reviews", href: "/reviews" },
+  { label: "Projects", href: "/projects" },
+  {
+    label: "Blog",
+    href: "/blog",
+    children: houseJunkiesPosts.map((p) => ({ label: p.title, href: `/blog/${p.slug}` })),
+  },
+  { label: "FAQ", href: "/faq" },
+  { label: "How It Works", href: "/how-it-works" },
+  { label: "How We Calculate Your Offer", href: "/how-we-calculate-your-offer" },
+  { label: "Cash Offer vs. Listing", href: "/compare" },
+  { label: "Partner With Us", href: "/partners/agents" },
+  { label: "Contact", href: "/contact" },
+  {
+    label: "We Buy Houses",
+    href: "/we-buy-houses",
+    children: [
+      { label: "All 21 Cities", href: "/we-buy-houses" },
+      ...counties.map((c) => ({ label: c.name, href: `/counties/${c.slug}` })),
+    ],
+  },
+  {
+    label: "Sell Your House",
+    href: "/sell-your-house",
+    children: [{ label: "All 12 Situations", href: "/sell-your-house" }],
+  },
+  { label: "Privacy", href: "/privacy" },
+  { label: "Terms", href: "/terms" },
 ];
 
-const edges: Edge[] = [
-  ["home", "we-buy-houses"],
-  ["home", "sell-your-house"],
-  ["home", "about"],
-  ["home", "reviews"],
-  ["home", "projects"],
-  ["home", "blog"],
-  ["home", "faq"],
-  ["home", "contact"],
-  ["we-buy-houses", "cities"],
-  ["we-buy-houses", "counties"],
-  ["cities", "counties"],
-  ["sell-your-house", "situations"],
-  ["about", "team"],
-  ["we-buy-houses", "sell-your-house"],
-];
-
-function findNode(id: string) {
-  return nodes.find((n) => n.id === id)!;
+function Node({ node }: { node: TreeNode }) {
+  return (
+    <li>
+      <Link
+        href={node.href}
+        className="inline-block rounded-full border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-brand-black hover:border-brand-yellow-dark hover:bg-brand-yellow/10 hover:text-brand-yellow-dark"
+      >
+        {node.label}
+      </Link>
+      {node.children && node.children.length > 0 && (
+        <ul className="mt-2 space-y-2 border-l-2 border-brand-yellow/40 pl-5">
+          {node.children.map((child) => (
+            <Node key={child.href + child.label} node={child} />
+          ))}
+        </ul>
+      )}
+    </li>
+  );
 }
 
 export function SiteWebDiagram() {
   return (
-    <div className="rounded-lg border border-gray-200 bg-gray-50 p-4">
-      <svg viewBox="0 0 600 460" className="w-full" role="img" aria-label="Diagram of how pages on the site link to each other">
-        {edges.map(([a, b], i) => {
-          const from = findNode(a);
-          const to = findNode(b);
-          return (
-            <line
-              key={i}
-              x1={from.x}
-              y1={from.y}
-              x2={to.x}
-              y2={to.y}
-              stroke="#d9ac0c"
-              strokeWidth={1.5}
-              strokeOpacity={0.5}
-            />
-          );
-        })}
-        {nodes.map((n) => (
-          <g key={n.id}>
-            <circle
-              cx={n.x}
-              cy={n.y}
-              r={n.primary ? 34 : 24}
-              fill={n.primary ? "#0a0a0a" : "#ffffff"}
-              stroke={n.primary ? "#f5c518" : "#0a0a0a"}
-              strokeWidth={n.primary ? 3 : 1.5}
-            />
-            <text
-              x={n.x}
-              y={n.y}
-              textAnchor="middle"
-              dominantBaseline="middle"
-              fontSize={n.primary ? 11 : 9}
-              fontWeight={n.primary ? 700 : 600}
-              fill={n.primary ? "#f5c518" : "#0a0a0a"}
-            >
-              {n.label.split(" ").length > 2 ? n.label.split(" ").slice(0, -1).join(" ") : n.label}
-            </text>
-            {n.label.split(" ").length > 2 && (
-              <text
-                x={n.x}
-                y={n.y + 11}
-                textAnchor="middle"
-                fontSize={9}
-                fontWeight={600}
-                fill={n.primary ? "#f5c518" : "#0a0a0a"}
-              >
-                {n.label.split(" ").slice(-1)}
-              </text>
-            )}
-          </g>
+    <div className="rounded-lg border border-gray-200 bg-gray-50 p-5 sm:p-8">
+      <Link
+        href="/"
+        className="inline-block rounded-full bg-brand-black px-6 py-3 font-bold text-brand-yellow hover:bg-brand-charcoal"
+      >
+        Home
+      </Link>
+      <ul className="mt-4 space-y-3 border-l-2 border-brand-yellow/40 pl-5">
+        {tree.map((node) => (
+          <Node key={node.href + node.label} node={node} />
         ))}
-      </svg>
-      <p className="mt-2 text-center text-xs text-gray-400">
-        A simplified view of how the site connects, grouped by category. The full,
-        clickable list is below.
-      </p>
+      </ul>
     </div>
   );
 }
