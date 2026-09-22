@@ -1,8 +1,11 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import Link from "next/link";
 import { cities, getCity } from "@/lib/cities";
+import { counties } from "@/lib/counties";
+import { situations } from "@/lib/situations";
 import { LeadForm } from "@/components/LeadForm";
-import { FaqJsonLd } from "@/components/JsonLd";
+import { FaqJsonLd, BreadcrumbJsonLd } from "@/components/JsonLd";
 import { site } from "@/lib/site";
 
 export function generateStaticParams() {
@@ -44,9 +47,18 @@ export default function CityPage({ params }: { params: { city: string } }) {
     },
   ];
 
+  const countyMatch = counties.find((c) => c.name === city.county);
+
   return (
     <div>
       <FaqJsonLd items={faqs} />
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", url: site.url },
+          { name: "We Buy Houses", url: `${site.url}/we-buy-houses` },
+          { name: city.name, url: `${site.url}/we-buy-houses/${city.slug}` },
+        ]}
+      />
       <section className="bg-brand-black text-white">
         <div className="mx-auto max-w-6xl px-4 py-14">
           <p className="text-sm font-semibold uppercase tracking-wide text-brand-yellow">{city.county}</p>
@@ -99,6 +111,30 @@ export default function CityPage({ params }: { params: { city: string } }) {
             </li>
           ))}
         </ul>
+      </section>
+
+      <section className="mx-auto max-w-6xl px-4 pb-12">
+        <h2 className="text-lg font-bold text-brand-black">Common Situations in {city.name}</h2>
+        <div className="mt-4 flex flex-wrap gap-3">
+          {situations.map((s) => (
+            <Link
+              key={s.slug}
+              href={`/sell-your-house/${s.slug}`}
+              className="rounded-full border border-gray-300 px-4 py-2 text-sm text-brand-black hover:border-brand-yellow-dark hover:text-brand-yellow-dark"
+            >
+              {s.navLabel}
+            </Link>
+          ))}
+        </div>
+        {countyMatch && (
+          <p className="mt-6 text-sm text-gray-500">
+            See every city we serve in{" "}
+            <Link href={`/counties/${countyMatch.slug}`} className="font-semibold text-brand-yellow-dark hover:underline">
+              {city.county}
+            </Link>
+            .
+          </p>
+        )}
       </section>
 
       <section className="bg-gray-50">

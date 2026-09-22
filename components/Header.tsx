@@ -37,6 +37,12 @@ export function Header() {
               </svg>
             </button>
             <div className="invisible absolute left-0 top-full grid w-56 grid-cols-2 gap-1 rounded-md border border-white/10 bg-brand-charcoal p-2 opacity-0 shadow-xl transition group-hover/cities:visible group-hover/cities:opacity-100 group-focus-within/cities:visible group-focus-within/cities:opacity-100">
+              <Link
+                href="/we-buy-houses"
+                className="col-span-2 rounded px-3 py-2 text-sm font-semibold text-brand-yellow hover:bg-white/10"
+              >
+                All Areas →
+              </Link>
               {liveCities.map((c) => (
                 <Link
                   key={c.slug}
@@ -107,6 +113,9 @@ export function Header() {
 
           <div className="pt-4 text-xs font-semibold uppercase tracking-wide text-white/60">We Buy Houses</div>
           <div className="mt-1 flex flex-wrap gap-2">
+            <Link href="/we-buy-houses" onClick={() => setMobileOpen(false)} className="rounded-full bg-brand-yellow px-3 py-1 text-sm font-semibold text-black">
+              All Areas
+            </Link>
             {liveCities.map((c) => (
               <Link key={c.slug} href={`/we-buy-houses/${c.slug}`} onClick={() => setMobileOpen(false)} className="rounded-full border border-white/20 px-3 py-1 text-sm text-white/80">
                 {c.name}

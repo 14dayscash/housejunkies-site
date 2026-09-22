@@ -1,8 +1,10 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import Link from "next/link";
 import { situations, getSituation } from "@/lib/situations";
+import { cities } from "@/lib/cities";
 import { LeadForm } from "@/components/LeadForm";
-import { FaqJsonLd } from "@/components/JsonLd";
+import { FaqJsonLd, BreadcrumbJsonLd } from "@/components/JsonLd";
 import { site } from "@/lib/site";
 
 export function generateStaticParams() {
@@ -33,6 +35,13 @@ export default function SituationPage({ params }: { params: { situation: string 
   return (
     <div>
       {situation.faqs && <FaqJsonLd items={situation.faqs} />}
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", url: site.url },
+          { name: "Sell Your House", url: `${site.url}/sell-your-house/${situation.slug}` },
+          { name: situation.title, url: `${site.url}/sell-your-house/${situation.slug}` },
+        ]}
+      />
 
       <section className="bg-brand-black text-white">
         <div className="mx-auto max-w-6xl px-4 py-14">
@@ -105,6 +114,21 @@ export default function SituationPage({ params }: { params: { situation: string 
         </div>
         <div>
           <LeadForm sourcePage={`/sell-your-house/${situation.slug}`} />
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-6xl px-4 pb-12">
+        <h2 className="text-lg font-bold text-brand-black">Available in These Cities</h2>
+        <div className="mt-4 flex flex-wrap gap-3">
+          {cities.map((c) => (
+            <Link
+              key={c.slug}
+              href={`/we-buy-houses/${c.slug}`}
+              className="rounded-full border border-gray-300 px-4 py-2 text-sm text-brand-black hover:border-brand-yellow-dark hover:text-brand-yellow-dark"
+            >
+              {c.name}
+            </Link>
+          ))}
         </div>
       </section>
     </div>
