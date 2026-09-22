@@ -34,11 +34,11 @@ export default function PartnersPage() {
                 <span className="text-lg font-bold text-brand-yellow-dark">{tier.range}</span>
               </div>
               <div className="mt-2 flex flex-wrap gap-x-6 gap-y-1 text-xs text-gray-500">
-                <span><strong>You bring:</strong> {tier.youBring}</span>
+                <span><strong>You Bring:</strong> {tier.youBring}</span>
                 <span><strong>Involvement:</strong> {tier.involvement}</span>
               </div>
               <p className="mt-3 text-gray-600">{tier.body}</p>
-              <p className="mt-2 text-sm text-gray-500"><strong>Best for:</strong> {tier.bestFor}</p>
+              <p className="mt-2 text-sm text-gray-500"><strong>Best For:</strong> {tier.bestFor}</p>
             </div>
           ))}
         </div>

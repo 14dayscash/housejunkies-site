@@ -9,13 +9,13 @@ export const metadata: Metadata = {
 };
 
 const rows = [
-  { label: "Timeline to close", cash: "7 to 30 days, your choice", listing: "Typically 60 to 90+ days after an accepted offer" },
-  { label: "Repairs required", cash: "None, sold as-is", listing: "Often required by buyer's lender or negotiated after inspection" },
-  { label: "Showings", cash: "None", listing: "Multiple, on an ongoing basis until sold" },
-  { label: "Agent commission", cash: "None", listing: "Typically 5-6% of sale price, split between agents" },
-  { label: "Closing costs", cash: "Covered by House Junkies", listing: "Typically paid by the seller" },
-  { label: "Financing risk", cash: "None, we buy with our own capital", listing: "Buyer's loan can fall through, restarting the process" },
-  { label: "Certainty of sale", cash: "Firm offer once accepted", listing: "Can fall out of escrow over inspection, appraisal, or financing issues" },
+  { label: "Timeline to Close", cash: "7 to 30 Days, You Choose", listing: "Typically 60 to 90+ Days After an Accepted Offer" },
+  { label: "Repairs Required", cash: "None, Sold As-Is", listing: "Often Required by Buyer's Lender or Negotiated After Inspection" },
+  { label: "Showings", cash: "None", listing: "Multiple, on an Ongoing Basis Until Sold" },
+  { label: "Agent Commission", cash: "None", listing: "Typically 5-6% of Sale Price, Split Between Agents" },
+  { label: "Closing Costs", cash: "Covered by House Junkies", listing: "Typically Paid by the Seller" },
+  { label: "Financing Risk", cash: "None, We Buy With Our Own Capital", listing: "Buyer's Loan Can Fall Through, Restarting the Process" },
+  { label: "Certainty of Sale", cash: "Firm Offer Once Accepted", listing: "Can Fall Out of Escrow Over Inspection, Appraisal, or Financing Issues" },
 ];
 
 export default function ComparePage() {
@@ -60,23 +60,23 @@ export default function ComparePage() {
         </p>
         <div className="mt-6 grid gap-6 sm:grid-cols-2">
           <div className="rounded-lg border border-gray-200 p-5">
-            <div className="font-semibold text-brand-black">Listing With an Agent</div>
+            <div className="font-semibold text-brand-black">Listing with an Agent</div>
             <ul className="mt-3 space-y-2 text-sm text-gray-600">
-              <li>Repaired sale price: $320,000</li>
-              <li>Agent commission (5-6%): -$17,600</li>
-              <li>Seller-paid closing costs: -$3,200</li>
-              <li>Repairs to get it market-ready: -$15,000 to $30,000+</li>
-              <li>Time to close: 60 to 90+ days, plus repair time</li>
+              <li>Repaired Sale Price: $320,000</li>
+              <li>Agent Commission (5-6%): -$17,600</li>
+              <li>Seller-Paid Closing Costs: -$3,200</li>
+              <li>Repairs to Get It Market-Ready: -$15,000 to $30,000+</li>
+              <li>Time to Close: 60 to 90+ Days, Plus Repair Time</li>
             </ul>
           </div>
           <div className="rounded-lg border border-brand-yellow/40 bg-brand-yellow/5 p-5">
             <div className="font-semibold text-brand-black">Selling to House Junkies</div>
             <ul className="mt-3 space-y-2 text-sm text-gray-600">
-              <li>Cash offer accounts for repairs upfront, see our exact formula</li>
-              <li>Closing costs: $0, we cover them</li>
+              <li>Cash Offer Accounts for Repairs Upfront, See Our Exact Formula</li>
+              <li>Closing Costs: $0, We Cover Them</li>
               <li>Commission: $0</li>
-              <li>Repairs: $0, sold as-is</li>
-              <li>Time to close: 7 to 30 days, your choice</li>
+              <li>Repairs: $0, Sold As-Is</li>
+              <li>Time to Close: 7 to 30 Days, You Choose</li>
             </ul>
           </div>
         </div>

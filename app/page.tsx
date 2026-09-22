@@ -45,11 +45,11 @@ export default function HomePage() {
         <div className="mx-auto grid max-w-6xl grid-cols-2 gap-6 px-4 py-10 text-center md:grid-cols-4">
           <div>
             <div className="text-3xl font-bold text-brand-black">{site.stats.homesBought}</div>
-            <div className="mt-1 text-sm text-gray-500">Homes bought & renovated</div>
+            <div className="mt-1 text-sm text-gray-500">Homes Bought & Renovated</div>
           </div>
           <div>
             <div className="text-3xl font-bold text-brand-black">{site.stats.yearsInBusiness}</div>
-            <div className="mt-1 text-sm text-gray-500">Years in business</div>
+            <div className="mt-1 text-sm text-gray-500">Years in Business</div>
           </div>
           <div>
             <div className="text-3xl font-bold text-brand-black">{site.stats.bbbRating}</div>
@@ -118,7 +118,7 @@ export default function HomePage() {
         <div className="mt-8 grid gap-6 md:grid-cols-3">
           <div className="rounded-lg border border-gray-200 p-6">
             <div className="text-sm font-bold uppercase tracking-wide text-brand-yellow-dark">Step 1 - Acquisitions</div>
-            <p className="mt-2 font-semibold text-brand-black">{site.stats.sfrAnalyticsVolume} across {site.stats.sfrAnalyticsDeals} deals</p>
+            <p className="mt-2 font-semibold text-brand-black">{site.stats.sfrAnalyticsVolume} Across {site.stats.sfrAnalyticsDeals} Deals</p>
             <p className="mt-1 text-sm text-gray-600">
               Funded entirely with private capital, no banks, no outside brokers, no financing that
               can collapse a week before closing. That's what {site.stats.sfrAnalyticsRank}-ranked
@@ -127,7 +127,7 @@ export default function HomePage() {
           </div>
           <div className="rounded-lg border border-gray-200 p-6">
             <div className="text-sm font-bold uppercase tracking-wide text-brand-yellow-dark">Step 2 - Construction</div>
-            <p className="mt-2 font-semibold text-brand-black">Renovated in-house</p>
+            <p className="mt-2 font-semibold text-brand-black">Renovated In-house</p>
             <p className="mt-1 text-sm text-gray-600">
               Our own licensed general contractor crew, {site.licenses.generalContractor}, handles
               every rehab, no out-of-town subcontractors. The same crew also builds ground-up new
@@ -136,10 +136,10 @@ export default function HomePage() {
           </div>
           <div className="rounded-lg border border-gray-200 p-6">
             <div className="text-sm font-bold uppercase tracking-wide text-brand-yellow-dark">Step 3 - Brokerage</div>
-            <p className="mt-2 font-semibold text-brand-black">{site.legacyRealEstate.agentCount} agents, {site.legacyRealEstate.monthlyVolume}/mo</p>
+            <p className="mt-2 font-semibold text-brand-black">{site.legacyRealEstate.agentCount} Agents, {site.legacyRealEstate.monthlyVolume}/mo</p>
             <p className="mt-1 text-sm text-gray-600">
-              Resold through {site.legacyRealEstate.name} ({site.licenses.brokerage}),{" "}
-              {site.legacyRealEstate.countyRank}, averaging {site.legacyRealEstate.monthlySales} home
+              Resold with {site.legacyRealEstate.name} ({site.licenses.brokerage}),{" "}
+              {site.legacyRealEstate.countyRank.replace(/^the /i, "")}, averaging {site.legacyRealEstate.monthlySales} home
               sales a month. Led by our broker, {site.people.broker.name}.
             </p>
           </div>
