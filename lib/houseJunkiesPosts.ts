@@ -1,14 +1,18 @@
 // House Junkies' own blog, hosted directly on housejunkiesinc.org (separate
 // from the dominicmcclelland.com summaries in lib/blogPosts.ts).
 //
-// This starts empty on purpose. Per Dominic: new posts get added here as he
-// prompts them, the same workflow as dominicmcclelland.com's blog. Nothing
-// gets invented to fill this out, an empty section with an honest note beats
-// fake posts, same rule as everywhere else on this site.
+// STANDING RULE, effective immediately: no post goes live here without
+// Dominic's sign-off first. Draft new posts as a plain .txt file and
+// present it for approval before adding anything to this array or pushing.
+// Never publish a draft straight to the array on the same turn it's written.
 //
-// To add a post: append an entry here (title, slug, date, category, excerpt,
-// body as an array of paragraphs) and it's live at /blog/[slug] plus listed
-// on /blog automatically.
+// Also standing: nothing here criticizes the old site, names past mistakes
+// (BBB claims, testimonials, etc.), or airs internal history publicly.
+// Positive, forward-facing framing only, this is a public-facing page.
+//
+// This started empty on purpose, and stays honest the same way: nothing
+// gets invented to fill it out, an empty section beats a fake post, same
+// rule as everywhere else on this site.
 //
 // Standing instruction: any time this site gets updated, check
 // dominicmcclelland.com/blog for new posts first (lib/blogPosts.ts covers
@@ -33,12 +37,11 @@ export const houseJunkiesPosts: HouseJunkiesPost[] = [
     category: "Company News",
     author: "Dominic McClelland",
     excerpt:
-      "We rebuilt housejunkiesinc.org from the ground up. Here's what changed, and why.",
+      "House Junkies has been buying houses across the Central Valley for 7+ years. We're finally building the online presence to match.",
     body: [
-      "If you've visited our site before, you'll notice it looks different. We rebuilt housejunkiesinc.org from scratch this year, and it was overdue.",
-      "The old site had real problems. It made a claim about BBB accreditation that wasn't accurate, and we've corrected that. It reused the same three testimonials across every city page with just the city name swapped, which we've replaced with an honest reviews page showing exactly what's really on our Google Business Profile, nothing more. It also had almost no real information about how House Junkies actually works, the vertical integration between acquisitions, construction, and brokerage that's the whole reason we can pay more than a wholesaler and close faster than a company that has to shop your house to someone else first.",
-      "The new site fixes all of that. You can read about our team, see how we actually calculate a cash offer, compare selling to us against listing with an agent, and browse every city and county we serve. We're also starting this blog, where we'll write about the real situations Central Valley homeowners deal with: probate, foreclosure, fire damage, inherited property, and more.",
-      "This is the first post. It won't be the last. If there's something you'd want us to write about, from your own experience selling a house or from a question you've had about the process, call us and tell us, we're building this out as we go.",
+      "House Junkies has been buying, renovating, and reselling homes across the Central Valley for 7+ years. Until now, our website hasn't kept up with what we actually do day to day, so we rebuilt it from the ground up.",
+      "On the new site you can read about our team, see how we actually calculate a cash offer, compare selling to us against listing with an agent, and browse every city and county we serve. We're also starting this blog, where we'll write about the real situations Central Valley homeowners deal with: probate, foreclosure, fire damage, inherited property, and more.",
+      "This is our first post, and it won't be the last. If there's something you'd want us to write about, from your own experience selling a house or from a question you've had about the process, call us and tell us, we're building this out as we go.",
     ],
   },
 ];
