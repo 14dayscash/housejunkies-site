@@ -37,6 +37,33 @@ export default function HomePage() {
               <li>✓ Close in 7 to 30 Days</li>
               <li>✓ Se Habla Espanol</li>
             </ul>
+
+            {/* BBB seal (left) + Google 5-star badge (right). Stacks on
+                mobile, side by side from sm: up. BBB seal is a plain <img>,
+                not next/image, since BBB's seal must be live-hotlinked from
+                their own servers to stay accurate, not cached/optimized. */}
+            <div className="mt-6 flex flex-col items-start gap-6 sm:flex-row sm:items-center">
+              <a
+                href="https://www.bbb.org/us/ca/visalia/profile/real-estate-investing/house-junkies-inc-1126-850058147/#sealclick"
+                target="_blank"
+                rel="nofollow noopener noreferrer"
+              >
+                <img
+                  src="https://seal-central-northern-western-arizona.bbb.org/seals/blue-seal-120-61-bbb-850058147.png"
+                  style={{ border: 0 }}
+                  alt="House Junkies Inc BBB Business Review"
+                  width={120}
+                  height={61}
+                />
+              </a>
+              <img
+                src="/images/google-5-star-badge.png"
+                alt="5-star rated on Google"
+                width={110}
+                height={78}
+                className="h-[78px] w-auto"
+              />
+            </div>
           </div>
           <LeadForm sourcePage="/" />
         </div>
@@ -55,7 +82,7 @@ export default function HomePage() {
           </div>
           <div>
             <div className="text-3xl font-bold text-brand-black">{site.stats.bbbRating}</div>
-            <div className="mt-1 text-sm text-gray-500">BBB Rating</div>
+            <div className="mt-1 text-sm text-gray-500">BBB Accredited Rating</div>
           </div>
           <div>
             <div className="text-3xl font-bold text-brand-black">{site.stats.sfrAnalyticsRank}</div>

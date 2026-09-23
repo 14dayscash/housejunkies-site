@@ -31,7 +31,7 @@ const faqs = [
   },
   {
     question: "Is House Junkies a legitimate company?",
-    answer: `Yes. We're part of ${site.parentOrganization}, which includes House Junkies (acquisitions), House Junkies Construction (${site.licenses.generalContractor}), and ${site.legacyRealEstate.name} (${site.licenses.brokerage}). We carry a ${site.stats.bbbRating} BBB rating and are ranked ${site.stats.sfrAnalyticsRank} in Visalia by transaction volume per ${site.stats.sfrAnalyticsSource}.`,
+    answer: `Yes. We're part of ${site.parentOrganization}, which includes House Junkies (acquisitions), House Junkies Construction (${site.licenses.generalContractor}), and ${site.legacyRealEstate.name} (${site.licenses.brokerage}). We're BBB Accredited with an ${site.stats.bbbRating} rating and are ranked ${site.stats.sfrAnalyticsRank} in Visalia by transaction volume per ${site.stats.sfrAnalyticsSource}.`,
   },
   {
     question: "What areas do you buy houses in?",

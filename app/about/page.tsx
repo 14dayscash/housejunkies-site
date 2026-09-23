@@ -37,8 +37,9 @@ export default function AboutPage() {
           <h1 className="mt-2 text-4xl font-bold">About {site.name}</h1>
           <p className="mt-4 max-w-2xl text-white/70">
             {site.name} is part of {site.parentOrganization}, a vertically integrated real estate
-            operation based in Visalia with {site.stats.yearsInBusiness} years in business and a{" "}
-            {site.stats.bbbRating} BBB rating. We buy houses directly with private capital, renovate
+            operation based in Visalia with {site.stats.yearsInBusiness} years in business, BBB
+            Accredited with an {site.stats.bbbRating} rating. We buy houses directly with private
+            capital, renovate
             them with our own licensed construction crew, and resell through our own licensed
             brokerage. No banks, no outside brokers, no out-of-town contractors, every deal
             controlled from acquisition to resale.
@@ -211,7 +212,7 @@ export default function AboutPage() {
         <ul className="mt-4 space-y-2 text-gray-600">
           <li>General Contractor: {site.licenses.generalContractor}</li>
           <li>Brokerage: {site.licenses.brokerage}</li>
-          <li>BBB Rating: {site.stats.bbbRating}</li>
+          <li>BBB: Accredited, {site.stats.bbbRating} Rating</li>
         </ul>
 
         <h2 className="mt-10 text-2xl font-bold text-brand-black">Our Locations</h2>

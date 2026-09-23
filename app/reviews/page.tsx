@@ -96,16 +96,29 @@ export default function ReviewsPage() {
         <div className="mt-12 rounded-xl bg-gray-50 p-8 text-center">
           <p className="text-lg font-semibold text-brand-black">Worked with us before?</p>
           <p className="mt-1 text-gray-600">
-            A quick Google review helps other Visalia homeowners find us.
+            A quick review helps other Visalia homeowners find us.
           </p>
-          <a
-            href={GBP_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-5 inline-block rounded-md bg-brand-yellow px-6 py-3 font-bold text-black hover:bg-brand-yellow-dark"
-          >
-            Leave a Google Review
-          </a>
+          <div className="mt-5 flex flex-col items-center justify-center gap-4 sm:flex-row">
+            <a
+              href={GBP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block rounded-md bg-brand-yellow px-6 py-3 font-bold text-black hover:bg-brand-yellow-dark"
+            >
+              Leave a Google Review
+            </a>
+            <a
+              href="https://www.bbb.org/pacific-southwest/customer-reviews/real-estate-investing/house-junkies-inc-in-visalia-ca-850058147/add/"
+              target="_blank"
+              rel="nofollow noopener noreferrer"
+            >
+              <img
+                src="https://seal-central-northern-western-arizona.bbb.org/customer-reviews/badge-10-bbb-850058147.png"
+                style={{ border: 0 }}
+                alt="House Junkies Inc BBB Business Review"
+              />
+            </a>
+          </div>
           <div className="mt-4 flex justify-center gap-6 text-sm">
             <Link href="/projects" className="font-semibold text-brand-yellow-dark hover:underline">
               See our projects →
