@@ -25,9 +25,11 @@ export default function HomePage() {
             </p>
             <p className="mt-4 text-lg text-white/70">
               {site.name} has bought, renovated, and resold {site.stats.homesBought} homes across the
-              Central Valley over {site.stats.yearsInBusiness} years. We're not a lead service and we're
-              not a wholesaler, we buy the property with our own capital and renovate it with our own
-              licensed construction crew ({site.licenses.generalContractor}).
+              Central Valley over {site.stats.yearsInBusiness} years. We buy the property with our own
+              capital and renovate it with our own licensed construction crew.
+            </p>
+            <p className="mt-1 text-sm text-white/50">
+              {site.licenses.generalContractor}
             </p>
             <ul className="mt-6 grid grid-cols-1 gap-2 text-sm text-white/80 sm:grid-cols-2">
               <li>✓ No Repairs, Any Condition</li>
