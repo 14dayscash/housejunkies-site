@@ -42,18 +42,18 @@ export default function HomePage() {
                 mobile, side by side from sm: up. BBB seal is a plain <img>,
                 not next/image, since BBB's seal must be live-hotlinked from
                 their own servers to stay accurate, not cached/optimized. */}
-            <div className="mt-6 flex flex-col items-start gap-6 sm:flex-row sm:items-center">
+            <div className="mt-6 flex flex-row items-center gap-6">
               <a
                 href="https://www.bbb.org/us/ca/visalia/profile/real-estate-investing/house-junkies-inc-1126-850058147/#sealclick"
                 target="_blank"
                 rel="nofollow noopener noreferrer"
               >
                 <img
-                  src="https://seal-central-northern-western-arizona.bbb.org/seals/blue-seal-120-61-bbb-850058147.png"
+                  src="https://seal-central-northern-western-arizona.bbb.org/seals/blue-seal-160-82-bbb-850058147.png"
                   style={{ border: 0 }}
                   alt="House Junkies Inc BBB Business Review"
-                  width={120}
-                  height={61}
+                  width={160}
+                  height={82}
                 />
               </a>
               <img
