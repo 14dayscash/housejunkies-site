@@ -147,12 +147,12 @@ export default function HomePage() {
         <div className="mt-8 grid gap-6 md:grid-cols-3">
           <div className="rounded-lg border border-gray-200 p-6">
             <div className="text-sm font-bold uppercase tracking-wide text-brand-yellow-dark">Step 1 - Acquisitions</div>
-            <p className="mt-2 font-semibold text-brand-black">{site.stats.homesBought} Homes | {site.stats.sfrAnalyticsRank} in Visalia & Tulare County</p>
+            <p className="mt-2 font-semibold text-brand-black">{site.stats.homesBought} Houses Flipped</p>
             <p className="mt-1 text-sm text-gray-600">
-              Funded entirely with private capital, no banks, no outside brokers, no financing that
-              can collapse a week before closing. That's what {site.stats.sfrAnalyticsVolume} across{" "}
-              {site.stats.sfrAnalyticsDeals} deals, {site.stats.sfrAnalyticsRank}-ranked volume in
-              Visalia, actually looks like.
+              Ranked {site.stats.sfrAnalyticsRank} in Visalia and Tulare County by transaction volume,
+              per {site.stats.sfrAnalyticsSource}, {site.stats.sfrAnalyticsVolume} across{" "}
+              {site.stats.sfrAnalyticsDeals} deals. No banks slowing things down, just hard money and
+              trusted capital partners who move as fast as we do.
             </p>
           </div>
           <div className="rounded-lg border border-gray-200 p-6">
