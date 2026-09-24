@@ -150,9 +150,9 @@ export default function HomePage() {
             <p className="mt-2 font-semibold text-brand-black">{site.stats.homesBought} Houses Flipped</p>
             <p className="mt-1 text-sm text-gray-600">
               Ranked {site.stats.sfrAnalyticsRank} in Visalia and Tulare County by transaction volume,
-              per {site.stats.sfrAnalyticsSource}, {site.stats.sfrAnalyticsVolume} across{" "}
-              {site.stats.sfrAnalyticsDeals} deals. No banks slowing things down, just hard money and
-              trusted capital partners who move as fast as we do.
+              per {site.stats.sfrAnalyticsSource}. No banks slowing things down, just private money
+              and trusted partners who move as fast as we do. This allows us to close quickly and
+              efficiently.
             </p>
           </div>
           <div className="rounded-lg border border-gray-200 p-6">
