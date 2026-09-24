@@ -141,7 +141,10 @@ export default function HomePage() {
         <p className="mt-2 max-w-2xl text-gray-600">
           Most cash-offer companies are a lead form with a phone number behind it. {site.name} is
           different: acquisitions, construction, and brokerage all happen under one roof, part of{" "}
-          {site.parentOrganization}. That's what lets us pay more than a wholesaler and close faster
+          <Link href="/about" className="underline decoration-dotted underline-offset-2 hover:text-brand-yellow-dark">
+            {site.parentOrganization}
+          </Link>
+          . That's what lets us pay more than a wholesaler and close faster
           than a company that has to shop your house to a stranger before they can buy it.
         </p>
         <div className="mt-8 grid gap-6 md:grid-cols-3">
@@ -168,9 +171,18 @@ export default function HomePage() {
             <div className="text-sm font-bold uppercase tracking-wide text-brand-yellow-dark">Step 3 - Brokerage</div>
             <p className="mt-2 font-semibold text-brand-black">{site.legacyRealEstate.agentCount} Agents, {site.legacyRealEstate.monthlyVolume}/mo</p>
             <p className="mt-1 text-sm text-gray-600">
-              Resold with {site.legacyRealEstate.name} ({site.licenses.brokerage}),{" "}
-              {site.legacyRealEstate.countyRank.replace(/^the /i, "")}, averaging {site.legacyRealEstate.monthlySales} home
-              sales a month. Led by our broker, {site.people.broker.name}.
+              Resold with{" "}
+              <Link href="/about" className="underline decoration-dotted underline-offset-2 hover:text-white">
+                {site.legacyRealEstate.name}
+              </Link>{" "}
+              ({site.licenses.brokerage}), the{" "}
+              {site.legacyRealEstate.countyRank.replace(/^the /i, "")}. Averaging{" "}
+              {site.legacyRealEstate.monthlySales} home sales and {site.legacyRealEstate.monthlyVolume} in
+              volume per month. Led by our broker,{" "}
+              <Link href="/team/jenny-madrid" className="underline decoration-dotted underline-offset-2 hover:text-white">
+                {site.people.broker.name}
+              </Link>
+              .
             </p>
           </div>
         </div>

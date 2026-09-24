@@ -76,8 +76,14 @@ export default function OfferCalcPage() {
 
         <p className="mt-6 text-sm text-gray-500">
           One more thing worth knowing: because {site.name} is part of{" "}
-          {site.parentOrganization}, which also includes {site.legacyRealEstate.name} (
-          {site.legacyRealEstate.dre}), we can pull what your house would realistically
+          <Link href="/about" className="underline decoration-dotted underline-offset-2 hover:text-brand-yellow-dark">
+            {site.parentOrganization}
+          </Link>
+          , which also includes{" "}
+          <Link href="/about" className="underline decoration-dotted underline-offset-2 hover:text-brand-yellow-dark">
+            {site.legacyRealEstate.name}
+          </Link>{" "}
+          ({site.legacyRealEstate.dre}), we can pull what your house would realistically
           list for on the open market and what we'd pay off-market in the same
           conversation. If listing nets you more, we'll tell you.
         </p>

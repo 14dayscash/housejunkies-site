@@ -12,6 +12,13 @@ export type BlogPostSummary = {
 
 export const blogPosts: BlogPostSummary[] = [
   {
+    title: "How Our Partner and Referral Programs Actually Pay Out",
+    url: "https://www.dominicmcclelland.com/blog/partner-referral-programs-payout",
+    date: "September 23, 2026",
+    summary:
+      "How House Junkies' partner and referral programs actually work in Visalia, from a one-time $2,000 referral to funding flips as a passive capital partner.",
+  },
+  {
     title: "What It Actually Costs to List Your House vs. Selling As-Is to House Junkies",
     url: "https://www.dominicmcclelland.com/blog/listing-repairs-vs-as-is-visalia",
     date: "September 17, 2026",

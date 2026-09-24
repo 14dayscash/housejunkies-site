@@ -15,9 +15,13 @@ export const metadata: Metadata = {
 // rating but no written text are shown as such, not filled in.
 // Update this file by hand as new reviews come in.
 const googleReviews = [
+  { name: "Corey Loewen", rating: 5, text: "Thank you for taking on a property and working together to make the transaction go smooth!" },
+  { name: "Eli Stephens", rating: 5, text: "Dominic has been very helpful over the last year. Working with the crew has taught me a lot about real estate and investing. I highly recommend you check them out!!" },
+  { name: "Michael", rating: 5, text: "Very professional, and straight to the point HOUSE JUNKIES DEFINITELY EARNS IT REPETITION. Must recommend if you're serious about selling your house 👍" },
   { name: "Hannah Pendleton", rating: 5, text: "House Junkies has been very professional to work with, Dominic made the process very simple to understand their business model." },
   { name: "brian garcia", rating: 5, text: null },
   { name: "Demitri Monda", rating: 5, text: null },
+  { name: "Joshua Morales", rating: 5, text: null },
 ];
 
 const GBP_URL = "https://www.google.com/maps/search/House+Junkies+Inc+801+West+Main+Street+Visalia+CA";

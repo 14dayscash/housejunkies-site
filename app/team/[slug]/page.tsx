@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { teamProfiles, getTeamProfile } from "@/lib/teamProfiles";
 import { BreadcrumbJsonLd, PersonJsonLd } from "@/components/JsonLd";
+import { Linkify } from "@/components/Linkify";
 import { site } from "@/lib/site";
 
 export function generateStaticParams() {
@@ -47,7 +48,9 @@ export default function TeamMemberPage({ params }: { params: { slug: string } })
           <div>
             <h1 className="text-3xl font-bold">{person.name}</h1>
             <p className="mt-1 text-brand-yellow">{person.title}</p>
-            <p className="mt-3 max-w-xl text-white/70">{person.bio}</p>
+            <p className="mt-3 max-w-xl text-white/70">
+              <Linkify text={person.bio} exclude={[`/team/${person.slug}`]} />
+            </p>
           </div>
         </div>
       </section>
@@ -57,7 +60,9 @@ export default function TeamMemberPage({ params }: { params: { slug: string } })
           {person.sections.map((s) => (
             <div key={s.heading}>
               <h2 className="text-lg font-bold text-brand-black">{s.heading}</h2>
-              <p className="mt-2 text-gray-600">{s.body}</p>
+              <p className="mt-2 text-gray-600">
+                <Linkify text={s.body} exclude={[`/team/${person.slug}`]} />
+              </p>
             </div>
           ))}
         </div>

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { site } from "@/lib/site";
 import { FaqJsonLd } from "@/components/JsonLd";
+import { Linkify } from "@/components/Linkify";
 
 export const metadata: Metadata = {
   title: `Frequently Asked Questions | ${site.name}`,
@@ -77,7 +78,7 @@ export default function FaqPage() {
           {faqs.map((f) => (
             <div key={f.question} className="border-b border-gray-100 pb-6">
               <dt className="font-semibold text-brand-black">{f.question}</dt>
-              <dd className="mt-2 text-gray-600">{f.answer}</dd>
+              <dd className="mt-2 text-gray-600"><Linkify text={f.answer} /></dd>
             </div>
           ))}
         </dl>

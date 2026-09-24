@@ -5,6 +5,7 @@ import { houseJunkiesPosts, getHouseJunkiesPost } from "@/lib/houseJunkiesPosts"
 import { cities } from "@/lib/cities";
 import { situations } from "@/lib/situations";
 import { ContactForm } from "@/components/ContactForm";
+import { Linkify } from "@/components/Linkify";
 
 export function generateStaticParams() {
   return houseJunkiesPosts.map((p) => ({ slug: p.slug }));
@@ -52,7 +53,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
 
         <div className="space-y-4 text-gray-600">
           {post.body.map((paragraph, i) => (
-            <p key={i}>{paragraph}</p>
+            <p key={i}><Linkify text={paragraph} /></p>
           ))}
         </div>
       </section>

@@ -5,6 +5,7 @@ import { situations, getSituation } from "@/lib/situations";
 import { cities } from "@/lib/cities";
 import { LeadForm } from "@/components/LeadForm";
 import { FaqJsonLd, BreadcrumbJsonLd } from "@/components/JsonLd";
+import { Linkify } from "@/components/Linkify";
 import { site } from "@/lib/site";
 
 export function generateStaticParams() {
@@ -67,7 +68,7 @@ export default function SituationPage({ params }: { params: { situation: string 
               <h2 className="mt-10 text-xl font-bold text-brand-black">More Detail</h2>
               {situation.details.map((paragraph, i) => (
                 <p key={i} className="mt-4 text-gray-600">
-                  {paragraph}
+                  <Linkify text={paragraph} />
                 </p>
               ))}
             </>
@@ -92,7 +93,7 @@ export default function SituationPage({ params }: { params: { situation: string 
                 {situation.faqs.map((f) => (
                   <div key={f.question}>
                     <dt className="font-semibold text-brand-black">{f.question}</dt>
-                    <dd className="mt-1 text-gray-600">{f.answer}</dd>
+                    <dd className="mt-1 text-gray-600"><Linkify text={f.answer} /></dd>
                   </div>
                 ))}
               </dl>

@@ -93,8 +93,15 @@ export default function ComparePage() {
         <p className="mt-3 text-gray-600">
           If your house is in good condition, you're not on a tight timeline, and you can afford
           to wait through showings and a financed buyer's process, listing on the open market can
-          net a higher final price. Because {site.name} is part of {site.parentOrganization},
-          which also owns {site.legacyRealEstate.name}, we can tell you honestly which path fits
+          net a higher final price. Because {site.name} is part of{" "}
+          <Link href="/about" className="underline decoration-dotted underline-offset-2 hover:text-brand-yellow-dark">
+            {site.parentOrganization}
+          </Link>
+          , which also owns{" "}
+          <Link href="/about" className="underline decoration-dotted underline-offset-2 hover:text-brand-yellow-dark">
+            {site.legacyRealEstate.name}
+          </Link>
+          , we can tell you honestly which path fits
           your situation, even if that means listing instead of selling to us directly.
         </p>
 

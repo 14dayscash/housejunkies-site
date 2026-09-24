@@ -3,6 +3,7 @@ import Link from "next/link";
 import { site } from "@/lib/site";
 import { partnerTiers, partnerFaqs, partnerDisclaimer } from "@/lib/partnerTiers";
 import { FaqJsonLd } from "@/components/JsonLd";
+import { Linkify } from "@/components/Linkify";
 
 export const metadata: Metadata = {
   title: `Partner With Us | ${site.name}`,
@@ -37,7 +38,7 @@ export default function PartnersPage() {
                 <span><strong>You Bring:</strong> {tier.youBring}</span>
                 <span><strong>Involvement:</strong> {tier.involvement}</span>
               </div>
-              <p className="mt-3 text-gray-600">{tier.body}</p>
+              <p className="mt-3 text-gray-600"><Linkify text={tier.body} /></p>
               <p className="mt-2 text-sm text-gray-500"><strong>Best For:</strong> {tier.bestFor}</p>
             </div>
           ))}
