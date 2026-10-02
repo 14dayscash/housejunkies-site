@@ -22,7 +22,7 @@ export default function ContactPage() {
       </section>
 
       <section className="mx-auto grid max-w-6xl gap-10 px-4 py-12 md:grid-cols-2">
-        <div>
+        <div className="order-2 md:order-1">
           <div className="space-y-1 text-gray-700">
             <p className="font-semibold text-brand-black">{site.name}</p>
             <p>{site.address.street}</p>
@@ -68,7 +68,9 @@ export default function ContactPage() {
             </Link>
           </div>
         </div>
-        <ContactForm />
+        <div className="order-1 md:order-2">
+          <ContactForm />
+        </div>
       </section>
     </div>
   );

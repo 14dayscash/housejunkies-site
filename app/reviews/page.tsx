@@ -15,6 +15,8 @@ export const metadata: Metadata = {
 // rating but no written text are shown as such, not filled in.
 // Update this file by hand as new reviews come in.
 const googleReviews = [
+  { name: "John Doe", rating: 5, text: "They gave me a quote for my ADU here in Visalia. Great company enjoyed working with Abel and Omar during the process." },
+  { name: "J N", rating: 5, text: "Had a great experience working with House Junkies Inc. Dominic Mclleland helped me purchase a distressed property and made the whole process way easier than I expected. He was easy to work with, kept me updated, and answered any questions I had along the way. Everything went smoothly and I never felt like I was being left in the dark. Definitely recommend Dominic and House Junkies Inc. if you're looking to purchase a property without all the usual hassle." },
   { name: "Corey Loewen", rating: 5, text: "Thank you for taking on a property and working together to make the transaction go smooth!" },
   { name: "Eli Stephens", rating: 5, text: "Dominic has been very helpful over the last year. Working with the crew has taught me a lot about real estate and investing. I highly recommend you check them out!!" },
   { name: "Michael", rating: 5, text: "Very professional, and straight to the point HOUSE JUNKIES DEFINITELY EARNS IT REPETITION. Must recommend if you're serious about selling your house 👍" },

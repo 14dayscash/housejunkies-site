@@ -7,65 +7,84 @@ import { situations } from "@/lib/situations";
 const liveCities = cities;
 
 export default function HomePage() {
+  // Hero is split into blocks so mobile and desktop can show them in a
+  // different order without duplicating any text. Mobile leads with the
+  // headline, then the form, then trust signals, then the longer company
+  // paragraph, so a visitor doesn't have to scroll past several paragraphs
+  // to find the form or see the rating. Desktop keeps the original
+  // side-by-side layout (text column / form column).
+  const headlineBlock = (
+    <div>
+      <p className="text-sm font-semibold uppercase tracking-wide text-brand-yellow">
+        Visalia & the Central Valley
+      </p>
+      <h1 className="mt-2 text-4xl font-bold leading-tight md:text-5xl">
+        SELL MY HOME AS-IS FOR CASH IN THE CENTRAL VALLEY
+      </h1>
+      <p className="mt-3 text-lg font-medium text-white/90">
+        A local, vertically integrated buyer with the numbers to back it up. No fees. No
+        obligation. Get a real offer today.
+      </p>
+    </div>
+  );
+
+  const trustBlock = (
+    <div className="flex flex-row items-center gap-6">
+      <a
+        href="https://www.bbb.org/us/ca/visalia/profile/real-estate-investing/house-junkies-inc-1126-850058147/#sealclick"
+        target="_blank"
+        rel="nofollow noopener noreferrer"
+      >
+        <img
+          src="https://seal-central-northern-western-arizona.bbb.org/seals/blue-seal-160-82-bbb-850058147.png"
+          style={{ border: 0 }}
+          alt="House Junkies Inc BBB Business Review"
+          width={160}
+          height={82}
+        />
+      </a>
+      <img
+        src="/images/google-5-star-badge.png"
+        alt="5-star rated on Google"
+        width={110}
+        height={78}
+        className="h-[78px] w-auto"
+      />
+    </div>
+  );
+
+  const bodyBlock = (
+    <div>
+      <p className="text-lg text-white/70">
+        {site.name} has bought, renovated, and resold {site.stats.homesBought} homes across the
+        Central Valley over {site.stats.yearsInBusiness} years. We buy the property with our own
+        capital and renovate it with our own licensed construction crew.
+      </p>
+      <p className="mt-1 text-sm text-white/50">{site.licenses.generalContractor}</p>
+      <ul className="mt-6 grid grid-cols-1 gap-2 text-sm text-white/80 sm:grid-cols-2">
+        <li>✓ No Repairs, Any Condition</li>
+        <li>✓ We Cover Closing Costs</li>
+        <li>✓ Close in 7 to 30 Days</li>
+        <li>✓ Se Habla Espanol</li>
+      </ul>
+    </div>
+  );
+
   return (
     <div>
       {/* Hero */}
       <section className="bg-brand-black text-white">
-        <div className="mx-auto grid max-w-6xl gap-10 px-4 py-16 md:grid-cols-2 md:py-24">
-          <div>
-            <p className="text-sm font-semibold uppercase tracking-wide text-brand-yellow">
-              Visalia & the Central Valley
-            </p>
-            <h1 className="mt-2 text-4xl font-bold leading-tight md:text-5xl">
-              SELL YOUR HOME AS-IS FOR CASH IN THE CENTRAL VALLEY
-            </h1>
-            <p className="mt-3 text-lg font-medium text-white/90">
-              A local, vertically integrated buyer with the numbers to back it up. No fees. No
-              obligation. Get a real offer today.
-            </p>
-            <p className="mt-4 text-lg text-white/70">
-              {site.name} has bought, renovated, and resold {site.stats.homesBought} homes across the
-              Central Valley over {site.stats.yearsInBusiness} years. We buy the property with our own
-              capital and renovate it with our own licensed construction crew.
-            </p>
-            <p className="mt-1 text-sm text-white/50">
-              {site.licenses.generalContractor}
-            </p>
-            <ul className="mt-6 grid grid-cols-1 gap-2 text-sm text-white/80 sm:grid-cols-2">
-              <li>✓ No Repairs, Any Condition</li>
-              <li>✓ We Cover Closing Costs</li>
-              <li>✓ Close in 7 to 30 Days</li>
-              <li>✓ Se Habla Espanol</li>
-            </ul>
-
-            {/* BBB seal (left) + Google 5-star badge (right). Stacks on
-                mobile, side by side from sm: up. BBB seal is a plain <img>,
-                not next/image, since BBB's seal must be live-hotlinked from
-                their own servers to stay accurate, not cached/optimized. */}
-            <div className="mt-6 flex flex-row items-center gap-6">
-              <a
-                href="https://www.bbb.org/us/ca/visalia/profile/real-estate-investing/house-junkies-inc-1126-850058147/#sealclick"
-                target="_blank"
-                rel="nofollow noopener noreferrer"
-              >
-                <img
-                  src="https://seal-central-northern-western-arizona.bbb.org/seals/blue-seal-160-82-bbb-850058147.png"
-                  style={{ border: 0 }}
-                  alt="House Junkies Inc BBB Business Review"
-                  width={160}
-                  height={82}
-                />
-              </a>
-              <img
-                src="/images/google-5-star-badge.png"
-                alt="5-star rated on Google"
-                width={110}
-                height={78}
-                className="h-[78px] w-auto"
-              />
-            </div>
+        {/* One grid, reordered per breakpoint with CSS order (not duplicated
+            markup), so the form only ever exists once in the DOM, no
+            duplicate input ids. Mobile: headline -> form -> trust -> body.
+            Desktop: original two-column layout, text left / form right. */}
+        <div className="mx-auto grid max-w-6xl gap-8 px-4 py-12 md:grid-cols-2 md:gap-10 md:py-24">
+          <div className="order-1 md:order-1">{headlineBlock}</div>
+          <div className="order-2 md:order-4 md:col-start-2 md:row-start-1 md:row-span-3">
+            <LeadForm sourcePage="/" />
           </div>
-          <LeadForm sourcePage="/" />
+          <div className="order-3 md:order-3">{trustBlock}</div>
+          <div className="order-4 md:order-2">{bodyBlock}</div>
         </div>
       </section>
 

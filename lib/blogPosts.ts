@@ -12,6 +12,13 @@ export type BlogPostSummary = {
 
 export const blogPosts: BlogPostSummary[] = [
   {
+    title: "How House Junkies Clears Liens, Code Violations, and Tax Delinquencies Before They Become Your Problem",
+    url: "https://www.dominicmcclelland.com/blog/liens-lawsuits-delinquencies-visalia",
+    date: "September 24, 2026",
+    summary:
+      "How House Junkies navigates delinquent property taxes, mechanics liens, lis pendens, and code enforcement violations on houses in Visalia and Tulare County, and why a messy title doesn't have to kill your sale.",
+  },
+  {
     title: "How Our Partner and Referral Programs Actually Pay Out",
     url: "https://www.dominicmcclelland.com/blog/partner-referral-programs-payout",
     date: "September 23, 2026",
