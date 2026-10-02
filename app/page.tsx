@@ -28,31 +28,6 @@ export default function HomePage() {
     </div>
   );
 
-  const trustBlock = (
-    <div className="flex flex-row items-center gap-6">
-      <a
-        href="https://www.bbb.org/us/ca/visalia/profile/real-estate-investing/house-junkies-inc-1126-850058147/#sealclick"
-        target="_blank"
-        rel="nofollow noopener noreferrer"
-      >
-        <img
-          src="https://seal-central-northern-western-arizona.bbb.org/seals/blue-seal-160-82-bbb-850058147.png"
-          style={{ border: 0 }}
-          alt="House Junkies Inc BBB Business Review"
-          width={160}
-          height={82}
-        />
-      </a>
-      <img
-        src="/images/google-5-star-badge.png"
-        alt="5-star rated on Google"
-        width={110}
-        height={78}
-        className="h-[78px] w-auto"
-      />
-    </div>
-  );
-
   const bodyBlock = (
     <div>
       <p className="text-lg text-white/70">
@@ -80,11 +55,10 @@ export default function HomePage() {
             Desktop: original two-column layout, text left / form right. */}
         <div className="mx-auto grid max-w-6xl gap-8 px-4 py-12 md:grid-cols-2 md:gap-10 md:py-24">
           <div className="order-1 md:order-1">{headlineBlock}</div>
-          <div className="order-2 md:order-4 md:col-start-2 md:row-start-1 md:row-span-3">
+          <div className="order-2 md:order-3 md:col-start-2 md:row-start-1 md:row-span-2">
             <HeroOfferForm />
           </div>
-          <div className="order-3 md:order-3">{trustBlock}</div>
-          <div className="order-4 md:order-2">{bodyBlock}</div>
+          <div className="order-3 md:order-2">{bodyBlock}</div>
         </div>
       </section>
 

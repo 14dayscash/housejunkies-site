@@ -38,6 +38,32 @@ export function HeroOfferForm() {
         Get My Offer
       </button>
       <p className="mt-3 text-center text-xs text-gray-500">No obligation. No fees. We respond within 24 hours.</p>
+
+      {/* BBB seal + Google 5-star badge, inside the card, same idea as
+          Home Helpers' hero. BBB seal stays a plain hotlinked <img> since
+          it must be served live from BBB's own servers, not cached. */}
+      <div className="mt-5 flex items-center justify-center gap-5 border-t border-gray-100 pt-5">
+        <a
+          href="https://www.bbb.org/us/ca/visalia/profile/real-estate-investing/house-junkies-inc-1126-850058147/#sealclick"
+          target="_blank"
+          rel="nofollow noopener noreferrer"
+        >
+          <img
+            src="https://seal-central-northern-western-arizona.bbb.org/seals/blue-seal-160-82-bbb-850058147.png"
+            style={{ border: 0 }}
+            alt="House Junkies Inc BBB Business Review"
+            width={120}
+            height={62}
+          />
+        </a>
+        <img
+          src="/images/google-5-star-badge.png"
+          alt="5-star rated on Google"
+          width={85}
+          height={60}
+          className="h-[60px] w-auto"
+        />
+      </div>
     </form>
   );
 }
