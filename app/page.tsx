@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { LeadForm } from "@/components/LeadForm";
+import { HeroOfferForm } from "@/components/HeroOfferForm";
 import { site } from "@/lib/site";
 import { cities } from "@/lib/cities";
 import { situations } from "@/lib/situations";
@@ -81,7 +81,7 @@ export default function HomePage() {
         <div className="mx-auto grid max-w-6xl gap-8 px-4 py-12 md:grid-cols-2 md:gap-10 md:py-24">
           <div className="order-1 md:order-1">{headlineBlock}</div>
           <div className="order-2 md:order-4 md:col-start-2 md:row-start-1 md:row-span-3">
-            <LeadForm sourcePage="/" />
+            <HeroOfferForm />
           </div>
           <div className="order-3 md:order-3">{trustBlock}</div>
           <div className="order-4 md:order-2">{bodyBlock}</div>
@@ -129,7 +129,7 @@ export default function HomePage() {
           </div>
           <div className="relative rounded-lg border border-gray-200 p-6">
             <div className="flex h-10 w-10 items-center justify-center rounded-full bg-brand-yellow font-bold text-black">2</div>
-            <p className="mt-4 font-semibold text-brand-black">Get Your Offer</p>
+            <p className="mt-4 font-semibold text-brand-black">Get My Offer</p>
             <p className="mt-1 text-sm text-gray-600">
               We'll analyze your property and present a fair, no-obligation cash offer within 24 hours.
             </p>
@@ -215,19 +215,64 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Situations - 12, even grid */}
+      {/* Condensed comparison table, full version lives on /compare */}
+      <section className="mx-auto max-w-6xl px-4 py-14">
+        <h2 className="text-2xl font-bold text-brand-black">Why Sell to Us Instead of Listing</h2>
+        <div className="mt-6 grid gap-6 sm:grid-cols-2">
+          <div className="rounded-lg border border-brand-yellow/40 bg-brand-yellow/5 p-6">
+            <div className="font-bold text-brand-black">Selling to {site.name}</div>
+            <ul className="mt-3 space-y-2 text-sm text-gray-700">
+              <li>✓ No Repairs, Sold As-Is</li>
+              <li>✓ No Agent Commissions</li>
+              <li>✓ We Cover Closing Costs</li>
+              <li>✓ No Financing Contingencies</li>
+              <li>✓ Close in 7 to 30 Days, My Choice</li>
+            </ul>
+          </div>
+          <div className="rounded-lg border border-gray-200 p-6">
+            <div className="font-bold text-gray-500">Listing With an Agent</div>
+            <ul className="mt-3 space-y-2 text-sm text-gray-500">
+              <li>• Repairs Often Required</li>
+              <li>• Typically 5-6% in Commissions</li>
+              <li>• Closing Costs Paid by the Seller</li>
+              <li>• Can Fall Through on Financing</li>
+              <li>• Typically 60 to 90+ Days</li>
+            </ul>
+          </div>
+        </div>
+        <Link href="/compare" className="mt-4 inline-block text-sm font-semibold text-brand-yellow-dark hover:underline">
+          See the full comparison, with real numbers →
+        </Link>
+      </section>
+
+      {/* Situations - grouped into Any Reason / Any Condition / Any Challenge */}
       <section className="bg-gray-50">
         <div className="mx-auto max-w-6xl px-4 py-14">
           <h2 className="text-2xl font-bold text-brand-black">We Buy Houses in Any Situation</h2>
-          <div className="mt-6 grid grid-cols-2 gap-3 md:grid-cols-4">
-            {situations.map((s) => (
-              <Link
-                key={s.slug}
-                href={`/sell-your-house/${s.slug}`}
-                className="rounded-md border border-gray-200 bg-white px-4 py-3 text-center text-sm font-medium text-brand-black hover:border-brand-yellow-dark hover:text-brand-yellow-dark"
-              >
-                {s.navLabel}
-              </Link>
+          <div className="mt-6 grid gap-8 md:grid-cols-3">
+            {[
+              { heading: "Any Reason", slugs: ["inherited-property", "relocating", "divorce"] },
+              { heading: "Any Condition", slugs: ["fire-damage", "water-damage", "vacant", "as-is"] },
+              { heading: "Any Challenge", slugs: ["probate", "foreclosure", "code-violations", "with-tenants", "liens"] },
+            ].map((group) => (
+              <div key={group.heading}>
+                <h3 className="text-sm font-bold uppercase tracking-wide text-brand-yellow-dark">{group.heading}</h3>
+                <div className="mt-3 space-y-2">
+                  {group.slugs.map((slug) => {
+                    const s = situations.find((x) => x.slug === slug);
+                    if (!s) return null;
+                    return (
+                      <Link
+                        key={s.slug}
+                        href={`/sell-your-house/${s.slug}`}
+                        className="block rounded-md border border-gray-200 bg-white px-4 py-3 text-sm font-medium text-brand-black hover:border-brand-yellow-dark hover:text-brand-yellow-dark"
+                      >
+                        {s.navLabel}
+                      </Link>
+                    );
+                  })}
+                </div>
+              </div>
             ))}
           </div>
         </div>

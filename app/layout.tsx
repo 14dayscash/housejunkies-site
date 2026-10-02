@@ -3,6 +3,7 @@ import { Archivo, Source_Sans_3 } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { StickyOfferBar } from "@/components/StickyOfferBar";
 import { ExitIntentModal } from "@/components/ExitIntentModal";
 import { OrganizationJsonLd, PersonJsonLd } from "@/components/JsonLd";
 import { site } from "@/lib/site";
@@ -38,7 +39,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <OrganizationJsonLd />
         <PersonJsonLd name={site.people.ops.name} jobTitle={site.people.ops.title} />
         <PersonJsonLd name={site.people.ceo.name} jobTitle={site.people.ceo.title} />
-        <Header />
+        <div className="sticky top-0 z-50">
+          <Header />
+          <StickyOfferBar />
+        </div>
         <main className="flex-1">{children}</main>
         <Footer />
         <ExitIntentModal />

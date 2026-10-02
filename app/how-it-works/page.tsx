@@ -9,8 +9,8 @@ export const metadata: Metadata = {
 };
 
 const steps = [
-  { title: "Submit Your Info", body: "Fill out our form or call. Share the address, condition, and your situation. No appraisal or inspection needed at this stage." },
-  { title: "Get Your Cash Offer", body: "We research the property and local comps. Within 24 hours you get a fair, no-obligation cash offer." },
+  { title: "Submit My Info", body: "Fill out our form or call. Share the address, condition, and your situation. No appraisal or inspection needed at this stage." },
+  { title: "Get My Cash Offer", body: "We research the property and local comps. Within 24 hours you get a fair, no-obligation cash offer." },
   { title: "Accept & Close", body: "Pick the closing date that works for you. We handle the paperwork and cover closing costs." },
   { title: "Get Paid", body: "Close in as little as 7 to 30 days and walk away with cash." },
 ];

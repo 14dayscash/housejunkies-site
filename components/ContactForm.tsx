@@ -2,10 +2,8 @@
 
 import { useState } from "react";
 
-// Matches the exact field set requested: Full Name, Phone, Email, Property
-// Address, Brief Description, "Get My Cash Offer" - this is the dedicated
-// contact page form, deliberately fuller than the 2-field city-page LeadForm
-// since someone reaching the Contact page has already decided to engage.
+// Same field set as LeadForm: First Name, Last Name, Phone, Email, Property
+// Address. Brief Description removed per Dominic's request.
 
 export function ContactForm() {
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
@@ -14,7 +12,14 @@ export function ContactForm() {
     e.preventDefault();
     setStatus("sending");
     const form = new FormData(e.currentTarget);
-    const payload = Object.fromEntries(form.entries());
+    const firstName = form.get("first_name");
+    const lastName = form.get("last_name");
+    const payload = {
+      full_name: `${firstName} ${lastName}`.trim(),
+      phone: form.get("phone"),
+      email: form.get("email"),
+      property_address: form.get("property_address"),
+    };
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
@@ -39,9 +44,15 @@ export function ContactForm() {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4 rounded-lg border border-gray-200 bg-white p-6 text-brand-black shadow-sm">
-      <div>
-        <label htmlFor="full_name" className="block text-sm font-medium text-gray-700">Full Name</label>
-        <input id="full_name" name="full_name" required className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2" />
+      <div className="grid grid-cols-2 gap-3">
+        <div>
+          <label htmlFor="first_name" className="block text-sm font-medium text-gray-700">First Name</label>
+          <input id="first_name" name="first_name" required className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2" />
+        </div>
+        <div>
+          <label htmlFor="last_name" className="block text-sm font-medium text-gray-700">Last Name</label>
+          <input id="last_name" name="last_name" required className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2" />
+        </div>
       </div>
       <div>
         <label htmlFor="phone" className="block text-sm font-medium text-gray-700">Phone Number</label>
@@ -54,10 +65,6 @@ export function ContactForm() {
       <div>
         <label htmlFor="property_address" className="block text-sm font-medium text-gray-700">Property Address</label>
         <input id="property_address" name="property_address" className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2" />
-      </div>
-      <div>
-        <label htmlFor="description" className="block text-sm font-medium text-gray-700">Brief Description</label>
-        <textarea id="description" name="description" rows={4} className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2" placeholder="Tell us a bit about the property and your situation" />
       </div>
       <button
         type="submit"
