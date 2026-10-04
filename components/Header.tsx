@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import type { Dispatch, SetStateAction } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { site } from "@/lib/site";
@@ -9,9 +9,16 @@ import { situations } from "@/lib/situations";
 
 const liveCities = cities.filter((c) => c.featured);
 
-export function Header() {
-  const [mobileOpen, setMobileOpen] = useState(false);
-
+// mobileOpen is lifted up (controlled by the parent StickyTop wrapper)
+// rather than local state, so the sticky offer bar below it can hide
+// itself while the mobile menu is open, instead of the two overlapping.
+export function Header({
+  mobileOpen,
+  setMobileOpen,
+}: {
+  mobileOpen: boolean;
+  setMobileOpen: Dispatch<SetStateAction<boolean>>;
+}) {
   return (
     <header className="border-b border-white/10 bg-brand-black">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">

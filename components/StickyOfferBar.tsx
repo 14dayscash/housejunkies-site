@@ -1,25 +1,48 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { AddressInput } from "./AddressInput";
 
-// Always-visible header bar: address field + "Get My Offer" button. Does
-// NOT collapse or hide on scroll, per Dominic's instruction. Submitting
-// takes the visitor to /get-offer with the address carried over as a query
-// param, where the full 5-field form picks up with the address prefilled.
+// Always-visible header bar: address field + "Get My Offer" button.
+// Submitting takes the visitor to /get-offer with the address carried
+// over, where the full 5-field form picks up with the address prefilled.
 //
-// Hidden on pages that already show their own address+offer form right at
-// the top (homepage hero, /get-offer itself, /contact), since showing it
-// there just doubles up the same ask twice on one screen.
-const HIDDEN_ON = ["/", "/get-offer", "/contact"];
+// Fully hidden on pages whose own form is already right at the top
+// (/get-offer, /contact), since showing it there just doubles up the ask.
+//
+// On the homepage specifically: hidden while the hero (which has its own
+// address+offer widget) is in view, then reappears once you've scrolled
+// past it, watching a sentinel element placed at the end of the hero
+// section rather than a hardcoded pixel height.
+const FULLY_HIDDEN_ON = ["/get-offer", "/contact"];
+const SCROLL_REVEAL_ON = ["/"];
 
-export function StickyOfferBar() {
+export function StickyOfferBar({ hidden = false }: { hidden?: boolean }) {
   const router = useRouter();
   const pathname = usePathname();
   const [address, setAddress] = useState("");
+  const [scrolledPastHero, setScrolledPastHero] = useState(false);
 
-  if (HIDDEN_ON.includes(pathname)) return null;
+  useEffect(() => {
+    if (!SCROLL_REVEAL_ON.includes(pathname)) return;
+    setScrolledPastHero(false);
+    const sentinel = document.getElementById("hero-end-sentinel");
+    if (!sentinel) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setScrolledPastHero(entry.boundingClientRect.top < 0);
+      },
+      { threshold: 0 }
+    );
+    observer.observe(sentinel);
+    return () => observer.disconnect();
+  }, [pathname]);
+
+  if (hidden) return null;
+  if (FULLY_HIDDEN_ON.includes(pathname)) return null;
+  if (SCROLL_REVEAL_ON.includes(pathname) && !scrolledPastHero) return null;
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();

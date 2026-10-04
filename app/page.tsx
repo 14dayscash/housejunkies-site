@@ -61,6 +61,7 @@ export default function HomePage() {
           <div className="order-3 md:order-2">{bodyBlock}</div>
         </div>
       </section>
+      <div id="hero-end-sentinel" />
 
       {/* Trust bar - sourced stats only */}
       <section className="border-b border-gray-200 bg-white">

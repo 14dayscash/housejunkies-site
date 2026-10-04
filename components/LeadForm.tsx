@@ -1,12 +1,13 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 // Same shape everywhere on the site: First Name, Last Name, Phone, Email,
-// Property Address, "Get My Cash Offer". Brief Description removed per
-// Dominic's request to shorten the form. first_name + last_name are
-// concatenated into full_name before sending, so the API/DB schema
-// (which stores a single full_name column) doesn't need to change.
+// Property Address, "Get My Cash Offer". On success, redirects to
+// /get-offer-success (a dedicated URL) instead of showing an inline
+// message, so Google Ads conversion tracking can fire on one consistent
+// URL regardless of which page the form was submitted from.
 
 export function LeadForm({
   sourcePage,
@@ -15,7 +16,8 @@ export function LeadForm({
   sourcePage: string;
   initialAddress?: string;
 }) {
-  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const router = useRouter();
+  const [status, setStatus] = useState<"idle" | "sending" | "error">("idle");
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -37,19 +39,10 @@ export function LeadForm({
         body: JSON.stringify(payload),
       });
       if (!res.ok) throw new Error("failed");
-      setStatus("sent");
+      router.push(`/get-offer-success?source=${encodeURIComponent(sourcePage)}`);
     } catch {
       setStatus("error");
     }
-  }
-
-  if (status === "sent") {
-    return (
-      <div className="rounded-lg border border-brand-yellow/30 bg-brand-yellow/10 p-6 text-white">
-        <p className="font-semibold text-brand-yellow">Got it, thanks.</p>
-        <p className="mt-1 text-sm text-white/80">We'll call you within 24 hours to talk through your offer. No obligation.</p>
-      </div>
-    );
   }
 
   return (
