@@ -34,6 +34,16 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
         </div>
       </section>
 
+      {post.heroImage && (
+        <div className="mx-auto max-w-3xl px-4 pt-8">
+          <img
+            src={post.heroImage.src}
+            alt={post.heroImage.alt}
+            className="w-full rounded-lg"
+          />
+        </div>
+      )}
+
       <section className="mx-auto max-w-3xl px-4 py-12">
         {post.summary && post.summary.length > 0 && (
           <div className="mb-8 rounded-lg border border-brand-yellow/40 bg-brand-yellow/5 p-5">
