@@ -239,7 +239,7 @@ export default function AboutPage() {
             <div><span className="font-semibold text-brand-black">Hours:</span> <span className="text-gray-600">{site.hours.weekday}</span></div>
             <div><span className="font-semibold text-brand-black">Address:</span> <span className="text-gray-600">{site.address.street}, {site.address.city}, {site.address.region} {site.address.postalCode}</span></div>
             <div><span className="font-semibold text-brand-black">Offer Speed:</span> <span className="text-gray-600">Cash offer in 24 hrs, close in 7 to 30 days</span></div>
-            <div><span className="font-semibold text-brand-black">Service Area:</span> <span className="text-gray-600">Tulare, Kings, Fresno & Kern counties</span></div>
+            <div><span className="font-semibold text-brand-black">Service Area:</span> <span className="text-gray-600">Tulare, Kings, Fresno & Kern counties, and beyond</span></div>
           </div>
 
           <p className="mt-6 text-xs text-gray-400">

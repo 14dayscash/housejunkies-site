@@ -56,6 +56,26 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
             <p key={i}><Linkify text={paragraph} /></p>
           ))}
         </div>
+
+        {post.links && post.links.length > 0 && (
+          <div className="mt-8 border-t border-gray-100 pt-6">
+            <h2 className="text-sm font-bold uppercase tracking-wide text-gray-400">Links</h2>
+            <ul className="mt-3 space-y-1">
+              {post.links.map((l) => (
+                <li key={l.url}>
+                  <a
+                    href={l.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm font-medium text-brand-yellow-dark hover:underline"
+                  >
+                    {l.label} ↗
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </section>
 
       <section className="mx-auto max-w-3xl px-4 pb-4">

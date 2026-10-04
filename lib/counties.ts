@@ -36,6 +36,42 @@ export const counties: CountyData[] = [
     description:
       "We buy houses throughout Kern County, from Bakersfield out to Delano, Ridgecrest, Wasco, and Shafter.",
   },
+  {
+    slug: "madera-county",
+    name: "Madera County",
+    description:
+      "We buy houses throughout Madera County, including the city of Madera itself, just northwest of Fresno.",
+  },
+  {
+    slug: "merced-county",
+    name: "Merced County",
+    description:
+      "We buy houses throughout Merced County, including the city of Merced, home to UC Merced and the gateway to Yosemite.",
+  },
+  {
+    slug: "monterey-county",
+    name: "Monterey County",
+    description:
+      "We buy houses throughout Monterey County, including the coastal city of Monterey, part of our registered BBB service area beyond the inland Valley.",
+  },
+  {
+    slug: "san-luis-obispo-county",
+    name: "San Luis Obispo County",
+    description:
+      "We buy houses throughout San Luis Obispo County, including San Luis Obispo, Paso Robles, Pismo Beach, Grover Beach, and Avila Beach.",
+  },
+  {
+    slug: "inyo-county",
+    name: "Inyo County",
+    description:
+      "We buy houses throughout Inyo County, on the east side of the Sierra Nevada, including Bishop.",
+  },
+  {
+    slug: "san-benito-county",
+    name: "San Benito County",
+    description:
+      "We buy houses throughout San Benito County, including the county seat of Hollister.",
+  },
 ];
 
 export function getCounty(slug: string) {

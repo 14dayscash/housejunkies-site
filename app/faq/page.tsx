@@ -36,7 +36,7 @@ const faqs = [
   },
   {
     question: "What areas do you buy houses in?",
-    answer: "Tulare, Kings, Fresno, and Kern counties, including Visalia, Tulare, Porterville, Fresno, Bakersfield, and the surrounding smaller cities. See our full service area for the complete list.",
+    answer: "Tulare, Kings, Fresno, and Kern counties, and beyond, including Visalia, Tulare, Porterville, Fresno, Bakersfield, and the surrounding smaller cities. See our full service area for the complete list.",
   },
   {
     question: "Do you buy houses in any situation?",

@@ -4,7 +4,7 @@ import { site } from "@/lib/site";
 import { cities } from "@/lib/cities";
 import { situations } from "@/lib/situations";
 
-const liveCities = cities;
+const liveCities = cities.filter((c) => c.featured);
 
 export default function HomePage() {
   // Hero is split into blocks so mobile and desktop can show them in a
@@ -257,7 +257,8 @@ export default function HomePage() {
       <section className="mx-auto max-w-6xl px-4 py-14">
         <h2 className="text-2xl font-bold text-brand-black">Service Areas</h2>
         <p className="mt-2 text-gray-600">
-          Proudly serving homeowners throughout Tulare, Kings, Fresno, and Kern counties.
+          Proudly serving homeowners across Tulare, Kings, Fresno, and Kern counties, and
+          beyond.
         </p>
         <div className="mt-6 flex flex-wrap gap-3">
           {liveCities.map((c) => (

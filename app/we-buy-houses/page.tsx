@@ -16,7 +16,8 @@ export default function WeBuyHousesPage() {
         <div className="mx-auto max-w-6xl px-4 py-14">
           <h1 className="text-3xl font-bold md:text-4xl">Where We Buy Houses</h1>
           <p className="mt-4 max-w-2xl text-white/70">
-            House Junkies buys houses for cash across Tulare, Kings, Fresno, and Kern counties.
+            House Junkies buys houses for cash across Tulare, Kings, Fresno, and Kern counties,
+            and beyond.
             Pick your county below to see every city we serve.
           </p>
         </div>
