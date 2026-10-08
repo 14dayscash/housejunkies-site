@@ -11,10 +11,14 @@ import { AddressInput } from "./AddressInput";
 export function HeroOfferForm() {
   const router = useRouter();
   const [address, setAddress] = useState("");
+  const [missing, setMissing] = useState(false);
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!address.trim()) return;
+    if (!address.trim()) {
+      setMissing(true);
+      return;
+    }
     router.push(`/get-offer?address=${encodeURIComponent(address.trim())}`);
   }
 
@@ -28,9 +32,14 @@ export function HeroOfferForm() {
         name="address"
         required
         placeholder="123 Main St, Visalia, CA"
-        className="mt-1 w-full rounded-md border border-gray-300 px-3 py-3 text-brand-black"
-        onChange={setAddress}
+        containerClassName="mt-1"
+        className="w-full rounded-md border border-gray-300 px-3 py-3 text-brand-black"
+        onChange={(v) => {
+          setAddress(v);
+          if (v.trim()) setMissing(false);
+        }}
       />
+      {missing && <p className="mt-2 text-sm text-red-600">Please enter the property address.</p>}
       <button
         type="submit"
         className="mt-4 w-full rounded-md bg-brand-yellow px-4 py-3 font-bold text-black hover:bg-brand-yellow-dark"

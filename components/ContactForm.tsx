@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { AddressInput } from "./AddressInput";
 
 // Same field set as LeadForm: First Name, Last Name, Phone, Email, Property
 // Address. Brief Description removed per Dominic's request.
@@ -64,7 +65,12 @@ export function ContactForm() {
       </div>
       <div>
         <label htmlFor="property_address" className="block text-sm font-medium text-gray-700">Property Address</label>
-        <input id="property_address" name="property_address" className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2" />
+        <AddressInput
+          id="property_address"
+          name="property_address"
+          containerClassName="mt-1"
+          className="w-full rounded-md border border-gray-300 px-3 py-2"
+        />
       </div>
       <button
         type="submit"

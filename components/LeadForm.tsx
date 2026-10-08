@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { AddressInput } from "./AddressInput";
 
 // Same shape everywhere on the site: First Name, Last Name, Phone, Email,
 // Property Address, "Get My Cash Offer". On success, redirects to
@@ -18,11 +19,16 @@ export function LeadForm({
 }) {
   const router = useRouter();
   const [status, setStatus] = useState<"idle" | "sending" | "error">("idle");
+  const [addressMissing, setAddressMissing] = useState(false);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    setStatus("sending");
     const form = new FormData(e.currentTarget);
+    if (!String(form.get("property_address") ?? "").trim()) {
+      setAddressMissing(true);
+      return;
+    }
+    setStatus("sending");
     const firstName = form.get("first_name");
     const lastName = form.get("last_name");
     const payload = {
@@ -79,11 +85,18 @@ export function LeadForm({
       </div>
       <div>
         <label htmlFor="property_address" className="block text-sm font-medium text-gray-700">Property Address</label>
-        <input
-          id="property_address" name="property_address" type="text" required
+        <AddressInput
+          id="property_address"
+          name="property_address"
+          required
           defaultValue={initialAddress}
-          className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2"
+          containerClassName="mt-1"
+          className="w-full rounded-md border border-gray-300 px-3 py-2"
+          onChange={(v) => {
+            if (v.trim()) setAddressMissing(false);
+          }}
         />
+        {addressMissing && <p className="mt-1 text-sm text-red-600">Please enter the property address.</p>}
       </div>
       <button
         type="submit"
