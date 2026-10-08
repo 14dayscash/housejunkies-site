@@ -70,6 +70,9 @@ export const houseJunkiesPosts: HouseJunkiesPost[] = [
       { label: "Better Business Bureau, Mountain West & Pacific Southwest", url: "https://www.bbb.org/" },
       { label: "BBB Ethical Community Profile", url: "https://www.ethicalcommunity.org/housejunkiesinc" },
       { label: "housejunkiesinc.org", url: "https://housejunkiesinc.org" },
+      { label: "Medium: How to Vet a Cash Home Buyer in California (and What BBB Accreditation Actually Tells You)", url: "https://medium.com/@housejunkiesinc/how-to-vet-a-cash-home-buyer-in-california-and-what-bbb-accreditation-actually-tells-you-97780b445fe8" },
+      { label: "PRLog press release: House Junkies Inc. of Visalia Earns BBB Accreditation With A+ Rating", url: "https://www.prlog.org/13175565-house-junkies-inc-of-visalia-earns-bbb-accreditation-with-rating.html" },
+      { label: "LinkedIn: Why We Earned BBB Accreditation, and What It Means for Agents, Attorneys, and Partners", url: "https://www.linkedin.com/pulse/why-we-earned-bbb-accreditation-what-means-agents-attorneys-coe4c/" },
     ],
   },  {
     slug: "welcome-to-the-new-house-junkies-site",
