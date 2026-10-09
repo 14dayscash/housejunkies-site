@@ -3,7 +3,7 @@ import { site } from "@/lib/site";
 import { LeadForm } from "@/components/LeadForm";
 
 export const metadata: Metadata = {
-  title: `Get Your Cash Offer | ${site.name}`,
+  title: `Get Your Cash Offer`,
   description: "Finish your details and we'll call you within 24 hours with a free, no-obligation cash offer.",
   alternates: { canonical: "/get-offer" },
 };

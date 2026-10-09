@@ -36,8 +36,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={`${archivo.variable} ${sourceSans.variable}`}>
       <body className="flex min-h-screen flex-col bg-white font-sans text-gray-900">
         <OrganizationJsonLd />
-        <PersonJsonLd name={site.people.ops.name} jobTitle={site.people.ops.title} />
-        <PersonJsonLd name={site.people.ceo.name} jobTitle={site.people.ceo.title} />
+        <PersonJsonLd name={site.people.ops.name} jobTitle={site.people.ops.title} slug="dominic-mcclelland" />
+        <PersonJsonLd name={site.people.ceo.name} jobTitle={site.people.ceo.title} slug="abel-ulloa" />
         <StickyTop />
         <main className="flex-1">{children}</main>
         <Footer />

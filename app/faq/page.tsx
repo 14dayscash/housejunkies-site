@@ -4,7 +4,7 @@ import { FaqJsonLd } from "@/components/JsonLd";
 import { Linkify } from "@/components/Linkify";
 
 export const metadata: Metadata = {
-  title: `Frequently Asked Questions | ${site.name}`,
+  title: `Frequently Asked Questions`,
   description: "Answers to the most common questions about selling your house for cash to House Junkies.",
   alternates: { canonical: "/faq" },
 };

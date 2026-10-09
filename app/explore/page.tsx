@@ -3,7 +3,7 @@ import { site } from "@/lib/site";
 import { SiteWebDiagram } from "@/components/SiteWebDiagram";
 
 export const metadata: Metadata = {
-  title: `Explore the Site | ${site.name}`,
+  title: `Explore the Site`,
   description: "Every page on housejunkiesinc.org, laid out visually.",
   alternates: { canonical: "/explore" },
 };

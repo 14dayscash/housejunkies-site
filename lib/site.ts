@@ -57,7 +57,7 @@ export const site = {
     ceo: {
       name: "Abel Ulloa",
       title: "CEO",
-      bio: "Founder and CEO of House Junkies and partner in Ulloa Investment Group. Also a licensed realtor with Legacy Real Estate (Lic #01957925). Per SFR Analytics' September 2026 Visalia investor ranking, Abel is personally named on three of the market's top entities, Ulloa Investment Group (#1, $16.0M), One Stop Investments (#6, $4.06M), and Legacy Faith Homes (#12, $1.99M), totaling over $22M in verified transaction volume across 147 deals.",
+      bio: "Founder and CEO of House Junkies Inc. and a partner in Ulloa Investment Group, the Visalia-based parent company that also owns House Junkies Construction and Legacy Real Estate. Abel has led House Junkies since it was incorporated in 2019, building it into a vertically integrated operation that buys, renovates, and resells homes across the Central Valley with its own capital, its own licensed crew, and its own brokerage. He is also a licensed realtor with Legacy Real Estate (Lic #01957925). Per SFR Analytics' September 2026 Visalia investor ranking, Abel is personally named on three of the market's top entities by transaction volume: Ulloa Investment Group (#1, $16.0M), One Stop Investments (#6, $4.06M), and Legacy Faith Homes (#12, $1.99M), over $22M in verified volume across 147 deals. Under his leadership House Junkies earned BBB accreditation with an A+ rating. Abel oversees acquisitions strategy and capital deployment, and is the principal contact on the company's BBB profile.",
       phone: "(559) 310-5004",
       email: "14dayscash@gmail.com",
     },

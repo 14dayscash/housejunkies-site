@@ -6,7 +6,7 @@ import { houseJunkiesPosts } from "@/lib/houseJunkiesPosts";
 import { ContactForm } from "@/components/ContactForm";
 
 export const metadata: Metadata = {
-  title: `Blog | ${site.name}`,
+  title: `Blog`,
   description: "Notes on selling, probate, foreclosure, and real estate in Visalia and Tulare County.",
   alternates: { canonical: "/blog" },
 };

@@ -2,10 +2,10 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { site } from "@/lib/site";
-import { teamProfiles } from "@/lib/teamProfiles";
+import { teamProfiles, shortBio } from "@/lib/teamProfiles";
 
 export const metadata: Metadata = {
-  title: `Our Team | ${site.name}`,
+  title: `Our Team`,
   description: `Meet the people behind ${site.name}: Abel Ulloa, Dominic McClelland, Jenny Madrid, and Omar Ayon.`,
   alternates: { canonical: "/team" },
 };
@@ -44,13 +44,20 @@ export default function TeamPage() {
                   <div className="text-sm font-medium text-brand-yellow-dark">{person.title}</div>
                 </div>
               </div>
-              <p className="mt-4 text-sm text-gray-600">{person.bio}</p>
+              <p className="mt-4 text-sm text-gray-600">{shortBio(person.bio, 230)}</p>
               <span className="mt-3 inline-block text-sm font-semibold text-brand-yellow-dark">
                 View full profile →
               </span>
             </Link>
           ))}
         </div>
+        <p className="mt-8 text-sm text-gray-500">
+          Need remodeling or construction work done?{" "}
+          <Link href="/construction" className="font-semibold text-brand-yellow-dark hover:underline">
+            See House Junkies Construction
+          </Link>
+          .
+        </p>
       </section>
     </div>
   );

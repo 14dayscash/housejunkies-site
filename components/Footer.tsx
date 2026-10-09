@@ -71,6 +71,8 @@ export function Footer() {
               <li><Link href="/compare" className="hover:text-brand-yellow">Cash Offer vs. Listing</Link></li>
               <li><Link href="/faq" className="hover:text-brand-yellow">FAQ</Link></li>
               <li><Link href="/partners/agents" className="hover:text-brand-yellow">Partner With Us</Link></li>
+              <li><Link href="/buy" className="hover:text-brand-yellow">Property for Sale</Link></li>
+              <li><Link href="/construction" className="hover:text-brand-yellow">Construction &amp; Remodeling</Link></li>
               <li><Link href="/contact" className="hover:text-brand-yellow">Contact</Link></li>
             </ul>
             <div className="mt-4 text-xs text-white/60">

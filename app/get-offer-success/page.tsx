@@ -3,7 +3,7 @@ import Link from "next/link";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: `Thank You | ${site.name}`,
+  title: `Thank You`,
   description: "Your request was received. We'll call you within 24 hours with your cash offer.",
   alternates: { canonical: "/get-offer-success" },
   robots: { index: false, follow: true },

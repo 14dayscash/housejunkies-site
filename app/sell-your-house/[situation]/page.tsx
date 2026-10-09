@@ -89,14 +89,14 @@ export default function SituationPage({ params }: { params: { situation: string 
           {situation.faqs && (
             <div className="mt-10">
               <h2 className="text-xl font-bold text-brand-black">Frequently Asked Questions</h2>
-              <dl className="mt-4 space-y-4">
+              <div className="mt-4 space-y-5">
                 {situation.faqs.map((f) => (
                   <div key={f.question}>
-                    <dt className="font-semibold text-brand-black">{f.question}</dt>
-                    <dd className="mt-1 text-gray-600"><Linkify text={f.answer} /></dd>
+                    <h3 className="font-semibold text-brand-black">{f.question}</h3>
+                    <p className="mt-1 text-gray-600"><Linkify text={f.answer} /></p>
                   </div>
                 ))}
-              </dl>
+              </div>
             </div>
           )}
 

@@ -37,6 +37,10 @@ export const teamProfiles: TeamProfile[] = [
         heading: "Track Record",
         body: "Per SFR Analytics' September 2026 Visalia investor ranking, Abel is personally named on three of the market's top entities by transaction volume: Ulloa Investment Group (#1, $16.0M across 110 deals), One Stop Investments (#6, $4.06M), and Legacy Faith Homes (#12, $1.99M), a combined $22M+ in verified volume across 147 deals.",
       },
+      {
+        heading: "BBB Accreditation",
+        body: "Abel is the principal contact on House Junkies Inc's BBB Business Profile. The company is BBB Accredited with an A+ rating, and has had an open BBB file since 2020.",
+      },
     ],
   },
   {
@@ -112,4 +116,12 @@ export const teamProfiles: TeamProfile[] = [
 
 export function getTeamProfile(slug: string) {
   return teamProfiles.find((p) => p.slug === slug);
+}
+
+// Trim a bio to whole sentences under `max` characters, for cards and meta descriptions.
+export function shortBio(bio: string, max = 155): string {
+  const sentences = bio.split(". ");
+  let out = sentences[0];
+  for (let i = 1; i < sentences.length && (out + ". " + sentences[i]).length <= max; i++) out += ". " + sentences[i];
+  return out.endsWith(".") ? out : out + ".";
 }

@@ -28,7 +28,7 @@ export const situations: SituationData[] = [
     slug: "inherited-property",
     navLabel: "Inherited",
     title: "Sell an Inherited House",
-    metaTitle: "Sell an Inherited House in Visalia & Tulare County | House Junkies",
+    metaTitle: "Sell an Inherited House in Visalia & Tulare County",
     metaDescription:
       "Inherited a house in the Central Valley? We buy inherited properties as-is, in any condition, and can work alongside the probate process.",
     summary:
@@ -49,7 +49,7 @@ export const situations: SituationData[] = [
     slug: "probate",
     navLabel: "Probate",
     title: "Sell a House in Probate",
-    metaTitle: "Sell an Inherited House During Probate in Visalia, CA | House Junkies",
+    metaTitle: "Sell an Inherited House During Probate in Visalia, CA",
     metaDescription:
       "How California probate actually works, and how House Junkies can get you paid faster than waiting out a full 12 to 18 month probate.",
     summary:
@@ -84,7 +84,7 @@ export const situations: SituationData[] = [
     slug: "foreclosure",
     navLabel: "Foreclosure",
     title: "Sell Before Foreclosure",
-    metaTitle: "Facing Foreclosure in Visalia? What California Law Says, and Your 5 Options | House Junkies",
+    metaTitle: "Facing Foreclosure in Visalia? Your 5 Options",
     metaDescription:
       "California's foreclosure process has real deadlines built in. Most homeowners have more time and more options than they think, at every stage.",
     summary:
@@ -120,7 +120,7 @@ export const situations: SituationData[] = [
     slug: "divorce",
     navLabel: "Divorce",
     title: "Sell a House During Divorce",
-    metaTitle: "Selling a House During Divorce in Visalia | House Junkies",
+    metaTitle: "Selling a House During Divorce in Visalia",
     metaDescription:
       "A fast, neutral cash sale can simplify dividing a shared property during divorce. We buy houses as-is throughout the Central Valley.",
     summary:
@@ -141,7 +141,7 @@ export const situations: SituationData[] = [
     slug: "fire-damage",
     navLabel: "Fire Damage",
     title: "Sell a Fire-Damaged House",
-    metaTitle: "Sell a Fire-Damaged House in the Central Valley | House Junkies",
+    metaTitle: "Sell a Fire-Damaged House in the Central Valley",
     metaDescription:
       "We buy fire-damaged properties as-is. Our in-house licensed construction crew (CA Lic #1077593) means we understand real rebuild costs.",
     summary:
@@ -162,7 +162,7 @@ export const situations: SituationData[] = [
     slug: "water-damage",
     navLabel: "Water Damage",
     title: "Sell a Water-Damaged House",
-    metaTitle: "Sell a Water-Damaged House in the Central Valley | House Junkies",
+    metaTitle: "Sell a Water-Damaged House in the Central Valley",
     metaDescription:
       "We buy water-damaged and flood-affected properties as-is throughout the Central Valley.",
     summary:
@@ -183,7 +183,7 @@ export const situations: SituationData[] = [
     slug: "code-violations",
     navLabel: "Violations",
     title: "Sell a House With Code Violations",
-    metaTitle: "Sell a House With Code Violations in Visalia | House Junkies",
+    metaTitle: "Sell a House With Code Violations in Visalia",
     metaDescription:
       "Red-tagged or facing code enforcement? We buy houses with open violations, in any condition, throughout the Central Valley.",
     summary:
@@ -204,7 +204,7 @@ export const situations: SituationData[] = [
     slug: "with-tenants",
     navLabel: "Tenants",
     title: "Sell a Rental With Tenants",
-    metaTitle: "Sell a Rental Property With Tenants in Visalia | House Junkies",
+    metaTitle: "Sell a Rental Property With Tenants in Visalia",
     metaDescription:
       "Tired landlord? We buy occupied rental properties, including ones with problem tenants, throughout the Central Valley.",
     summary:
@@ -225,7 +225,7 @@ export const situations: SituationData[] = [
     slug: "vacant",
     navLabel: "Vacant",
     title: "Sell a Vacant House",
-    metaTitle: "Sell a Vacant House in the Central Valley | House Junkies",
+    metaTitle: "Sell a Vacant House in the Central Valley",
     metaDescription:
       "We buy vacant properties as-is, no matter how long they've been sitting empty.",
     summary:
@@ -246,7 +246,7 @@ export const situations: SituationData[] = [
     slug: "liens",
     navLabel: "Liens",
     title: "Sell a House With Liens or Back Taxes",
-    metaTitle: "Sell a House With Liens or Tax Debt in Tulare County | House Junkies",
+    metaTitle: "Sell a House With Liens or Tax Debt in Tulare County",
     metaDescription:
       "We buy houses with liens, judgments, or delinquent property taxes attached, and can help work through what's owed at closing.",
     summary:
@@ -264,14 +264,41 @@ export const situations: SituationData[] = [
     ],
   },
   {
+    slug: "hoarder-house",
+    navLabel: "Hoarder House",
+    title: "Sell a Hoarder House",
+    metaTitle: "Sell a Hoarder House in Visalia & the Central Valley",
+    metaDescription:
+      "Packed house, no cleanout budget? We buy hoarder and heavily cluttered houses as-is in Visalia and the Central Valley. No cleaning, no judgment, cash offer in 24 hours.",
+    summary:
+      "A house full of belongings is one of the hardest things to sell the traditional way, and it is usually tied to something painful: a parent who passed, a family member who needs care, or years of things piling up. We buy hoarder houses as-is, with the contents still inside, and we handle the cleanout ourselves. No judgment, and no need to clean before we see it.",
+    details: [
+      "Most buyers and agents will not touch a house that is packed to the walls. Lenders and appraisers need to see the property, and a retail buyer is not going to pay full price for a house they cannot walk through. A cash buyer who plans to renovate can price the cleanout and repairs into the offer and skip all of that.",
+      "If the house belonged to someone who passed away, the family often has to decide what to keep before anything can happen. We can give you time to go through the house, take what matters to you, and close on a date that works. If the property is part of an estate, we work with the executor and, where needed, with counsel on the probate side.",
+    ],
+    quickFacts: [
+      "Hoarding disorder is a recognized condition in the DSM-5, which means it is not a character flaw and many families are dealing with it for the first time.",
+      "A heavily cluttered house usually cannot be listed the normal way, since agents, photographers, and appraisers need safe access to every room.",
+      "City code enforcement or the fire department can cite a property for clutter that blocks exits or creates a fire or sanitation hazard, and those citations can turn into fines or liens.",
+      "A professional cleanout of a packed house can cost thousands of dollars before any repairs begin, which is why many owners sell as-is instead.",
+      "You are not required to clean out a house before selling it to a cash buyer. Belongings can stay, and the buyer handles removal after closing.",
+    ],
+    faqs: [
+      { question: "Do I need to clean out a hoarder house before selling?", answer: "No. We buy the house as-is with the contents still inside, and we handle the cleanout after closing. If there are items you want to keep, we will schedule time for you to take them first." },
+      { question: "Can you buy a hoarder house that has code violations or a lien?", answer: "Yes. Citations, unpaid fines, and liens can usually be paid off from the sale proceeds at closing. See our pages on code violations and liens for how that works." },
+      { question: "My parent is still living in the house. Can we still sell?", answer: "It depends on who holds title and who has legal authority to sign. We can walk you through your options. Call us for a private, no-pressure conversation." },
+      { question: "Will you judge the condition of the house?", answer: "No. We walk through cluttered, damaged, and neglected houses regularly. Our job is to make a fair offer and make the process easy, not to comment on how the house got that way." },
+    ],
+  },
+  {
     slug: "as-is",
     navLabel: "As-Is",
     title: "Sell As-Is, No Repairs",
-    metaTitle: "Sell Your House As-Is in Visalia | No Repairs Needed | House Junkies",
+    metaTitle: "Sell Your House As-Is in Visalia | No Repairs Needed",
     metaDescription:
-      "Skip the repair list. We buy houses as-is throughout the Central Valley, from small fixes to major renovation needs.",
+      "Selling a fixer-upper? Skip the repair list. We buy houses as-is throughout the Central Valley, from small fixes to major renovation needs.",
     summary:
-      "Not every seller has a specific hardship, some just don't want to deal with repairs, showings, or a drawn-out listing process. We buy as-is, in any condition, no repairs required.",
+      "Not every seller has a specific hardship, some just don't want to deal with repairs, showings, or a drawn-out listing process. We buy as-is, in any condition, no repairs required. That includes fixer-uppers that need a new roof, flooring, kitchen, or a full renovation.",
     quickFacts: [
       "Selling \"as-is\" means the seller won't make repairs or price concessions for defects found after the offer.",
       "Cash investors are typically the buyers who can actually close on an as-is house without an appraisal or inspection contingency.",
@@ -281,6 +308,7 @@ export const situations: SituationData[] = [
     ],
     faqs: [
       { question: "Do I have to disclose anything if I'm selling as-is?", answer: "Yes, California generally still requires disclosing known material defects even in an as-is sale." },
+      { question: "Can I sell a fixer-upper without making any repairs?", answer: "Yes. We buy fixer-uppers as-is and price the repair work into our offer, so you do not spend money or time fixing a house you are about to sell." },
       { question: "Is an as-is sale always faster?", answer: "Usually, since there's no repair negotiation period, but the real speed comes from paying cash and skipping financing contingencies." },
     ],
   },
@@ -288,7 +316,7 @@ export const situations: SituationData[] = [
     slug: "relocating",
     navLabel: "Relocating",
     title: "Sell Fast Because You're Relocating",
-    metaTitle: "Relocating? Sell Your House Fast in Visalia | House Junkies",
+    metaTitle: "Relocating? Sell Your House Fast in Visalia",
     metaDescription:
       "Moving for work or family and need to sell on a tight timeline? We buy houses as-is throughout the Central Valley and close on your schedule.",
     summary:

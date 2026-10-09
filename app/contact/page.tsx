@@ -4,7 +4,7 @@ import { site } from "@/lib/site";
 import { ContactForm } from "@/components/ContactForm";
 
 export const metadata: Metadata = {
-  title: `Contact ${site.name} | Visalia, CA`,
+  title: `Contact Us | Visalia, CA`,
   description: `Get in touch with ${site.name} for a cash offer, a partnership, or a question.`,
   alternates: { canonical: "/contact" },
 };

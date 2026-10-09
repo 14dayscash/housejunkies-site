@@ -3,7 +3,7 @@ import Link from "next/link";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: `How It Works | ${site.name}`,
+  title: `How It Works`,
   description: "The 4-step process for selling your house for cash to House Junkies.",
   alternates: { canonical: "/how-it-works" },
 };

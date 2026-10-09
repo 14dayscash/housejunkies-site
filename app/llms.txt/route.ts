@@ -32,6 +32,8 @@ export async function GET() {
   lines.push(`- [How We Calculate Your Offer](${site.url}/how-we-calculate-your-offer): The real offer formula.`);
   lines.push(`- [Cash Offer vs. Listing](${site.url}/compare): Side-by-side comparison with a worked example.`);
   lines.push(`- [Partner With Us](${site.url}/partners/agents): Five ways to partner, from referral fees to funding flips.`);
+  lines.push(`- [Property for Sale](${site.url}/buy): Investment property, buildings, and land for sale in Visalia and Tulare County.`);
+  lines.push(`- [Construction](${site.url}/construction): House Junkies Construction, licensed general contractor (${site.licenses.generalContractor}).`);
   lines.push(`- [Contact](${site.url}/contact)`);
   lines.push("");
 

@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { cities, getCity } from "@/lib/cities";
+import { Linkify } from "@/components/Linkify";
 import { counties } from "@/lib/counties";
 import { situations } from "@/lib/situations";
 import { LeadForm } from "@/components/LeadForm";
@@ -16,7 +17,7 @@ export function generateMetadata({ params }: { params: { city: string } }): Meta
   const city = getCity(params.city);
   if (!city) return {};
   return {
-    title: `Sell My House Fast in ${city.name}, CA | Cash Offer`,
+    title: { absolute: `We Buy Houses in ${city.name}, CA | Cash Offer in 24 Hours` },
     description: `★★★★★ 5.0 (3 Reviews) | We Buy Houses ${city.name}, CA for cash, no fees, no repairs. Call ${site.phone}.`,
     alternates: { canonical: `/we-buy-houses/${city.slug}` },
   };
@@ -43,7 +44,17 @@ export default function CityPage({ params }: { params: { city: string } }) {
       question: `Do you buy houses outside ${city.name} too?`,
       answer: `Yes. We buy throughout ${city.county} and the surrounding Central Valley. Call us if your property isn't listed on our service area page.`,
     },
+    {
+      question: `Are you a real cash home buyer in ${city.name}, or a wholesaler?`,
+      answer: `We buy with our own funds and renovate with our own licensed crew (${site.licenses.generalContractor}), then resell through our own brokerage. We are not passing your contract to a stranger.`,
+    },
   ];
+
+  const sameCounty = cities.filter((c) => c.county === city.county && c.slug !== city.slug);
+  const nearby = [
+    ...sameCounty.filter((c) => c.featured),
+    ...sameCounty.filter((c) => !c.featured),
+  ].slice(0, 6);
 
   const countyMatch = counties.find((c) => c.name === city.county);
 
@@ -99,6 +110,56 @@ export default function CityPage({ params }: { params: { city: string } }) {
         </div>
       </section>
 
+      <section className="mx-auto max-w-6xl px-4 pb-8">
+        <h2 className="text-xl font-bold text-brand-black">Cash Home Buyers in {city.name}</h2>
+        <p className="mt-3 text-gray-600">
+          If you want to skip listing, showings, and agent commissions, a direct cash sale is the
+          simplest route. {site.name} is a local cash home buyer: we make the offer, we pay the
+          closing costs, and you pick the closing date, in as little as 7 days. There is no
+          obligation, and you get a written offer within 24 hours of sharing your address.
+        </p>
+
+        <h2 className="mt-8 text-xl font-bold text-brand-black">House Buyers in {city.name}, CA: Any Condition</h2>
+        <p className="mt-3 text-gray-600">
+          We buy houses in {city.name} in any condition, including{" "}
+          <Link href="/sell-your-house/fire-damage" className="font-semibold text-brand-yellow-dark hover:underline">fire damage</Link>,{" "}
+          <Link href="/sell-your-house/water-damage" className="font-semibold text-brand-yellow-dark hover:underline">water damage</Link>,{" "}
+          <Link href="/sell-your-house/code-violations" className="font-semibold text-brand-yellow-dark hover:underline">code violations</Link>,{" "}
+          <Link href="/sell-your-house/with-tenants" className="font-semibold text-brand-yellow-dark hover:underline">tenant-occupied rentals</Link>,{" "}
+          <Link href="/sell-your-house/hoarder-house" className="font-semibold text-brand-yellow-dark hover:underline">hoarder houses</Link>,{" "}
+          and{" "}
+          <Link href="/sell-your-house/inherited-property" className="font-semibold text-brand-yellow-dark hover:underline">inherited or probate properties</Link>.
+          Because we renovate with our own crew, a house that needs work is something we price in,
+          not a reason to walk away.
+        </p>
+
+        <h2 className="mt-8 text-xl font-bold text-brand-black">Sell My House Fast in {city.name}, CA, As-Is</h2>
+        <p className="mt-3 text-gray-600">
+          Selling <Link href="/sell-your-house/as-is" className="font-semibold text-brand-yellow-dark hover:underline">as-is</Link> means no
+          repairs, no cleaning out the garage, and no inspection or appraisal waiting on a buyer&apos;s lender.
+          See exactly{" "}
+          <Link href="/how-we-calculate-your-offer" className="font-semibold text-brand-yellow-dark hover:underline">how we calculate your offer</Link>{" "}
+          and how it compares with{" "}
+          <Link href="/compare" className="font-semibold text-brand-yellow-dark hover:underline">listing with an agent</Link>{" "}
+          before you decide.
+        </p>
+      </section>
+
+      {city.longContent && (
+        <section className="mx-auto max-w-6xl px-4 pb-8">
+          {city.longContent.map((block) => (
+            <div key={block.heading} className="mb-8">
+              <h2 className="text-xl font-bold text-brand-black">{block.heading}</h2>
+              {block.paragraphs.map((para, i) => (
+                <p key={i} className="mt-3 text-gray-600">
+                  <Linkify text={para} />
+                </p>
+              ))}
+            </div>
+          ))}
+        </section>
+      )}
+
       <section className="mx-auto max-w-6xl px-4 pb-4">
         <h2 className="text-xl font-bold text-brand-black">{city.name} Quick Facts</h2>
         <ul className="mt-4 grid gap-3 sm:grid-cols-2">
@@ -136,6 +197,22 @@ export default function CityPage({ params }: { params: { city: string } }) {
             .
           </p>
         )}
+        {nearby.length > 0 && (
+          <div className="mt-8">
+            <h2 className="text-lg font-bold text-brand-black">We Also Buy Houses Near {city.name}</h2>
+            <div className="mt-3 flex flex-wrap gap-3">
+              {nearby.map((c) => (
+                <Link
+                  key={c.slug}
+                  href={`/we-buy-houses/${c.slug}`}
+                  className="rounded-full border border-gray-300 px-4 py-2 text-sm text-brand-black hover:border-brand-yellow-dark hover:text-brand-yellow-dark"
+                >
+                  {c.name}
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
       </section>
 
       <section className="bg-gray-50">
@@ -143,14 +220,14 @@ export default function CityPage({ params }: { params: { city: string } }) {
           <h2 className="text-xl font-bold text-brand-black">
             {city.name} Cash Home Sale FAQ
           </h2>
-          <dl className="mt-4 space-y-4">
+          <div className="mt-4 space-y-5">
             {faqs.map((f) => (
               <div key={f.question}>
-                <dt className="font-semibold text-brand-black">{f.question}</dt>
-                <dd className="mt-1 text-gray-600">{f.answer}</dd>
+                <h3 className="font-semibold text-brand-black">{f.question}</h3>
+                <p className="mt-1 text-gray-600">{f.answer}</p>
               </div>
             ))}
-          </dl>
+          </div>
         </div>
       </section>
     </div>

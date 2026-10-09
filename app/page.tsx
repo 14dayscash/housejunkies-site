@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { HeroOfferForm } from "@/components/HeroOfferForm";
 import { site } from "@/lib/site";
@@ -5,6 +6,16 @@ import { cities } from "@/lib/cities";
 import { situations } from "@/lib/situations";
 
 const liveCities = cities.filter((c) => c.featured);
+
+// SEO TEST (started 2026-10-08): the homepage had 12 clicks / 429 impressions
+// at avg position 7.2 (Search Console). Previous title: "We Buy Houses in
+// Visalia, CA | House Junkies". Compare CTR in Search Console after 3 weeks.
+export const metadata: Metadata = {
+  title: { absolute: "We Buy Houses in Visalia, CA | Cash Offer in 24 Hours" },
+  description:
+    "★★★★★ 5.0 | Local cash home buyers in Visalia, ranked #1 by volume (SFR Analytics). Written offer in 24 hours, no fees, no repairs. Call (559) 368-8956.",
+  alternates: { canonical: "/" },
+};
 
 export default function HomePage() {
   // Hero is split into blocks so mobile and desktop can show them in a

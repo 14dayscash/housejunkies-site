@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { teamProfiles, getTeamProfile } from "@/lib/teamProfiles";
+import { teamProfiles, getTeamProfile, shortBio } from "@/lib/teamProfiles";
 import { BreadcrumbJsonLd, PersonJsonLd } from "@/components/JsonLd";
 import { Linkify } from "@/components/Linkify";
 import { site } from "@/lib/site";
@@ -15,8 +15,8 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
   const person = getTeamProfile(params.slug);
   if (!person) return {};
   return {
-    title: `${person.name} | ${person.title} | ${site.name}`,
-    description: person.bio,
+    title: `${person.name} - ${person.title} | Visalia, CA`,
+    description: shortBio(person.bio),
     alternates: { canonical: `/team/${person.slug}` },
   };
 }
@@ -34,7 +34,15 @@ export default function TeamMemberPage({ params }: { params: { slug: string } })
           { name: person.name, url: `${site.url}/team/${person.slug}` },
         ]}
       />
-      <PersonJsonLd name={person.name} jobTitle={person.title} />
+      <PersonJsonLd
+        name={person.name}
+        jobTitle={person.title}
+        slug={person.slug}
+        image={`${site.url}${person.photo}`}
+        description={person.bio}
+        telephone={person.phone ?? undefined}
+        knowsAbout={["Cash home buying", "Real estate investing", "Probate and inherited property", "Visalia and Central Valley real estate"]}
+      />
 
       <section className="bg-brand-black text-white">
         <div className="mx-auto flex max-w-3xl flex-col items-center gap-6 px-4 py-14 text-center sm:flex-row sm:text-left">
@@ -92,6 +100,11 @@ export default function TeamMemberPage({ params }: { params: { slug: string } })
         <Link href="/team" className="mt-8 inline-block text-sm font-semibold text-brand-yellow-dark hover:underline">
           ← Back to the full team
         </Link>
+        <p className="mt-4 text-sm text-gray-500">
+          <Link href="/construction" className="font-semibold text-brand-yellow-dark hover:underline">
+            House Junkies Construction: remodeling &amp; building services
+          </Link>
+        </p>
       </section>
     </div>
   );

@@ -4,7 +4,7 @@ import { site } from "@/lib/site";
 import { ReviewJsonLd } from "@/components/JsonLd";
 
 export const metadata: Metadata = {
-  title: `Reviews | ${site.name}`,
+  title: `Reviews`,
   description: `Real Google reviews for ${site.name} at ${site.address.street}, ${site.address.city}, CA.`,
   alternates: { canonical: "/reviews" },
 };

@@ -4,7 +4,7 @@ import Link from "next/link";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: `About ${site.name} | Visalia's #1 Investment Group`,
+  title: `About Us | Visalia's #1 Investment Group`,
   description: `Meet the team behind ${site.name}: acquisitions, construction, and brokerage under one roof in Visalia, CA. Ranked #1 by volume in Visalia per SFR Analytics.`,
   alternates: { canonical: "/about" },
 };
@@ -119,6 +119,9 @@ export default function AboutPage() {
               the crew that does it, there's nothing left to "discover" during an inspection a week
               before closing.
             </p>
+            <Link href="/construction" className="mt-3 inline-block text-sm font-semibold text-brand-yellow-dark hover:underline">
+              Construction &amp; remodeling services →
+            </Link>
           </div>
           <div className="rounded-lg border border-gray-200 p-5">
             <div className="flex items-center gap-3">
@@ -137,6 +140,9 @@ export default function AboutPage() {
               we own a brokerage too, we can tell you what your house would list for and what we'd pay
               off-market in the same conversation, and if listing nets you more, we'll say so.
             </p>
+            <Link href="/buy" className="mt-3 inline-block text-sm font-semibold text-brand-yellow-dark hover:underline">
+              Property for sale →
+            </Link>
           </div>
         </div>
         <p className="mt-4 text-gray-600">

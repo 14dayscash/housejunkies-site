@@ -5,12 +5,13 @@ import { situations } from "@/lib/situations";
 import { counties } from "@/lib/counties";
 import { houseJunkiesPosts } from "@/lib/houseJunkiesPosts";
 import { teamProfiles } from "@/lib/teamProfiles";
+import { buyPages } from "@/lib/buyPages";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes = [
     "", "about", "team", "contact", "reviews", "how-it-works",
     "how-we-calculate-your-offer", "compare", "faq", "we-buy-houses", "sell-your-house", "explore",
-    "partners/agents", "projects", "blog", "privacy", "terms",
+    "partners/agents", "projects", "blog", "privacy", "terms", "buy", "construction",
   ].map((route) => ({
     url: `${site.url}/${route}`,
     lastModified: new Date(),
@@ -41,8 +42,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: new Date(),
   }));
 
+  const buyRoutes = buyPages.map((p) => ({
+    url: `${site.url}/buy/${p.slug}`,
+    lastModified: new Date(),
+  }));
+
   return [
     ...staticRoutes,
+    ...buyRoutes,
     ...cityRoutes,
     ...situationRoutes,
     ...countyRoutes,

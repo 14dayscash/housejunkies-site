@@ -4,7 +4,7 @@ import { counties, citiesInCounty } from "@/lib/counties";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: `Where We Buy Houses | ${site.name}`,
+  title: `Where We Buy Houses`,
   description: "Every county and city House Junkies buys houses in across the Central Valley.",
   alternates: { canonical: "/we-buy-houses" },
 };

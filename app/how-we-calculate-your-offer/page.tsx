@@ -3,7 +3,7 @@ import Link from "next/link";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: `How We Calculate Your Offer | ${site.name}`,
+  title: `How We Calculate Your Offer`,
   description: "A transparent look at the four numbers behind every House Junkies cash offer.",
   alternates: { canonical: "/how-we-calculate-your-offer" },
 };

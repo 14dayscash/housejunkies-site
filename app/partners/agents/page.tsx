@@ -6,7 +6,7 @@ import { FaqJsonLd } from "@/components/JsonLd";
 import { Linkify } from "@/components/Linkify";
 
 export const metadata: Metadata = {
-  title: `Partner With Us | ${site.name}`,
+  title: `Partner With Us`,
   description: "Five ways to partner with House Junkies and Ulloa Investment Group, from a $2,000 deal referral to funding flips as a private lender.",
   alternates: { canonical: "/partners/agents" },
 };

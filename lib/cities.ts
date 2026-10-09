@@ -7,6 +7,7 @@
 // (see /projects), per lib/situations.ts's note on the same rule.
 
 export type CityData = {
+  longContent?: { heading: string; paragraphs: string[] }[];
   slug: string;
   name: string;
   county: string;
@@ -38,6 +39,29 @@ export const cities: CityData[] = [
       "Mooney Grove Park and the Rawhide Ballpark (home of the Visalia Rawhide minor league team) are two of the city's most-visited spots.",
       "Visalia has more Valley Oak trees than any other city in California's San Joaquin Valley.",
       "As the Tulare County seat, Visalia is the administrative and economic hub for the surrounding smaller cities.",
+    ],
+    longContent: [
+      {
+        heading: "Why Visalia Sellers Work With a Local Buyer",
+        paragraphs: [
+          "House Junkies is headquartered at 801 W Main Street in Visalia, so when you call, you are talking to people who work a few minutes from your house, not a call center in another state. We have bought, renovated, and resold 350+ homes, and according to SFR Analytics we are the #1 investment group in Visalia by transaction volume ($16.0M across 110 deals). That track record is public, and it is the reason we can make an offer quickly without a long approval chain.",
+          "Because the same group also owns House Junkies Construction (CA LIC#1077593) and Legacy Real Estate, we can look at your house the way a contractor and a broker would. We know what the repairs will cost, and we know what the finished house will sell for. That is how we price a cash offer on a Visalia home that needs work, instead of leaving the rehab math to a retail buyer who will use it to negotiate you down.",
+        ],
+      },
+      {
+        heading: "Houses We Buy Across Visalia: 93277, 93291 and 93292",
+        paragraphs: [
+          "We buy in every part of the city, including Downtown Visalia, North Visalia, Mooney, and Cottage Grove, and in all three Visalia zip codes (93277, 93291, and 93292). That includes older downtown homes that need work and newer north-side houses where the owner just wants out quickly.",
+          "Common Visalia situations we see include a house inherited from a parent (see our guide to selling an inherited house), a rental with a tenant who is not leaving, a property with liens or unpaid taxes, a house with fire or water damage, and homeowners relocating out of the Valley on a short timeline. If your situation is not on that list, call us anyway. We buy houses in Visalia for reasons that do not fit a category.",
+        ],
+      },
+      {
+        heading: "What Selling Your Visalia House to Us Looks Like",
+        paragraphs: [
+          "You tell us the address and the condition. We research the property and local comparable sales, then give you a no-obligation written cash offer within 24 hours. If you accept, you choose the closing date, which can be as soon as 7 days out or months from now if you need time to move. We cover closing costs, and there are no agent commissions.",
+          "If listing would actually net you more, we will say so. We own a brokerage, so we can tell you what your house would list for and what we would pay off-market in the same conversation. You can see the formula behind our numbers on our offer calculation page, and you can read what other Visalia sellers say on our reviews page.",
+        ],
+      },
     ],
   },
   {

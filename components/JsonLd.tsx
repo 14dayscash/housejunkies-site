@@ -52,17 +52,35 @@ export function OrganizationJsonLd() {
 export function PersonJsonLd({
   name,
   jobTitle,
+  slug,
+  image,
+  description,
+  knowsAbout,
+  telephone,
 }: {
   name: string;
   jobTitle: string;
+  slug?: string;
+  image?: string;
+  description?: string;
+  knowsAbout?: string[];
+  telephone?: string;
 }) {
-  const data = {
+  const data: Record<string, unknown> = {
     "@context": "https://schema.org",
     "@type": "Person",
     name,
     jobTitle,
     worksFor: { "@id": `${site.url}/#organization` },
   };
+  if (slug) {
+    data["@id"] = `${site.url}/team/${slug}#person`;
+    data.url = `${site.url}/team/${slug}`;
+  }
+  if (image) data.image = image;
+  if (description) data.description = description;
+  if (knowsAbout?.length) data.knowsAbout = knowsAbout;
+  if (telephone) data.telephone = telephone;
   return (
     <script
       type="application/ld+json"

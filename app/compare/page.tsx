@@ -3,7 +3,7 @@ import Link from "next/link";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: `Cash Offer vs. Listing | ${site.name}`,
+  title: `Cash Offer vs. Listing`,
   description: "A real, honest side-by-side of what selling to House Junkies looks like versus listing your house with an agent.",
   alternates: { canonical: "/compare" },
 };

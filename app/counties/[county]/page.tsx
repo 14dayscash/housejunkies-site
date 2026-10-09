@@ -12,7 +12,7 @@ export function generateMetadata({ params }: { params: { county: string } }): Me
   const county = getCounty(params.county);
   if (!county) return {};
   return {
-    title: `We Buy Houses in ${county.name}, CA | ${site.name}`,
+    title: { absolute: `We Buy Houses in ${county.name}, CA | Cash Offer in 24 Hours` },
     description: county.description,
     alternates: { canonical: `/counties/${county.slug}` },
   };

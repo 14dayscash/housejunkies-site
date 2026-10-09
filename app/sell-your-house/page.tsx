@@ -4,7 +4,7 @@ import { situations } from "@/lib/situations";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: `Every Situation We Buy Houses In | ${site.name}`,
+  title: `Every Situation We Buy Houses In`,
   description: "Inherited property, probate, foreclosure, divorce, fire damage, and every other situation House Junkies buys houses in.",
   alternates: { canonical: "/sell-your-house" },
 };
