@@ -18,7 +18,7 @@ export function generateMetadata({ params }: { params: { city: string } }): Meta
   if (!city) return {};
   return {
     title: { absolute: `We Buy Houses in ${city.name}, CA | Cash Offer in 24 Hours` },
-    description: `★★★★★ 5.0 (3 Reviews) | We Buy Houses ${city.name}, CA for cash, no fees, no repairs. Call ${site.phone}.`,
+    description: `We Buy Houses ${city.name}, CA for cash, no fees, no repairs. Call ${site.phone}.`,
     alternates: { canonical: `/we-buy-houses/${city.slug}` },
   };
 }

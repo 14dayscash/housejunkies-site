@@ -13,7 +13,7 @@ const liveCities = cities.filter((c) => c.featured);
 export const metadata: Metadata = {
   title: { absolute: "We Buy Houses in Visalia, CA | Cash Offer in 24 Hours" },
   description:
-    "★★★★★ 5.0 | Local cash home buyers in Visalia, ranked #1 by volume (SFR Analytics). Written offer in 24 hours, no fees, no repairs. Call (559) 368-8956.",
+    "Local cash home buyers in Visalia, ranked #1 by volume (SFR Analytics). Written offer in 24 hours, no fees, no repairs. Call (559) 368-8956.",
   alternates: { canonical: "/" },
 };
 
