@@ -32,19 +32,19 @@ export default function HomePage() {
       <h1 className="mt-2 text-4xl font-bold leading-tight md:text-5xl">
         SELL MY HOME AS-IS FOR CASH IN THE CENTRAL VALLEY
       </h1>
-      <p className="mt-3 text-lg font-medium text-white/90">
-        A local, vertically integrated buyer with the numbers to back it up. No fees. No
-        obligation. Get a real offer today.
+      <p className="mt-3 text-lg text-white/70">
+        {site.name} has bought, renovated, and resold {site.stats.homesBought} homes across the
+        Central Valley over {site.stats.yearsInBusiness} years. We buy the property with our own
+        capital and renovate it with our own licensed construction crew.
       </p>
     </div>
   );
 
   const bodyBlock = (
     <div>
-      <p className="text-lg text-white/70">
-        {site.name} has bought, renovated, and resold {site.stats.homesBought} homes across the
-        Central Valley over {site.stats.yearsInBusiness} years. We buy the property with our own
-        capital and renovate it with our own licensed construction crew.
+      <p className="text-lg font-medium text-white/90">
+        A local, vertically integrated buyer with the numbers to back it up. No fees. No
+        obligation. Get a real offer today.
       </p>
       <p className="mt-1 text-sm text-white/50">{site.licenses.generalContractor}</p>
       <ul className="mt-6 grid grid-cols-1 gap-2 text-sm text-white/80 sm:grid-cols-2">

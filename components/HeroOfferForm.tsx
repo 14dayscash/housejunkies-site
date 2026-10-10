@@ -25,7 +25,7 @@ export function HeroOfferForm() {
   return (
     <form onSubmit={handleSubmit} className="rounded-lg border border-gray-200 bg-white p-6 shadow-xl">
       <label htmlFor="hero_address" className="block text-sm font-medium text-gray-700">
-        Property Address
+        Enter Your Address
       </label>
       <AddressInput
         id="hero_address"
@@ -39,7 +39,7 @@ export function HeroOfferForm() {
           if (v.trim()) setMissing(false);
         }}
       />
-      {missing && <p className="mt-2 text-sm text-red-600">Please enter the property address.</p>}
+      {missing && <p className="mt-2 text-sm text-red-600">Please enter your address.</p>}
       <button
         type="submit"
         className="mt-4 w-full rounded-md bg-brand-yellow px-4 py-3 font-bold text-black hover:bg-brand-yellow-dark"
