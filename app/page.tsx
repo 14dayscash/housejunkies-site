@@ -35,7 +35,7 @@ export default function HomePage() {
       <p className="mt-3 text-lg text-white/70">
         {site.name} has bought, renovated, and resold {site.stats.homesBought} homes across the
         Central Valley over {site.stats.yearsInBusiness} years. We buy the property with our own
-        capital and renovate it with our own licensed construction crew.
+        private capital and renovate it with our own licensed construction crew.
       </p>
     </div>
   );
