@@ -118,14 +118,15 @@ export function Header({
 
       {mobileOpen && (
         <div className="max-h-[85vh] overflow-y-auto border-t border-white/10 bg-brand-black px-4 pb-4 md:hidden">
-          <div className="flex flex-wrap gap-x-5 gap-y-0 pt-1 text-sm text-white/80">
+          <div className="pt-2 text-xs font-semibold uppercase tracking-wide text-brand-yellow">Explore</div>
+          <div className="grid grid-cols-4 gap-x-3 text-sm text-white/80">
             <Link href="/about" onClick={() => setMobileOpen(false)} className="rounded-md py-1.5">About</Link>
             <Link href="/faq" onClick={() => setMobileOpen(false)} className="rounded-md py-1.5">FAQ</Link>
             <Link href="/reviews" onClick={() => setMobileOpen(false)} className="rounded-md py-1.5">Reviews</Link>
-            <Link href="/projects" onClick={() => setMobileOpen(false)} className="rounded-md py-1.5">Projects</Link>
-            <Link href="/blog" onClick={() => setMobileOpen(false)} className="rounded-md py-1.5">Blog</Link>
-            <Link href="/partners/agents" onClick={() => setMobileOpen(false)} className="rounded-md py-1.5">Partner</Link>
             <Link href="/contact" onClick={() => setMobileOpen(false)} className="rounded-md py-1.5">Contact</Link>
+            <Link href="/projects" onClick={() => setMobileOpen(false)} className="rounded-md py-1.5">Projects</Link>
+            <Link href="/partners/agents" onClick={() => setMobileOpen(false)} className="rounded-md py-1.5">Partner</Link>
+            <Link href="/blog" onClick={() => setMobileOpen(false)} className="rounded-md py-1.5">Blog</Link>
           </div>
 
           <div className="pt-2 text-xs font-semibold uppercase tracking-wide text-white/60">We Buy Houses</div>
@@ -133,7 +134,7 @@ export function Header({
             <Link href="/we-buy-houses" onClick={() => setMobileOpen(false)} className="rounded-full bg-brand-yellow px-3 py-0.5 text-sm font-semibold text-black">
               All Cities
             </Link>
-            {liveCities.map((c) => (
+            {liveCities.slice(0, 11).map((c) => (
               <Link key={c.slug} href={`/we-buy-houses/${c.slug}`} onClick={() => setMobileOpen(false)} className="rounded-full border border-white/20 px-3 py-0.5 text-sm text-white/80">
                 {c.name}
               </Link>
