@@ -117,42 +117,42 @@ export function Header({
       </div>
 
       {mobileOpen && (
-        <div className="max-h-[80vh] overflow-y-auto border-t border-white/10 bg-brand-black px-4 pb-4 md:hidden">
-          <div className="flex flex-col pt-2 text-sm text-white/80">
-            <Link href="/about" onClick={() => setMobileOpen(false)} className="rounded-md py-3">About</Link>
-            <Link href="/faq" onClick={() => setMobileOpen(false)} className="rounded-md py-3">FAQ</Link>
-            <Link href="/reviews" onClick={() => setMobileOpen(false)} className="rounded-md py-3">Reviews</Link>
-            <Link href="/projects" onClick={() => setMobileOpen(false)} className="rounded-md py-3">Projects</Link>
-            <Link href="/blog" onClick={() => setMobileOpen(false)} className="rounded-md py-3">Blog</Link>
-            <Link href="/partners/agents" onClick={() => setMobileOpen(false)} className="rounded-md py-3">Partner</Link>
-            <Link href="/contact" onClick={() => setMobileOpen(false)} className="rounded-md py-3">Contact</Link>
+        <div className="max-h-[85vh] overflow-y-auto border-t border-white/10 bg-brand-black px-4 pb-4 md:hidden">
+          <div className="flex flex-wrap gap-x-5 gap-y-0 pt-1 text-sm text-white/80">
+            <Link href="/about" onClick={() => setMobileOpen(false)} className="rounded-md py-1.5">About</Link>
+            <Link href="/faq" onClick={() => setMobileOpen(false)} className="rounded-md py-1.5">FAQ</Link>
+            <Link href="/reviews" onClick={() => setMobileOpen(false)} className="rounded-md py-1.5">Reviews</Link>
+            <Link href="/projects" onClick={() => setMobileOpen(false)} className="rounded-md py-1.5">Projects</Link>
+            <Link href="/blog" onClick={() => setMobileOpen(false)} className="rounded-md py-1.5">Blog</Link>
+            <Link href="/partners/agents" onClick={() => setMobileOpen(false)} className="rounded-md py-1.5">Partner</Link>
+            <Link href="/contact" onClick={() => setMobileOpen(false)} className="rounded-md py-1.5">Contact</Link>
           </div>
 
-          <div className="pt-4 text-xs font-semibold uppercase tracking-wide text-white/60">We Buy Houses</div>
-          <div className="mt-1 flex flex-wrap gap-2">
-            <Link href="/we-buy-houses" onClick={() => setMobileOpen(false)} className="rounded-full bg-brand-yellow px-3 py-1 text-sm font-semibold text-black">
+          <div className="pt-2 text-xs font-semibold uppercase tracking-wide text-white/60">We Buy Houses</div>
+          <div className="mt-1 flex flex-wrap gap-1.5">
+            <Link href="/we-buy-houses" onClick={() => setMobileOpen(false)} className="rounded-full bg-brand-yellow px-3 py-0.5 text-sm font-semibold text-black">
               All Cities
             </Link>
             {liveCities.map((c) => (
-              <Link key={c.slug} href={`/we-buy-houses/${c.slug}`} onClick={() => setMobileOpen(false)} className="rounded-full border border-white/20 px-3 py-1 text-sm text-white/80">
+              <Link key={c.slug} href={`/we-buy-houses/${c.slug}`} onClick={() => setMobileOpen(false)} className="rounded-full border border-white/20 px-3 py-0.5 text-sm text-white/80">
                 {c.name}
               </Link>
             ))}
           </div>
 
-          <div className="pt-4 text-xs font-semibold uppercase tracking-wide text-white/60">Situations</div>
-          <div className="mt-1 flex flex-wrap gap-2">
-            <Link href="/sell-your-house" onClick={() => setMobileOpen(false)} className="rounded-full bg-brand-yellow px-3 py-1 text-sm font-semibold text-black">
+          <div className="pt-2 text-xs font-semibold uppercase tracking-wide text-white/60">Situations</div>
+          <div className="mt-1 flex flex-wrap gap-1.5">
+            <Link href="/sell-your-house" onClick={() => setMobileOpen(false)} className="rounded-full bg-brand-yellow px-3 py-0.5 text-sm font-semibold text-black">
               All Situations
             </Link>
             {situations.map((s) => (
-              <Link key={s.slug} href={`/sell-your-house/${s.slug}`} onClick={() => setMobileOpen(false)} className="rounded-full border border-white/20 px-3 py-1 text-sm text-white/80">
+              <Link key={s.slug} href={`/sell-your-house/${s.slug}`} onClick={() => setMobileOpen(false)} className="rounded-full border border-white/20 px-3 py-0.5 text-sm text-white/80">
                 {s.navLabel}
               </Link>
             ))}
           </div>
 
-          <a href={`tel:${site.phoneE164}`} className="mt-4 block rounded-md bg-brand-yellow px-4 py-2 text-center font-bold text-black">
+          <a href={`tel:${site.phoneE164}`} className="mt-3 block rounded-md bg-brand-yellow px-4 py-2 text-center font-bold text-black">
             Call {site.phone}
           </a>
         </div>
