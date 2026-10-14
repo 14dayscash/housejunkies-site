@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { AddressInput } from "./AddressInput";
+import { notifyWeb3Forms } from "@/lib/web3forms";
 
 // Same field set as LeadForm: First Name, Last Name, Phone, Email, Property
 // Address. Brief Description removed per Dominic's request.
@@ -28,6 +29,10 @@ export function ContactForm() {
         body: JSON.stringify(payload),
       });
       if (!res.ok) throw new Error("failed");
+      await notifyWeb3Forms({
+        subject: `New contact form submission from ${payload.full_name}`,
+        ...payload,
+      });
       setStatus("sent");
     } catch {
       setStatus("error");

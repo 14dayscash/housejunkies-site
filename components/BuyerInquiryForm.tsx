@@ -1,9 +1,10 @@
 "use client";
 
 import { useState } from "react";
+import { notifyWeb3Forms } from "@/lib/web3forms";
 
 // Buyer-side inquiry. Reuses /api/contact (saved to contact_messages and
-// emailed through Web3Forms) with the subject prefixed so it is easy to tell
+// emailed through Web3Forms from the browser) with the subject prefixed so it is easy to tell
 // apart from seller leads.
 
 export function BuyerInquiryForm({ topic, placeholder = "Type of property, area, price range" }: { topic: string; placeholder?: string }) {
@@ -27,6 +28,10 @@ export function BuyerInquiryForm({ topic, placeholder = "Type of property, area,
         body: JSON.stringify(payload),
       });
       if (!res.ok) throw new Error("failed");
+      await notifyWeb3Forms({
+        subject: `New buyer inquiry from ${payload.full_name}`,
+        ...payload,
+      });
       setStatus("sent");
     } catch {
       setStatus("error");

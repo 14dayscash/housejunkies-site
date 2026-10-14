@@ -23,24 +23,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Could not save message" }, { status: 500 });
   }
 
-  try {
-    await fetch("https://api.web3forms.com/submit", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        access_key: process.env.WEB3FORMS_ACCESS_KEY,
-        subject: `New contact form submission from ${full_name}`,
-        from_name: "House Junkies Website",
-        full_name,
-        email,
-        phone,
-        property_address,
-        description,
-      }),
-    });
-  } catch (e) {
-    console.error("Web3Forms notification failed:", e);
-  }
-
+  // The Web3Forms email is sent from the browser (see lib/web3forms.ts), not
+  // here: Web3Forms blocks server-side calls on the free plan.
   return NextResponse.json({ ok: true });
 }

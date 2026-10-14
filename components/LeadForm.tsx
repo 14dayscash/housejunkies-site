@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { AddressInput } from "./AddressInput";
+import { notifyWeb3Forms } from "@/lib/web3forms";
 
 // Same shape everywhere on the site: First Name, Last Name, Phone, Email,
 // Property Address, "Get My Cash Offer". On success, redirects to
@@ -45,6 +46,12 @@ export function LeadForm({
         body: JSON.stringify(payload),
       });
       if (!res.ok) throw new Error("failed");
+      // Lead is saved. Email notification runs in the browser (Web3Forms
+      // blocks server-side calls) and never blocks the redirect on failure.
+      await notifyWeb3Forms({
+        subject: `New lead: ${payload.full_name} - ${payload.property_address}`,
+        ...payload,
+      });
       router.push(`/get-offer-success?source=${encodeURIComponent(sourcePage)}`);
     } catch {
       setStatus("error");
