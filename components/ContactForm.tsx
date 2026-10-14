@@ -53,20 +53,20 @@ export function ContactForm() {
       <div className="grid grid-cols-2 gap-3">
         <div>
           <label htmlFor="first_name" className="block text-sm font-medium text-gray-700">First Name</label>
-          <input id="first_name" name="first_name" required className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2" />
+          <input id="first_name" name="first_name" autoComplete="given-name" required className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2" />
         </div>
         <div>
           <label htmlFor="last_name" className="block text-sm font-medium text-gray-700">Last Name</label>
-          <input id="last_name" name="last_name" required className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2" />
+          <input id="last_name" name="last_name" autoComplete="family-name" required className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2" />
         </div>
       </div>
       <div>
         <label htmlFor="phone" className="block text-sm font-medium text-gray-700">Phone Number</label>
-        <input id="phone" name="phone" type="tel" required className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2" />
+        <input id="phone" name="phone" type="tel" autoComplete="tel" required className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2" />
       </div>
       <div>
         <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
-        <input id="email" name="email" type="email" className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2" />
+        <input id="email" name="email" type="email" autoComplete="email" className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2" />
       </div>
       <div>
         <label htmlFor="property_address" className="block text-sm font-medium text-gray-700">Property Address</label>

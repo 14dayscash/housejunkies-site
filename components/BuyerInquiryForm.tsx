@@ -54,20 +54,20 @@ export function BuyerInquiryForm({ topic, placeholder = "Type of property, area,
       <div className="grid grid-cols-2 gap-3">
         <div>
           <label htmlFor="first_name" className="block text-sm font-medium text-gray-700">First Name</label>
-          <input id="first_name" name="first_name" required className={input} />
+          <input id="first_name" name="first_name" autoComplete="given-name" required className={input} />
         </div>
         <div>
           <label htmlFor="last_name" className="block text-sm font-medium text-gray-700">Last Name</label>
-          <input id="last_name" name="last_name" required className={input} />
+          <input id="last_name" name="last_name" autoComplete="family-name" required className={input} />
         </div>
       </div>
       <div>
         <label htmlFor="phone" className="block text-sm font-medium text-gray-700">Phone Number</label>
-        <input id="phone" name="phone" type="tel" required className={input} />
+        <input id="phone" name="phone" type="tel" autoComplete="tel" required className={input} />
       </div>
       <div>
         <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
-        <input id="email" name="email" type="email" className={input} />
+        <input id="email" name="email" type="email" autoComplete="email" className={input} />
       </div>
       <div>
         <label htmlFor="looking_for" className="block text-sm font-medium text-gray-700">What are you looking for?</label>
