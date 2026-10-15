@@ -455,12 +455,17 @@ export function pricePerSqft(price: number, sqft: number) {
   return sqft > 0 ? price / sqft : 0;
 }
 
-/** The headline number on a card: list price, sold price, rent, or purchase price. */
+/** The headline number on every card and page is what we paid. */
 export function headlinePrice(p: Property): { label: string; value: number; suffix?: string } {
-  if (p.status === "For Sale" && p.listPrice) return { label: "List Price", value: p.listPrice };
-  if (p.status === "Sold" && p.soldPrice) return { label: "Sold For", value: p.soldPrice };
-  // Rented: purchase price stays the headline; rent shows as a secondary line.
   return { label: "Purchased For", value: p.purchase };
+}
+
+/** The smaller line under the headline: list price, sale price, or rent. */
+export function secondaryPrice(p: Property): string | null {
+  if (p.status === "For Sale" && p.listPrice) return `Listed at ${money(p.listPrice)}`;
+  if (p.status === "Sold" && p.soldPrice) return `Sold for ${money(p.soldPrice)}`;
+  if (p.status === "Rented" && p.rentPerMonth) return `Rented at ${money(p.rentPerMonth)}/mo`;
+  return null;
 }
 
 /** Beds / baths pieces. Skips 0 beds (the church) and null (not applicable). */

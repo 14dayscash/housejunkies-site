@@ -9,6 +9,7 @@ import {
   daysBetween,
   getProperty,
   headlinePrice,
+  secondaryPrice,
   longDate,
   money,
   num,
@@ -23,6 +24,7 @@ import { cities } from "@/lib/cities";
 import { PropertyCard, StatusBadge } from "@/components/PropertyCard";
 import { PropertyMap } from "@/components/PropertyMap";
 import { BreadcrumbJsonLd } from "@/components/JsonLd";
+import { ListingBroker } from "@/components/ListingBroker";
 import { BuyerInquiryForm } from "@/components/BuyerInquiryForm";
 import { ContactForm } from "@/components/ContactForm";
 
@@ -43,7 +45,7 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
     title,
     description: `${p.street}, ${p.city}, CA ${p.zip}: ${num(p.sqft)} sq ft ${p.type.toLowerCase()} on ${acresLabel(
       p.lotSqft,
-    )}. ${price.label} ${money(price.value)}${price.suffix ?? ""}. Photos, numbers, and map from House Junkies.`,
+    )}. ${price.label} ${money(price.value)}.${secondaryPrice(p) ? ` ${secondaryPrice(p)}.` : ""} Photos, numbers, and map from House Junkies.`,
     alternates: { canonical: `/projects/${p.slug}` },
     openGraph: { images: [`/images/properties/${p.slug}.jpg`] },
   };
@@ -222,9 +224,7 @@ export default function PropertyPage({ params }: { params: { slug: string } }) {
                 {money(price.value)}
                 {price.suffix ? <span className="text-xl text-white/60">{price.suffix}</span> : null}
               </p>
-              {p.status === "Rented" && p.rentPerMonth ? (
-                <p className="mt-2 text-sm text-white/70">Rented at {money(p.rentPerMonth)}/mo</p>
-              ) : null}
+              {secondaryPrice(p) ? <p className="mt-2 text-sm font-semibold text-white/80">{secondaryPrice(p)}</p> : null}
             </div>
           </div>
         </div>
@@ -300,7 +300,9 @@ export default function PropertyPage({ params }: { params: { slug: string } }) {
                 <Timeline p={p} />
               </div>
 
-              <div className="mt-10 rounded-lg border border-brand-yellow/60 bg-white p-6">
+              {forSale ? <ListingBroker className="mt-10" /> : null}
+
+              <div className={`${forSale ? "mt-4" : "mt-10"} rounded-lg border border-brand-yellow/60 bg-white p-6`}>
                 <p className="font-bold text-brand-black">
                   {forSale ? "Interested in this home?" : "Own a house like this one?"}
                 </p>

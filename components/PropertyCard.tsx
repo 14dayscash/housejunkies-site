@@ -1,9 +1,11 @@
 import Link from "next/link";
+import { ListingBroker } from "@/components/ListingBroker";
 import Image from "next/image";
 import {
   acresLabel,
   bedsBathsLabel,
   headlinePrice,
+  secondaryPrice,
   money,
   num,
   shortDate,
@@ -78,10 +80,8 @@ export function PropertyCard({ p, priority = false }: { p: Property; priority?: 
           <p className="text-xs font-semibold uppercase tracking-wide text-gray-500">{price.label}</p>
         </div>
 
-        {p.status === "Rented" && p.rentPerMonth ? (
-          <p className="mt-2 text-sm text-gray-600">
-            Rented at <span className="font-semibold text-brand-black">{money(p.rentPerMonth)}/mo</span>
-          </p>
+        {secondaryPrice(p) ? (
+          <p className="mt-2 text-sm font-semibold text-gray-700">{secondaryPrice(p)}</p>
         ) : null}
 
         <SpecLine p={p} className="mt-4" />
@@ -107,6 +107,8 @@ export function PropertyCard({ p, priority = false }: { p: Property; priority?: 
             <dd className="mt-1 font-bold tabular-nums text-brand-black">{shortDate(p.purchased)}</dd>
           </div>
         </dl>
+
+        {p.status === "For Sale" ? <ListingBroker compact className="mt-4 border-t border-gray-100 pt-4" /> : null}
       </div>
     </Link>
   );
