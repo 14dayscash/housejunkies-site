@@ -35,7 +35,7 @@ export function Header({
           </span>
         </Link>
 
-        <nav className="hidden items-center gap-1 text-sm font-medium text-white/80 md:flex">
+        <nav className="hidden items-center gap-1 text-sm font-medium text-white/80 lg:flex">
           <div className="group/cities relative">
             <button aria-haspopup="true" className="flex items-center gap-1 rounded-md px-3 py-2 hover:bg-white/10 hover:text-white focus-visible:bg-white/10 focus-visible:text-white">
               We Buy Houses
@@ -106,7 +106,7 @@ export function Header({
           </a>
           <button
             aria-label="Menu"
-            className="rounded-md p-2 text-white md:hidden"
+            className="rounded-md p-2 text-white lg:hidden"
             onClick={() => setMobileOpen((v) => !v)}
           >
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -117,7 +117,7 @@ export function Header({
       </div>
 
       {mobileOpen && (
-        <div className="max-h-[85vh] overflow-y-auto border-t border-white/10 bg-brand-black px-4 pb-4 md:hidden">
+        <div className="max-h-[85vh] overflow-y-auto border-t border-white/10 bg-brand-black px-4 pb-4 lg:hidden">
           <div className="pt-2 text-xs font-semibold uppercase tracking-wide text-brand-yellow">Explore</div>
           <div className="grid grid-cols-4 gap-x-3 text-sm text-white/80">
             <Link href="/about" onClick={() => setMobileOpen(false)} className="rounded-md py-1.5">About</Link>
