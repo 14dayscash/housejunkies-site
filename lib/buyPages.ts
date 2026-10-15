@@ -27,7 +27,7 @@ export const buyPages: BuyPage[] = [
       {
         heading: "Investment Property From Local Operators",
         paragraphs: [
-          "House Junkies has bought, fixed up, and sold 350+ homes, and SFR Analytics ranks us #1 in Visalia. When you buy from us, you are buying from the people who fixed the house, and we can tell you exactly what was done.",
+          "We are not a listing aggregator. House Junkies has bought, renovated, and resold 350+ homes, and according to SFR Analytics we are the #1 investment group in Visalia by transaction volume. When you buy investment property from us, you are buying from the people who underwrote and renovated it, and who can tell you exactly what was done and what it costs to hold.",
           "Investors who work with us usually want one of three things: a finished, renovated house ready to rent, a property that still needs work so they can add value themselves, or a bulk of smaller deals over time. Tell us which one you are after and your price range, and we will match you as inventory comes through.",
         ],
       },

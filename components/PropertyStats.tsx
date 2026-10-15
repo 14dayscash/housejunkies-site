@@ -4,11 +4,11 @@ import { moneyShort, num, portfolioStats, type Property } from "@/lib/properties
 export function PropertyStats({ list, tone = "light" }: { list: Property[]; tone?: "dark" | "light" }) {
   const s = portfolioStats(list);
   const tiles = [
-    { value: String(s.count), label: s.count === 1 ? "House" : "Houses" },
-    { value: moneyShort(s.purchaseTotal), label: "What We Paid" },
+    { value: String(s.count), label: s.count === 1 ? "Recent buy shown" : "Recent buys shown" },
+    { value: moneyShort(s.purchaseTotal), label: "What we paid, combined" },
     s.cityCount > 1
       ? { value: String(s.cityCount), label: "Cities" }
-      : { value: num(s.sqftTotal), label: "Square Feet" },
+      : { value: num(s.sqftTotal), label: "Total square feet" },
   ];
 
   const dark = tone === "dark";

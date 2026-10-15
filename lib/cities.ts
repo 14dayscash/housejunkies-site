@@ -44,7 +44,7 @@ export const cities: CityData[] = [
       {
         heading: "Why Visalia Sellers Work With a Local Buyer",
         paragraphs: [
-          "House Junkies is headquartered at 801 W Main Street in Visalia, so when you call, you are talking to people who work a few minutes from your house, not a call center in another state. We have bought, fixed up, and sold 350+ homes, and SFR Analytics ranks us #1 in Visalia. That is why we can make you an offer fast, without waiting on anyone to approve it.",
+          "House Junkies is headquartered at 801 W Main Street in Visalia, so when you call, you are talking to people who work a few minutes from your house, not a call center in another state. We have bought, renovated, and resold 350+ homes, and according to SFR Analytics we are the #1 investment group in Visalia by transaction volume ($16.0M across 110 deals). That track record is public, and it is the reason we can make an offer quickly without a long approval chain.",
           "Because the same group also owns House Junkies Construction (CA LIC#1077593) and Legacy Real Estate, we can look at your house the way a contractor and a broker would. We know what the repairs will cost, and we know what the finished house will sell for. That is how we price a cash offer on a Visalia home that needs work, instead of leaving the rehab math to a retail buyer who will use it to negotiate you down.",
         ],
       },

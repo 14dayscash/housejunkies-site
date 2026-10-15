@@ -21,7 +21,7 @@ const stats = portfolioStats(properties);
 
 export const metadata: Metadata = {
   title: `Projects: ${stats.count} Recent Purchases Broken Down, Tulare County`,
-  description: `House Junkies has bought ${site.stats.homesBought} homes. See houses we just bought in Tulare County, with photos and what we paid.`,
+  description: `House Junkies has bought ${site.stats.homesBought} homes. Here are ${stats.count} of our most recent purchases with photos, square footage, lot size, purchase price, and estimated value, ${moneyShort(stats.purchaseTotal)} combined across ${stats.cityCount} cities.`,
   alternates: { canonical: "/projects" },
 };
 
