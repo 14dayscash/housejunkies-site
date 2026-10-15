@@ -78,6 +78,12 @@ export function PropertyCard({ p, priority = false }: { p: Property; priority?: 
           <p className="text-xs font-semibold uppercase tracking-wide text-gray-500">{price.label}</p>
         </div>
 
+        {p.status === "Rented" && p.rentPerMonth ? (
+          <p className="mt-2 text-sm text-gray-600">
+            Rented at <span className="font-semibold text-brand-black">{money(p.rentPerMonth)}/mo</span>
+          </p>
+        ) : null}
+
         <SpecLine p={p} className="mt-4" />
 
         <p className="mt-4 text-base font-semibold leading-snug text-brand-black group-hover:text-brand-yellow-dark">

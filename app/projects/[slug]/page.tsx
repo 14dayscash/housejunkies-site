@@ -222,6 +222,9 @@ export default function PropertyPage({ params }: { params: { slug: string } }) {
                 {money(price.value)}
                 {price.suffix ? <span className="text-xl text-white/60">{price.suffix}</span> : null}
               </p>
+              {p.status === "Rented" && p.rentPerMonth ? (
+                <p className="mt-2 text-sm text-white/70">Rented at {money(p.rentPerMonth)}/mo</p>
+              ) : null}
             </div>
           </div>
         </div>

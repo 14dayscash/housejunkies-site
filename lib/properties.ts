@@ -459,8 +459,7 @@ export function pricePerSqft(price: number, sqft: number) {
 export function headlinePrice(p: Property): { label: string; value: number; suffix?: string } {
   if (p.status === "For Sale" && p.listPrice) return { label: "List Price", value: p.listPrice };
   if (p.status === "Sold" && p.soldPrice) return { label: "Sold For", value: p.soldPrice };
-  if (p.status === "Rented" && p.rentPerMonth)
-    return { label: "Rented At", value: p.rentPerMonth, suffix: "/mo" };
+  // Rented: purchase price stays the headline; rent shows as a secondary line.
   return { label: "Purchased For", value: p.purchase };
 }
 
