@@ -19,7 +19,6 @@ import {
 } from "@/lib/properties";
 import { PropertyStats } from "@/components/PropertyStats";
 import { ProjectsExplorer } from "@/components/ProjectsExplorer";
-import { DealBoard } from "@/components/DealBoard";
 import { BreadcrumbJsonLd } from "@/components/JsonLd";
 
 const stats = portfolioStats(properties);
@@ -100,12 +99,27 @@ export default async function ProjectsPage() {
 
       <section className="bg-gray-50">
         <div className="mx-auto max-w-6xl px-4 py-12">
-          <h2 className="text-2xl font-bold text-brand-black">What We Paid vs. What It Is Worth</h2>
-          <p className="mt-2 mb-8 max-w-2xl text-gray-600">
-            Every purchase side by side. Purchase prices come from our closed deals. Estimated values are automated
-            estimates, so treat them as a directional read, not an appraisal.
-          </p>
-          <DealBoard list={properties} />
+          <h2 className="text-2xl font-bold text-brand-black">Why We Pay Less Than the Estimate</h2>
+          <div className="mt-4 max-w-3xl space-y-4 text-gray-600">
+            <p>
+              The estimated values on these pages are automated estimates. They assume a house in average, move-in
+              condition that sells on the open market. Most of the houses we buy are not that. Many of these were
+              heavily distressed, with years of deferred maintenance, damage, or a full gut ahead of them.
+            </p>
+            <p>
+              Our own crew prices every renovation by the square foot, and the range is wide: roughly $35 per sq ft for
+              cosmetic work, $45 for heavier cosmetic, $65 for a full rehab, $90 for a full rehab with fire damage,
+              and up to $135 per sq ft for a burnt house. On top of that come financing and holding costs over a 6 to
+              12 month project, closing costs on both ends, and listing commissions when we resell.
+            </p>
+            <p>
+              That is the gap between what we pay and the estimate. You can see the exact formula, line by line, on{" "}
+              <Link href="/how-we-calculate-your-offer" className="font-semibold text-brand-yellow-dark hover:underline">
+                how we calculate your offer
+              </Link>
+              . And if your house is in good shape and listing would net you more, we will tell you that.
+            </p>
+          </div>
         </div>
       </section>
 
