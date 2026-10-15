@@ -62,9 +62,15 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
         )}
 
         <div className="space-y-4 text-gray-600">
-          {post.body.map((paragraph, i) => (
-            <p key={i}><Linkify text={paragraph} /></p>
-          ))}
+          {post.body.map((paragraph, i) =>
+            paragraph.startsWith("## ") ? (
+              <h2 key={i} className="pt-4 text-2xl font-bold text-brand-black">{paragraph.slice(3)}</h2>
+            ) : paragraph.startsWith("### ") ? (
+              <h3 key={i} className="pt-2 text-xl font-bold text-brand-black">{paragraph.slice(4)}</h3>
+            ) : (
+              <p key={i}><Linkify text={paragraph} /></p>
+            ),
+          )}
         </div>
 
         {post.links && post.links.length > 0 && (

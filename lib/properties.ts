@@ -501,10 +501,8 @@ export function portfolioStats(list: Property[] = properties) {
 }
 
 export function propertyBlurb(p: Property) {
-  const rooms = [
-    p.beds ? `${p.beds} bedroom${p.beds === 1 ? "" : "s"}` : "",
-    p.baths ? `${p.baths} bathroom${p.baths === 1 ? "" : "s"}` : "",
-  ]
+  // Only describe rooms when there are bedrooms (skips "2-bathroom church").
+  const rooms = (p.beds ? [`${p.beds}-bedroom`, p.baths ? `${p.baths}-bathroom` : ""] : [])
     .filter(Boolean)
     .join(", ");
   const built = showYearBuilt(p) ? `, built in ${p.yearBuilt}` : "";
