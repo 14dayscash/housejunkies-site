@@ -6,7 +6,6 @@ import { site } from "@/lib/site";
 import {
   acresLabel,
   citySlug,
-  daysBetween,
   getProperty,
   headlinePrice,
   secondaryPrice,
@@ -65,21 +64,21 @@ function Timeline({ p }: { p: Property }) {
   const steps: { date?: string; title: string; text: string; strong?: boolean }[] = [
     {
       date: p.purchased,
-      title: "Purchased",
-      text: `${money(p.purchase)}${p.entity ? ` through ${p.entity}` : ""}`,
+      title: "We bought it",
+      text: money(p.purchase),
     },
   ];
   if (p.status === "For Sale" && p.listPrice)
-    steps.push({ title: "Listed for sale", text: money(p.listPrice), strong: true });
+    steps.push({ title: "For sale now", text: money(p.listPrice), strong: true });
   if (p.status === "Sold" && p.soldDate && p.soldPrice)
     steps.push({
       date: p.soldDate,
       title: "Sold",
-      text: `${money(p.soldPrice)} after ${daysBetween(p.purchased, p.soldDate)} days`,
+      text: money(p.soldPrice),
       strong: true,
     });
   if (p.status === "Rented" && p.rentPerMonth)
-    steps.push({ title: "Rented", text: `${money(p.rentPerMonth)} per month`, strong: true });
+    steps.push({ title: "Rented out", text: `${money(p.rentPerMonth)} a month`, strong: true });
 
   return (
     <ol className="relative space-y-6 border-l-2 border-gray-200 pl-6">
@@ -92,7 +91,7 @@ function Timeline({ p }: { p: Property }) {
             aria-hidden="true"
           />
           <p className="text-xs font-semibold uppercase tracking-wide text-gray-500">
-            {s.date ? longDate(s.date) : "Current status"}
+            {s.date ? longDate(s.date) : "Now"}
           </p>
           <p className="mt-1 font-semibold text-brand-black">{s.title}</p>
           <p className="text-sm text-gray-600">{s.text}</p>
@@ -191,7 +190,7 @@ export default function PropertyPage({ params }: { params: { slug: string } }) {
               />
             </div>
             <figcaption className="mt-3 text-sm text-gray-500">
-              Photo from around when we bought it.
+              {p.street}, {p.city}, CA {p.zip}
             </figcaption>
           </figure>
 
@@ -222,7 +221,7 @@ export default function PropertyPage({ params }: { params: { slug: string } }) {
             </div>
 
             <aside className="lg:col-span-5">
-              <h2 className="text-2xl font-bold text-brand-black">Timeline</h2>
+              <h2 className="text-2xl font-bold text-brand-black">What Happened</h2>
               <div className="mt-6">
                 <Timeline p={p} />
               </div>
@@ -231,12 +230,12 @@ export default function PropertyPage({ params }: { params: { slug: string } }) {
 
               <div className={`${forSale ? "mt-4" : "mt-10"} rounded-lg border border-brand-yellow/60 bg-white p-6`}>
                 <p className="font-bold text-brand-black">
-                  {forSale ? "Interested in this home?" : "Own a house like this one?"}
+                  {forSale ? "Want to see this house?" : "Want to sell your house?"}
                 </p>
                 <p className="mt-2 text-sm leading-relaxed text-gray-600">
                   {forSale
-                    ? "Call or text to ask about showings and offers."
-                    : `House Junkies buys houses in ${p.city} and across Tulare County, as-is, with our own cash. Call or text for a straight read on what yours is worth.`}
+                    ? "Call or text us to set up a showing."
+                    : `We buy houses in ${p.city} in any condition. No repairs, no fees. Call or text and we will make you an offer.`}
                 </p>
                 <div className="mt-5 flex flex-wrap gap-3">
                   <a
@@ -275,10 +274,10 @@ export default function PropertyPage({ params }: { params: { slug: string } }) {
           <div className="mx-auto max-w-6xl px-4 py-12 sm:py-14">
             <div className="flex flex-wrap items-end justify-between gap-4">
               <h2 className="text-2xl font-bold text-brand-black">
-                {others.length ? `More in ${p.city}` : "More Projects"}
+                {others.length ? `More Houses We Bought in ${p.city}` : "More Houses We Bought"}
               </h2>
               <Link href="/projects" className="text-sm font-semibold text-brand-yellow-dark hover:underline">
-                All projects →
+                See all →
               </Link>
             </div>
             <ul className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -294,7 +293,7 @@ export default function PropertyPage({ params }: { params: { slug: string } }) {
 
       <section className="mx-auto max-w-2xl px-4 py-14">
         <h2 className="text-center text-xl font-bold text-brand-black">
-          {forSale ? `Ask About ${p.street}` : `Have a Property in ${p.city} You Need to Sell?`}
+          {forSale ? `Ask About ${p.street}` : `Get a Cash Offer on Your ${p.city} House`}
         </h2>
         <div className="mt-6">
           {forSale ? <BuyerInquiryForm topic={`Listing: ${p.street}, ${p.city}`} placeholder="Showing times, offer, questions" /> : <ContactForm />}
