@@ -11,7 +11,6 @@ import {
   headlinePrice,
   secondaryPrice,
   longDate,
-  daysBetween,
   money,
   num,
   properties,
@@ -117,7 +116,7 @@ export default function PropertyPage({ params }: { params: { slug: string } }) {
 
   const outcome =
     p.status === "For Sale"
-      ? " It is now listed for sale."
+      ? ` It is now listed for sale at ${money(p.listPrice ?? 0)}.`
       : p.status === "Sold" && p.soldPrice && p.soldDate
         ? ` It sold on ${longDate(p.soldDate)} for ${money(p.soldPrice)}.`
         : p.status === "Rented" && p.rentPerMonth
@@ -192,7 +191,7 @@ export default function PropertyPage({ params }: { params: { slug: string } }) {
               />
             </div>
             <figcaption className="mt-3 text-sm text-gray-500">
-              {p.street}, {p.city}. Photo shown as the property looked at or near purchase.
+              {p.street}, {p.city}, CA {p.zip}
             </figcaption>
           </figure>
 

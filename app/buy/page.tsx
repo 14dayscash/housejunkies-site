@@ -16,7 +16,6 @@ export const metadata: Metadata = {
 
 export default function BuyHubPage() {
   const listings = forSaleProperties();
-  const listedTotal = listings.reduce((s, p) => s + (p.listPrice ?? 0), 0);
   const closed = properties.filter((p) => p.status === "Sold" || p.status === "Rented");
 
   return (
@@ -45,7 +44,7 @@ export default function BuyHubPage() {
               <h2 className="text-2xl font-bold text-brand-black">Houses for Sale Right Now</h2>
               <p className="mt-2 max-w-2xl text-gray-600">
                 {listings.length} {listings.length === 1 ? "property" : "properties"} we own and are offering for
-                sale, {money(listedTotal)} combined. Open any listing for photos, a map, and the numbers.
+                sale right now. Open any listing for photos, a map, and the numbers.
               </p>
             </div>
             <Link href="/projects" className="text-sm font-semibold text-brand-yellow-dark hover:underline">

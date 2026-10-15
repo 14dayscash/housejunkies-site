@@ -28,7 +28,7 @@ export function RecentAcquisitions({
             <p className="mt-2 max-w-2xl text-gray-600">{intro}</p>
           </div>
           <Link href="/projects" className="text-sm font-semibold text-brand-yellow-dark hover:underline">
-            See all {list.length} breakdowns →
+            See all {list.length} projects →
           </Link>
         </div>
 
@@ -46,7 +46,7 @@ export function RecentAcquisitions({
 
         <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3 text-sm">
           <Link href="/projects" className="font-semibold text-brand-yellow-dark hover:underline">
-            Browse the full breakdown →
+            Browse every project →
           </Link>
           <Link href="/buy" className="font-semibold text-brand-yellow-dark hover:underline">
             Houses for sale →

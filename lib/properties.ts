@@ -401,8 +401,8 @@ export function num(n: number) {
 
 export function acresLabel(lotSqft: number) {
   const a = lotSqft / 43560;
-  if (a >= 1) return `${a.toFixed(2)} ac`;
-  return `${num(lotSqft)} sf`;
+  if (a >= 1) return `${a.toFixed(2)} acre`;
+  return `${num(lotSqft)} sq ft`;
 }
 
 export function fullAddress(p: Property) {
@@ -544,9 +544,7 @@ export function cityFaq(cityName: string): { question: string; answer: string }[
       question: `Has House Junkies bought houses in ${cityName} recently?`,
       answer: `Yes. ${plural(stats.count, "of our purchase")} in ${cityName} since ${monthYear(
         first.purchased,
-      )} ${stats.count === 1 ? "is" : "are"} broken down on our Projects page, ${money(
-        stats.purchaseTotal,
-      )} combined, with photos, square footage, lot size, and what we paid. That is a selection of our most recent deals, not the full list.`,
+      )} ${stats.count === 1 ? "is" : "are"} on our Projects page, with photos, square footage, lot size, and the price we paid for each one. They are a handful of the 350+ homes House Junkies has bought, renovated, and resold.`,
     },
     {
       question: `What kinds of properties do you buy in ${cityName}?`,

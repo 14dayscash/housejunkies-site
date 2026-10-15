@@ -21,7 +21,7 @@ const stats = portfolioStats(properties);
 
 export const metadata: Metadata = {
   title: `Projects: ${stats.count} Recent Purchases Broken Down, Tulare County`,
-  description: `House Junkies has bought ${site.stats.homesBought} homes. Here are ${stats.count} of our most recent purchases with photos, square footage, lot size, purchase price, and estimated value, ${moneyShort(stats.purchaseTotal)} combined across ${stats.cityCount} cities.`,
+  description: `House Junkies has bought ${site.stats.homesBought} homes. Here are ${stats.count} of our most recent purchases with photos, square footage, lot size, purchase price, and estimated value across ${stats.cityCount} Tulare County cities.`,
   alternates: { canonical: "/projects" },
 };
 
@@ -83,6 +83,23 @@ export default async function ProjectsPage() {
 
       <section id="properties" className="mx-auto max-w-6xl px-4 py-10">
         <ProjectsExplorer properties={properties} cityNames={propertyCityNames()} />
+      </section>
+
+      <section className="bg-brand-black text-white">
+        <div className="mx-auto flex max-w-6xl flex-col items-start gap-4 px-4 py-10 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <h2 className="text-2xl font-bold">Want an Offer on Your House?</h2>
+            <p className="mt-1 text-white/70">We buy as-is, in any condition, with no fees and no repairs. You choose the closing date.</p>
+          </div>
+          <div className="flex flex-wrap gap-3">
+            <Link href="/get-offer" className="rounded-md bg-brand-yellow px-5 py-3 font-bold text-black hover:bg-brand-yellow-dark">
+              Get My Cash Offer
+            </Link>
+            <a href={`tel:${site.phoneE164}`} className="rounded-md border border-white/30 px-5 py-3 font-semibold text-white hover:border-brand-yellow">
+              Call {site.phone}
+            </a>
+          </div>
+        </div>
       </section>
 
       <section className="bg-gray-50">

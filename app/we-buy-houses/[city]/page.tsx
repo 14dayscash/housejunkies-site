@@ -173,8 +173,7 @@ export default function CityPage({ params }: { params: { city: string } }) {
           <h2 className="text-xl font-bold text-brand-black">Recent House Junkies Purchases in {city.name}</h2>
           <p className="mt-3 max-w-3xl text-gray-600">
             Here {recentStats.count === 1 ? "is one" : `are ${recentStats.count}`} of our recent purchases in{" "}
-            {city.name}, {money(recentStats.purchaseTotal)} combined, with photos, square footage, lot size, and what
-            we paid.
+            {city.name}, with photos, square footage, lot size, and the price we paid for each one.
           </p>
           <ul className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {recent.slice(0, 6).map((p) => (
