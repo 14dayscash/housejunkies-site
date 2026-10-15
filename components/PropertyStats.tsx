@@ -1,14 +1,11 @@
-import { money, moneyShort, num, portfolioStats, type Property } from "@/lib/properties";
+import { moneyShort, num, portfolioStats, type Property } from "@/lib/properties";
 
 // tone "dark" sits on the black page hero, "light" on a white section.
 export function PropertyStats({ list, tone = "light" }: { list: Property[]; tone?: "dark" | "light" }) {
   const s = portfolioStats(list);
   const tiles = [
-    { value: String(s.count), label: s.count === 1 ? "Deal broken down" : "Deals broken down" },
-    { value: moneyShort(s.purchaseTotal), label: "Purchased, combined" },
-    { value: money(s.avgPurchase), label: "Average purchase price" },
-    { value: `$${Math.round(s.avgPpsf)}`, label: "Average per sq ft" },
-    { value: moneyShort(s.estTotal), label: "Estimated value, combined" },
+    { value: String(s.count), label: s.count === 1 ? "Recent buy shown" : "Recent buys shown" },
+    { value: moneyShort(s.purchaseTotal), label: "What we paid, combined" },
     s.cityCount > 1
       ? { value: String(s.cityCount), label: "Cities" }
       : { value: num(s.sqftTotal), label: "Total square feet" },
@@ -17,7 +14,7 @@ export function PropertyStats({ list, tone = "light" }: { list: Property[]; tone
   const dark = tone === "dark";
 
   return (
-    <dl className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
+    <dl className="grid grid-cols-3 gap-3">
       {tiles.map((tile) => (
         <div
           key={tile.label}

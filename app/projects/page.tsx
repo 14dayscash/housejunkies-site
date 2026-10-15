@@ -8,10 +8,8 @@ import { cities } from "@/lib/cities";
 import {
   newestFirst,
   portfolioStats,
-  propertiesIn,
   propertyCityNames,
   properties,
-  monthYear,
   moneyShort,
   citySlug,
 } from "@/lib/properties";
@@ -20,7 +18,6 @@ import { ProjectsExplorer } from "@/components/ProjectsExplorer";
 import { BreadcrumbJsonLd } from "@/components/JsonLd";
 
 const stats = portfolioStats(properties);
-const firstPurchase = [...properties].sort((a, b) => (a.purchased < b.purchased ? -1 : 1))[0].purchased;
 
 export const metadata: Metadata = {
   title: `Projects: ${stats.count} Recent Purchases Broken Down, Tulare County`,
@@ -74,75 +71,49 @@ export default async function ProjectsPage() {
 
       <section className="bg-brand-black text-white">
         <div className="mx-auto max-w-6xl px-4 py-14">
-          <h1 className="text-3xl font-bold md:text-4xl">Projects</h1>
-          <p className="mt-3 max-w-3xl text-white/70">
-            House Junkies has bought, renovated, and resold {site.stats.homesBought} homes. These are{" "}
-            {stats.count} of our most recent purchases, broken down with the real numbers: what we paid, the square footage, the lot, and
-            what each one is estimated to be worth today. They span Visalia, Porterville, Tulare, Lindsay, Dinuba,
-            Exeter, Farmersville, and Strathmore.
+          <h1 className="text-3xl font-bold md:text-4xl">Houses We Just Bought</h1>
+          <p className="mt-3 max-w-2xl text-lg text-white/80">
+            We have bought {site.stats.homesBought} homes. Here are some of our newest, and exactly what we paid.
           </p>
-          <div className="mt-8">
+          <div className="mt-8 max-w-2xl">
             <PropertyStats list={properties} tone="dark" />
           </div>
         </div>
       </section>
 
-      <section id="properties" className="mx-auto max-w-6xl px-4 py-12">
-        <h2 className="text-2xl font-bold text-brand-black">Recent Purchases</h2>
-        <p className="mt-2 mb-8 max-w-2xl text-gray-600">
-          Click any property for photos, a map, the full price history, and the numbers behind the deal.
-        </p>
+      <section id="properties" className="mx-auto max-w-6xl px-4 py-10">
         <ProjectsExplorer properties={properties} cityNames={propertyCityNames()} />
       </section>
 
       <section className="bg-gray-50">
-        <div className="mx-auto max-w-6xl px-4 py-12">
+        <div className="mx-auto max-w-3xl px-4 py-12">
           <h2 className="text-2xl font-bold text-brand-black">Why We Pay Less Than the Estimate</h2>
-          <div className="mt-4 max-w-3xl space-y-4 text-gray-600">
-            <p>
-              The estimated values on these pages are automated estimates. They assume a house in average, move-in
-              condition that sells on the open market. Most of the houses we buy are not that. Many of these were
-              heavily distressed, with years of deferred maintenance, damage, or a full gut ahead of them.
-            </p>
-            <p>
-              Our own crew prices every renovation by the square foot, and the range is wide: roughly $35 per sq ft for
-              cosmetic work, $45 for heavier cosmetic, $65 for a full rehab, $90 for a full rehab with fire damage,
-              and up to $135 per sq ft for a burnt house. On top of that come financing and holding costs over a 6 to
-              12 month project, closing costs on both ends, and listing commissions when we resell.
-            </p>
-            <p>
-              That is the gap between what we pay and the estimate. You can see the exact formula, line by line, on{" "}
-              <Link href="/how-we-calculate-your-offer" className="font-semibold text-brand-yellow-dark hover:underline">
-                how we calculate your offer
-              </Link>
-              . And if your house is in good shape and listing would net you more, we will tell you that.
-            </p>
-          </div>
+          <p className="mt-4 text-gray-600">
+            The estimate is what a house is worth fixed up and sold the normal way. Most houses we buy need a lot of
+            work. Fixing one up costs us $35 to $135 per square foot, plus loan costs, closing costs, and agent fees
+            when we sell.{" "}
+            <Link href="/how-we-calculate-your-offer" className="font-semibold text-brand-yellow-dark hover:underline">
+              See how we figure your offer
+            </Link>
+            .
+          </p>
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-4 py-12">
-        <h2 className="text-2xl font-bold text-brand-black">Where We Buy</h2>
-        <ul className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          {propertyCityNames().map((name) => {
-            const n = propertiesIn(name).length;
-            const page = cities.find((c) => c.slug === citySlug(name));
-            if (!page) return null;
-            return (
-              <li key={name}>
-                <Link
-                  href={`/we-buy-houses/${page.slug}`}
-                  className="block rounded-lg border border-gray-200 p-5 hover:border-brand-yellow-dark"
-                >
-                  <span className="block font-semibold text-brand-black">We Buy Houses in {name}</span>
-                  <span className="mt-1 block text-sm text-gray-600">
-                    {n} {n === 1 ? "purchase" : "purchases"}
-                  </span>
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
+      <section className="mx-auto max-w-6xl px-4 pt-12 text-sm text-gray-600">
+        We buy houses in{" "}
+        {propertyCityNames()
+          .map((name) => cities.find((c) => c.slug === citySlug(name)))
+          .filter((c): c is NonNullable<typeof c> => Boolean(c))
+          .map((c, i, arr) => (
+            <span key={c.slug}>
+              <Link href={`/we-buy-houses/${c.slug}`} className="font-semibold text-brand-yellow-dark hover:underline">
+                {c.name}
+              </Link>
+              {i < arr.length - 2 ? ", " : i === arr.length - 2 ? ", and " : ""}
+            </span>
+          ))}
+        , and all over the Central Valley.
       </section>
 
       <section className="mx-auto max-w-6xl px-4 pb-12">

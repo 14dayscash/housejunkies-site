@@ -13,7 +13,6 @@ import {
   longDate,
   money,
   num,
-  pricePerSqft,
   properties,
   propertiesIn,
   propertyBlurb,
@@ -60,62 +59,6 @@ function Spec({ label, value }: { label: string; value: string }) {
       <dt className="mt-3 text-xs text-gray-600">{label}</dt>
     </div>
   );
-}
-
-function Ladder({ p }: { p: Property }) {
-  const rows: { label: string; value: number; bar: string }[] = [
-    { label: "Purchased", value: p.purchase, bar: "bg-brand-black" },
-    { label: "Estimated value", value: p.estValue, bar: "bg-brand-yellow" },
-  ];
-  if (p.status === "For Sale" && p.listPrice)
-    rows.push({ label: "List price", value: p.listPrice, bar: "bg-brand-yellow-dark" });
-  if (p.status === "Sold" && p.soldPrice)
-    rows.push({ label: "Sold for", value: p.soldPrice, bar: "bg-brand-yellow-dark" });
-  const max = Math.max(...rows.map((r) => r.value));
-
-  return (
-    <ul className="space-y-4">
-      {rows.map((r) => (
-        <li key={r.label}>
-          <div className="flex items-baseline justify-between text-sm">
-            <span className="text-gray-600">{r.label}</span>
-            <span className="font-bold tabular-nums text-brand-black">{money(r.value)}</span>
-          </div>
-          <div className="mt-2 h-2.5">
-            <div className={`h-full rounded-r-[4px] ${r.bar}`} style={{ width: `${(r.value / max) * 100}%` }} />
-          </div>
-        </li>
-      ))}
-    </ul>
-  );
-}
-
-function signed(n: number) {
-  return `${n >= 0 ? "+" : "-"}${money(Math.abs(n))}`;
-}
-
-function keyNumbers(p: Property) {
-  const rows: { label: string; value: string }[] = [
-    { label: "Purchase price per sq ft", value: `$${Math.round(pricePerSqft(p.purchase, p.sqft))}` },
-    { label: "Estimated value per sq ft", value: `$${Math.round(pricePerSqft(p.estValue, p.sqft))}` },
-    { label: "Estimated value vs. purchase", value: signed(p.estValue - p.purchase) },
-  ];
-  if (p.status === "For Sale" && p.listPrice) {
-    rows.push({ label: "List price per sq ft", value: `$${Math.round(pricePerSqft(p.listPrice, p.sqft))}` });
-    rows.push({ label: "List price vs. purchase (gross)", value: signed(p.listPrice - p.purchase) });
-  }
-  if (p.status === "Sold" && p.soldPrice && p.soldDate) {
-    rows.push({ label: "Days from purchase to sale", value: `${daysBetween(p.purchased, p.soldDate)} days` });
-    rows.push({ label: "Sold vs. purchase (gross)", value: signed(p.soldPrice - p.purchase) });
-  }
-  if (p.status === "Rented" && p.rentPerMonth) {
-    rows.push({ label: "Annual rent", value: money(p.rentPerMonth * 12) });
-    rows.push({
-      label: "Gross yield on purchase price",
-      value: `${(((p.rentPerMonth * 12) / p.purchase) * 100).toFixed(1)}%`,
-    });
-  }
-  return rows;
 }
 
 function Timeline({ p }: { p: Property }) {
@@ -259,8 +202,6 @@ export default function PropertyPage({ params }: { params: { slug: string } }) {
             <Spec label="Lot size" value={acresLabel(p.lotSqft)} />
             {showYearBuilt(p) ? <Spec label="Year built" value={String(p.yearBuilt)} /> : null}
             <Spec label="Est. value" value={money(p.estValue)} />
-            <Spec label="Purchased per sq ft" value={`$${Math.round(pricePerSqft(p.purchase, p.sqft))}`} />
-            <Spec label="Property type" value={p.type.replace(" Property", "").replace(" Home", "")} />
           </dl>
         </div>
       </section>
@@ -275,22 +216,8 @@ export default function PropertyPage({ params }: { params: { slug: string } }) {
                 {outcome}
               </p>
 
-              <div className="mt-8 rounded-lg border border-gray-200 bg-white p-5 sm:p-7">
-                <Ladder p={p} />
-              </div>
-
-              <dl className="mt-6 divide-y divide-gray-100 rounded-lg border border-gray-200 bg-white">
-                {keyNumbers(p).map((row) => (
-                  <div key={row.label} className="flex items-center justify-between gap-4 px-5 py-3.5 text-sm">
-                    <dt className="text-gray-600">{row.label}</dt>
-                    <dd className="font-bold tabular-nums text-brand-black">{row.value}</dd>
-                  </div>
-                ))}
-              </dl>
-              <p className="mt-4 max-w-[62ch] text-xs leading-relaxed text-gray-500">
-                Estimated value is an automated estimate, not an appraisal. Gross figures are before closing, holding,
-                and renovation costs and are not profit. Square footage, lot size, and year built come from county
-                records and should be verified by any buyer.
+              <p className="mt-3 max-w-[62ch] text-xs leading-relaxed text-gray-500">
+                Est. value is an automated estimate, not an appraisal. Size and lot come from county records.
               </p>
             </div>
 

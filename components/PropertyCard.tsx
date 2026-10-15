@@ -2,13 +2,11 @@ import Link from "next/link";
 import { ListingBroker } from "@/components/ListingBroker";
 import Image from "next/image";
 import {
-  acresLabel,
   bedsBathsLabel,
   headlinePrice,
   secondaryPrice,
   money,
   num,
-  shortDate,
   type Property,
   type PropertyStatus,
 } from "@/lib/properties";
@@ -66,47 +64,21 @@ export function PropertyCard({ p, priority = false }: { p: Property; priority?: 
           className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
         />
         <StatusBadge status={p.status} className="absolute left-3 top-3 shadow-sm" />
-        <span className="absolute bottom-3 left-3 rounded bg-brand-black/80 px-2.5 py-1 text-xs font-semibold uppercase tracking-wide text-white">
-          {p.type}
-        </span>
       </div>
 
       <div className="flex flex-1 flex-col p-5">
-        <div className="flex items-baseline justify-between gap-3">
-          <p className="font-display text-3xl font-extrabold leading-none tabular-nums text-brand-black">
-            {money(price.value)}
-            {price.suffix ? <span className="text-base font-semibold text-gray-500">{price.suffix}</span> : null}
-          </p>
-          <p className="text-xs font-semibold uppercase tracking-wide text-gray-500">{price.label}</p>
-        </div>
-
+        <p className="text-xs font-semibold uppercase tracking-wide text-gray-500">{price.label}</p>
+        <p className="mt-1 font-display text-3xl font-extrabold leading-none tabular-nums text-brand-black">
+          {money(price.value)}
+        </p>
         {secondaryPrice(p) ? (
-          <p className="mt-2 text-sm font-semibold text-gray-700">{secondaryPrice(p)}</p>
+          <p className="mt-2 text-sm font-semibold text-brand-yellow-dark">{secondaryPrice(p)}</p>
         ) : null}
 
-        <SpecLine p={p} className="mt-4" />
-
         <p className="mt-4 text-base font-semibold leading-snug text-brand-black group-hover:text-brand-yellow-dark">
-          {p.street}
+          {p.street}, {p.city}
         </p>
-        <p className="text-sm text-gray-600">
-          {p.city}, CA {p.zip}
-        </p>
-
-        <dl className="mt-5 grid grid-cols-3 gap-3 border-t border-gray-100 pt-4 text-xs">
-          <div>
-            <dt className="text-gray-500">Est. Value</dt>
-            <dd className="mt-1 font-bold tabular-nums text-brand-black">{money(p.estValue)}</dd>
-          </div>
-          <div>
-            <dt className="text-gray-500">Lot</dt>
-            <dd className="mt-1 font-bold tabular-nums text-brand-black">{acresLabel(p.lotSqft)}</dd>
-          </div>
-          <div>
-            <dt className="text-gray-500">Purchased</dt>
-            <dd className="mt-1 font-bold tabular-nums text-brand-black">{shortDate(p.purchased)}</dd>
-          </div>
-        </dl>
+        <SpecLine p={p} className="mt-1" />
 
         {p.status === "For Sale" ? <ListingBroker compact className="mt-4 border-t border-gray-100 pt-4" /> : null}
       </div>
