@@ -1,14 +1,14 @@
 import Link from "next/link";
 import { PropertyCard } from "@/components/PropertyCard";
 import { PropertyStats } from "@/components/PropertyStats";
-import { newestFirst, properties, type Property } from "@/lib/properties";
+import { newestFirst, properties, recentWindowLabel, totalRecentPurchases, type Property } from "@/lib/properties";
 
 // Home-page strip. Shows the six newest purchases (three on phones) plus the
 // portfolio stats. Pass `list` and `heading` to reuse it for a single city.
 export function RecentAcquisitions({
   list = properties,
   heading = "Recent Purchases",
-  intro = "Real houses, real numbers. Photos, square footage, lot size, and what we paid for the properties House Junkies has bought since July 2026.",
+  intro = `We have bought ${totalRecentPurchases} properties ${recentWindowLabel}. Here are ${properties.length} of them broken down: photos, square footage, lot size, and what we paid.`,
   id,
 }: {
   list?: Property[];
@@ -27,7 +27,7 @@ export function RecentAcquisitions({
             <p className="mt-2 max-w-2xl text-gray-600">{intro}</p>
           </div>
           <Link href="/projects" className="text-sm font-semibold text-brand-yellow-dark hover:underline">
-            See all {list.length} projects →
+            See all {list.length} breakdowns →
           </Link>
         </div>
 
@@ -45,7 +45,7 @@ export function RecentAcquisitions({
 
         <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3 text-sm">
           <Link href="/projects" className="font-semibold text-brand-yellow-dark hover:underline">
-            Browse every project →
+            Browse the full breakdown →
           </Link>
           <Link href="/buy" className="font-semibold text-brand-yellow-dark hover:underline">
             Houses for sale →

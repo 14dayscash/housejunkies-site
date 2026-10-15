@@ -17,6 +17,12 @@
 // sells, set status "Sold" and add soldPrice + soldDate, and it moves off /buy
 // and onto the track-record sections automatically.
 
+// These are NOT all of our purchases. House Junkies bought 25+ properties in
+// the window this batch covers; this file breaks down a selection of them.
+// Every page that shows this data should say so. Update both lines together.
+export const totalRecentPurchases = "25+";
+export const recentWindowLabel = "since July 2026";
+
 export type PropertyStatus = "Acquired" | "For Sale" | "Sold" | "Rented";
 export type PropertyType =
   | "Single Family Home"
@@ -530,10 +536,11 @@ export function cityFaq(cityName: string): { question: string; answer: string }[
   return [
     {
       question: `Has House Junkies bought houses in ${cityName} recently?`,
-      answer: `Yes. Since ${monthYear(first.purchased)} House Junkies has purchased ${plural(
-        stats.count,
-        "property",
-      )} in ${cityName}, ${money(stats.purchaseTotal)} combined. Every one is listed with photos, square footage, lot size, and the numbers on our Projects page.`,
+      answer: `Yes. ${plural(stats.count, "of our purchase")} in ${cityName} since ${monthYear(
+        first.purchased,
+      )} ${stats.count === 1 ? "is" : "are"} broken down on our Projects page, ${money(
+        stats.purchaseTotal,
+      )} combined, with photos, square footage, lot size, and what we paid. That is a selection, not the full list: House Junkies has bought ${totalRecentPurchases} properties across the Central Valley ${recentWindowLabel}.`,
     },
     {
       question: `What kinds of properties do you buy in ${cityName}?`,

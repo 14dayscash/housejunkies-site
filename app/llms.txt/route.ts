@@ -26,7 +26,7 @@ export async function GET() {
   lines.push(`- [About](${site.url}/about): Company structure, licenses, office locations.`);
   lines.push(`- [Our Team](${site.url}/team): Leadership profiles.`);
   lines.push(`- [Reviews](${site.url}/reviews): Real customer reviews.`);
-  lines.push(`- [Projects](${site.url}/projects): Every property House Junkies has bought since July 2026, with photos, square footage, lot size, purchase price, and estimated value.`);
+  lines.push(`- [Projects](${site.url}/projects): A breakdown of 16 of the 25+ properties House Junkies has bought since July 2026, with photos, square footage, lot size, purchase price, and estimated value.`);
   lines.push(`- [FAQ](${site.url}/faq): Common questions about selling for cash.`);
   lines.push(`- [How It Works](${site.url}/how-it-works): The step-by-step process.`);
   lines.push(`- [How We Calculate Your Offer](${site.url}/how-we-calculate-your-offer): The real offer formula.`);

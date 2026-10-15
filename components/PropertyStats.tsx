@@ -4,7 +4,7 @@ import { money, moneyShort, num, portfolioStats, type Property } from "@/lib/pro
 export function PropertyStats({ list, tone = "light" }: { list: Property[]; tone?: "dark" | "light" }) {
   const s = portfolioStats(list);
   const tiles = [
-    { value: String(s.count), label: s.count === 1 ? "Property" : "Properties" },
+    { value: String(s.count), label: s.count === 1 ? "Deal broken down" : "Deals broken down" },
     { value: moneyShort(s.purchaseTotal), label: "Purchased, combined" },
     { value: money(s.avgPurchase), label: "Average purchase price" },
     { value: `$${Math.round(s.avgPpsf)}`, label: "Average per sq ft" },

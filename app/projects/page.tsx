@@ -14,6 +14,8 @@ import {
   monthYear,
   moneyShort,
   citySlug,
+  totalRecentPurchases,
+  recentWindowLabel,
 } from "@/lib/properties";
 import { PropertyStats } from "@/components/PropertyStats";
 import { ProjectsExplorer } from "@/components/ProjectsExplorer";
@@ -24,8 +26,8 @@ const stats = portfolioStats(properties);
 const firstPurchase = [...properties].sort((a, b) => (a.purchased < b.purchased ? -1 : 1))[0].purchased;
 
 export const metadata: Metadata = {
-  title: `Projects: ${stats.count} Recent Purchases in Tulare County, With Photos and Numbers`,
-  description: `Every property House Junkies has bought since ${monthYear(firstPurchase)}: photos, square footage, lot size, purchase price, and estimated value. ${stats.count} properties, ${moneyShort(stats.purchaseTotal)} combined, across ${stats.cityCount} cities.`,
+  title: `Projects: ${stats.count} Recent Purchases Broken Down, Tulare County`,
+  description: `House Junkies has bought ${totalRecentPurchases} properties ${recentWindowLabel}. Here are ${stats.count} of them with photos, square footage, lot size, purchase price, and estimated value, ${moneyShort(stats.purchaseTotal)} combined across ${stats.cityCount} cities.`,
   alternates: { canonical: "/projects" },
 };
 
@@ -77,9 +79,10 @@ export default async function ProjectsPage() {
         <div className="mx-auto max-w-6xl px-4 py-14">
           <h1 className="text-3xl font-bold md:text-4xl">Projects</h1>
           <p className="mt-3 max-w-3xl text-white/70">
-            House Junkies buys houses in Visalia, Porterville, Tulare, Lindsay, Dinuba, Exeter, Farmersville, and
-            Strathmore. These are the properties we have bought since {monthYear(firstPurchase)}, with the real
-            numbers: what we paid, the square footage, the lot, and what each one is estimated to be worth today.
+            House Junkies has bought {totalRecentPurchases} properties {recentWindowLabel}. These are{" "}
+            {stats.count} of them, broken down with the real numbers: what we paid, the square footage, the lot, and
+            what each one is estimated to be worth today. They span Visalia, Porterville, Tulare, Lindsay, Dinuba,
+            Exeter, Farmersville, and Strathmore.
           </p>
           <div className="mt-8">
             <PropertyStats list={properties} tone="dark" />
