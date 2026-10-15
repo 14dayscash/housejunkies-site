@@ -26,13 +26,13 @@ export async function GET() {
   lines.push(`- [About](${site.url}/about): Company structure, licenses, office locations.`);
   lines.push(`- [Our Team](${site.url}/team): Leadership profiles.`);
   lines.push(`- [Reviews](${site.url}/reviews): Real customer reviews.`);
-  lines.push(`- [Projects](${site.url}/projects): Real before/after property case studies.`);
+  lines.push(`- [Projects](${site.url}/projects): Every property House Junkies has bought since July 2026, with photos, square footage, lot size, purchase price, and estimated value.`);
   lines.push(`- [FAQ](${site.url}/faq): Common questions about selling for cash.`);
   lines.push(`- [How It Works](${site.url}/how-it-works): The step-by-step process.`);
   lines.push(`- [How We Calculate Your Offer](${site.url}/how-we-calculate-your-offer): The real offer formula.`);
   lines.push(`- [Cash Offer vs. Listing](${site.url}/compare): Side-by-side comparison with a worked example.`);
   lines.push(`- [Partner With Us](${site.url}/partners/agents): Five ways to partner, from referral fees to funding flips.`);
-  lines.push(`- [Property for Sale](${site.url}/buy): Investment property, buildings, and land for sale in Visalia and Tulare County.`);
+  lines.push(`- [Property for Sale](${site.url}/buy): Houses currently for sale, plus investment property, buildings, and land in Visalia and Tulare County.`);
   lines.push(`- [Construction](${site.url}/construction): House Junkies Construction, licensed general contractor (${site.licenses.generalContractor}).`);
   lines.push(`- [Contact](${site.url}/contact)`);
   lines.push("");

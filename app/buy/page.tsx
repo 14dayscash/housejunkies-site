@@ -4,6 +4,8 @@ import { buyPages } from "@/lib/buyPages";
 import { BuyerInquiryForm } from "@/components/BuyerInquiryForm";
 import { BreadcrumbJsonLd } from "@/components/JsonLd";
 import { site } from "@/lib/site";
+import { forSaleProperties, money, properties } from "@/lib/properties";
+import { PropertyCard } from "@/components/PropertyCard";
 
 export const metadata: Metadata = {
   title: "Property for Sale in Visalia, CA | Homes, Land & Investment Property",
@@ -13,6 +15,10 @@ export const metadata: Metadata = {
 };
 
 export default function BuyHubPage() {
+  const listings = forSaleProperties();
+  const listedTotal = listings.reduce((s, p) => s + (p.listPrice ?? 0), 0);
+  const closed = properties.filter((p) => p.status === "Sold" || p.status === "Rented");
+
   return (
     <div>
       <BreadcrumbJsonLd
@@ -32,6 +38,49 @@ export default function BuyHubPage() {
         </div>
       </section>
 
+      {listings.length > 0 && (
+        <section className="mx-auto max-w-6xl px-4 pt-12">
+          <div className="flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <h2 className="text-2xl font-bold text-brand-black">Houses for Sale Right Now</h2>
+              <p className="mt-2 max-w-2xl text-gray-600">
+                {listings.length} {listings.length === 1 ? "property" : "properties"} we own and are offering for
+                sale, {money(listedTotal)} combined. Open any listing for photos, a map, and the numbers.
+              </p>
+            </div>
+            <Link href="/projects" className="text-sm font-semibold text-brand-yellow-dark hover:underline">
+              See every project →
+            </Link>
+          </div>
+          <ul className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {listings.map((p, i) => (
+              <li key={p.slug}>
+                <PropertyCard p={p} priority={i < 3} />
+              </li>
+            ))}
+          </ul>
+          <p className="mt-6 max-w-3xl text-xs leading-relaxed text-gray-500">
+            Prices and availability are subject to change and nothing on this page is an offer. Estimated values are
+            automated estimates, not appraisals. Square footage, lot size, and year built come from county records and
+            should be verified by the buyer.
+          </p>
+          {closed.length > 0 && (
+            <p className="mt-3 text-sm text-gray-600">
+              Already sold or rented:{" "}
+              {closed.map((p, i) => (
+                <span key={p.slug}>
+                  {i > 0 ? ", " : ""}
+                  <Link href={`/projects/${p.slug}`} className="font-semibold text-brand-yellow-dark hover:underline">
+                    {p.street}
+                  </Link>
+                </span>
+              ))}
+              .
+            </p>
+          )}
+        </section>
+      )}
+
       <section className="mx-auto grid max-w-6xl gap-10 px-4 py-12 md:grid-cols-3">
         <div className="md:col-span-2">
           <h2 className="text-xl font-bold text-brand-black">What Are You Looking For?</h2>
@@ -49,7 +98,8 @@ export default function BuyHubPage() {
             Every house we buy is renovated by our own licensed crew ({site.licenses.generalContractor}) and
             resold through {site.legacyRealEstate.name}. Because the same group handles every stage, you can
             ask what was repaired and what it cost. Ask us what we have coming up, including homes that are
-            not on the MLS yet.
+            not on the MLS yet. See what we have already bought in{" "}
+            <Link href="/projects" className="font-semibold text-brand-yellow-dark hover:underline">our projects</Link>.
           </p>
 
           <h2 className="mt-10 text-xl font-bold text-brand-black">Why Buy From a Local Investor</h2>

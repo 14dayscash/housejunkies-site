@@ -1,0 +1,57 @@
+import Link from "next/link";
+import { PropertyCard } from "@/components/PropertyCard";
+import { PropertyStats } from "@/components/PropertyStats";
+import { newestFirst, properties, type Property } from "@/lib/properties";
+
+// Home-page strip. Shows the six newest purchases (three on phones) plus the
+// portfolio stats. Pass `list` and `heading` to reuse it for a single city.
+export function RecentAcquisitions({
+  list = properties,
+  heading = "Recent Purchases",
+  intro = "Real houses, real numbers. Photos, square footage, lot size, and what we paid for the properties House Junkies has bought since July 2026.",
+  id,
+}: {
+  list?: Property[];
+  heading?: string;
+  intro?: string;
+  id?: string;
+}) {
+  const latest = newestFirst(list).slice(0, 6);
+
+  return (
+    <section id={id} className="bg-gray-50">
+      <div className="mx-auto max-w-6xl px-4 py-14">
+        <div className="flex flex-wrap items-end justify-between gap-4">
+          <div>
+            <h2 className="text-2xl font-bold text-brand-black">{heading}</h2>
+            <p className="mt-2 max-w-2xl text-gray-600">{intro}</p>
+          </div>
+          <Link href="/projects" className="text-sm font-semibold text-brand-yellow-dark hover:underline">
+            See all {list.length} projects →
+          </Link>
+        </div>
+
+        <div className="mt-8">
+          <PropertyStats list={list} />
+        </div>
+
+        <ul className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {latest.map((p, i) => (
+            <li key={p.slug} className={i >= 3 ? "hidden sm:block" : undefined}>
+              <PropertyCard p={p} />
+            </li>
+          ))}
+        </ul>
+
+        <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3 text-sm">
+          <Link href="/projects" className="font-semibold text-brand-yellow-dark hover:underline">
+            Browse every project →
+          </Link>
+          <Link href="/buy" className="font-semibold text-brand-yellow-dark hover:underline">
+            Houses for sale →
+          </Link>
+        </div>
+      </div>
+    </section>
+  );
+}

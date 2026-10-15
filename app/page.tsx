@@ -4,6 +4,7 @@ import { HeroOfferForm } from "@/components/HeroOfferForm";
 import { site } from "@/lib/site";
 import { cities } from "@/lib/cities";
 import { situations } from "@/lib/situations";
+import { RecentAcquisitions } from "@/components/RecentAcquisitions";
 
 const liveCities = cities.filter((c) => c.featured);
 
@@ -230,6 +231,9 @@ export default function HomePage() {
           See the full comparison, with real numbers →
         </Link>
       </section>
+
+      {/* Real purchases, from lib/properties.ts */}
+      <RecentAcquisitions id="recent-purchases" />
 
       {/* Situations - grouped into Any Reason / Any Condition / Any Challenge */}
       <section className="bg-gray-50">

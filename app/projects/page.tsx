@@ -3,10 +3,29 @@ import Link from "next/link";
 import Image from "next/image";
 import { supabaseServer } from "@/lib/supabase";
 import { InstagramEmbed } from "@/components/InstagramEmbed";
+import { site } from "@/lib/site";
+import { cities } from "@/lib/cities";
+import {
+  newestFirst,
+  portfolioStats,
+  propertiesIn,
+  propertyCityNames,
+  properties,
+  monthYear,
+  moneyShort,
+  citySlug,
+} from "@/lib/properties";
+import { PropertyStats } from "@/components/PropertyStats";
+import { ProjectsExplorer } from "@/components/ProjectsExplorer";
+import { DealBoard } from "@/components/DealBoard";
+import { BreadcrumbJsonLd } from "@/components/JsonLd";
+
+const stats = portfolioStats(properties);
+const firstPurchase = [...properties].sort((a, b) => (a.purchased < b.purchased ? -1 : 1))[0].purchased;
 
 export const metadata: Metadata = {
-  title: "Projects - Before and After",
-  description: "Real closed deals from across the Central Valley.",
+  title: `Projects: ${stats.count} Recent Purchases in Tulare County, With Photos and Numbers`,
+  description: `Every property House Junkies has bought since ${monthYear(firstPurchase)}: photos, square footage, lot size, purchase price, and estimated value. ${stats.count} properties, ${moneyShort(stats.purchaseTotal)} combined, across ${stats.cityCount} cities.`,
   alternates: { canonical: "/projects" },
 };
 
@@ -30,16 +49,88 @@ export default async function ProjectsPage() {
 
   return (
     <div>
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", url: site.url },
+          { name: "Projects", url: `${site.url}/projects` },
+        ]}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "ItemList",
+            name: "Recent House Junkies purchases in Tulare County",
+            numberOfItems: properties.length,
+            itemListElement: newestFirst().map((p, i) => ({
+              "@type": "ListItem",
+              position: i + 1,
+              url: `${site.url}/projects/${p.slug}`,
+              name: `${p.street}, ${p.city}, CA ${p.zip}`,
+            })),
+          }),
+        }}
+      />
+
       <section className="bg-brand-black text-white">
         <div className="mx-auto max-w-6xl px-4 py-14">
           <h1 className="text-3xl font-bold md:text-4xl">Projects</h1>
-          <p className="mt-3 max-w-2xl text-white/70">
-            Real closed deals from across the Central Valley
+          <p className="mt-3 max-w-3xl text-white/70">
+            House Junkies buys houses in Visalia, Porterville, Tulare, Lindsay, Dinuba, Exeter, Farmersville, and
+            Strathmore. These are the properties we have bought since {monthYear(firstPurchase)}, with the real
+            numbers: what we paid, the square footage, the lot, and what each one is estimated to be worth today.
           </p>
+          <div className="mt-8">
+            <PropertyStats list={properties} tone="dark" />
+          </div>
+        </div>
+      </section>
+
+      <section id="properties" className="mx-auto max-w-6xl px-4 py-12">
+        <h2 className="text-2xl font-bold text-brand-black">Recent Purchases</h2>
+        <p className="mt-2 mb-8 max-w-2xl text-gray-600">
+          Click any property for photos, a map, the full price history, and the numbers behind the deal.
+        </p>
+        <ProjectsExplorer properties={properties} cityNames={propertyCityNames()} />
+      </section>
+
+      <section className="bg-gray-50">
+        <div className="mx-auto max-w-6xl px-4 py-12">
+          <h2 className="text-2xl font-bold text-brand-black">What We Paid vs. What It Is Worth</h2>
+          <p className="mt-2 mb-8 max-w-2xl text-gray-600">
+            Every purchase side by side. Purchase prices come from our closed deals. Estimated values are automated
+            estimates, so treat them as a directional read, not an appraisal.
+          </p>
+          <DealBoard list={properties} />
         </div>
       </section>
 
       <section className="mx-auto max-w-6xl px-4 py-12">
+        <h2 className="text-2xl font-bold text-brand-black">Where We Buy</h2>
+        <ul className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          {propertyCityNames().map((name) => {
+            const n = propertiesIn(name).length;
+            const page = cities.find((c) => c.slug === citySlug(name));
+            if (!page) return null;
+            return (
+              <li key={name}>
+                <Link
+                  href={`/we-buy-houses/${page.slug}`}
+                  className="block rounded-lg border border-gray-200 p-5 hover:border-brand-yellow-dark"
+                >
+                  <span className="block font-semibold text-brand-black">We Buy Houses in {name}</span>
+                  <span className="mt-1 block text-sm text-gray-600">
+                    {n} {n === 1 ? "purchase" : "purchases"}
+                  </span>
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+      </section>
+
+      <section className="mx-auto max-w-6xl px-4 pb-12">
         <h2 className="text-xl font-bold text-brand-black">Featured Renovation</h2>
         <div className="mt-6 grid gap-4 sm:grid-cols-2">
           <div>

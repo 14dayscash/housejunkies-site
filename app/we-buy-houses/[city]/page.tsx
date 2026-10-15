@@ -8,6 +8,8 @@ import { situations } from "@/lib/situations";
 import { LeadForm } from "@/components/LeadForm";
 import { FaqJsonLd, BreadcrumbJsonLd } from "@/components/JsonLd";
 import { site } from "@/lib/site";
+import { cityFaq, money, newestFirst, portfolioStats, propertiesIn } from "@/lib/properties";
+import { PropertyCard } from "@/components/PropertyCard";
 
 export function generateStaticParams() {
   return cities.map((c) => ({ city: c.slug }));
@@ -49,6 +51,12 @@ export default function CityPage({ params }: { params: { city: string } }) {
       answer: `We buy with our own funds and renovate with our own licensed crew (${site.licenses.generalContractor}), then resell through our own brokerage. We are not passing your contract to a stranger.`,
     },
   ];
+
+  // Real purchases in this city (lib/properties.ts). Empty for cities we have
+  // not bought in yet, in which case none of this renders.
+  const recent = newestFirst(propertiesIn(city.name));
+  const recentStats = portfolioStats(recent);
+  faqs.push(...cityFaq(city.name));
 
   const sameCounty = cities.filter((c) => c.county === city.county && c.slug !== city.slug);
   const nearby = [
@@ -157,6 +165,28 @@ export default function CityPage({ params }: { params: { city: string } }) {
               ))}
             </div>
           ))}
+        </section>
+      )}
+
+      {recent.length > 0 && (
+        <section className="mx-auto max-w-6xl px-4 pb-10">
+          <h2 className="text-xl font-bold text-brand-black">Recent House Junkies Purchases in {city.name}</h2>
+          <p className="mt-3 max-w-3xl text-gray-600">
+            We have bought {recentStats.count} {recentStats.count === 1 ? "property" : "properties"} in {city.name}{" "}
+            recently, {money(recentStats.purchaseTotal)} combined. Here{" "}
+            {recentStats.count === 1 ? "is the real house" : "are the real houses"}, with photos, square footage, lot
+            size, and what we paid.
+          </p>
+          <ul className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {recent.slice(0, 6).map((p) => (
+              <li key={p.slug}>
+                <PropertyCard p={p} />
+              </li>
+            ))}
+          </ul>
+          <Link href="/projects" className="mt-5 inline-block text-sm font-semibold text-brand-yellow-dark hover:underline">
+            See every House Junkies project →
+          </Link>
         </section>
       )}
 

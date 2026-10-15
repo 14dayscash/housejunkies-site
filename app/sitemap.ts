@@ -6,6 +6,7 @@ import { counties } from "@/lib/counties";
 import { houseJunkiesPosts } from "@/lib/houseJunkiesPosts";
 import { teamProfiles } from "@/lib/teamProfiles";
 import { buyPages } from "@/lib/buyPages";
+import { properties } from "@/lib/properties";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes = [
@@ -47,8 +48,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: new Date(),
   }));
 
+  const projectRoutes = properties.map((p) => ({
+    url: `${site.url}/projects/${p.slug}`,
+    lastModified: new Date(),
+  }));
+
   return [
     ...staticRoutes,
+    ...projectRoutes,
     ...buyRoutes,
     ...cityRoutes,
     ...situationRoutes,

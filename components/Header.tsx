@@ -127,6 +127,7 @@ export function Header({
             <Link href="/projects" onClick={() => setMobileOpen(false)} className="rounded-md py-1.5">Projects</Link>
             <Link href="/partners/agents" onClick={() => setMobileOpen(false)} className="rounded-md py-1.5">Partner</Link>
             <Link href="/blog" onClick={() => setMobileOpen(false)} className="rounded-md py-1.5">Blog</Link>
+            <Link href="/buy" onClick={() => setMobileOpen(false)} className="rounded-md py-1.5">For Sale</Link>
           </div>
 
           <div className="pt-2 text-xs font-semibold uppercase tracking-wide text-white/60">We Buy Houses</div>

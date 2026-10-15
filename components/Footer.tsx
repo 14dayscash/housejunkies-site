@@ -66,6 +66,7 @@ export function Footer() {
               <li><Link href="/about" className="hover:text-brand-yellow">About</Link></li>
               <li><Link href="/team" className="hover:text-brand-yellow">Our Team</Link></li>
               <li><Link href="/reviews" className="hover:text-brand-yellow">Reviews</Link></li>
+              <li><Link href="/projects" className="hover:text-brand-yellow">Projects</Link></li>
               <li><Link href="/how-it-works" className="hover:text-brand-yellow">How It Works</Link></li>
               <li><Link href="/how-we-calculate-your-offer" className="hover:text-brand-yellow">How We Calculate Your Offer</Link></li>
               <li><Link href="/compare" className="hover:text-brand-yellow">Cash Offer vs. Listing</Link></li>

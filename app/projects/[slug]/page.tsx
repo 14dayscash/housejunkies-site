@@ -1,0 +1,373 @@
+import { notFound } from "next/navigation";
+import type { Metadata } from "next";
+import Link from "next/link";
+import Image from "next/image";
+import { site } from "@/lib/site";
+import {
+  acresLabel,
+  citySlug,
+  daysBetween,
+  getProperty,
+  headlinePrice,
+  longDate,
+  money,
+  num,
+  pricePerSqft,
+  properties,
+  propertiesIn,
+  propertyBlurb,
+  showYearBuilt,
+  type Property,
+} from "@/lib/properties";
+import { cities } from "@/lib/cities";
+import { PropertyCard, StatusBadge } from "@/components/PropertyCard";
+import { PropertyMap } from "@/components/PropertyMap";
+import { BreadcrumbJsonLd } from "@/components/JsonLd";
+import { BuyerInquiryForm } from "@/components/BuyerInquiryForm";
+import { ContactForm } from "@/components/ContactForm";
+
+export const dynamicParams = false;
+
+export function generateStaticParams() {
+  return properties.map((p) => ({ slug: p.slug }));
+}
+
+export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
+  const p = getProperty(params.slug);
+  if (!p) return {};
+  const price = headlinePrice(p);
+  const verb =
+    p.status === "For Sale" ? "For Sale" : p.status === "Sold" ? "Sold" : p.status === "Rented" ? "Rented" : "Purchased";
+  const title = `${p.street}, ${p.city} CA | ${p.type} ${verb}`;
+  return {
+    title,
+    description: `${p.street}, ${p.city}, CA ${p.zip}: ${num(p.sqft)} sq ft ${p.type.toLowerCase()} on ${acresLabel(
+      p.lotSqft,
+    )}. ${price.label} ${money(price.value)}${price.suffix ?? ""}. Photos, numbers, and map from House Junkies.`,
+    alternates: { canonical: `/projects/${p.slug}` },
+    openGraph: { images: [`/images/properties/${p.slug}.jpg`] },
+  };
+}
+
+function Spec({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="rounded-lg border border-gray-200 bg-white p-4 sm:p-5">
+      <dd className="font-display text-xl font-extrabold leading-none tabular-nums text-brand-black sm:text-2xl">
+        {value}
+      </dd>
+      <dt className="mt-3 text-xs text-gray-600">{label}</dt>
+    </div>
+  );
+}
+
+function Ladder({ p }: { p: Property }) {
+  const rows: { label: string; value: number; bar: string }[] = [
+    { label: "Purchased", value: p.purchase, bar: "bg-brand-black" },
+    { label: "Estimated value", value: p.estValue, bar: "bg-brand-yellow" },
+  ];
+  if (p.status === "For Sale" && p.listPrice)
+    rows.push({ label: "List price", value: p.listPrice, bar: "bg-brand-yellow-dark" });
+  if (p.status === "Sold" && p.soldPrice)
+    rows.push({ label: "Sold for", value: p.soldPrice, bar: "bg-brand-yellow-dark" });
+  const max = Math.max(...rows.map((r) => r.value));
+
+  return (
+    <ul className="space-y-4">
+      {rows.map((r) => (
+        <li key={r.label}>
+          <div className="flex items-baseline justify-between text-sm">
+            <span className="text-gray-600">{r.label}</span>
+            <span className="font-bold tabular-nums text-brand-black">{money(r.value)}</span>
+          </div>
+          <div className="mt-2 h-2.5">
+            <div className={`h-full rounded-r-[4px] ${r.bar}`} style={{ width: `${(r.value / max) * 100}%` }} />
+          </div>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+function signed(n: number) {
+  return `${n >= 0 ? "+" : "-"}${money(Math.abs(n))}`;
+}
+
+function keyNumbers(p: Property) {
+  const rows: { label: string; value: string }[] = [
+    { label: "Purchase price per sq ft", value: `$${Math.round(pricePerSqft(p.purchase, p.sqft))}` },
+    { label: "Estimated value per sq ft", value: `$${Math.round(pricePerSqft(p.estValue, p.sqft))}` },
+    { label: "Estimated value vs. purchase", value: signed(p.estValue - p.purchase) },
+  ];
+  if (p.status === "For Sale" && p.listPrice) {
+    rows.push({ label: "List price per sq ft", value: `$${Math.round(pricePerSqft(p.listPrice, p.sqft))}` });
+    rows.push({ label: "List price vs. purchase (gross)", value: signed(p.listPrice - p.purchase) });
+  }
+  if (p.status === "Sold" && p.soldPrice && p.soldDate) {
+    rows.push({ label: "Days from purchase to sale", value: `${daysBetween(p.purchased, p.soldDate)} days` });
+    rows.push({ label: "Sold vs. purchase (gross)", value: signed(p.soldPrice - p.purchase) });
+  }
+  if (p.status === "Rented" && p.rentPerMonth) {
+    rows.push({ label: "Annual rent", value: money(p.rentPerMonth * 12) });
+    rows.push({
+      label: "Gross yield on purchase price",
+      value: `${(((p.rentPerMonth * 12) / p.purchase) * 100).toFixed(1)}%`,
+    });
+  }
+  return rows;
+}
+
+function Timeline({ p }: { p: Property }) {
+  const steps: { date?: string; title: string; text: string; strong?: boolean }[] = [
+    {
+      date: p.purchased,
+      title: "Purchased",
+      text: `${money(p.purchase)}${p.entity ? ` through ${p.entity}` : ""}`,
+    },
+  ];
+  if (p.status === "For Sale" && p.listPrice)
+    steps.push({ title: "Listed for sale", text: money(p.listPrice), strong: true });
+  if (p.status === "Sold" && p.soldDate && p.soldPrice)
+    steps.push({
+      date: p.soldDate,
+      title: "Sold",
+      text: `${money(p.soldPrice)} after ${daysBetween(p.purchased, p.soldDate)} days`,
+      strong: true,
+    });
+  if (p.status === "Rented" && p.rentPerMonth)
+    steps.push({ title: "Rented", text: `${money(p.rentPerMonth)} per month`, strong: true });
+
+  return (
+    <ol className="relative space-y-6 border-l-2 border-gray-200 pl-6">
+      {steps.map((s) => (
+        <li key={s.title} className="relative">
+          <span
+            className={`absolute -left-[1.9rem] top-1.5 h-3 w-3 rounded-full ${
+              s.strong ? "bg-brand-yellow ring-2 ring-brand-yellow-dark" : "bg-brand-black"
+            }`}
+            aria-hidden="true"
+          />
+          <p className="text-xs font-semibold uppercase tracking-wide text-gray-500">
+            {s.date ? longDate(s.date) : "Current status"}
+          </p>
+          <p className="mt-1 font-semibold text-brand-black">{s.title}</p>
+          <p className="text-sm text-gray-600">{s.text}</p>
+        </li>
+      ))}
+    </ol>
+  );
+}
+
+export default function PropertyPage({ params }: { params: { slug: string } }) {
+  const p = getProperty(params.slug);
+  if (!p) notFound();
+
+  const price = headlinePrice(p);
+  const others = propertiesIn(p.city).filter((o) => o.slug !== p.slug);
+  const more = (
+    others.length ? others : properties.filter((o) => o.slug !== p.slug && o.status === p.status)
+  ).slice(0, 3);
+  const cityPage = cities.find((c) => c.slug === citySlug(p.city));
+  const forSale = p.status === "For Sale";
+
+  const outcome =
+    p.status === "For Sale"
+      ? " It is now listed for sale."
+      : p.status === "Sold" && p.soldPrice && p.soldDate
+        ? ` It sold on ${longDate(p.soldDate)} for ${money(p.soldPrice)}.`
+        : p.status === "Rented" && p.rentPerMonth
+          ? ` It is now rented at ${money(p.rentPerMonth)} per month.`
+          : "";
+
+  return (
+    <div>
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", url: site.url },
+          { name: "Projects", url: `${site.url}/projects` },
+          { name: p.street, url: `${site.url}/projects/${p.slug}` },
+        ]}
+      />
+
+      <section className="bg-brand-black text-white">
+        <div className="mx-auto max-w-6xl px-4 py-10 sm:py-12">
+          <nav aria-label="Breadcrumb" className="flex flex-wrap items-center gap-2 text-sm text-white/60">
+            <Link href="/projects" className="hover:text-white">
+              ← Projects
+            </Link>
+            {cityPage ? (
+              <>
+                <span className="text-white/30">/</span>
+                <Link href={`/we-buy-houses/${cityPage.slug}`} className="hover:text-white">
+                  {p.city}
+                </Link>
+              </>
+            ) : null}
+            <span className="text-white/30">/</span>
+            <span className="text-white">{p.street}</span>
+          </nav>
+
+          <div className="mt-6 flex flex-wrap items-end justify-between gap-6">
+            <div>
+              <StatusBadge status={p.status} />
+              <h1 className="mt-4 text-3xl font-bold md:text-4xl">
+                {p.street}, {p.city}
+              </h1>
+              <p className="mt-2 text-white/70">
+                {p.city}, CA {p.zip} | {p.type}
+              </p>
+            </div>
+            <div className="sm:text-right">
+              <p className="text-xs font-semibold uppercase tracking-wide text-white/60">{price.label}</p>
+              <p className="mt-2 font-display text-4xl font-extrabold leading-none tabular-nums text-brand-yellow sm:text-5xl">
+                {money(price.value)}
+                {price.suffix ? <span className="text-xl text-white/60">{price.suffix}</span> : null}
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-6xl px-4 py-10 sm:py-12">
+        <div className="grid gap-6 lg:grid-cols-12">
+          <figure className="lg:col-span-8">
+            <div
+              className="overflow-hidden rounded-lg border border-gray-200 bg-gray-100"
+              style={{ aspectRatio: Math.min(Math.max(p.img.w / p.img.h, 1.33), 2.2) }}
+            >
+              <Image
+                src={`/images/properties/${p.slug}.jpg`}
+                alt={`${p.street}, ${p.city} CA, ${p.type.toLowerCase()} purchased by House Junkies`}
+                width={p.img.w}
+                height={p.img.h}
+                sizes="(min-width: 1024px) 760px, 100vw"
+                priority
+                className="h-full w-full object-cover"
+              />
+            </div>
+            <figcaption className="mt-3 text-sm text-gray-500">
+              {p.street}, {p.city}. Photo shown as the property looked at or near purchase.
+            </figcaption>
+          </figure>
+
+          <dl className="grid grid-cols-2 content-start gap-3 lg:col-span-4">
+            {p.beds !== null && p.beds > 0 ? <Spec label="Beds" value={String(p.beds)} /> : null}
+            {p.baths !== null ? <Spec label="Baths" value={String(p.baths)} /> : null}
+            <Spec label="Square feet" value={num(p.sqft)} />
+            <Spec label="Lot size" value={acresLabel(p.lotSqft)} />
+            {showYearBuilt(p) ? <Spec label="Year built" value={String(p.yearBuilt)} /> : null}
+            <Spec label="Est. value" value={money(p.estValue)} />
+            <Spec label="Purchased per sq ft" value={`$${Math.round(pricePerSqft(p.purchase, p.sqft))}`} />
+            <Spec label="Property type" value={p.type.replace(" Property", "").replace(" Home", "")} />
+          </dl>
+        </div>
+      </section>
+
+      <section className="border-t border-gray-100 bg-gray-50">
+        <div className="mx-auto max-w-6xl px-4 py-12 sm:py-14">
+          <div className="grid gap-10 lg:grid-cols-12">
+            <div className="lg:col-span-7">
+              <h2 className="text-2xl font-bold text-brand-black">The Deal</h2>
+              <p className="mt-4 max-w-[62ch] leading-relaxed text-gray-600">
+                {propertyBlurb(p)}
+                {outcome}
+              </p>
+
+              <div className="mt-8 rounded-lg border border-gray-200 bg-white p-5 sm:p-7">
+                <Ladder p={p} />
+              </div>
+
+              <dl className="mt-6 divide-y divide-gray-100 rounded-lg border border-gray-200 bg-white">
+                {keyNumbers(p).map((row) => (
+                  <div key={row.label} className="flex items-center justify-between gap-4 px-5 py-3.5 text-sm">
+                    <dt className="text-gray-600">{row.label}</dt>
+                    <dd className="font-bold tabular-nums text-brand-black">{row.value}</dd>
+                  </div>
+                ))}
+              </dl>
+              <p className="mt-4 max-w-[62ch] text-xs leading-relaxed text-gray-500">
+                Estimated value is an automated estimate, not an appraisal. Gross figures are before closing, holding,
+                and renovation costs and are not profit. Square footage, lot size, and year built come from county
+                records and should be verified by any buyer.
+              </p>
+            </div>
+
+            <aside className="lg:col-span-5">
+              <h2 className="text-2xl font-bold text-brand-black">Timeline</h2>
+              <div className="mt-6">
+                <Timeline p={p} />
+              </div>
+
+              <div className="mt-10 rounded-lg border border-brand-yellow/60 bg-white p-6">
+                <p className="font-bold text-brand-black">
+                  {forSale ? "Interested in this home?" : "Own a house like this one?"}
+                </p>
+                <p className="mt-2 text-sm leading-relaxed text-gray-600">
+                  {forSale
+                    ? "Call or text to ask about showings and offers."
+                    : `House Junkies buys houses in ${p.city} and across Tulare County, as-is, with our own cash. Call or text for a straight read on what yours is worth.`}
+                </p>
+                <div className="mt-5 flex flex-wrap gap-3">
+                  <a
+                    href={`tel:${site.phoneE164}`}
+                    className="inline-flex h-11 items-center rounded-md bg-brand-yellow px-5 text-sm font-bold text-black hover:bg-brand-yellow-dark"
+                  >
+                    Call {site.phone}
+                  </a>
+                  <a
+                    href={`sms:${site.phoneE164}`}
+                    className="inline-flex h-11 items-center rounded-md border border-gray-300 px-5 text-sm font-semibold text-brand-black hover:border-brand-yellow-dark hover:text-brand-yellow-dark"
+                  >
+                    Text
+                  </a>
+                </div>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-6xl px-4 py-12 sm:py-14">
+        <h2 className="text-2xl font-bold text-brand-black">
+          Location
+          <span className="ml-3 text-base font-normal text-gray-500">
+            {p.street}, {p.city}
+          </span>
+        </h2>
+        <div className="mt-6">
+          <PropertyMap p={p} />
+        </div>
+      </section>
+
+      {more.length ? (
+        <section className="border-t border-gray-100 bg-gray-50">
+          <div className="mx-auto max-w-6xl px-4 py-12 sm:py-14">
+            <div className="flex flex-wrap items-end justify-between gap-4">
+              <h2 className="text-2xl font-bold text-brand-black">
+                {others.length ? `More in ${p.city}` : "More Projects"}
+              </h2>
+              <Link href="/projects" className="text-sm font-semibold text-brand-yellow-dark hover:underline">
+                All projects →
+              </Link>
+            </div>
+            <ul className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {more.map((o) => (
+                <li key={o.slug}>
+                  <PropertyCard p={o} />
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+      ) : null}
+
+      <section className="mx-auto max-w-2xl px-4 py-14">
+        <h2 className="text-center text-xl font-bold text-brand-black">
+          {forSale ? `Ask About ${p.street}` : `Have a Property in ${p.city} You Need to Sell?`}
+        </h2>
+        <div className="mt-6">
+          {forSale ? <BuyerInquiryForm topic={`Listing: ${p.street}, ${p.city}`} placeholder="Showing times, offer, questions" /> : <ContactForm />}
+        </div>
+      </section>
+    </div>
+  );
+}
