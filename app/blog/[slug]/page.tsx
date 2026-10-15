@@ -11,6 +11,28 @@ export function generateStaticParams() {
   return houseJunkiesPosts.map((p) => ({ slug: p.slug }));
 }
 
+function BlogImage({ line }: { line: string }) {
+  const m = line.match(/^!\[(.*)\]\((.+)\)$/);
+  if (!m) return <p>{line}</p>;
+  const [, caption, src] = m;
+  const slug = src.match(/^\/images\/properties\/(.+)\.jpg$/)?.[1];
+  const img = <img src={src} alt={caption} loading="lazy" className="w-full rounded-lg border border-gray-200" />;
+  return (
+    <figure className="py-2">
+      {slug ? <Link href={`/projects/${slug}`}>{img}</Link> : img}
+      <figcaption className="mt-2 text-sm text-gray-500">
+        {slug ? (
+          <Link href={`/projects/${slug}`} className="hover:text-brand-yellow-dark hover:underline">
+            {caption}
+          </Link>
+        ) : (
+          caption
+        )}
+      </figcaption>
+    </figure>
+  );
+}
+
 export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
   const post = getHouseJunkiesPost(params.slug);
   if (!post) return {};
@@ -18,6 +40,13 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
     title: post.title,
     description: post.excerpt,
     alternates: { canonical: `/blog/${post.slug}` },
+    openGraph: {
+      title: post.title,
+      description: post.excerpt,
+      type: "article",
+      url: `/blog/${post.slug}`,
+      ...(post.heroImage ? { images: [{ url: post.heroImage.src, alt: post.heroImage.alt }] } : {}),
+    },
   };
 }
 
@@ -63,7 +92,9 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
 
         <div className="space-y-4 text-gray-600">
           {post.body.map((paragraph, i) =>
-            paragraph.startsWith("## ") ? (
+            paragraph.startsWith("![") ? (
+              <BlogImage key={i} line={paragraph} />
+            ) : paragraph.startsWith("## ") ? (
               <h2 key={i} className="pt-4 text-2xl font-bold text-brand-black">{paragraph.slice(3)}</h2>
             ) : paragraph.startsWith("### ") ? (
               <h3 key={i} className="pt-2 text-xl font-bold text-brand-black">{paragraph.slice(4)}</h3>

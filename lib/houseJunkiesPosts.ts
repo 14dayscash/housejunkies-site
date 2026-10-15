@@ -27,7 +27,7 @@ export type HouseJunkiesPost = {
   author: string;
   excerpt: string;
   summary?: string[]; // 3 short bullet points shown at the top of the post
-  body: string[]; // a line starting with "## " renders as an H2, "### " as an H3
+  body: string[]; // "## " line = H2, "### " = H3, "![caption](/images/...)" = image (property photos link to their page)
   links?: { label: string; url: string }[]; // real clickable citations/backlinks, shown at the end
   heroImage?: { src: string; alt: string }; // optional image shown at the top of the post
 };
@@ -39,6 +39,7 @@ export const houseJunkiesPosts: HouseJunkiesPost[] = [
     date: "October 14, 2026",
     category: "Company News",
     author: "Dominic McClelland",
+    heroImage: { src: "/images/properties/765-s-c-st-tulare.jpg", alt: "765 S C St in Tulare, CA, one of the houses House Junkies bought in 2026" },
     excerpt:
       "House Junkies has bought, renovated, and resold 350+ homes over 7+ years, and we have bought 25+ more since July 2026 alone. Here is a snapshot of 16 of them, what we paid, and what we are doing with each one.",
     summary: [
@@ -53,18 +54,25 @@ export const houseJunkiesPosts: HouseJunkiesPost[] = [
       "Visalia is home base, but only two of these 16 were in Visalia. Porterville led with six. If you own a house outside Visalia and figured no serious buyer would make you an offer, this list says otherwise. Each city in the list has its own page on our site, and those pages now show the real purchases we made in that city.",
       "## Houses, Mobile Homes, Multi-Family, and a Church",
       "They are not all the same kind of house either. Ten are single family homes, three are multi-family properties, two are mobile homes, and one is a church. Six are under 1,000 square feet and three sit on more than an acre. Small houses, big lots, mobile homes, and unusual properties are exactly where a retail buyer's lender tends to slow things down or back out, and where a cash buyer that renovates with its own licensed crew can still make a deal work.",
+      "![343 Westside St, Porterville: a mobile home we bought for $65,000](/images/properties/343-westside-st-porterville.jpg)",
       "## Bought and Sold in 43 Days in Visalia",
       "Start with the fastest one. We bought 32750 Lincoln Rd in Visalia on July 15. It is a small place, 550 square feet, but it sits on more than a third of an acre, and that lot was a big part of why it made sense. Forty-three days later it sold for $247,500. That is about as clean as this business gets: buy it, fix what needs fixing, get it back on the market, and move on to the next one.",
+      "![32750 Lincoln Rd, Visalia: bought July 15, sold 43 days later for $247,500](/images/properties/32750-lincoln-rd-visalia.jpg)",
       "## From Closing to Listed in Tulare",
       "Then there is the newest one. We closed on 765 S C St in Tulare on October 5, and it is already listed at $299,990. Across town, 756 S Oliver St, which we bought on September 24, is listed at $279,900. Some houses need a full gut. Some just need the right buyer. When the work is light, a house can go from our closing to the market in a matter of days, and that speed is a big part of how we keep buying at this pace.",
+      "![756 S Oliver St, Tulare: bought September 24, listed at $279,900](/images/properties/756-s-oliver-st-tulare.jpg)",
       "## Holding a Rental in Exeter",
       "Not everything gets flipped. 425 W Willow St in Exeter, a 680 square foot two-bedroom, is rented out now. Some houses make more sense held for the long run than sold, and the plan for each one comes down to the numbers on that specific property, not a rule we follow every time.",
+      "![425 W Willow St, Exeter: bought in August, now a rental](/images/properties/425-w-willow-st-exeter.jpg)",
       "## A Church in Strathmore",
       "Then there are the ones that do not fit in a box. 19667 Avenue 195 in Strathmore is a church, bought in July for $125,000 and now listed at $209,990. Most buyers would not know what to do with a building like that. We saw 1,640 square feet on a 13,050 square foot lot in a small town, and a buyer out there who needs exactly that kind of space.",
+      "![19667 Avenue 195, Strathmore: a church we bought for $125,000](/images/properties/19667-avenue-195-strathmore.jpg)",
       "## Big Lots in Dinuba, Lindsay, and Porterville",
       "The big lots are where it gets interesting. 40074 Road 56 in Dinuba is a 2,347 square foot house on 2.85 acres. 24215 Avenue 216 in Lindsay is a 5-bedroom on 1.5 acres, and 2333 E Springville Ave in Porterville sits on about 1.3 acres. With that much land, the house is only part of the story. These are the properties we look at for more than a flip, whether that means adding units, splitting off land, or redeveloping down the road, if the city and the numbers allow it.",
+      "![40074 Road 56, Dinuba: 2,347 square feet on 2.85 acres](/images/properties/40074-road-56-dinuba.jpg)",
       "## Multi-Family Properties: Renovate, Rent, and Refinance",
       "The multi-family properties play a different game. 50 E Locust Ave in Porterville is a 3,526 square foot building, and we also picked up 41 Chess Terrace St in Porterville and 207 Pleasant St in Lindsay. Income properties like these are the kind we may renovate, rent out, and refinance to pull our money back out and put it into the next deal. That is one of the ways a company keeps buying at this pace without slowing down.",
+      "![50 E Locust Ave, Porterville: a 3,526 square foot multi-family building](/images/properties/50-e-locust-ave-porterville.jpg)",
       "## Under Construction and Still Being Planned",
       "And the rest are in the middle of the work right now. Eleven of the 16 have not been listed yet. Some are under construction with our crew at House Junkies Construction, and some are still being planned out: what to fix, what to keep, and whether each one ends up a flip, a rental, or something bigger. As they finish, they will show up on our Projects page, and the ones we sell will show up on our Property for Sale page.",
       "## Why We Pay Less Than the Estimated Value",
