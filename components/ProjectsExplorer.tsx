@@ -52,7 +52,7 @@ export function ProjectsExplorer({ properties, cityNames }: { properties: Proper
     const list = properties.filter(
       (p) => (status === "All" || p.status === status) && (city === "All" || p.city === city),
     );
-    const price = (p: Property) => p.listPrice ?? p.soldPrice ?? p.purchase;
+    const price = (p: Property) => p.purchase;
     return [...list].sort((a, b) => {
       if (sort === "price-high") return price(b) - price(a);
       if (sort === "price-low") return price(a) - price(b);
