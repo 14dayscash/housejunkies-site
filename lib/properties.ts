@@ -507,7 +507,8 @@ export function propertyBlurb(p: Property) {
   ].filter(Boolean).join(", ");
   const kind = p.type === "Single Family Home" ? "house" : p.type.toLowerCase().replace(" property", "");
   const built = showYearBuilt(p) ? `, built in ${p.yearBuilt}` : "";
-  return `A ${rooms ? rooms + " " : ""}${kind} in ${p.city}, ${num(p.sqft)} square feet${built}. We bought it for ${money(
+  const entity = p.entity ? ` through ${p.entity}` : "";
+  return `A ${rooms ? rooms + " " : ""}${kind} in ${p.city}, ${num(p.sqft)} square feet${built}. We bought it${entity} for ${money(
     p.purchase,
   )} on ${longDate(p.purchased)}.`;
 }

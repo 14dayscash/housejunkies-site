@@ -10,6 +10,7 @@ import {
   headlinePrice,
   secondaryPrice,
   longDate,
+  daysBetween,
   money,
   num,
   properties,
@@ -64,21 +65,21 @@ function Timeline({ p }: { p: Property }) {
   const steps: { date?: string; title: string; text: string; strong?: boolean }[] = [
     {
       date: p.purchased,
-      title: "We bought it",
-      text: money(p.purchase),
+      title: "Purchased",
+      text: `${money(p.purchase)}${p.entity ? ` through ${p.entity}` : ""}`,
     },
   ];
   if (p.status === "For Sale" && p.listPrice)
-    steps.push({ title: "For sale now", text: money(p.listPrice), strong: true });
+    steps.push({ title: "Listed for sale", text: money(p.listPrice), strong: true });
   if (p.status === "Sold" && p.soldDate && p.soldPrice)
     steps.push({
       date: p.soldDate,
       title: "Sold",
-      text: money(p.soldPrice),
+      text: `${money(p.soldPrice)} after ${daysBetween(p.purchased, p.soldDate)} days`,
       strong: true,
     });
   if (p.status === "Rented" && p.rentPerMonth)
-    steps.push({ title: "Rented out", text: `${money(p.rentPerMonth)} a month`, strong: true });
+    steps.push({ title: "Rented", text: `${money(p.rentPerMonth)} per month`, strong: true });
 
   return (
     <ol className="relative space-y-6 border-l-2 border-gray-200 pl-6">
@@ -91,7 +92,7 @@ function Timeline({ p }: { p: Property }) {
             aria-hidden="true"
           />
           <p className="text-xs font-semibold uppercase tracking-wide text-gray-500">
-            {s.date ? longDate(s.date) : "Now"}
+            {s.date ? longDate(s.date) : "Current status"}
           </p>
           <p className="mt-1 font-semibold text-brand-black">{s.title}</p>
           <p className="text-sm text-gray-600">{s.text}</p>
@@ -221,7 +222,7 @@ export default function PropertyPage({ params }: { params: { slug: string } }) {
             </div>
 
             <aside className="lg:col-span-5">
-              <h2 className="text-2xl font-bold text-brand-black">What Happened</h2>
+              <h2 className="text-2xl font-bold text-brand-black">Timeline</h2>
               <div className="mt-6">
                 <Timeline p={p} />
               </div>
