@@ -85,23 +85,6 @@ export default async function ProjectsPage() {
         <ProjectsExplorer properties={properties} cityNames={propertyCityNames()} />
       </section>
 
-      <section className="bg-brand-black text-white">
-        <div className="mx-auto flex max-w-6xl flex-col items-start gap-4 px-4 py-10 sm:flex-row sm:items-center sm:justify-between">
-          <div>
-            <h2 className="text-2xl font-bold">Want to Sell Your House Too?</h2>
-            <p className="mt-1 text-white/70">Any condition. No repairs, no fees. You pick the closing date.</p>
-          </div>
-          <div className="flex flex-wrap gap-3">
-            <Link href="/get-offer" className="rounded-md bg-brand-yellow px-5 py-3 font-bold text-black hover:bg-brand-yellow-dark">
-              Get My Cash Offer
-            </Link>
-            <a href={`tel:${site.phoneE164}`} className="rounded-md border border-white/30 px-5 py-3 font-semibold text-white hover:border-brand-yellow">
-              Call {site.phone}
-            </a>
-          </div>
-        </div>
-      </section>
-
       <section className="bg-gray-50">
         <div className="mx-auto max-w-3xl px-4 py-12">
           <h2 className="text-2xl font-bold text-brand-black">Why We Pay Less Than the Estimate</h2>

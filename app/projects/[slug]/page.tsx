@@ -6,6 +6,7 @@ import { site } from "@/lib/site";
 import {
   acresLabel,
   citySlug,
+  daysBetween,
   getProperty,
   headlinePrice,
   secondaryPrice,
@@ -191,7 +192,7 @@ export default function PropertyPage({ params }: { params: { slug: string } }) {
               />
             </div>
             <figcaption className="mt-3 text-sm text-gray-500">
-              {p.street}, {p.city}, CA {p.zip}
+              Photo from around when we bought it.
             </figcaption>
           </figure>
 
@@ -231,12 +232,12 @@ export default function PropertyPage({ params }: { params: { slug: string } }) {
 
               <div className={`${forSale ? "mt-4" : "mt-10"} rounded-lg border border-brand-yellow/60 bg-white p-6`}>
                 <p className="font-bold text-brand-black">
-                  {forSale ? "Want to see this house?" : "Want to sell your house?"}
+                  {forSale ? "Interested in this home?" : "Own a house like this one?"}
                 </p>
                 <p className="mt-2 text-sm leading-relaxed text-gray-600">
                   {forSale
-                    ? "Call or text us to set up a showing."
-                    : `We buy houses in ${p.city} in any condition. No repairs, no fees. Call or text and we will make you an offer.`}
+                    ? "Call or text to ask about showings and offers."
+                    : `House Junkies buys houses in ${p.city} and across Tulare County, as-is, with our own cash. Call or text for a straight read on what yours is worth.`}
                 </p>
                 <div className="mt-5 flex flex-wrap gap-3">
                   <a
@@ -275,10 +276,10 @@ export default function PropertyPage({ params }: { params: { slug: string } }) {
           <div className="mx-auto max-w-6xl px-4 py-12 sm:py-14">
             <div className="flex flex-wrap items-end justify-between gap-4">
               <h2 className="text-2xl font-bold text-brand-black">
-                {others.length ? `More Houses We Bought in ${p.city}` : "More Houses We Bought"}
+                {others.length ? `More in ${p.city}` : "More Projects"}
               </h2>
               <Link href="/projects" className="text-sm font-semibold text-brand-yellow-dark hover:underline">
-                See all →
+                All projects →
               </Link>
             </div>
             <ul className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -294,7 +295,7 @@ export default function PropertyPage({ params }: { params: { slug: string } }) {
 
       <section className="mx-auto max-w-2xl px-4 py-14">
         <h2 className="text-center text-xl font-bold text-brand-black">
-          {forSale ? `Ask About ${p.street}` : `Get a Cash Offer on Your ${p.city} House`}
+          {forSale ? `Ask About ${p.street}` : `Have a Property in ${p.city} You Need to Sell?`}
         </h2>
         <div className="mt-6">
           {forSale ? <BuyerInquiryForm topic={`Listing: ${p.street}, ${p.city}`} placeholder="Showing times, offer, questions" /> : <ContactForm />}
