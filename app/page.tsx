@@ -80,7 +80,7 @@ export default function HomePage() {
         <div className="mx-auto grid max-w-6xl grid-cols-2 gap-6 px-4 py-10 text-center md:grid-cols-4">
           <div>
             <div className="text-3xl font-bold text-brand-black">{site.stats.homesBought}</div>
-            <div className="mt-1 text-sm text-gray-500">Homes Bought & Renovated</div>
+            <div className="mt-1 text-sm text-gray-500">Homes Bought</div>
           </div>
           <div>
             <div className="text-3xl font-bold text-brand-black">{site.stats.yearsInBusiness}</div>
@@ -88,18 +88,15 @@ export default function HomePage() {
           </div>
           <div>
             <div className="text-3xl font-bold text-brand-black">{site.stats.bbbRating}</div>
-            <div className="mt-1 text-sm text-gray-500">BBB Accredited Rating</div>
+            <div className="mt-1 text-sm text-gray-500">BBB Rating</div>
           </div>
           <div>
             <div className="text-3xl font-bold text-brand-black">{site.stats.sfrAnalyticsRank}</div>
-            <div className="mt-1 text-sm text-gray-500">Investor in Visalia</div>
+            <div className="mt-1 text-sm text-gray-500">Home Buyer in Visalia</div>
           </div>
         </div>
         <div className="border-t border-gray-100 bg-gray-50 px-4 py-3 text-center text-xs text-gray-600">
-          Ranked #1 by transaction volume in Visalia ({site.stats.sfrAnalyticsVolume} across{" "}
-          {site.stats.sfrAnalyticsDeals} deals) by{" "}
-          <span className="font-medium text-gray-700">{site.stats.sfrAnalyticsSource}</span>, an
-          independent, third-party market data source.
+          Ranked {site.stats.sfrAnalyticsRank} in Visalia by {site.stats.sfrAnalyticsSource}.
         </div>
       </section>
 
@@ -158,8 +155,8 @@ export default function HomePage() {
             <div className="text-sm font-bold uppercase tracking-wide text-brand-yellow-dark">Step 1 - Acquisitions</div>
             <p className="mt-2 font-semibold text-brand-black">{site.stats.homesBought} Houses Flipped</p>
             <p className="mt-1 text-sm text-gray-600">
-              Ranked {site.stats.sfrAnalyticsRank} in Visalia and Tulare County by transaction volume,
-              per {site.stats.sfrAnalyticsSource}. No banks slowing things down, just private money
+              Ranked {site.stats.sfrAnalyticsRank} in Visalia and Tulare County by{" "}
+              {site.stats.sfrAnalyticsSource}. No banks slowing things down, just private money
               and trusted partners who move as fast as we do. This allows us to close quickly and
               efficiently.
             </p>

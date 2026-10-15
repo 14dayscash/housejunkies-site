@@ -96,14 +96,10 @@ export default function AboutPage() {
             </div>
             <p className="mt-1 text-sm text-gray-500">{site.entityAddresses.acquisitions}</p>
             <p className="mt-2 text-sm text-gray-600">
-              The acquisitions and investment arm, and the entity ranked {site.stats.sfrAnalyticsRank} in
-              Visalia by transaction volume ({site.stats.sfrAnalyticsVolume} across{" "}
-              {site.stats.sfrAnalyticsDeals} deals) per {site.stats.sfrAnalyticsSource}. Cash offers
-              on any-condition properties, funded entirely in-house with private capital, no bank
-              or outside partner to back out and nothing to fall through during underwriting.
-              Every offer is built from a real four-number formula (after-repair value, renovation
-              cost, holding and closing costs, and margin), not a lowball starting point meant to
-              get negotiated up.
+              The part of the company that buys houses, ranked {site.stats.sfrAnalyticsRank} in Visalia by{" "}
+              {site.stats.sfrAnalyticsSource}. We make cash offers on houses in any condition, and every offer
+              is built from four numbers (what the house is worth fixed up, the repair cost, holding and closing
+              costs, and our margin), not a lowball meant to get haggled up.
             </p>
           </div>
           <div className="rounded-lg border border-gray-200 p-5">
@@ -146,11 +142,8 @@ export default function AboutPage() {
           </div>
         </div>
         <p className="mt-4 text-gray-600">
-          Acquire, renovate, sell, repeat. Every stage happens inside the same company, which is
-          also why {site.name} is ranked {site.stats.sfrAnalyticsRank} in Visalia by transaction
-          volume ({site.stats.sfrAnalyticsVolume} across {site.stats.sfrAnalyticsDeals} deals)
-          according to {site.stats.sfrAnalyticsSource}, an independent third-party market data
-          source, not a number we made up for a website.
+          Buy, fix up, sell, repeat. We do every step ourselves, and that is why {site.stats.sfrAnalyticsSource}{" "}
+          ranks {site.name} {site.stats.sfrAnalyticsRank} in Visalia.
         </p>
       </section>
 

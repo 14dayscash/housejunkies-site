@@ -23,7 +23,7 @@ export function StatusBadge({ status, className = "" }: { status: PropertyStatus
     <span
       className={`inline-flex items-center rounded px-2.5 py-1 text-xs font-bold uppercase tracking-wide ${badgeStyles[status]} ${className}`}
     >
-      {status}
+      {status === "Acquired" ? "Just Bought" : status}
     </span>
   );
 }

@@ -44,12 +44,11 @@ export default function BuyHubPage() {
             <div>
               <h2 className="text-2xl font-bold text-brand-black">Houses for Sale Right Now</h2>
               <p className="mt-2 max-w-2xl text-gray-600">
-                {listings.length} {listings.length === 1 ? "property" : "properties"} we own and are offering for
-                sale, {money(listedTotal)} combined. Open any listing for photos, a map, and the numbers.
+                Tap a house for photos and details.
               </p>
             </div>
             <Link href="/projects" className="text-sm font-semibold text-brand-yellow-dark hover:underline">
-              See every project →
+              See houses we just bought →
             </Link>
           </div>
           <ul className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -60,9 +59,7 @@ export default function BuyHubPage() {
             ))}
           </ul>
           <p className="mt-6 max-w-3xl text-xs leading-relaxed text-gray-500">
-            Prices and availability are subject to change and nothing on this page is an offer. Estimated values are
-            automated estimates, not appraisals. Square footage, lot size, and year built come from county records and
-            should be verified by the buyer.
+            Prices can change. Estimated values are computer estimates, not appraisals.
           </p>
           {closed.length > 0 && (
             <p className="mt-3 text-sm text-gray-600">
@@ -104,11 +101,10 @@ export default function BuyHubPage() {
 
           <h2 className="mt-10 text-xl font-bold text-brand-black">Why Buy From a Local Investor</h2>
           <p className="mt-3 text-gray-600">
-            We have bought, renovated, and resold {site.stats.homesBought} homes, and per SFR Analytics we are
-            the {site.stats.sfrAnalyticsRank} investment group in Visalia by transaction volume. Inventory
-            changes often, so the fastest way to see what is available is to call{" "}
+            We have bought, fixed up, and sold {site.stats.homesBought} homes, and we are ranked{" "}
+            {site.stats.sfrAnalyticsRank} in Visalia. Houses sell fast, so the quickest way to see what we have is to call{" "}
             <a href={`tel:${site.phoneE164}`} className="font-semibold text-brand-yellow-dark hover:underline">{site.phone}</a>{" "}
-            or send us your criteria.
+            or tell us what you want.
           </p>
           <p className="mt-6 text-sm text-gray-500">
             Selling instead?{" "}

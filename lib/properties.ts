@@ -401,8 +401,8 @@ export function num(n: number) {
 
 export function acresLabel(lotSqft: number) {
   const a = lotSqft / 43560;
-  if (a >= 1) return `${a.toFixed(2)} ac`;
-  return `${num(lotSqft)} sf`;
+  if (a >= 1) return `${a.toFixed(1)} acres`;
+  return `${num(lotSqft)} sq ft`;
 }
 
 export function fullAddress(p: Property) {
@@ -456,14 +456,14 @@ export function pricePerSqft(price: number, sqft: number) {
 
 /** The headline number on every card and page is what we paid. */
 export function headlinePrice(p: Property): { label: string; value: number; suffix?: string } {
-  return { label: "Purchased For", value: p.purchase };
+  return { label: "We Paid", value: p.purchase };
 }
 
 /** The smaller line under the headline: list price, sale price, or rent. */
 export function secondaryPrice(p: Property): string | null {
-  if (p.status === "For Sale" && p.listPrice) return `Listed at ${money(p.listPrice)}`;
-  if (p.status === "Sold" && p.soldPrice) return `Sold for ${money(p.soldPrice)}`;
-  if (p.status === "Rented" && p.rentPerMonth) return `Rented at ${money(p.rentPerMonth)}/mo`;
+  if (p.status === "For Sale" && p.listPrice) return `For sale: ${money(p.listPrice)}`;
+  if (p.status === "Sold" && p.soldPrice) return `Sold: ${money(p.soldPrice)}`;
+  if (p.status === "Rented" && p.rentPerMonth) return `Rented: ${money(p.rentPerMonth)}/month`;
   return null;
 }
 
@@ -501,16 +501,15 @@ export function portfolioStats(list: Property[] = properties) {
 }
 
 export function propertyBlurb(p: Property) {
-  const layout = [
-    ...bedsBathsLabel(p).map((b) => `${b.value} ${b.unit}`),
-    showYearBuilt(p) ? `built ${p.yearBuilt}` : "",
-  ]
-    .filter(Boolean)
-    .join(", ");
-  const entity = p.entity ? ` through ${p.entity}` : "";
-  return `${p.street} in ${p.city} is a ${num(p.sqft)} sq ft ${p.type.toLowerCase()} (${layout}) on ${acresLabel(
-    p.lotSqft,
-  )}. House Junkies purchased it${entity} for ${money(p.purchase)} on ${longDate(p.purchased)}.`;
+  const rooms = [
+    p.beds ? `${p.beds} bed` : "",
+    p.baths ? `${p.baths} bath` : "",
+  ].filter(Boolean).join(", ");
+  const kind = p.type === "Single Family Home" ? "house" : p.type.toLowerCase().replace(" property", "");
+  const built = showYearBuilt(p) ? `, built in ${p.yearBuilt}` : "";
+  return `A ${rooms ? rooms + " " : ""}${kind} in ${p.city}, ${num(p.sqft)} square feet${built}. We bought it for ${money(
+    p.purchase,
+  )} on ${longDate(p.purchased)}.`;
 }
 
 /* ---------------------------------------------------------------- */
@@ -539,15 +538,11 @@ export function cityFaq(cityName: string): { question: string; answer: string }[
   return [
     {
       question: `Has House Junkies bought houses in ${cityName} recently?`,
-      answer: `Yes. ${plural(stats.count, "of our purchase")} in ${cityName} since ${monthYear(
-        first.purchased,
-      )} ${stats.count === 1 ? "is" : "are"} broken down on our Projects page, ${money(
-        stats.purchaseTotal,
-      )} combined, with photos, square footage, lot size, and what we paid. That is a selection of our most recent deals, not the full list.`,
+      answer: `Yes. You can see ${stats.count === 1 ? "one" : stats.count} of the houses we just bought in ${cityName} on our Projects page, with photos and what we paid.`,
     },
     {
-      question: `What kinds of properties do you buy in ${cityName}?`,
-      answer: `Our recent ${cityName} purchases include ${types.join(", ")}, ${range}. We buy as-is for cash, in any condition.`,
+      question: `What kinds of houses do you buy in ${cityName}?`,
+      answer: `All kinds. Our recent ${cityName} buys include ${types.join(", ")}, from ${money(lowest.purchase)} to ${money(highest.purchase)}. We buy as-is, in any condition.`,
     },
   ];
 }

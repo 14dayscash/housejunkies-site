@@ -8,8 +8,8 @@ import { site } from "@/lib/site";
 // portfolio stats. Pass `list` and `heading` to reuse it for a single city.
 export function RecentAcquisitions({
   list = properties,
-  heading = "Recent Purchases",
-  intro = `${site.stats.homesBought} homes bought. Here are ${properties.length} of our most recent, broken down: photos, square footage, lot size, and what we paid.`,
+  heading = "Houses We Just Bought",
+  intro = `We have bought ${site.stats.homesBought} homes. Here are a few of our newest, and what we paid.`,
   id,
 }: {
   list?: Property[];
@@ -28,7 +28,7 @@ export function RecentAcquisitions({
             <p className="mt-2 max-w-2xl text-gray-600">{intro}</p>
           </div>
           <Link href="/projects" className="text-sm font-semibold text-brand-yellow-dark hover:underline">
-            See all {list.length} breakdowns →
+            See them all →
           </Link>
         </div>
 
@@ -46,7 +46,7 @@ export function RecentAcquisitions({
 
         <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3 text-sm">
           <Link href="/projects" className="font-semibold text-brand-yellow-dark hover:underline">
-            Browse the full breakdown →
+            See more houses →
           </Link>
           <Link href="/buy" className="font-semibold text-brand-yellow-dark hover:underline">
             Houses for sale →

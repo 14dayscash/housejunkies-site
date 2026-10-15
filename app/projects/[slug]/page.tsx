@@ -116,11 +116,11 @@ export default function PropertyPage({ params }: { params: { slug: string } }) {
 
   const outcome =
     p.status === "For Sale"
-      ? " It is now listed for sale."
+      ? " It is for sale now."
       : p.status === "Sold" && p.soldPrice && p.soldDate
         ? ` It sold on ${longDate(p.soldDate)} for ${money(p.soldPrice)}.`
         : p.status === "Rented" && p.rentPerMonth
-          ? ` It is now rented at ${money(p.rentPerMonth)} per month.`
+          ? ` It rents for ${money(p.rentPerMonth)} a month now.`
           : "";
 
   return (
@@ -191,17 +191,17 @@ export default function PropertyPage({ params }: { params: { slug: string } }) {
               />
             </div>
             <figcaption className="mt-3 text-sm text-gray-500">
-              {p.street}, {p.city}. Photo shown as the property looked at or near purchase.
+              Photo from around when we bought it.
             </figcaption>
           </figure>
 
           <dl className="grid grid-cols-2 content-start gap-3 lg:col-span-4">
             {p.beds !== null && p.beds > 0 ? <Spec label="Beds" value={String(p.beds)} /> : null}
             {p.baths !== null ? <Spec label="Baths" value={String(p.baths)} /> : null}
-            <Spec label="Square feet" value={num(p.sqft)} />
-            <Spec label="Lot size" value={acresLabel(p.lotSqft)} />
-            {showYearBuilt(p) ? <Spec label="Year built" value={String(p.yearBuilt)} /> : null}
-            <Spec label="Est. value" value={money(p.estValue)} />
+            <Spec label="Square Feet" value={num(p.sqft)} />
+            <Spec label="Lot Size" value={acresLabel(p.lotSqft)} />
+            {showYearBuilt(p) ? <Spec label="Year Built" value={String(p.yearBuilt)} /> : null}
+            <Spec label="Estimated Value" value={money(p.estValue)} />
           </dl>
         </div>
       </section>
@@ -210,14 +210,14 @@ export default function PropertyPage({ params }: { params: { slug: string } }) {
         <div className="mx-auto max-w-6xl px-4 py-12 sm:py-14">
           <div className="grid gap-10 lg:grid-cols-12">
             <div className="lg:col-span-7">
-              <h2 className="text-2xl font-bold text-brand-black">The Deal</h2>
+              <h2 className="text-2xl font-bold text-brand-black">About This House</h2>
               <p className="mt-4 max-w-[62ch] leading-relaxed text-gray-600">
                 {propertyBlurb(p)}
                 {outcome}
               </p>
 
               <p className="mt-3 max-w-[62ch] text-xs leading-relaxed text-gray-500">
-                Est. value is an automated estimate, not an appraisal. Size and lot come from county records.
+                The estimated value is a computer estimate, not an appraisal.
               </p>
             </div>
 
