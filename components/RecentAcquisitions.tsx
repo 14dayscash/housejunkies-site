@@ -1,14 +1,15 @@
 import Link from "next/link";
 import { PropertyCard } from "@/components/PropertyCard";
 import { PropertyStats } from "@/components/PropertyStats";
-import { newestFirst, properties, recentWindowLabel, totalRecentPurchases, type Property } from "@/lib/properties";
+import { newestFirst, properties, type Property } from "@/lib/properties";
+import { site } from "@/lib/site";
 
 // Home-page strip. Shows the six newest purchases (three on phones) plus the
 // portfolio stats. Pass `list` and `heading` to reuse it for a single city.
 export function RecentAcquisitions({
   list = properties,
   heading = "Recent Purchases",
-  intro = `We have bought ${totalRecentPurchases} properties ${recentWindowLabel}. Here are ${properties.length} of them broken down: photos, square footage, lot size, and what we paid.`,
+  intro = `${site.stats.homesBought} homes bought. Here are ${properties.length} of our most recent, broken down: photos, square footage, lot size, and what we paid.`,
   id,
 }: {
   list?: Property[];

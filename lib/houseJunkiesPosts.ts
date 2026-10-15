@@ -40,14 +40,14 @@ export const houseJunkiesPosts: HouseJunkiesPost[] = [
     category: "Company News",
     author: "Dominic McClelland",
     excerpt:
-      "House Junkies has bought 25+ properties since July 2026. We picked 16 of them across eight Tulare County cities and put every number on our site: what we paid, the size, the lot, and what happened next.",
+      "350+ homes bought, 25+ since July alone. We picked 16 of our most recent purchases across eight Tulare County cities and put every number on our site: what we paid, the size, the lot, and what happened next.",
     summary: [
-      "House Junkies has bought 25+ properties since July 2026. We broke down 16 of them on our Projects page, with photos and real numbers.",
+      "350+ homes bought over 7+ years, 25+ of them since July 2026 alone. We broke down 16 of those recent purchases with photos and real numbers.",
       "The 16 span eight cities, from a $65,000 mobile home in Porterville to a $350,000 home on 1.5 acres in Lindsay.",
       "One sold in 43 days, one is rented, three are for sale now, and the other 11 have not been listed yet.",
     ],
     body: [
-      "Since July 2026, House Junkies has bought more than 25 properties across the Central Valley. That pace is normal for us, but most homeowners never get to see what a cash buyer actually buys or what it pays. So we picked 16 of those purchases and broke them down on our Projects page, each with photos, square footage, lot size, the price we paid, and where it stands today.",
+      "House Junkies has bought, renovated, and resold 350+ homes over 7+ years, and we have not slowed down: more than 25 of those purchases came since July 2026 alone. Most homeowners never get to see what a cash buyer actually buys or what it pays. So we picked 16 of those purchases and broke them down on our Projects page, each with photos, square footage, lot size, the price we paid, and where it stands today.",
       "The 16 we broke down add up to $2,820,000 across eight Tulare County cities: Porterville, Visalia, Tulare, Lindsay, Dinuba, Exeter, Farmersville, and Strathmore. The average purchase was $176,250. The smallest was an 863 square foot mobile home in Porterville for $65,000, and the largest was a 5-bedroom, 3,020 square foot home on 1.5 acres in Lindsay for $350,000.",
       "Visalia is home base, but only two of these 16 were in Visalia. Porterville led with six. If you own a house outside Visalia and figured no serious buyer would make you an offer, the breakdown says otherwise. Each city in the list has its own page on our site, and those pages now show the real purchases we made in that city.",
       "They are not all the same kind of house either. Ten are single family homes, three are multi-family properties, two are mobile homes, and one is a church. Six are under 1,000 square feet and three sit on more than an acre. Small houses, big lots, mobile homes, and unusual properties are exactly where a retail buyer's lender tends to slow things down or back out, and where a cash buyer that renovates with its own licensed crew can still make a deal work.",

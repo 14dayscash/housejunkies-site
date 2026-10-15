@@ -14,8 +14,6 @@ import {
   monthYear,
   moneyShort,
   citySlug,
-  totalRecentPurchases,
-  recentWindowLabel,
 } from "@/lib/properties";
 import { PropertyStats } from "@/components/PropertyStats";
 import { ProjectsExplorer } from "@/components/ProjectsExplorer";
@@ -26,7 +24,7 @@ const firstPurchase = [...properties].sort((a, b) => (a.purchased < b.purchased 
 
 export const metadata: Metadata = {
   title: `Projects: ${stats.count} Recent Purchases Broken Down, Tulare County`,
-  description: `House Junkies has bought ${totalRecentPurchases} properties ${recentWindowLabel}. Here are ${stats.count} of them with photos, square footage, lot size, purchase price, and estimated value, ${moneyShort(stats.purchaseTotal)} combined across ${stats.cityCount} cities.`,
+  description: `House Junkies has bought ${site.stats.homesBought} homes. Here are ${stats.count} of our most recent purchases with photos, square footage, lot size, purchase price, and estimated value, ${moneyShort(stats.purchaseTotal)} combined across ${stats.cityCount} cities.`,
   alternates: { canonical: "/projects" },
 };
 
@@ -78,8 +76,8 @@ export default async function ProjectsPage() {
         <div className="mx-auto max-w-6xl px-4 py-14">
           <h1 className="text-3xl font-bold md:text-4xl">Projects</h1>
           <p className="mt-3 max-w-3xl text-white/70">
-            House Junkies has bought {totalRecentPurchases} properties {recentWindowLabel}. These are{" "}
-            {stats.count} of them, broken down with the real numbers: what we paid, the square footage, the lot, and
+            House Junkies has bought, renovated, and resold {site.stats.homesBought} homes. These are{" "}
+            {stats.count} of our most recent purchases, broken down with the real numbers: what we paid, the square footage, the lot, and
             what each one is estimated to be worth today. They span Visalia, Porterville, Tulare, Lindsay, Dinuba,
             Exeter, Farmersville, and Strathmore.
           </p>

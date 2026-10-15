@@ -8,7 +8,7 @@ import { situations } from "@/lib/situations";
 import { LeadForm } from "@/components/LeadForm";
 import { FaqJsonLd, BreadcrumbJsonLd } from "@/components/JsonLd";
 import { site } from "@/lib/site";
-import { cityFaq, money, newestFirst, portfolioStats, propertiesIn, recentWindowLabel, totalRecentPurchases } from "@/lib/properties";
+import { cityFaq, money, newestFirst, portfolioStats, propertiesIn } from "@/lib/properties";
 import { PropertyCard } from "@/components/PropertyCard";
 
 export function generateStaticParams() {
@@ -174,7 +174,7 @@ export default function CityPage({ params }: { params: { city: string } }) {
           <p className="mt-3 max-w-3xl text-gray-600">
             Here {recentStats.count === 1 ? "is one" : `are ${recentStats.count}`} of our recent purchases in{" "}
             {city.name}, {money(recentStats.purchaseTotal)} combined, with photos, square footage, lot size, and what
-            we paid. They are part of the {totalRecentPurchases} properties House Junkies has bought {recentWindowLabel}.
+            we paid.
           </p>
           <ul className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {recent.slice(0, 6).map((p) => (
