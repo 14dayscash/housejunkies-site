@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { cities, getCity } from "@/lib/cities";
 import { RichText } from "@/components/RichText";
+import { comboLabels, comboSituationSlugs, isComboCity } from "@/lib/combos";
 import { googleReviews, GBP_URL } from "@/lib/reviews";
 import { counties } from "@/lib/counties";
 import { situations } from "@/lib/situations";
@@ -234,6 +235,22 @@ export default function CityPage({ params }: { params: { city: string } }) {
       </section>
 
       <section className="mx-auto max-w-6xl px-4 pb-12">
+        {isComboCity(city.slug) && (
+          <div className="mb-10">
+            <h2 className="text-lg font-bold text-brand-black">Selling a {city.name} House in a Tough Spot?</h2>
+            <div className="mt-4 flex flex-wrap gap-3">
+              {comboSituationSlugs.map((s) => (
+                <Link
+                  key={s}
+                  href={`/we-buy-houses/${city.slug}/${s}`}
+                  className="rounded-full border border-gray-300 px-4 py-2 text-sm text-brand-black hover:border-brand-yellow-dark hover:text-brand-yellow-dark"
+                >
+                  {comboLabels[s]} in {city.name}
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
         <h2 className="text-lg font-bold text-brand-black">Common Situations in {city.name}</h2>
         <div className="mt-4 flex flex-wrap gap-3">
           {situations.slice(0, 5).map((s) => (

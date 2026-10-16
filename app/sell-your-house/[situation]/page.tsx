@@ -7,6 +7,7 @@ import { LeadForm } from "@/components/LeadForm";
 import { FaqJsonLd, BreadcrumbJsonLd } from "@/components/JsonLd";
 import { Linkify } from "@/components/Linkify";
 import { RichText } from "@/components/RichText";
+import { comboCitySlugs, isComboSituation } from "@/lib/combos";
 import { site } from "@/lib/site";
 
 export function generateStaticParams() {
@@ -159,6 +160,27 @@ export default function SituationPage({ params }: { params: { situation: string 
         <Link href="/we-buy-houses" className="mt-3 inline-block text-sm font-semibold text-brand-yellow-dark hover:underline">
           See every city we serve →
         </Link>
+
+        {isComboSituation(situation.slug) && (
+          <>
+            <h2 className="mt-10 text-lg font-bold text-brand-black">{situation.title} in Your City</h2>
+            <div className="mt-4 flex flex-wrap gap-3">
+              {comboCitySlugs.map((slug) => {
+                const c = cities.find((x) => x.slug === slug);
+                if (!c) return null;
+                return (
+                  <Link
+                    key={slug}
+                    href={`/we-buy-houses/${slug}/${situation.slug}`}
+                    className="rounded-full border border-gray-300 px-4 py-2 text-sm text-brand-black hover:border-brand-yellow-dark hover:text-brand-yellow-dark"
+                  >
+                    {c.name}
+                  </Link>
+                );
+              })}
+            </div>
+          </>
+        )}
 
         <h2 className="mt-10 text-lg font-bold text-brand-black">Other Situations We Buy In</h2>
         <div className="mt-4 flex flex-wrap gap-3">

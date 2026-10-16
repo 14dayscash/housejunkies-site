@@ -6,6 +6,7 @@ import { counties } from "@/lib/counties";
 import { houseJunkiesPosts } from "@/lib/houseJunkiesPosts";
 import { teamProfiles } from "@/lib/teamProfiles";
 import { buyPages } from "@/lib/buyPages";
+import { comboParams } from "@/lib/combos";
 import { properties } from "@/lib/properties";
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -53,8 +54,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: new Date(),
   }));
 
+  const comboRoutes = comboParams().map((p) => ({
+    url: `${site.url}/we-buy-houses/${p.city}/${p.situation}`,
+    lastModified: new Date(),
+  }));
+
   return [
     ...staticRoutes,
+    ...comboRoutes,
     ...projectRoutes,
     ...buyRoutes,
     ...cityRoutes,
