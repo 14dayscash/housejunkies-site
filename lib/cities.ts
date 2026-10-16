@@ -28,7 +28,7 @@ export const cities: CityData[] = [
     county: "Tulare County",
     zipCodes: ["93277", "93291", "93292"],
     neighborhoods: ["Downtown Visalia", "North Visalia", "Mooney", "Cottage Grove"],
-    population: "141,000",
+    population: "141,384",
     description:
       "We buy houses fast for cash in Visalia, CA. From downtown to north Visalia, we purchase properties in any condition and close on your timeline.",
     marketNote:
@@ -71,7 +71,7 @@ export const cities: CityData[] = [
     county: "Tulare County",
     zipCodes: ["93274", "93261"],
     neighborhoods: ["Downtown Tulare", "North Tulare", "South Tulare"],
-    population: "70,000",
+    population: "68,875",
     description:
       "Sell your Tulare house fast for cash. We buy homes as-is throughout Tulare, no repairs, no fees, no hassle.",
     marketNote:
@@ -91,7 +91,7 @@ export const cities: CityData[] = [
     county: "Tulare County",
     zipCodes: ["93257", "93258"],
     neighborhoods: ["Downtown Porterville", "West Porterville", "East Porterville"],
-    population: "63,000",
+    population: "62,623",
     description:
       "Get a fair cash offer for your Porterville home. We buy houses in any condition and close on your timeline.",
     marketNote:
@@ -111,7 +111,7 @@ export const cities: CityData[] = [
     county: "Fresno County",
     zipCodes: ["93701", "93702", "93703", "93704", "93705", "93710", "93711"],
     neighborhoods: ["Downtown Fresno", "Tower District", "Fig Garden", "North Fresno", "Woodward Park"],
-    population: "545,000",
+    population: "542,107",
     description:
       "Sell your Fresno house fast for cash. We buy homes as-is throughout Fresno County, from Tower District to North Fresno.",
     marketNote:
@@ -150,7 +150,7 @@ export const cities: CityData[] = [
     county: "Kern County",
     zipCodes: ["93301", "93304", "93305", "93306", "93307", "93309", "93311", "93312", "93313", "93314"],
     neighborhoods: ["Downtown Bakersfield", "Southwest Bakersfield", "Northeast Bakersfield", "Oleander"],
-    population: "400,000+",
+    population: "403,455",
     description:
       "We buy houses fast for cash in Bakersfield, CA. As-is, any condition, no fees, no repairs.",
     marketNote:
@@ -227,7 +227,7 @@ export const cities: CityData[] = [
     county: "Kings County",
     zipCodes: ["93230"],
     neighborhoods: ["Downtown Hanford", "China Alley"],
-    population: "57,000",
+    population: "57,990",
     description:
       "We buy houses fast for cash in Hanford, CA. As-is, any condition, no fees, no repairs.",
     marketNote:
@@ -247,7 +247,7 @@ export const cities: CityData[] = [
     county: "Kings County",
     zipCodes: ["93245", "93246"],
     neighborhoods: ["Downtown Lemoore"],
-    population: "27,057",
+    population: "27,038",
     description: "We buy houses fast for cash in Lemoore, CA. As-is, any condition, no fees, no repairs.",
     marketNote: "Lemoore is home to Naval Air Station Lemoore, a major Navy jet base that anchors a meaningful share of the local economy and housing demand.",
     quickFacts: [
@@ -264,7 +264,7 @@ export const cities: CityData[] = [
     county: "Kings County",
     zipCodes: ["93212"],
     neighborhoods: ["Downtown Corcoran"],
-    population: "22,627",
+    population: "22,339",
     description: "We buy houses fast for cash in Corcoran, CA. As-is, any condition, no fees, no repairs.",
     marketNote: "Corcoran is served by Amtrak, one of the few smaller Central Valley cities with a direct passenger rail stop.",
     quickFacts: [
@@ -281,7 +281,7 @@ export const cities: CityData[] = [
     county: "Kings County",
     zipCodes: ["93204"],
     neighborhoods: ["Downtown Avenal"],
-    population: "14,108",
+    population: "13,696",
     description: "We buy houses fast for cash in Avenal, CA. As-is, any condition, no fees, no repairs.",
     marketNote: "Avenal sits at the western edge of Kings County, closer to the Coast Ranges than to the rest of the Central Valley cities House Junkies serves.",
     quickFacts: [
@@ -299,7 +299,7 @@ export const cities: CityData[] = [
     county: "Fresno County",
     zipCodes: ["93611", "93612", "93619"],
     neighborhoods: ["Old Town Clovis", "Loma Vista", "Harlan Ranch"],
-    population: "111,990",
+    population: "120,124",
     description: "We buy houses fast for cash in Clovis, CA. As-is, any condition, no fees, no repairs.",
     marketNote: "Clovis is one of the fastest-growing cities in Fresno County, with new development pushing east and north of Old Town.",
     quickFacts: [
@@ -317,7 +317,7 @@ export const cities: CityData[] = [
     county: "Fresno County",
     zipCodes: ["93657"],
     neighborhoods: ["Downtown Sanger"],
-    population: "26,784",
+    population: "26,617",
     description: "We buy houses fast for cash in Sanger, CA. As-is, any condition, no fees, no repairs.",
     marketNote: "Sanger calls itself the \"Christmas Tree Lane City\" and sits along the route many Fresno-area residents take toward Kings Canyon National Park.",
     quickFacts: [
@@ -334,7 +334,7 @@ export const cities: CityData[] = [
     county: "Fresno County",
     zipCodes: ["93662"],
     neighborhoods: ["Downtown Selma"],
-    population: "24,773",
+    population: "24,674",
     description: "We buy houses fast for cash in Selma, CA. As-is, any condition, no fees, no repairs.",
     marketNote: "Selma calls itself the \"Raisin Capital of the World,\" reflecting the same raisin-and-grape agricultural heritage as Dinuba just south of it.",
     quickFacts: [
@@ -351,7 +351,7 @@ export const cities: CityData[] = [
     county: "Fresno County",
     zipCodes: ["93654"],
     neighborhoods: ["Downtown Reedley"],
-    population: "25,193",
+    population: "25,227",
     description: "We buy houses fast for cash in Reedley, CA. As-is, any condition, no fees, no repairs.",
     marketNote: "Reedley sits along the Kings River and is home to Reedley College, a community college serving the surrounding farm towns.",
     quickFacts: [
@@ -369,7 +369,7 @@ export const cities: CityData[] = [
     county: "Kern County",
     zipCodes: ["93215"],
     neighborhoods: ["Downtown Delano"],
-    population: "51,420",
+    population: "51,428",
     description: "We buy houses fast for cash in Delano, CA. As-is, any condition, no fees, no repairs.",
     marketNote: "Delano is the second-largest city in Kern County and is historically significant as the birthplace of the United Farm Workers movement.",
     quickFacts: [
@@ -387,7 +387,7 @@ export const cities: CityData[] = [
     county: "Kern County",
     zipCodes: ["93555"],
     neighborhoods: ["Downtown Ridgecrest"],
-    population: "27,960",
+    population: "27,959",
     description: "We buy houses fast for cash in Ridgecrest, CA. As-is, any condition, no fees, no repairs.",
     marketNote: "Ridgecrest sits at the eastern edge of Kern County in the Mojave Desert, far closer to the Naval Air Weapons Station China Lake than to the rest of Kern County's Central Valley cities.",
     quickFacts: [
@@ -405,7 +405,7 @@ export const cities: CityData[] = [
     county: "Kern County",
     zipCodes: ["93280"],
     neighborhoods: ["Downtown Wasco"],
-    population: "27,049",
+    population: "27,047",
     description: "We buy houses fast for cash in Wasco, CA. As-is, any condition, no fees, no repairs.",
     marketNote: "Wasco calls itself the \"Rose Capital of the Nation\" for its concentration of rose-growing nurseries.",
     quickFacts: [
@@ -422,7 +422,7 @@ export const cities: CityData[] = [
     county: "Kern County",
     zipCodes: ["93263"],
     neighborhoods: ["Downtown Shafter"],
-    population: "19,956",
+    population: "19,953",
     description: "We buy houses fast for cash in Shafter, CA. As-is, any condition, no fees, no repairs.",
     marketNote: "Shafter has been one of the fastest-growing cities in Kern County in recent years, driven by new housing development and logistics/warehouse growth.",
     quickFacts: [
@@ -439,7 +439,7 @@ export const cities: CityData[] = [
     county: "Tulare County",
     zipCodes: ["93247"],
     neighborhoods: ["Downtown Lindsay"],
-    population: "13,247",
+    population: "12,659",
     description: "We buy houses fast for cash in Lindsay, CA. As-is, any condition, no fees, no repairs.",
     marketNote: "Lindsay calls itself the \"Olive Capital of the World\" and is home to one of the largest olive processing operations in the country.",
     quickFacts: [
@@ -456,7 +456,7 @@ export const cities: CityData[] = [
     county: "Tulare County",
     zipCodes: ["93286"],
     neighborhoods: ["Downtown Woodlake"],
-    population: "7,800",
+    population: "7,419",
     description: "We buy houses fast for cash in Woodlake, CA. As-is, any condition, no fees, no repairs.",
     marketNote: "Woodlake sits at the foothills gateway toward Sequoia National Park, closer to the mountains than most other Tulare County cities House Junkies serves.",
     quickFacts: [
@@ -507,7 +507,7 @@ export const cities: CityData[] = [
     county: "Tulare County",
     zipCodes: ["93265"],
     neighborhoods: ["Downtown Springville"],
-    population: "3,400",
+    population: "967",
     description: "We buy houses fast for cash in Springville, CA. As-is, any condition, no fees, no repairs.",
     marketNote: "Springville sits in the Sierra Nevada foothills east of Porterville, closer to the mountains than most Tulare County communities.",
     quickFacts: [
@@ -524,7 +524,7 @@ export const cities: CityData[] = [
     county: "Tulare County",
     zipCodes: ["93271"],
     neighborhoods: ["Downtown Three Rivers"],
-    population: "2,000",
+    population: "2,053",
     description: "We buy houses fast for cash in Three Rivers, CA. As-is, any condition, no fees, no repairs.",
     marketNote: "Three Rivers sits at the entrance to Sequoia National Park, along the Kaweah River, making it one of the more tourism-driven markets House Junkies serves.",
     quickFacts: [
@@ -541,7 +541,7 @@ export const cities: CityData[] = [
     county: "Tulare County",
     zipCodes: ["93272"],
     neighborhoods: ["Downtown Tipton"],
-    population: "3,000",
+    population: "2,519",
     description: "We buy houses fast for cash in Tipton, CA. As-is, any condition, no fees, no repairs.",
     marketNote: "Tipton is a small Highway 99 farming community south of Tulare, built almost entirely around dairy and row-crop agriculture.",
     quickFacts: [
@@ -558,7 +558,7 @@ export const cities: CityData[] = [
     county: "Tulare County",
     zipCodes: ["93673"],
     neighborhoods: ["Downtown Traver"],
-    population: "700",
+    population: "731",
     description: "We buy houses fast for cash in Traver, CA. As-is, any condition, no fees, no repairs.",
     marketNote: "Traver is one of the smallest communities House Junkies serves, a historic rail-era farming settlement in northern Tulare County.",
     quickFacts: [
@@ -575,7 +575,7 @@ export const cities: CityData[] = [
     county: "Tulare County",
     zipCodes: ["93647"],
     neighborhoods: ["Downtown Orosi"],
-    population: "10,000",
+    population: "8,329",
     description: "We buy houses fast for cash in Orosi, CA. As-is, any condition, no fees, no repairs.",
     marketNote: "Orosi sits alongside Cutler in northern Tulare County, in one of the Valley's most concentrated citrus and grape growing areas.",
     quickFacts: [
@@ -592,7 +592,7 @@ export const cities: CityData[] = [
     county: "Fresno County",
     zipCodes: ["93210"],
     neighborhoods: ["Downtown Coalinga"],
-    population: "17,000",
+    population: "17,590",
     description: "We buy houses fast for cash in Coalinga, CA. As-is, any condition, no fees, no repairs.",
     marketNote: "Coalinga sits on the far west side of Fresno County, with an economy historically built on oil extraction alongside agriculture.",
     quickFacts: [
@@ -609,7 +609,7 @@ export const cities: CityData[] = [
     county: "Fresno County",
     zipCodes: ["93631"],
     neighborhoods: ["Downtown Kingsburg"],
-    population: "13,000",
+    population: "12,380",
     description: "We buy houses fast for cash in Kingsburg, CA. As-is, any condition, no fees, no repairs.",
     marketNote: "Kingsburg leans into its Swedish heritage, with a Scandinavian-themed downtown that's unusual for a Central Valley farm town.",
     quickFacts: [
@@ -643,7 +643,7 @@ export const cities: CityData[] = [
     county: "Kings County",
     zipCodes: ["93239"],
     neighborhoods: ["Downtown Kettleman City"],
-    population: "1,350",
+    population: "1,242",
     description: "We buy houses fast for cash in Kettleman City, CA. As-is, any condition, no fees, no repairs.",
     marketNote: "Kettleman City sits along Interstate 5 in western Kings County, known mostly as a highway rest-stop community alongside its agricultural base.",
     quickFacts: [
@@ -694,7 +694,7 @@ export const cities: CityData[] = [
     county: "Monterey County",
     zipCodes: ["93940", "93943"],
     neighborhoods: ["Downtown Monterey"],
-    population: "30,000",
+    population: "30,218",
     description: "We buy houses fast for cash in Monterey, CA. As-is, any condition, no fees, no repairs.",
     marketNote: "Monterey is a coastal city on Monterey Bay, a very different housing market from the Valley cities House Junkies more typically serves inland.",
     quickFacts: [
@@ -711,7 +711,7 @@ export const cities: CityData[] = [
     county: "San Luis Obispo County",
     zipCodes: ["93401", "93405"],
     neighborhoods: ["Downtown San Luis Obispo"],
-    population: "47,000",
+    population: "47,063",
     description: "We buy houses fast for cash in San Luis Obispo, CA. As-is, any condition, no fees, no repairs.",
     marketNote: "San Luis Obispo is the county seat and home to Cal Poly, a college-driven housing market on California's Central Coast.",
     quickFacts: [
@@ -728,7 +728,7 @@ export const cities: CityData[] = [
     county: "San Luis Obispo County",
     zipCodes: ["93446"],
     neighborhoods: ["Downtown Paso Robles"],
-    population: "31,000",
+    population: "31,490",
     description: "We buy houses fast for cash in Paso Robles, CA. As-is, any condition, no fees, no repairs.",
     marketNote: "Paso Robles is one of California's major wine regions, with an economy built around vineyards and wine tourism.",
     quickFacts: [
@@ -745,7 +745,7 @@ export const cities: CityData[] = [
     county: "San Luis Obispo County",
     zipCodes: ["93449"],
     neighborhoods: ["Downtown Pismo Beach"],
-    population: "8,000",
+    population: "8,072",
     description: "We buy houses fast for cash in Pismo Beach, CA. As-is, any condition, no fees, no repairs.",
     marketNote: "Pismo Beach is a coastal tourist town known for its beach, pier, and dunes, a very different market from the Valley's inland cities.",
     quickFacts: [
@@ -762,7 +762,7 @@ export const cities: CityData[] = [
     county: "San Luis Obispo County",
     zipCodes: ["93433"],
     neighborhoods: ["Downtown Grover Beach"],
-    population: "13,000",
+    population: "12,701",
     description: "We buy houses fast for cash in Grover Beach, CA. As-is, any condition, no fees, no repairs.",
     marketNote: "Grover Beach is a small coastal city in the \"Five Cities\" area of southern San Luis Obispo County.",
     quickFacts: [
@@ -779,7 +779,7 @@ export const cities: CityData[] = [
     county: "San Luis Obispo County",
     zipCodes: ["93424"],
     neighborhoods: ["Downtown Avila Beach"],
-    population: "1,500",
+    population: "1,576",
     description: "We buy houses fast for cash in Avila Beach, CA. As-is, any condition, no fees, no repairs.",
     marketNote: "Avila Beach is a small, sheltered beach community in San Luis Obispo County, one of the smallest markets House Junkies serves.",
     quickFacts: [
@@ -796,7 +796,7 @@ export const cities: CityData[] = [
     county: "Inyo County",
     zipCodes: ["93514"],
     neighborhoods: ["Downtown Bishop"],
-    population: "3,800",
+    population: "3,819",
     description: "We buy houses fast for cash in Bishop, CA. As-is, any condition, no fees, no repairs.",
     marketNote: "Bishop is the largest city in Inyo County and the main commercial hub for the Eastern Sierra, a long drive and a very different market from the Valley cities House Junkies more typically serves.",
     quickFacts: [
@@ -813,7 +813,7 @@ export const cities: CityData[] = [
     county: "San Benito County",
     zipCodes: ["95023"],
     neighborhoods: ["Downtown Hollister"],
-    population: "37,000",
+    population: "41,678",
     description: "We buy houses fast for cash in Hollister, CA. As-is, any condition, no fees, no repairs.",
     marketNote: "Hollister is the county seat of San Benito County, a smaller city between the Central Valley and the Bay Area known for its agricultural roots and motorcycle rally history.",
     quickFacts: [
@@ -830,7 +830,7 @@ export const cities: CityData[] = [
     county: "Madera County",
     zipCodes: ["93610"],
     neighborhoods: ["Downtown Chowchilla"],
-    population: "19,169",
+    population: "19,039",
     description: "We buy houses fast for cash in Chowchilla, CA. As-is, any condition, no fees, no repairs.",
     marketNote: "Chowchilla sits along Highway 99 at the northern edge of the San Joaquin Valley, straddling the Madera/Merced county line.",
     quickFacts: [
@@ -898,7 +898,7 @@ export const cities: CityData[] = [
     county: "Merced County",
     zipCodes: ["93635"],
     neighborhoods: ["Downtown Los Banos"],
-    population: "40,571",
+    population: "45,532",
     description: "We buy houses fast for cash in Los Banos, CA. As-is, any condition, no fees, no repairs.",
     marketNote: "Los Banos is the second-largest city in Merced County and a growing bedroom community along the Highway 152 corridor toward the Bay Area.",
     quickFacts: [
@@ -906,7 +906,7 @@ export const cities: CityData[] = [
       "The city has grown significantly as commuters look for more affordable housing within range of Silicon Valley.",
       "Agriculture, particularly dairy and row crops, remains central to the surrounding economy.",
       "The San Luis Reservoir, one of California's largest, sits just west of the city.",
-      "Los Banos is the county seat alternative commercial hub alongside Merced itself.",
+      "Los Banos is the second-largest city in Merced County, after Merced itself.",
     ],
   },
   {
@@ -915,7 +915,7 @@ export const cities: CityData[] = [
     county: "Merced County",
     zipCodes: ["95301"],
     neighborhoods: ["Downtown Atwater"],
-    population: "30,296",
+    population: "31,970",
     description: "We buy houses fast for cash in Atwater, CA. As-is, any condition, no fees, no repairs.",
     marketNote: "Atwater sits just northwest of the city of Merced, with a local economy historically tied to the former Castle Air Force Base.",
     quickFacts: [
@@ -932,7 +932,7 @@ export const cities: CityData[] = [
     county: "Merced County",
     zipCodes: ["95334"],
     neighborhoods: ["Downtown Livingston"],
-    population: "14,926",
+    population: "14,172",
     description: "We buy houses fast for cash in Livingston, CA. As-is, any condition, no fees, no repairs.",
     marketNote: "Livingston sits along Highway 99 between Merced and Turlock, with an economy built on dairy and food processing.",
     quickFacts: [
@@ -949,7 +949,7 @@ export const cities: CityData[] = [
     county: "Merced County",
     zipCodes: ["95322"],
     neighborhoods: ["Downtown Gustine"],
-    population: "5,709",
+    population: "6,110",
     description: "We buy houses fast for cash in Gustine, CA. As-is, any condition, no fees, no repairs.",
     marketNote: "Gustine is a small dairy-farming town in western Merced County, one of the smaller communities in House Junkies' expanded service area.",
     quickFacts: [
@@ -966,7 +966,7 @@ export const cities: CityData[] = [
     county: "Monterey County",
     zipCodes: ["93901", "93905", "93906"],
     neighborhoods: ["Downtown Salinas", "Alisal"],
-    population: "160,000",
+    population: "163,542",
     description: "We buy houses fast for cash in Salinas, CA. As-is, any condition, no fees, no repairs.",
     marketNote: "Salinas is the largest city in Monterey County and the county seat, known as the \"Salad Bowl of the World\" for its produce industry.",
     quickFacts: [
@@ -1017,7 +1017,7 @@ export const cities: CityData[] = [
     county: "Monterey County",
     zipCodes: ["93933"],
     neighborhoods: ["Downtown Marina"],
-    population: "27,197",
+    population: "22,359",
     description: "We buy houses fast for cash in Marina, CA. As-is, any condition, no fees, no repairs.",
     marketNote: "Marina sits on the north end of the Monterey Peninsula, with newer housing stock than many of its coastal neighbors.",
     quickFacts: [
@@ -1102,7 +1102,7 @@ export const cities: CityData[] = [
     county: "San Benito County",
     zipCodes: ["95045"],
     neighborhoods: ["Downtown San Juan Bautista"],
-    population: "2,124",
+    population: "2,089",
     description: "We buy houses fast for cash in San Juan Bautista, CA. As-is, any condition, no fees, no repairs.",
     marketNote: "San Juan Bautista is a small historic city built around one of California's best-preserved Spanish missions.",
     quickFacts: [

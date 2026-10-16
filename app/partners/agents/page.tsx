@@ -44,6 +44,61 @@ export default function PartnersPage() {
           ))}
         </div>
 
+        <h2 className="mt-12 text-xl font-bold text-brand-black">The Five Tiers Side by Side</h2>
+        <div className="mt-4 overflow-x-auto">
+          <table className="w-full min-w-[640px] border-collapse text-sm">
+            <thead>
+              <tr className="border-b border-gray-200 text-left">
+                <th className="py-3 pr-4 font-semibold text-brand-black">Tier</th>
+                <th className="py-3 pr-4 font-semibold text-brand-black">Typical Range</th>
+                <th className="py-3 pr-4 font-semibold text-brand-black">You Bring</th>
+                <th className="py-3 font-semibold text-brand-black">Your Involvement</th>
+              </tr>
+            </thead>
+            <tbody>
+              {partnerTiers.map((t) => (
+                <tr key={t.name} className="border-b border-gray-100 align-top">
+                  <td className="py-3 pr-4 font-medium text-brand-black">{t.name}</td>
+                  <td className="py-3 pr-4 text-brand-yellow-dark">{t.range}</td>
+                  <td className="py-3 pr-4 text-gray-600">{t.youBring}</td>
+                  <td className="py-3 text-gray-600">{t.involvement}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        <h2 className="mt-12 text-xl font-bold text-brand-black">Why Partner With House Junkies</h2>
+        <ul className="mt-4 list-disc space-y-2 pl-5 text-gray-600">
+          <li>
+            We have bought {site.stats.homesBought} homes over {site.stats.yearsInBusiness} years, and we are ranked{" "}
+            {site.stats.sfrAnalyticsRank} in Visalia by transaction volume ({site.stats.sfrAnalyticsVolume} across{" "}
+            {site.stats.sfrAnalyticsDeals} deals, per {site.stats.sfrAnalyticsSource}). That means steady deals, not one-offs.
+          </li>
+          <li>
+            Renovation work is done by our own licensed crew, House Junkies Construction ({site.licenses.generalContractor}),
+            so costs come from real numbers.
+          </li>
+          <li>
+            Finished houses are sold through {site.legacyRealEstate.name} ({site.legacyRealEstate.dre}), a brokerage in the same group.
+          </li>
+          <li>
+            House Junkies is BBB Accredited with an {site.stats.bbbRating} rating, and you can see real houses we have bought on our{" "}
+            <Link href="/projects" className="font-semibold text-brand-yellow-dark hover:underline">recent purchases page</Link>.
+          </li>
+        </ul>
+
+        <h2 className="mt-12 text-xl font-bold text-brand-black">What We Buy and Where</h2>
+        <p className="mt-3 text-gray-600">
+          We buy houses across Tulare, Kings, Fresno, and Kern counties and beyond, including the Central
+          Coast and Eastern Sierra. We buy in any condition and in any situation, such as probate, inherited
+          houses, foreclosure, tenants, fire or water damage, and code violations. If you know someone in
+          one of those spots, they may be a good lead for you to send us. Browse the{" "}
+          <Link href="/sell-your-house" className="font-semibold text-brand-yellow-dark hover:underline">situations we buy in</Link>{" "}
+          and the{" "}
+          <Link href="/we-buy-houses" className="font-semibold text-brand-yellow-dark hover:underline">cities we cover</Link>.
+        </p>
+
         <h2 className="mt-12 text-xl font-bold text-brand-black">Frequently Asked Questions</h2>
         <dl className="mt-4 space-y-4">
           {partnerFaqs.map((f) => (

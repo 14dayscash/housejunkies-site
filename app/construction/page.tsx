@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { BuyerInquiryForm } from "@/components/BuyerInquiryForm";
-import { BreadcrumbJsonLd } from "@/components/JsonLd";
+import { BreadcrumbJsonLd, FaqJsonLd } from "@/components/JsonLd";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -19,6 +19,33 @@ const services = [
   { name: "Flooring", body: "Replacement of worn, damaged, or outdated flooring throughout a home." },
   { name: "ADU builds", body: "Accessory dwelling units built from the ground up, a way to add rental income or space for family." },
   { name: "Repairs and restoration", body: "Drywall, finish work, and repairs after fire or water damage." },
+];
+
+const constructionFaqs = [
+  {
+    question: "Is House Junkies Construction licensed?",
+    answer: `Yes. House Junkies Construction is a licensed California general contractor, ${site.licenses.generalContractor}. You can check any California contractor license on the Contractors State License Board website.`,
+  },
+  {
+    question: "Do you only work on houses you buy, or can I hire you for my own house?",
+    answer: "Both. Our crew renovates the houses House Junkies buys, and we also take on outside remodeling, repair, and ADU projects for homeowners and property owners.",
+  },
+  {
+    question: "Do you build ADUs?",
+    answer: "Yes. We offer pre-approved ADU plans that are already cleared for permitting in four counties, and fully custom ADU builds sized to your lot. We handle design, permitting, and construction.",
+  },
+  {
+    question: "What counties do you work in?",
+    answer: "Tulare, Kings, Kern, and Fresno counties, with many projects in and around Visalia.",
+  },
+  {
+    question: "Can you repair a house after fire or water damage?",
+    answer: "Yes. Drywall, finish work, and repairs after fire or water damage are part of our repairs and restoration work.",
+  },
+  {
+    question: "How do I get an estimate?",
+    answer: `Use the form on this page or call ${site.phone}. Tell us what you want done and where the property is.`,
+  },
 ];
 
 export default function ConstructionPage() {
@@ -42,6 +69,7 @@ export default function ConstructionPage() {
   return (
     <div>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }} />
+      <FaqJsonLd items={constructionFaqs} />
       <BreadcrumbJsonLd
         items={[
           { name: "Home", url: site.url },
@@ -86,6 +114,48 @@ export default function ConstructionPage() {
             California contractor license on the Contractors State License Board website. We are part of
             the same group as {site.name} and {site.legacyRealEstate.name}, based in Visalia.
           </p>
+
+          <h2 className="mt-10 text-xl font-bold text-brand-black">ADUs: Pre-Approved Plans or a Custom Build</h2>
+          <p className="mt-3 text-gray-600">
+            An ADU (accessory dwelling unit) is a second small home on the same lot, like a backyard
+            unit or a garage conversion. It can add rental income or give family a place to live
+            close by. House Junkies Construction offers two ways to do it: pre-approved ADU plans that
+            are already cleared for permitting in four counties, or a fully custom build sized to your
+            lot and your goals. We handle design, permitting, and construction under one roof, so you
+            are not hiring an architect, an engineer, and a builder separately.
+          </p>
+
+          <h2 className="mt-10 text-xl font-bold text-brand-black">Counties We Build In</h2>
+          <p className="mt-3 text-gray-600">
+            Our office is at {site.entityAddresses.construction}, and we take outside construction and ADU
+            clients across Tulare, Kings, Kern, and Fresno counties. Many of our projects are in and
+            around Visalia. See our pages for{" "}
+            <Link href="/we-buy-houses/visalia" className="font-semibold text-brand-yellow-dark hover:underline">Visalia</Link>,{" "}
+            <Link href="/counties/tulare-county" className="font-semibold text-brand-yellow-dark hover:underline">Tulare County</Link>,{" "}
+            <Link href="/counties/kings-county" className="font-semibold text-brand-yellow-dark hover:underline">Kings County</Link>,{" "}
+            <Link href="/counties/kern-county" className="font-semibold text-brand-yellow-dark hover:underline">Kern County</Link>, and{" "}
+            <Link href="/counties/fresno-county" className="font-semibold text-brand-yellow-dark hover:underline">Fresno County</Link>.
+          </p>
+
+          <h2 className="mt-10 text-xl font-bold text-brand-black">Who Runs Your Project</h2>
+          <p className="mt-3 text-gray-600">
+            <Link href="/team/omar-ayon" className="font-semibold text-brand-yellow-dark hover:underline">Omar Ayon</Link>, Project
+            Manager, runs every renovation and ADU project for House Junkies Construction.{" "}
+            <Link href="/team/dominic-mcclelland" className="font-semibold text-brand-yellow-dark hover:underline">Dominic McClelland</Link>,
+            COO, runs day-to-day operations. House Junkies Construction is part of {site.parentOrganization},
+            along with {site.name} and {site.legacyRealEstate.name}. You can reach us at{" "}
+            <a href={`tel:${site.phoneE164}`} className="font-semibold text-brand-yellow-dark hover:underline">{site.phone}</a>.
+          </p>
+
+          <h2 className="mt-10 text-xl font-bold text-brand-black">Construction Questions</h2>
+          <dl className="mt-4 space-y-5">
+            {constructionFaqs.map((f) => (
+              <div key={f.question}>
+                <dt className="font-semibold text-brand-black">{f.question}</dt>
+                <dd className="mt-1 text-gray-600">{f.answer}</dd>
+              </div>
+            ))}
+          </dl>
 
           <p className="mt-8 text-sm text-gray-500">
             Looking to sell a house that needs work instead of fixing it?{" "}

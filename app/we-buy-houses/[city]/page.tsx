@@ -12,6 +12,7 @@ import { FaqJsonLd, BreadcrumbJsonLd } from "@/components/JsonLd";
 import { site } from "@/lib/site";
 import { cityFaq, money, newestFirst, portfolioStats, propertiesIn } from "@/lib/properties";
 import { PropertyCard } from "@/components/PropertyCard";
+import { CityFactsSection } from "@/components/CityFactsSection";
 
 export function generateStaticParams() {
   return cities.map((c) => ({ city: c.slug }));
@@ -221,6 +222,8 @@ export default function CityPage({ params }: { params: { city: string } }) {
           </Link>
         </section>
       )}
+
+      <CityFactsSection slug={city.slug} name={city.name} />
 
       <section className="mx-auto max-w-6xl px-4 pb-4">
         <h2 className="text-xl font-bold text-brand-black">{city.name} Quick Facts</h2>

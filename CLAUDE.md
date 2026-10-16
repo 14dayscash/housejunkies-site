@@ -53,6 +53,7 @@ No CMS. Content is TypeScript data. Edit the data file, not the page.
 |---|---|
 | `lib/site.ts` | Every company fact: name, phone, address, licenses, stats (350+ homes, 7+ years, SFR #1, $16.0M / 110 deals), people bios. Pages must read from here, never hardcode. |
 | `lib/cities.ts` | 63 city pages (`/we-buy-houses/[city]`). `featured` = top 12. Visalia has `longContent`. |
+| `lib/cityFacts.ts` | Sourced Census data for all 63 cities (2020 count, July 2025 estimate, home value, owner rate, rent, income, household size, education, area) plus "about" history lines and incorporation dates. Rendered by `components/CityFactsSection.tsx` on every city page. Small towns QuickFacts does not cover only have the 2020 count, area, elevation and history. Add facts here, with a source. |
 | `lib/counties.ts` | 10 county hub pages (`/counties/[county]`). |
 | `lib/situations.ts` | 13 situation guides (`/sell-your-house/[situation]`). Optional `details`, `keySteps`, `faqs`, `localSection` (sourced Visalia/Tulare County detail). |
 | `lib/combos.ts` + `lib/localFacts.ts` | 90 city + situation pages (`/we-buy-houses/[city]/[situation]`): 15 cities x 6 situations. `localFacts.ts` holds sourced county court/recorder/code agency facts and each city's code enforcement office. Add facts there, not in templates. |
@@ -120,6 +121,38 @@ sitewide, Person, FAQ, Breadcrumb), `LeadForm`, `ContactForm`, `HeroOfferForm`,
 
 ## 5. SEO approach
 
+**STRATEGY (set by Dominic, 2026-10-16, overrides any cautious wording below):
+WE ARE TRYING TO TAKE OVER, one street and one site at a time.**
+- If a competitor ranks with a page type, we build that page type too, and we build
+  more of it. Home Helpers Group has 245 city + situation pages, city + zip pages and
+  several versions of each city page ("we buy houses", "sell my house fast", and so
+  on). We match that volume and beat it. Do NOT hold back a page type because Google
+  guidance or a past Claude note said it might look risky. Dominic has decided.
+- Cover every way a seller searches. If sellers search four different ways, we have
+  four pages. Specific long-tail searches beat head terms. His example: an attorney
+  wins more by writing "punishment for 4 grams of cocaine possession in Visalia" than
+  by chasing "criminal defense attorney Visalia". For us that means pages and posts
+  like "sell inherited house in Tulare with no probate attorney", not just "we buy
+  houses Tulare".
+- Page types that are now on the table: city + situation (all 63 cities, not just 15),
+  keyword variants per city, ZIP code and neighborhood pages, street and subdivision
+  level pages, question pages, and a big blog push to catch up to Home Helpers.
+- Dominic's one guardrail, in his words: more information is good "as long as its not
+  duplicate", and never sacrifice the trust, indexing and rankings we already have.
+  So every new page must carry its own substance: its own data (Census numbers in
+  `lib/cityFacts.ts`, county and city agency facts in `lib/localFacts.ts`, real
+  purchases in `lib/properties.ts`), its own FAQs, its own local detail. Never ship
+  the same body text with a city or keyword swapped in. Claude's one recorded note
+  (do not repeat it as a lecture): near-identical pages are what Google folds into
+  each other, and the 11 "Duplicate without user-selected canonical" pages in Search
+  Console on 2026-10-16 were exactly that. Unique data per page is how we get the
+  volume without that outcome.
+- Roll pages out in waves and watch Search Console (Page indexing report) between
+  waves. If a wave sits in "Discovered, currently not indexed" or "Duplicate", add
+  unique content to those pages before the next wave.
+- Every page still needs a self-canonical, a place in the sitemap, and internal links
+  in and out.
+
 - Based on Google Search Essentials and helpful-content guidance, structured data
   docs, and Dominic's Search Console data. No tricks.
 - Titles: situation or keyword + city up front, e.g.
@@ -129,8 +162,9 @@ sitewide, Person, FAQ, Breadcrumb), `LeadForm`, `ContactForm`, `HeroOfferForm`,
 - City pages: keyword H2s ("Cash Home Buyers in {City}", etc.), FAQ questions as
   real H3s with FAQPage schema.
 - Combo pages must stay genuinely different per city (local agency facts, city
-  facts, real purchases). Do not mass-produce thin pages: no ZIP-code pages, no
-  multiple versions of the same city page. Doorway pages get penalized.
+  facts, real purchases). Thin copy-paste pages are not allowed, but ZIP-code pages
+  and multiple keyword versions of a city page ARE allowed now (see STRATEGY above),
+  as long as each one has its own data and content.
 - Internal links everywhere they help: situation pages link to Visalia and other
   situations; city pages link to their combos; combos link to siblings, nearby
   cities, the city page and the situation guide.
@@ -150,6 +184,9 @@ sitewide, Person, FAQ, Breadcrumb), `LeadForm`, `ContactForm`, `HeroOfferForm`,
   `lib/houseJunkiesPosts.ts` with `##` subheadings, inline property photos, a
   `heroImage`, 3 summary bullets and `links`.
 - **Add a local fact:** `lib/localFacts.ts` (county or city), with its source URL.
+- **Add city data:** `lib/cityFacts.ts`. QuickFacts is at
+  `census.gov/quickfacts/fact/table/<place>citycalifornia/PST045224` (places with
+  5,000+ people). Smaller places use their Wikipedia page, which cites the 2020 Census.
 - **Add a city page:** `lib/cities.ts` (real Census population and zip codes, a
   real market note, 5 real quick facts). Sitemap, footer and llms.txt update automatically.
 - **Change a company fact:** `lib/site.ts` only.
@@ -174,6 +211,21 @@ sitewide, Person, FAQ, Breadcrumb), `LeadForm`, `ContactForm`, `HeroOfferForm`,
 
 ## 9. Recent decisions (newest first, keep this updated)
 
+- 2026-10-16: Strategy change from Dominic: match and beat competitors on page volume
+  and search coverage (see STRATEGY in section 5). Unique content per page is the
+  only guardrail.
+- 2026-10-16: Indexing audit from Search Console (68 indexed, 11 duplicate without
+  user-selected canonical, 19 discovered not indexed, 2 www redirects, 1 old noindex).
+  Cause: thin or template-heavy pages (small cities, contact, FAQ, construction,
+  partners) plus a young domain with a big new batch in the crawl queue. Canonicals,
+  robots and sitemap were all correct. The www redirect is normal. The homepage
+  noindex was from before the repo existed (old Base44 site).
+- 2026-10-16: Expanded contact, FAQ (12 to 30 questions, grouped), construction and
+  partners pages. Added `lib/cityFacts.ts` and `CityFactsSection` to all 63 city
+  pages. Corrected 43 city populations to the 2020 Census count (several were old
+  rounded numbers, for example Clovis, Hollister, Los Banos, Marina). Fixed the
+  Los Banos "county seat" line (Los Banos is not a county seat).
+
 - 2026-10-15: 90 combo pages (15 cities x 6 situations) with sourced local facts.
 - 2026-10-15: Situation pages got Visalia/Tulare County sections, more FAQs, new
   titles (old titles are in the commit message of 11c5730). Visalia page got real
@@ -191,9 +243,20 @@ sitewide, Person, FAQ, Breadcrumb), `LeadForm`, `ContactForm`, `HeroOfferForm`,
 - Abel's Facebook URL for `sameAs` (only add a URL Dominic gives you).
 - No official code enforcement source found yet for Clovis, Exeter, Lindsay, Delano,
   or county code agencies for Kings, Merced, Madera. Those pages use general wording.
-- City pages: 59 of 63 share the same hero description and have about 90 to 100
-  unique words. Improve the cities Google is testing first (Fresno, Dinuba,
-  Selma, Merced, Salinas, San Luis Obispo).
+- City pages: every city now has a Census data section and, for 29 of them, "about"
+  history lines. Still to do: "about" lines for the other 34 cities, unique hero
+  descriptions (59 of 63 still share one), and real purchases once Dominic adds them.
+- Request indexing in Search Console for the top pages, and click "Validate fix" on
+  the 11 duplicate pages after the next deploy. Re-pull Search Console Oct 29, Nov 12.
+- Next waves under the new strategy: city + situation pages for all 63 cities,
+  keyword variants, ZIP and neighborhood pages, then the big blog batch.
+- TRUTH CONFLICT to fix when Dominic says go: several live pages still say House
+  Junkies buys with "our own capital" or "no outside partner" (the city page template
+  and city FAQ, `/compare`, `/how-we-calculate-your-offer`, the Abel and Dominic bios
+  in `lib/site.ts`, and the FAQ line about being a real buyer). That breaks the
+  standing rule: we use our own cash, partners, private money and hard money lenders.
+- Internal link block (links to the pages Google has not crawled yet) on the homepage
+  and footer. Explained to Dominic, waiting on his yes.
 - Blog content push (Dominic plans a big batch). Review push on the Google
   Business Profile. Listing-site and directory mentions.
 - Better property photos to replace some current ones (921 S Cottage St first).

@@ -72,6 +72,126 @@ export default function ContactPage() {
           <ContactForm />
         </div>
       </section>
+
+      <section className="border-t border-gray-100 bg-gray-50">
+        <div className="mx-auto max-w-6xl px-4 py-12">
+          <h2 className="text-xl font-bold text-brand-black">What Happens After You Reach Out</h2>
+          <ol className="mt-4 grid gap-4 md:grid-cols-4">
+            {[
+              { t: "You Tell Us About the House", b: "Call, text, or use the form. Give us the address, the condition, and what is going on. No appraisal or inspection is needed at this stage." },
+              { t: "We Research It", b: "We look at the property and local comps, and we build a real renovation number with our own construction crew." },
+              { t: "You Get a Cash Offer", b: "Within 24 hours you get a fair, no-obligation cash offer. We walk through how we got to the number if you want." },
+              { t: "You Pick the Closing Date", b: "If you say yes, you choose a closing date from 7 to 30 days out. We cover closing costs and there are no commissions." },
+            ].map((s, i) => (
+              <li key={s.t} className="rounded-lg border border-gray-200 bg-white p-4">
+                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-yellow text-sm font-bold text-black">{i + 1}</div>
+                <div className="mt-3 font-semibold text-brand-black">{s.t}</div>
+                <p className="mt-1 text-sm text-gray-600">{s.b}</p>
+              </li>
+            ))}
+          </ol>
+          <p className="mt-4 text-sm text-gray-600">
+            Want the full details first? Read{" "}
+            <Link href="/how-it-works" className="font-semibold text-brand-yellow-dark hover:underline">how it works</Link>
+            , see{" "}
+            <Link href="/how-we-calculate-your-offer" className="font-semibold text-brand-yellow-dark hover:underline">how we calculate your offer</Link>
+            , or look through our{" "}
+            <Link href="/faq" className="font-semibold text-brand-yellow-dark hover:underline">frequently asked questions</Link>.
+          </p>
+        </div>
+      </section>
+
+      <section className="mx-auto grid max-w-6xl gap-10 px-4 py-12 md:grid-cols-2">
+        <div>
+          <h2 className="text-xl font-bold text-brand-black">What to Have Ready</h2>
+          <p className="mt-3 text-gray-600">
+            You do not need any paperwork to call us. It helps if you can tell us a few things, but
+            if you do not know the answer to something, just say so.
+          </p>
+          <ul className="mt-4 list-disc space-y-2 pl-5 text-gray-600">
+            <li>The address of the house</li>
+            <li>What shape it is in, including any damage, repairs, or open city notices</li>
+            <li>Whether it is lived in, rented, or empty</li>
+            <li>Whether there is a mortgage, a lien, or back taxes on it</li>
+            <li>Whether it is in probate, was inherited, or is part of a divorce</li>
+            <li>When you would like to be done selling</li>
+          </ul>
+        </div>
+        <div>
+          <h2 className="text-xl font-bold text-brand-black">Who to Contact for What</h2>
+          <div className="mt-4 space-y-4">
+            <div className="rounded-lg border border-gray-200 p-4">
+              <div className="font-semibold text-brand-black">Selling Your House for Cash</div>
+              <p className="mt-1 text-sm text-gray-600">
+                That is us, {site.name}, at {site.address.street} in {site.address.city}. Call{" "}
+                <a href={`tel:${site.phoneE164}`} className="font-semibold text-brand-yellow-dark hover:underline">{site.phone}</a>{" "}
+                or use the form on this page.
+              </p>
+            </div>
+            <div className="rounded-lg border border-gray-200 p-4">
+              <div className="font-semibold text-brand-black">Remodeling, Repairs, or an ADU</div>
+              <p className="mt-1 text-sm text-gray-600">
+                House Junkies Construction ({site.licenses.generalContractor}) is at {site.entityAddresses.construction}. See the{" "}
+                <Link href="/construction" className="font-semibold text-brand-yellow-dark hover:underline">construction page</Link>{" "}
+                or ask for an estimate.
+              </p>
+            </div>
+            <div className="rounded-lg border border-gray-200 p-4">
+              <div className="font-semibold text-brand-black">Listing Your House with an Agent</div>
+              <p className="mt-1 text-sm text-gray-600">
+                {site.legacyRealEstate.name} ({site.legacyRealEstate.dre}) is at {site.entityAddresses.brokerage}.
+                Not sure whether to list or sell for cash? Read our{" "}
+                <Link href="/compare" className="font-semibold text-brand-yellow-dark hover:underline">cash offer vs. listing</Link>{" "}
+                comparison.
+              </p>
+            </div>
+            <div className="rounded-lg border border-gray-200 p-4">
+              <div className="font-semibold text-brand-black">Partnering, Referring a Deal, or Lending</div>
+              <p className="mt-1 text-sm text-gray-600">
+                See the five ways to{" "}
+                <Link href="/partners/agents" className="font-semibold text-brand-yellow-dark hover:underline">partner with us</Link>.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="border-t border-gray-100">
+        <div className="mx-auto max-w-6xl px-4 py-12">
+          <h2 className="text-xl font-bold text-brand-black">Our Offices</h2>
+          <div className="mt-4 grid gap-4 sm:grid-cols-2 md:grid-cols-4">
+            {site.officeLocations.map((loc) => (
+              <div key={loc.label} className="rounded-lg border border-gray-200 p-4">
+                <div className="text-sm font-semibold text-brand-yellow-dark">{loc.label}</div>
+                <p className="mt-1 text-sm text-gray-600">{loc.street}</p>
+                <p className="text-sm text-gray-600">{loc.city}, {loc.region} {loc.postalCode}</p>
+              </div>
+            ))}
+          </div>
+
+          <h2 className="mt-10 text-xl font-bold text-brand-black">Where We Buy Houses</h2>
+          <p className="mt-3 text-gray-600">
+            We buy houses across the Central Valley, on the Central Coast, and in the Eastern Sierra.
+            Start with your county, or see every city on our{" "}
+            <Link href="/we-buy-houses" className="font-semibold text-brand-yellow-dark hover:underline">service area page</Link>.
+          </p>
+          <div className="mt-4 flex flex-wrap gap-2 text-sm">
+            {[
+              ["Tulare County", "/counties/tulare-county"],
+              ["Kings County", "/counties/kings-county"],
+              ["Fresno County", "/counties/fresno-county"],
+              ["Kern County", "/counties/kern-county"],
+              ["Monterey County", "/counties/monterey-county"],
+              ["San Luis Obispo County", "/counties/san-luis-obispo-county"],
+              ["San Benito County", "/counties/san-benito-county"],
+            ].map(([label, href]) => (
+              <Link key={href} href={href} className="rounded-full border border-gray-200 px-3 py-1 text-gray-700 hover:border-brand-yellow hover:text-brand-yellow-dark">
+                {label}
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
