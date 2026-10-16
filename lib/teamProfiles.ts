@@ -13,11 +13,13 @@ export type TeamProfile = {
   phone: string | null;
   email: string | null;
   sections: { heading: string; body: string }[];
+  sameAs?: string[]; // the person's own public profiles, for Person schema
 };
 
 export const teamProfiles: TeamProfile[] = [
   {
     slug: "abel-ulloa",
+    sameAs: ["https://www.instagram.com/abelardoulloarealtor/"],
     name: site.people.ceo.name,
     title: site.people.ceo.title,
     photo: "/images/team/abel.png",

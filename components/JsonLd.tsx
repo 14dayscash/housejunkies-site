@@ -57,6 +57,7 @@ export function PersonJsonLd({
   description,
   knowsAbout,
   telephone,
+  sameAs,
 }: {
   name: string;
   jobTitle: string;
@@ -65,6 +66,7 @@ export function PersonJsonLd({
   description?: string;
   knowsAbout?: string[];
   telephone?: string;
+  sameAs?: string[];
 }) {
   const data: Record<string, unknown> = {
     "@context": "https://schema.org",
@@ -81,6 +83,7 @@ export function PersonJsonLd({
   if (description) data.description = description;
   if (knowsAbout?.length) data.knowsAbout = knowsAbout;
   if (telephone) data.telephone = telephone;
+  if (sameAs?.length) data.sameAs = sameAs;
   return (
     <script
       type="application/ld+json"

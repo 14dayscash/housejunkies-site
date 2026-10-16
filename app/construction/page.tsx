@@ -5,7 +5,7 @@ import { BreadcrumbJsonLd } from "@/components/JsonLd";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Construction & Remodeling in Visalia, CA | House Junkies Construction",
+  title: "General Contractor in Visalia, CA | Construction & Remodeling",
   description:
     "Licensed general contractor in Visalia (CA LIC#1077593): remodeling, bathrooms, kitchens, painting, flooring, and renovations. Call (559) 368-8956 for an estimate.",
   alternates: { canonical: "/construction" },

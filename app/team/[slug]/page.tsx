@@ -41,6 +41,7 @@ export default function TeamMemberPage({ params }: { params: { slug: string } })
         image={`${site.url}${person.photo}`}
         description={person.bio}
         telephone={person.phone ?? undefined}
+        sameAs={person.sameAs}
         knowsAbout={["Cash home buying", "Real estate investing", "Probate and inherited property", "Visalia and Central Valley real estate"]}
       />
 

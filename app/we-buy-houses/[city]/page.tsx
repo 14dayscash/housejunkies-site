@@ -83,6 +83,11 @@ export default function CityPage({ params }: { params: { city: string } }) {
           <h1 className="mt-1 text-3xl font-bold md:text-4xl">
             Sell Your House Fast for Cash in {city.name}, CA
           </h1>
+          {city.slug === "visalia" && (
+            <p className="mt-3 text-sm font-semibold text-white/80">
+              House Junkies Inc., 801 W Main Street, Visalia. Part of Ulloa Investment Group.
+            </p>
+          )}
           <p className="mt-4 max-w-2xl text-white/70">
             {city.description}
           </p>
