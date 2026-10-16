@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { cities, getCity } from "@/lib/cities";
 import { RichText } from "@/components/RichText";
+import { googleReviews, GBP_URL } from "@/lib/reviews";
 import { counties } from "@/lib/counties";
 import { situations } from "@/lib/situations";
 import { LeadForm } from "@/components/LeadForm";
@@ -167,6 +168,31 @@ export default function CityPage({ params }: { params: { city: string } }) {
               ))}
             </div>
           ))}
+        </section>
+      )}
+
+      {city.slug === "visalia" && (
+        <section className="mx-auto max-w-6xl px-4 pb-10">
+          <h2 className="text-xl font-bold text-brand-black">What People Say About House Junkies in Visalia</h2>
+          <p className="mt-3 max-w-3xl text-gray-600">
+            Real reviews from our Google Business Profile at our Visalia office, quoted word for word.
+          </p>
+          <div className="mt-6 grid gap-5 md:grid-cols-3">
+            {googleReviews
+              .filter((r) => r.text && ["John Doe", "Michael", "Corey Loewen"].includes(r.name))
+              .map((r) => (
+                <figure key={r.name} className="rounded-lg border border-gray-200 bg-white p-5">
+                  <div className="text-brand-yellow-dark" aria-label={`${r.rating} out of 5 stars`}>★★★★★</div>
+                  <blockquote className="mt-2 text-sm text-gray-700">&ldquo;{r.text}&rdquo;</blockquote>
+                  <figcaption className="mt-3 text-sm font-semibold text-brand-black">{r.name}, Google review</figcaption>
+                </figure>
+              ))}
+          </div>
+          <p className="mt-4 text-sm">
+            <Link href="/reviews" className="font-semibold text-brand-yellow-dark hover:underline">Read all our reviews</Link>
+            {" "}or{" "}
+            <a href={GBP_URL} target="_blank" rel="noopener noreferrer" className="font-semibold text-brand-yellow-dark hover:underline">see them on Google</a>.
+          </p>
         </section>
       )}
 

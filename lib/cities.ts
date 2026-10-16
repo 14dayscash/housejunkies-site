@@ -52,7 +52,7 @@ export const cities: CityData[] = [
         heading: "Houses We Buy Across Visalia: 93277, 93291 and 93292",
         paragraphs: [
           "We buy in every part of the city, including Downtown Visalia, North Visalia, Mooney, and Cottage Grove, and in all three Visalia zip codes (93277, 93291, and 93292). That includes older downtown homes that need work and newer north-side houses where the owner just wants out quickly.",
-          "Common Visalia situations we see include a house inherited from a parent (see our guide to selling an inherited house), a rental with a tenant who is not leaving, a property with liens or unpaid taxes, a house with fire or water damage, and homeowners relocating out of the Valley on a short timeline. If your situation is not on that list, call us anyway. We buy houses in Visalia for reasons that do not fit a category.",
+          "Common Visalia situations we see include a house inherited from a parent (see our guide to [selling an inherited house](/sell-your-house/inherited-property)), a rental with a tenant who is not leaving ([selling with tenants](/sell-your-house/with-tenants)), a house that has been sitting [vacant](/sell-your-house/vacant), a property with [liens or unpaid taxes](/sell-your-house/liens), open [code violations](/sell-your-house/code-violations), a house with [fire damage](/sell-your-house/fire-damage) or water damage, homeowners [facing foreclosure](/sell-your-house/foreclosure), and people relocating out of the Valley on a short timeline. If your situation is not on that list, call us anyway. We buy houses in Visalia for reasons that do not fit a category.",
         ],
       },
       {

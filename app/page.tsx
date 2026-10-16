@@ -151,7 +151,12 @@ export default function HomePage() {
             {site.parentOrganization}
           </Link>
           . That's what lets us pay more than a wholesaler and close faster
-          than a company that has to shop your house to a stranger before they can buy it.
+          than a company that has to shop your house to a stranger before they can buy it. The
+          company is led by{" "}
+          <Link href="/team/abel-ulloa" className="underline decoration-dotted underline-offset-2 hover:text-brand-yellow-dark">
+            Abel Ulloa, Owner and CEO
+          </Link>
+          .
         </p>
         <div className="mt-8 grid gap-6 md:grid-cols-3">
           <div className="rounded-lg border border-gray-200 p-6">
