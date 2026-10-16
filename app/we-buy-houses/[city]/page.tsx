@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { cities, getCity } from "@/lib/cities";
-import { Linkify } from "@/components/Linkify";
+import { RichText } from "@/components/RichText";
 import { counties } from "@/lib/counties";
 import { situations } from "@/lib/situations";
 import { LeadForm } from "@/components/LeadForm";
@@ -135,6 +135,8 @@ export default function CityPage({ params }: { params: { city: string } }) {
           <Link href="/sell-your-house/code-violations" className="font-semibold text-brand-yellow-dark hover:underline">code violations</Link>,{" "}
           <Link href="/sell-your-house/with-tenants" className="font-semibold text-brand-yellow-dark hover:underline">tenant-occupied rentals</Link>,{" "}
           <Link href="/sell-your-house/hoarder-house" className="font-semibold text-brand-yellow-dark hover:underline">hoarder houses</Link>,{" "}
+          <Link href="/sell-your-house/vacant" className="font-semibold text-brand-yellow-dark hover:underline">vacant houses</Link>,{" "}
+          <Link href="/sell-your-house/foreclosure" className="font-semibold text-brand-yellow-dark hover:underline">homes facing foreclosure</Link>,{" "}
           and{" "}
           <Link href="/sell-your-house/inherited-property" className="font-semibold text-brand-yellow-dark hover:underline">inherited or probate properties</Link>.
           Because we renovate with our own crew, a house that needs work is something we price in,
@@ -160,7 +162,7 @@ export default function CityPage({ params }: { params: { city: string } }) {
               <h2 className="text-xl font-bold text-brand-black">{block.heading}</h2>
               {block.paragraphs.map((para, i) => (
                 <p key={i} className="mt-3 text-gray-600">
-                  <Linkify text={para} />
+                  <RichText text={para} />
                 </p>
               ))}
             </div>

@@ -6,6 +6,7 @@ import { cities } from "@/lib/cities";
 import { LeadForm } from "@/components/LeadForm";
 import { FaqJsonLd, BreadcrumbJsonLd } from "@/components/JsonLd";
 import { Linkify } from "@/components/Linkify";
+import { RichText } from "@/components/RichText";
 import { site } from "@/lib/site";
 
 export function generateStaticParams() {
@@ -74,6 +75,30 @@ export default function SituationPage({ params }: { params: { situation: string 
             </>
           )}
 
+          {situation.localSection && (
+            <>
+              <h2 className="mt-10 text-xl font-bold text-brand-black">{situation.localSection.heading}</h2>
+              {situation.localSection.paragraphs.map((paragraph, i) => (
+                <p key={i} className="mt-4 text-gray-600">
+                  <RichText text={paragraph} />
+                </p>
+              ))}
+              {situation.localSection.sources && situation.localSection.sources.length > 0 && (
+                <p className="mt-4 text-xs text-gray-500">
+                  Sources:{" "}
+                  {situation.localSection.sources.map((src, i) => (
+                    <span key={src.url}>
+                      {i > 0 ? ", " : ""}
+                      <a href={src.url} target="_blank" rel="noopener noreferrer" className="underline hover:text-brand-yellow-dark">
+                        {src.label}
+                      </a>
+                    </span>
+                  ))}
+                </p>
+              )}
+            </>
+          )}
+
           <div className="mt-8">
             <h2 className="text-xl font-bold text-brand-black">How It Works</h2>
             <div className="mt-4 space-y-4">
@@ -134,6 +159,28 @@ export default function SituationPage({ params }: { params: { situation: string 
         <Link href="/we-buy-houses" className="mt-3 inline-block text-sm font-semibold text-brand-yellow-dark hover:underline">
           See every city we serve →
         </Link>
+
+        <h2 className="mt-10 text-lg font-bold text-brand-black">Other Situations We Buy In</h2>
+        <div className="mt-4 flex flex-wrap gap-3">
+          {situations
+            .filter((s) => s.slug !== situation.slug)
+            .map((s) => (
+              <Link
+                key={s.slug}
+                href={`/sell-your-house/${s.slug}`}
+                className="rounded-full border border-gray-300 px-4 py-2 text-sm text-brand-black hover:border-brand-yellow-dark hover:text-brand-yellow-dark"
+              >
+                {s.title}
+              </Link>
+            ))}
+        </div>
+        <p className="mt-6 text-sm text-gray-600">
+          Based in Visalia?{" "}
+          <Link href="/we-buy-houses/visalia" className="font-semibold text-brand-yellow-dark hover:underline">
+            See how we buy houses in Visalia, CA
+          </Link>
+          .
+        </p>
       </section>
     </div>
   );
