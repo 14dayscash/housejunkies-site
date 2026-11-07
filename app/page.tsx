@@ -435,8 +435,8 @@ export default function HomePage() {
             <p className="text-xs font-bold uppercase tracking-widest text-brand-yellow-dark">Cash Offer vs. Listing</p>
             <h2 className="mt-2 text-3xl font-bold text-brand-black md:text-4xl">Why Sell to House Junkies Instead of a Market Listing</h2>
             <p className="mt-3 text-gray-600">
-              Listing can get you top dollar on a house that is ready for the market. For everything else, here is
-              how the two options actually stack up.
+              Listing will get you top dollar with the right timing and a house that is market ready. For homes
+              that need work, here is how the options actually stack up.
             </p>
           </div>
 
