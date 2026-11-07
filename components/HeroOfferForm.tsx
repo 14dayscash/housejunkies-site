@@ -28,17 +28,19 @@ export function HeroOfferForm() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="w-full max-w-[460px] rounded-2xl bg-white p-6 text-brand-black shadow-[0_20px_40px_rgba(0,0,0,0.15)] sm:p-8 md:p-9"
+      className="w-full max-w-[460px] rounded-2xl bg-white p-6 text-brand-black shadow-[0_20px_40px_rgba(0,0,0,0.15)] sm:p-8 md:p-7"
     >
       <h1 className="text-[28px] font-bold leading-tight md:text-[32px]">
         Sell Your Home Fast in the Central Valley!
       </h1>
-      <p className="mt-2 text-base text-gray-600 md:text-[17px]">Get Your Free Offer in {"<24"} Hours</p>
+      <p className="mt-1.5 text-base text-gray-600 md:text-[17px]">
+        Get Your <strong className="font-bold text-brand-black underline underline-offset-2">FREE</strong> Offer in Less Than 24 Hours
+      </p>
 
       <label htmlFor="hero_address" className="sr-only">
         Property address
       </label>
-      <div className="relative mt-5">
+      <div className="relative mt-4">
         <svg
           aria-hidden="true"
           viewBox="0 0 24 24"
@@ -68,12 +70,12 @@ export function HeroOfferForm() {
 
       <button
         type="submit"
-        className="mt-4 h-[56px] w-full rounded-lg bg-brand-yellow text-lg font-bold text-black transition-colors hover:bg-brand-yellow-dark"
+        className="mt-3 h-[54px] w-full rounded-lg bg-brand-yellow text-lg font-bold text-black transition-colors hover:bg-brand-yellow-dark"
       >
         Get My Offer
       </button>
 
-      <ul className="mt-4 flex flex-wrap items-center justify-center gap-y-1 text-[13px] font-medium text-gray-700 sm:flex-nowrap sm:justify-between">
+      <ul className="mt-3 flex flex-wrap items-center justify-center gap-y-1 text-[13px] font-medium text-gray-700 sm:flex-nowrap sm:justify-between">
         {checks.map((c, i) => (
           <li
             key={c}
@@ -91,21 +93,21 @@ export function HeroOfferForm() {
 
       {/* Google 5-star badge left, BBB seal right. The BBB seal stays a plain
           hotlinked <img> since it must be served live from BBB's own servers. */}
-      <div className="mt-6 grid grid-cols-2 gap-3">
-        <div className="flex h-[76px] items-center justify-center rounded-lg border border-gray-200 px-2">
+      <div className="mt-4 grid grid-cols-2 gap-3">
+        <div className="flex h-[64px] items-center justify-center rounded-lg border border-gray-200 px-2">
           <img
             src="/images/google-5-star-badge.png"
             alt="5-star rated on Google"
             width={85}
             height={60}
-            className="h-[56px] w-auto"
+            className="h-[48px] w-auto"
           />
         </div>
         <a
           href="https://www.bbb.org/us/ca/visalia/profile/real-estate-investing/house-junkies-inc-1126-850058147/#sealclick"
           target="_blank"
           rel="nofollow noopener noreferrer"
-          className="flex h-[76px] items-center justify-center rounded-lg border border-gray-200 px-2"
+          className="flex h-[64px] items-center justify-center rounded-lg border border-gray-200 px-2"
         >
           <img
             src="https://seal-central-northern-western-arizona.bbb.org/seals/blue-seal-160-82-bbb-850058147.png"
@@ -113,7 +115,7 @@ export function HeroOfferForm() {
             alt="House Junkies Inc BBB Business Review"
             width={120}
             height={62}
-            className="h-[56px] w-auto"
+            className="h-[48px] w-auto"
           />
         </a>
       </div>

@@ -48,9 +48,9 @@ export default function HomePage() {
         />
         <div className="absolute inset-0 -z-10 bg-black/50" aria-hidden="true" />
 
-        <div className="mx-auto grid max-w-7xl items-center gap-6 px-4 pt-8 md:min-h-[620px] md:grid-cols-[45fr_55fr] md:gap-8 md:px-8 md:pt-0 lg:min-h-[650px] lg:px-12">
+        <div className="mx-auto grid max-w-7xl items-center gap-6 px-4 pt-8 md:h-[calc(100svh-68px)] md:max-h-[760px] md:min-h-[460px] md:grid-cols-[45fr_55fr] md:gap-8 md:px-8 md:pt-0 lg:h-[calc(100svh-76px)] lg:px-12">
           {/* Abel + name block */}
-          <div className="relative order-2 mx-auto h-[340px] w-full max-w-sm self-end sm:h-[400px] md:order-1 md:mx-0 md:h-[500px] md:max-w-none">
+          <div className="relative order-2 mx-auto h-[340px] w-full max-w-sm self-end sm:h-[400px] md:order-1 md:mx-0 md:h-[min(500px,calc(100svh-96px))] md:max-w-none">
             <Image
               src="/images/team/abel-hero.png"
               alt="Abel Ulloa, CEO and Owner of House Junkies Inc."
@@ -69,7 +69,7 @@ export default function HomePage() {
           </div>
 
           {/* Offer card */}
-          <div className="order-1 flex justify-center md:order-2 md:justify-end md:py-14">
+          <div className="order-1 flex justify-center md:order-2 md:justify-end md:py-4">
             <HeroOfferForm />
           </div>
         </div>

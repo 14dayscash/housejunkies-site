@@ -22,15 +22,17 @@ export function Header({
   return (
     <header className="border-b border-white/10 bg-black">
       <div className="mx-auto flex h-[68px] max-w-7xl items-center justify-between px-4 md:px-8 lg:h-[76px] lg:px-12">
-        <Link href="/" className="flex shrink-0 items-center" aria-label={`${site.name} home`}>
+        <Link href="/" className="flex shrink-0 items-center gap-3">
           <Image
-            src="/images/logo-white-trim.png"
-            alt={`${site.name} Inc. logo`}
-            width={269}
-            height={102}
-            priority
-            className="h-10 w-auto lg:h-12"
+            src="/images/logo-white.png"
+            alt={site.name}
+            width={44}
+            height={44}
+            className="h-11 w-11 object-contain"
           />
+          <span className="text-lg font-bold tracking-tight text-white">
+            {site.name}
+          </span>
         </Link>
 
         <nav className="hidden items-center gap-7 text-[15px] font-medium text-white lg:flex xl:gap-8">
