@@ -43,7 +43,7 @@ const compareListing: [string, string][] = [
 // 14 days standard, as fast as 7, written offer within 24 hours).
 const homeFaqs = [
   {
-    question: "How does selling my house to House Junkies work?",
+    question: "How does selling a home to House Junkies work?",
     answer:
       "Fill out the form or call us with your property address. We look at the house, run the numbers, and send a fair, no-obligation cash offer within 24 hours. If you accept, you pick the closing date and we handle the rest.",
   },
@@ -58,7 +58,7 @@ const homeFaqs = [
       "No. You are selling directly to us, so there is no agent commission, and we pay the closing costs. The cash offer itself is always free.",
   },
   {
-    question: "How fast can you close, and can I choose the date?",
+    question: "How fast do you close, who chooses the date?",
     answer:
       "Yes, you choose the date. Most of our deals close in 14 days, we can close as fast as 7 if you need to, or later if you need more time to move.",
   },
@@ -78,7 +78,7 @@ const homeFaqs = [
       "Yes. Any mortgage or lien is paid off out of the sale at closing through escrow, and you get what is left. We go over those numbers with you before you accept anything.",
   },
   {
-    question: "Do I need a real estate agent to sell my house for cash?",
+    question: "Do I need a realtor to sell my house for cash?",
     answer:
       "No. You can sell directly to us without hiring an agent, and you are always welcome to have your own agent or attorney look over the offer. If listing would net you more, our brokerage, Legacy Real Estate, can list it for you instead.",
   },
@@ -628,7 +628,7 @@ export default function HomePage() {
           <p className="mt-4 leading-relaxed text-white/75">
             Tell us about the house and what is going on, even if it needs work or is still full of stuff. We will
             look at it with you, show you how we got to our number, and send a written cash offer within 24 hours.
-            If listing it would put more money in your pocket, we will tell you that too.
+            If listing it would put more money in your pocket, we tell you that!
           </p>
           <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <Link
@@ -644,9 +644,19 @@ export default function HomePage() {
               Call or Text {site.phone}
             </a>
           </div>
-          <p className="mt-5 text-sm text-white/50">
-            Or stop by the office at 801 W Main St, Visalia. Se habla español.
-          </p>
+          <div className="mx-auto mt-10 max-w-sm border-t border-white/15 pt-6 text-sm">
+            <p className="text-xs font-bold uppercase tracking-widest text-brand-yellow">Visit in Person</p>
+            <a
+              href="https://www.google.com/maps/search/?api=1&query=801+West+Main+Street+Visalia+CA+93291"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-2 inline-block font-semibold text-white underline decoration-white/40 underline-offset-2 hover:text-brand-yellow"
+            >
+              801 West Main Street, Visalia CA 93291
+            </a>
+            <p className="mt-1 text-white/70">Monday - Friday | 9AM to 5PM</p>
+            <p className="mt-1 font-semibold text-white/90">¡Se habla español!</p>
+          </div>
         </div>
       </section>
 
@@ -656,7 +666,7 @@ export default function HomePage() {
       <section className="mx-auto max-w-3xl px-4 py-14 md:py-20">
         <div className="text-center">
           <p className="text-xs font-bold uppercase tracking-widest text-brand-yellow-dark">FAQ</p>
-          <h2 className="mt-2 text-3xl font-bold text-brand-black md:text-4xl">Frequently Asked Questions</h2>
+          <h2 className="mt-2 text-3xl font-bold text-brand-black md:text-4xl">House Junkies Frequently Asked Questions</h2>
         </div>
         <div className="mt-8 space-y-2">
           {homeFaqs.map((f) => (
@@ -687,14 +697,10 @@ export default function HomePage() {
 
       {/* Explore the Site - the only link to /explore lives here, on purpose */}
       <section className="bg-gray-50">
-        <div className="mx-auto max-w-6xl px-4 py-14 text-center">
-          <h2 className="text-2xl font-bold text-brand-black">Explore the Site</h2>
-          <p className="mx-auto mt-2 max-w-xl text-gray-600">
-            Every page on this site, laid out visually, cities, situations, the team, all of it.
-          </p>
+        <div className="mx-auto max-w-6xl px-4 py-10 text-center">
           <Link
             href="/explore"
-            className="mt-6 inline-block rounded-full border-2 border-brand-yellow-dark bg-white px-6 py-3 font-semibold text-brand-black hover:bg-brand-yellow-dark hover:text-white"
+            className="inline-block rounded-full border-2 border-brand-yellow-dark bg-white px-6 py-3 font-semibold text-brand-black hover:bg-brand-yellow-dark hover:text-white"
           >
             See the Full Site Map →
           </Link>
