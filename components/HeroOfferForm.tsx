@@ -94,15 +94,20 @@ export function HeroOfferForm() {
       {/* Google 5-star badge left, BBB seal right. The BBB seal stays a plain
           hotlinked <img> since it must be served live from BBB's own servers. */}
       <div className="mt-4 grid grid-cols-2 gap-3">
-        <div className="flex h-[64px] items-center justify-center rounded-lg border border-gray-200 px-2">
+        <a
+          href="https://share.google/a8MBePgETXLdYaMqs"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex h-[64px] items-center justify-center rounded-lg border border-gray-200 px-2"
+        >
           <img
-            src="/images/google-5-star-badge.png"
-            alt="5-star rated on Google"
-            width={85}
-            height={60}
+            src="/images/google-reviews-badge.png"
+            alt="House Junkies Google Reviews, 5 stars"
+            width={400}
+            height={225}
             className="h-[48px] w-auto"
           />
-        </div>
+        </a>
         <a
           href="https://www.bbb.org/us/ca/visalia/profile/real-estate-investing/house-junkies-inc-1126-850058147/#sealclick"
           target="_blank"
