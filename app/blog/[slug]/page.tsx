@@ -55,31 +55,36 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
         ]}
       />
       <section className="bg-brand-black text-white">
-        <div className="mx-auto max-w-3xl px-4 py-14">
-          <p className="text-xs text-white/50">
-            {post.date} · {post.category} · By{" "}
-            {post.authorSlug ? (
-              <Link href={`/team/${post.authorSlug}`} className="underline decoration-dotted underline-offset-2 hover:text-brand-yellow">
-                {post.author}
-              </Link>
-            ) : (
-              post.author
-            )}
-            {post.updated && post.updated !== post.date ? ` · Updated ${post.updated}` : ""}
-          </p>
-          <h1 className="mt-2 text-3xl font-bold md:text-4xl">{post.title}</h1>
+        <div
+          className={`mx-auto px-4 py-12 md:py-14 ${
+            post.heroImage
+              ? "grid max-w-5xl items-center gap-8 md:grid-cols-[minmax(0,1fr)_320px]"
+              : "max-w-3xl"
+          }`}
+        >
+          <div>
+            <p className="text-xs text-white/50">
+              {post.date} · {post.category} · By{" "}
+              {post.authorSlug ? (
+                <Link href={`/team/${post.authorSlug}`} className="underline decoration-dotted underline-offset-2 hover:text-brand-yellow">
+                  {post.author}
+                </Link>
+              ) : (
+                post.author
+              )}
+              {post.updated && post.updated !== post.date ? ` · Updated ${post.updated}` : ""}
+            </p>
+            <h1 className="mt-2 text-3xl font-bold md:text-4xl">{post.title}</h1>
+          </div>
+          {post.heroImage && (
+            <img
+              src={post.heroImage.src}
+              alt={post.heroImage.alt}
+              className="aspect-[4/3] w-full max-w-sm rounded-lg border border-white object-cover"
+            />
+          )}
         </div>
       </section>
-
-      {post.heroImage && (
-        <div className="mx-auto max-w-3xl px-4 pt-8">
-          <img
-            src={post.heroImage.src}
-            alt={post.heroImage.alt}
-            className="w-full rounded-lg"
-          />
-        </div>
-      )}
 
       <section className="mx-auto max-w-3xl px-4 py-12">
         {post.summary && post.summary.length > 0 && (
