@@ -265,7 +265,10 @@ export default function HomePage() {
           </p>
         </div>
         <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {counties.map((county) => {
+          {counties
+            // Kept off the homepage (Dominic, 2026-11-07); their pages still exist.
+            .filter((c) => !["san-benito-county", "inyo-county", "monterey-county"].includes(c.slug))
+            .map((county) => {
             const photo = countyPhotos[county.slug];
             // Top 3: featured cities first, then by population.
             const list = [...citiesInCounty(county.name)]
