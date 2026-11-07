@@ -24,17 +24,17 @@ const homePurchases = ["19667-avenue-195-strathmore", "40074-road-56-dinuba", "2
 
 // Cash offer vs listing points for the homepage comparison (our copy).
 const compareUs: [string, string][] = [
-  ["Sell It As-Is", "No repairs, no cleaning, no clean-out. Leave the house exactly how it is, and leave behind anything you do not want."],
+  ["Sell It As-Is", "No repairs, no cleaning, no property clean-out. Leave the house exactly how it is, and leave behind anything you do not want."],
   ["No Commissions or Fees", "There is no agent to pay and nothing comes out of your check for us. The number on the offer is the number you get."],
-  ["We Pay the Closing Costs", "Escrow, title, and the normal seller closing costs are on us, so you are not surprised at the closing table."],
+  ["We Pay the Closing Costs", "Escrow, title, and the closing costs are on us, so you are never surprised at the closing table."],
   ["A Cash Offer That Holds", "We close with our own capital, so there is no buyer's loan to fall through and no lender appraisal to blow up the deal."],
-  ["You Pick the Closing Date", "Most of our deals close in 14 days, as fast as 7 when you need it, or later if you need time to move."],
+  ["You Pick the Closing Date", "Most deals close in 14 days, as fast as 7 if you need to, or later if you need time to move."],
 ];
 const compareListing: [string, string][] = [
-  ["Repairs and Prep First", "Buyers and their inspectors expect a house that is ready to go. Fixes, cleaning, and staging usually come out of your pocket before you list."],
-  ["Commissions Come Out of Your Sale", "Agent commissions commonly run 5 to 6 percent of the sale price, plus marketing and other selling costs."],
+  ["Repairs and Prep First", "Buyers and their inspectors expect a house that is ready to go. Fixes, cleaning, and staging usually come out of your pocket."],
+  ["Commissions Come Out of Your Sale", "Agent commissions usually run 5-6% of the sale price, plus marketing and other selling costs."],
   ["Seller Closing Costs", "Title, escrow, transfer tax, and any repair credits the buyer asks for after inspection get paid out of your proceeds."],
-  ["Deals Can Fall Through", "Most buyers need a loan. If their financing or the appraisal falls short, you can end up back on the market."],
+  ["Deals Can Fall Through", "Most buyers need a loan. If their financing or the appraisal falls short, you can end up back on the market when you need to move."],
   ["Longer, Less Certain Timeline", "Showings, offers, inspections, and loan approval often take 60 to 90 days or more, with open houses along the way."],
 ];
 
