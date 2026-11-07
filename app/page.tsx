@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { HeroOfferForm } from "@/components/HeroOfferForm";
 import { site } from "@/lib/site";
@@ -19,58 +20,47 @@ export const metadata: Metadata = {
 };
 
 export default function HomePage() {
-  // Hero is split into blocks so mobile and desktop can show them in a
-  // different order without duplicating any text. Mobile leads with the
-  // headline, then the form, then trust signals, then the longer company
-  // paragraph, so a visitor doesn't have to scroll past several paragraphs
-  // to find the form or see the rating. Desktop keeps the original
-  // side-by-side layout (text column / form column).
-  const headlineBlock = (
-    <div>
-      <p className="text-sm font-semibold uppercase tracking-wide text-brand-yellow">
-        Visalia & the Central Valley
-      </p>
-      <h1 className="mt-2 text-4xl font-bold leading-tight md:text-5xl">
-        SELL MY HOME AS-IS FOR CASH IN THE CENTRAL VALLEY
-      </h1>
-      <p className="mt-3 text-lg text-white/70">
-        {site.name} has bought, renovated, and resold {site.stats.homesBought} homes across the
-        Central Valley over {site.stats.yearsInBusiness} years. We buy the property with our own
-        private capital and renovate it with our own licensed construction crew.
-      </p>
-    </div>
-  );
-
-  const bodyBlock = (
-    <div>
-      <p className="text-lg font-medium text-white/90">
-        A local, vertically integrated buyer with the numbers to back it up. No fees. No
-        obligation. Get a real offer today.
-      </p>
-      <p className="mt-1 text-sm text-white/50">{site.licenses.generalContractor}</p>
-      <ul className="mt-6 grid grid-cols-1 gap-2 text-sm text-white/80 sm:grid-cols-2">
-        <li>✓ No Repairs, Any Condition</li>
-        <li>✓ We Cover Closing Costs</li>
-        <li>✓ Close in 7 to 30 Days</li>
-        <li>✓ Se Habla Espanol</li>
-      </ul>
-    </div>
-  );
-
   return (
     <div>
-      {/* Hero */}
-      <section className="bg-brand-black text-white">
-        {/* One grid, reordered per breakpoint with CSS order (not duplicated
-            markup), so the form only ever exists once in the DOM, no
-            duplicate input ids. Mobile: headline -> form -> trust -> body.
-            Desktop: original two-column layout, text left / form right. */}
-        <div className="mx-auto grid max-w-6xl gap-8 px-4 py-12 md:grid-cols-2 md:gap-10 md:py-24">
-          <div className="order-1 md:order-1">{headlineBlock}</div>
-          <div className="order-2 md:order-3 md:col-start-2 md:row-start-1 md:row-span-2">
+      {/* Hero (2026-11-06 overhaul, from Dominic's mockup): the House Junkies
+          Main St office as the background with a dark overlay, Abel on the
+          left with his name block, the offer card on the right. Mobile puts
+          the card first, then Abel. */}
+      <section className="relative isolate overflow-hidden bg-black text-white">
+        <Image
+          src="/images/office/hero-office.jpg"
+          alt="The House Junkies Inc. office building in the Central Valley"
+          fill
+          priority
+          sizes="100vw"
+          className="-z-20 object-cover object-center"
+        />
+        <div className="absolute inset-0 -z-10 bg-black/50" aria-hidden="true" />
+
+        <div className="mx-auto grid max-w-7xl items-center gap-6 px-4 pt-8 md:min-h-[620px] md:grid-cols-[45fr_55fr] md:gap-8 md:px-8 md:pt-0 lg:min-h-[650px] lg:px-12">
+          {/* Abel + name block */}
+          <div className="relative order-2 mx-auto h-[340px] w-full max-w-sm self-end sm:h-[400px] md:order-1 md:mx-0 md:h-[500px] md:max-w-none">
+            <Image
+              src="/images/team/abel-hero.png"
+              alt="Abel Ulloa, CEO and Owner of House Junkies Inc."
+              width={453}
+              height={960}
+              priority
+              sizes="(min-width: 768px) 240px, 170px"
+              className="absolute bottom-0 right-0 h-full w-auto drop-shadow-[0_12px_24px_rgba(0,0,0,0.55)] md:left-[8%] md:right-auto"
+            />
+            <div className="absolute bottom-6 left-0 rounded-lg bg-gradient-to-r from-black/70 via-black/40 to-transparent py-3 pl-4 pr-10 leading-snug [text-shadow:0_2px_8px_rgba(0,0,0,0.6)] md:bottom-10">
+              <p className="text-[22px] font-bold md:text-2xl">Abel Ulloa</p>
+              <p className="text-base italic text-white/90">CEO &amp; Owner</p>
+              <p className="text-[15px] font-light text-white/80">House Junkies Inc.</p>
+              <p className="text-[15px] font-light text-white/80">Ulloa Investment Group</p>
+            </div>
+          </div>
+
+          {/* Offer card */}
+          <div className="order-1 flex justify-center md:order-2 md:justify-end md:py-14">
             <HeroOfferForm />
           </div>
-          <div className="order-3 md:order-2">{bodyBlock}</div>
         </div>
       </section>
       <div id="hero-end-sentinel" />

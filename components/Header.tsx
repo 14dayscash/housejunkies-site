@@ -20,89 +20,47 @@ export function Header({
   setMobileOpen: Dispatch<SetStateAction<boolean>>;
 }) {
   return (
-    <header className="border-b border-white/10 bg-brand-black">
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
-        <Link href="/" className="flex items-center gap-3">
+    <header className="border-b border-white/10 bg-black">
+      <div className="mx-auto flex h-[68px] max-w-7xl items-center justify-between px-4 md:px-8 lg:h-[76px] lg:px-12">
+        <Link href="/" className="flex shrink-0 items-center" aria-label={`${site.name} home`}>
           <Image
-            src="/images/logo-white.png"
-            alt={site.name}
-            width={44}
-            height={44}
-            className="h-11 w-11 object-contain"
+            src="/images/logo-white-trim.png"
+            alt={`${site.name} Inc. logo`}
+            width={269}
+            height={102}
+            priority
+            className="h-10 w-auto lg:h-12"
           />
-          <span className="text-lg font-bold tracking-tight text-white">
-            {site.name}
-          </span>
         </Link>
 
-        <nav className="hidden items-center gap-1 text-sm font-medium text-white/80 lg:flex">
-          <div className="group/cities relative">
-            <button aria-haspopup="true" className="flex items-center gap-1 rounded-md px-3 py-2 hover:bg-white/10 hover:text-white focus-visible:bg-white/10 focus-visible:text-white">
-              We Buy Houses
-              <svg width="10" height="6" viewBox="0 0 10 6" fill="none" className="mt-0.5">
-                <path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="1.5" />
-              </svg>
-            </button>
-            <div className="invisible absolute left-0 top-full grid w-56 grid-cols-2 gap-1 rounded-md border border-white/10 bg-brand-charcoal p-2 opacity-0 shadow-xl transition group-hover/cities:visible group-hover/cities:opacity-100 group-focus-within/cities:visible group-focus-within/cities:opacity-100">
-              <Link
-                href="/we-buy-houses"
-                className="col-span-2 rounded px-3 py-2 text-sm font-semibold text-brand-yellow hover:bg-white/10"
-              >
-                All Cities →
-              </Link>
-              {liveCities.map((c) => (
-                <Link
-                  key={c.slug}
-                  href={`/we-buy-houses/${c.slug}`}
-                  className="rounded px-3 py-2 text-sm text-white/80 hover:bg-white/10 hover:text-brand-yellow focus-visible:bg-white/10 focus-visible:text-brand-yellow"
-                >
-                  {c.name}
-                </Link>
-              ))}
-            </div>
-          </div>
-
-          <div className="group/situations relative">
-            <button aria-haspopup="true" className="flex items-center gap-1 rounded-md px-3 py-2 hover:bg-white/10 hover:text-white focus-visible:bg-white/10 focus-visible:text-white">
-              Situations
-              <svg width="10" height="6" viewBox="0 0 10 6" fill="none" className="mt-0.5">
-                <path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="1.5" />
-              </svg>
-            </button>
-            <div className="invisible absolute left-0 top-full grid w-52 grid-cols-2 gap-1 rounded-md border border-white/10 bg-brand-charcoal p-2 opacity-0 shadow-xl transition group-hover/situations:visible group-hover/situations:opacity-100 group-focus-within/situations:visible group-focus-within/situations:opacity-100">
-              <Link
-                href="/sell-your-house"
-                className="col-span-2 rounded px-3 py-2 text-sm font-semibold text-brand-yellow hover:bg-white/10"
-              >
-                All Situations →
-              </Link>
-              {situations.map((s) => (
-                <Link
-                  key={s.slug}
-                  href={`/sell-your-house/${s.slug}`}
-                  className="rounded px-3 py-2 text-sm text-white/80 hover:bg-white/10 hover:text-brand-yellow focus-visible:bg-white/10 focus-visible:text-brand-yellow"
-                >
-                  {s.navLabel}
-                </Link>
-              ))}
-            </div>
-          </div>
-
-          <Link href="/about" className="rounded-md px-3 py-2 hover:bg-white/10 hover:text-white">About</Link>
-          <Link href="/faq" className="rounded-md px-3 py-2 hover:bg-white/10 hover:text-white">FAQ</Link>
-          <Link href="/reviews" className="rounded-md px-3 py-2 hover:bg-white/10 hover:text-white">Reviews</Link>
-          <Link href="/projects" className="rounded-md px-3 py-2 hover:bg-white/10 hover:text-white">Projects</Link>
-          <Link href="/blog" className="rounded-md px-3 py-2 hover:bg-white/10 hover:text-white">Blog</Link>
-          <Link href="/partners/agents" className="rounded-md px-3 py-2 hover:bg-white/10 hover:text-white">Partner</Link>
-          <Link href="/contact" className="rounded-md px-3 py-2 hover:bg-white/10 hover:text-white">Contact</Link>
+        <nav className="hidden items-center gap-7 text-[15px] font-medium text-white lg:flex xl:gap-8">
+          {[
+            ["/about", "About"],
+            ["/faq", "FAQ"],
+            ["/reviews", "Reviews"],
+            ["/projects", "Projects"],
+            ["/partners/agents", "Partner"],
+            ["/contact", "Contact"],
+          ].map(([href, label]) => (
+            <Link
+              key={href}
+              href={href}
+              className="border-b-2 border-transparent py-1 transition-colors hover:border-brand-yellow hover:text-brand-yellow"
+            >
+              {label}
+            </Link>
+          ))}
         </nav>
 
         <div className="flex items-center gap-2">
           <a
             href={`tel:${site.phoneE164}`}
-            className="hidden rounded-md bg-brand-yellow px-4 py-2 text-sm font-bold text-black hover:bg-brand-yellow-dark sm:block"
+            className="hidden items-center gap-2 rounded-lg bg-brand-yellow px-5 py-3 text-[15px] font-bold text-black transition-colors hover:bg-brand-yellow-dark sm:flex"
           >
-            Call {site.phone}
+            <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.6a1 1 0 0 1-.25 1z" />
+            </svg>
+            {site.phone}
           </a>
           <button
             aria-label="Menu"
