@@ -9,18 +9,19 @@ import { situations } from "@/lib/situations";
 import { counties, citiesInCounty } from "@/lib/counties";
 import { RecentAcquisitions } from "@/components/RecentAcquisitions";
 
-// Free Unsplash stock photos for the county blocks (Dominic, 2026-11-07).
+// Free Unsplash stock photos for the county blocks, taken in or near one of
+// each county's top cities where Unsplash had one (Dominic, 2026-11-07).
 const countyPhotos: Record<string, { src: string; alt: string }> = {
-  "tulare-county": { src: "https://images.unsplash.com/photo-1638397157660-1d120461eb9f?fm=jpg&q=70&w=1200&auto=format&fit=crop", alt: "A foggy field with a farm in the distance" },
-  "fresno-county": { src: "https://images.unsplash.com/photo-1677272605979-9212b15453ff?fm=jpg&q=70&w=1200&auto=format&fit=crop", alt: "A city with mountains in the background" },
-  "kings-county": { src: "https://images.unsplash.com/photo-1653965189265-c78cc1bcc4e4?fm=jpg&q=70&w=1200&auto=format&fit=crop", alt: "A dirt road with power lines in the distance" },
-  "kern-county": { src: "https://images.unsplash.com/photo-1516509975092-74c4b6354728?fm=jpg&q=70&w=1200&auto=format&fit=crop", alt: "A road running between brown grass fields" },
-  "madera-county": { src: "https://images.unsplash.com/photo-1713588505995-dc60695439d7?fm=jpg&q=70&w=1200&auto=format&fit=crop", alt: "Purple flowers growing in a field" },
-  "merced-county": { src: "https://images.unsplash.com/photo-1606031227669-3fa290d62597?fm=jpg&q=70&w=1200&auto=format&fit=crop", alt: "A green grass field near a lake under a blue sky" },
-  "monterey-county": { src: "https://images.unsplash.com/photo-1505188391889-76ebe1767cc4?fm=jpg&q=70&w=1200&auto=format&fit=crop", alt: "A green mountain under a clear sky" },
-  "san-luis-obispo-county": { src: "https://images.unsplash.com/photo-1565402170291-8491f14678db?fm=jpg&q=70&w=1200&auto=format&fit=crop", alt: "White and red houses on a hillside" },
-  "inyo-county": { src: "https://images.unsplash.com/photo-1597545144828-068385bfe8e5?fm=jpg&q=70&w=1200&auto=format&fit=crop", alt: "A rocky mountain under a white sky" },
-  "san-benito-county": { src: "https://images.unsplash.com/photo-1554089266-a3d799ba85fe?fm=jpg&q=70&w=1200&auto=format&fit=crop", alt: "A concrete house in daylight" },
+  "tulare-county": { src: "https://images.unsplash.com/photo-1753635555129-3529087a7da2?fm=jpg&q=70&w=1200&auto=format&fit=crop", alt: "The Darling Hotel in downtown Visalia against a bright blue sky" },
+  "fresno-county": { src: "https://images.unsplash.com/photo-1648742022394-34575e15bcf7?fm=jpg&q=70&w=1200&auto=format&fit=crop", alt: "A building with a sign on the side of it" },
+  "kern-county": { src: "https://images.unsplash.com/photo-1610820438019-b2688a6d9308?fm=jpg&q=70&w=1200&auto=format&fit=crop", alt: "The Bakersfield sign" },
+  "kings-county": { src: "https://images.unsplash.com/photo-1647927082960-025da25544ba?fm=jpg&q=70&w=1200&auto=format&fit=crop", alt: "A tall building with a clock on the front" },
+  "madera-county": { src: "https://images.unsplash.com/photo-1681618314193-fb7379527a1b?fm=jpg&q=70&w=1200&auto=format&fit=crop", alt: "A red, white and blue barn in a field" },
+  "merced-county": { src: "https://images.unsplash.com/photo-1595800881132-9571d9aa9019?fm=jpg&q=70&w=1200&auto=format&fit=crop", alt: "A green grass field under a blue sky" },
+  "monterey-county": { src: "https://images.unsplash.com/photo-1757715628829-34cd468203b6?fm=jpg&q=70&w=1200&auto=format&fit=crop", alt: "A coastal town with buildings along the oceanfront" },
+  "san-luis-obispo-county": { src: "https://images.unsplash.com/photo-1642958707285-405685996700?fm=jpg&q=70&w=1200&auto=format&fit=crop", alt: "A dirt road going through a lush green valley" },
+  "inyo-county": { src: "https://images.unsplash.com/photo-1649042250663-4d8ad5551e02?fm=jpg&q=70&w=1200&auto=format&fit=crop", alt: "A mountain range in the distance" },
+  "san-benito-county": { src: "https://images.unsplash.com/photo-1639691000349-c3d2c4b503af?fm=jpg&q=70&w=1200&auto=format&fit=crop", alt: "A town with mountains behind it" },
 };
 
 // SEO TEST (started 2026-10-08): the homepage had 12 clicks / 429 impressions
@@ -133,7 +134,9 @@ export default function HomePage() {
               Sell Your House in 3 Simple Steps
             </h2>
             <p className="mt-3 text-gray-600">
-              No repairs, no showings, and no agent fees. Just a fair cash offer from a local Visalia buyer.
+              No repairs, no showings, and no agent fees.
+              <br />
+              Just a fair cash offer from a local Visalia buyer.
             </p>
           </div>
 
@@ -224,7 +227,7 @@ export default function HomePage() {
                   <h3 className="text-lg font-bold">{sit.navLabel}</h3>
                   <p className="mt-1 text-sm leading-relaxed text-white/70">{sit.homeCard}</p>
                   <span className="mt-2 inline-block text-sm font-semibold text-brand-yellow group-hover:underline">
-                    Learn more →
+                    Learn More →
                   </span>
                 </div>
               </Link>
@@ -258,14 +261,20 @@ export default function HomePage() {
           <p className="text-xs font-bold uppercase tracking-widest text-brand-yellow-dark">Where We Buy</p>
           <h2 className="mt-2 text-3xl font-bold text-brand-black md:text-4xl">We Buy Houses Across the Central Valley</h2>
           <p className="mt-3 text-gray-600">
-            From Visalia to Bakersfield and out to the coast, House Junkies buys houses in {cities.length} cities
-            across {counties.length} counties. Pick your county or city to see how we buy there.
+            From Visalia to Bakersfield and out to the coast, House Junkies buys houses across the Central Valley!
           </p>
         </div>
         <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {counties.map((county) => {
             const photo = countyPhotos[county.slug];
-            const list = citiesInCounty(county.name);
+            // Top 3: featured cities first, then by population.
+            const list = [...citiesInCounty(county.name)]
+              .sort(
+                (x, y) =>
+                  Number(!!y.featured) - Number(!!x.featured) ||
+                  Number(String(y.population).replace(/\D/g, "")) - Number(String(x.population).replace(/\D/g, "")),
+              )
+              .slice(0, 3);
             const wide = county.slug === "tulare-county" || county.slug === "fresno-county";
             return (
               <div
@@ -285,7 +294,7 @@ export default function HomePage() {
                   <div className="absolute bottom-3 left-4 right-4 flex items-end justify-between text-white">
                     <h3 className="text-xl font-bold">{county.name}</h3>
                     <span className="text-sm font-semibold text-brand-yellow group-hover:underline">
-                      {list.length} cities →
+                      View All Cities →
                     </span>
                   </div>
                 </Link>
@@ -306,7 +315,7 @@ export default function HomePage() {
         </div>
         <div className="mt-8 text-center">
           <Link href="/we-buy-houses" className="text-sm font-semibold text-brand-yellow-dark hover:underline">
-            Browse every county and city we serve →
+            Browse Every County and City We Serve →
           </Link>
         </div>
       </section>
