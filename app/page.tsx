@@ -6,9 +6,22 @@ import { HeroOfferForm } from "@/components/HeroOfferForm";
 import { site } from "@/lib/site";
 import { cities } from "@/lib/cities";
 import { situations } from "@/lib/situations";
+import { counties, citiesInCounty } from "@/lib/counties";
 import { RecentAcquisitions } from "@/components/RecentAcquisitions";
 
-const liveCities = cities.filter((c) => c.featured);
+// Free Unsplash stock photos for the county blocks (Dominic, 2026-11-07).
+const countyPhotos: Record<string, { src: string; alt: string }> = {
+  "tulare-county": { src: "https://images.unsplash.com/photo-1638397157660-1d120461eb9f?fm=jpg&q=70&w=1200&auto=format&fit=crop", alt: "A foggy field with a farm in the distance" },
+  "fresno-county": { src: "https://images.unsplash.com/photo-1677272605979-9212b15453ff?fm=jpg&q=70&w=1200&auto=format&fit=crop", alt: "A city with mountains in the background" },
+  "kings-county": { src: "https://images.unsplash.com/photo-1653965189265-c78cc1bcc4e4?fm=jpg&q=70&w=1200&auto=format&fit=crop", alt: "A dirt road with power lines in the distance" },
+  "kern-county": { src: "https://images.unsplash.com/photo-1516509975092-74c4b6354728?fm=jpg&q=70&w=1200&auto=format&fit=crop", alt: "A road running between brown grass fields" },
+  "madera-county": { src: "https://images.unsplash.com/photo-1713588505995-dc60695439d7?fm=jpg&q=70&w=1200&auto=format&fit=crop", alt: "Purple flowers growing in a field" },
+  "merced-county": { src: "https://images.unsplash.com/photo-1606031227669-3fa290d62597?fm=jpg&q=70&w=1200&auto=format&fit=crop", alt: "A green grass field near a lake under a blue sky" },
+  "monterey-county": { src: "https://images.unsplash.com/photo-1505188391889-76ebe1767cc4?fm=jpg&q=70&w=1200&auto=format&fit=crop", alt: "A green mountain under a clear sky" },
+  "san-luis-obispo-county": { src: "https://images.unsplash.com/photo-1565402170291-8491f14678db?fm=jpg&q=70&w=1200&auto=format&fit=crop", alt: "White and red houses on a hillside" },
+  "inyo-county": { src: "https://images.unsplash.com/photo-1597545144828-068385bfe8e5?fm=jpg&q=70&w=1200&auto=format&fit=crop", alt: "A rocky mountain under a white sky" },
+  "san-benito-county": { src: "https://images.unsplash.com/photo-1554089266-a3d799ba85fe?fm=jpg&q=70&w=1200&auto=format&fit=crop", alt: "A concrete house in daylight" },
+};
 
 // SEO TEST (started 2026-10-08): the homepage had 12 clicks / 429 impressions
 // at avg position 7.2 (Search Console). Previous title: "We Buy Houses in
@@ -183,21 +196,20 @@ export default function HomePage() {
           icon and a short blurb from lib/situations.ts (homeCard), on a dark
           photo background. Card copy lives in the data file, not here. */}
       <section className="relative isolate overflow-hidden bg-black text-white">
-        <Image
-          src="/images/properties/215-s-crumal-st-visalia.jpg"
+        <img
+          src="https://images.unsplash.com/photo-1758304480344-f8d0de5f4f25?fm=jpg&q=70&w=1920&auto=format&fit=crop"
           alt=""
-          fill
-          sizes="100vw"
-          className="-z-20 scale-110 object-cover blur-sm"
+          loading="lazy"
+          className="absolute inset-0 -z-20 h-full w-full object-cover"
         />
-        <div className="absolute inset-0 -z-10 bg-black/85" aria-hidden="true" />
+        <div className="absolute inset-0 -z-10 bg-gradient-to-b from-black/85 via-black/75 to-black/90" aria-hidden="true" />
         <div className="mx-auto max-w-6xl px-4 py-14 md:py-20">
           <div className="mx-auto max-w-3xl text-center">
             <p className="text-xs font-bold uppercase tracking-widest text-brand-yellow">Any Situation. Any Condition.</p>
-            <h2 className="mt-2 text-3xl font-bold md:text-4xl">We Buy Houses in Any Situation</h2>
+            <h2 className="mt-2 text-3xl font-bold md:text-4xl">We Buy Central Valley Houses in Any Situation</h2>
             <p className="mt-3 text-white/70">
               Whatever the reason you need to sell, House Junkies can make you a fair cash offer on the house as it
-              sits today. No repairs, no listing, no waiting on a buyer&apos;s loan.
+              sits. No repairs, no listing, no hidden fees.
             </p>
           </div>
           <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -237,27 +249,66 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Service areas */}
-      <section className="mx-auto max-w-6xl px-4 py-14">
-        <h2 className="text-2xl font-bold text-brand-black">Service Areas</h2>
-        <p className="mt-2 text-gray-600">
-          Proudly serving homeowners across Tulare, Kings, Fresno, and Kern counties, and
-          beyond.
-        </p>
-        <div className="mt-6 flex flex-wrap gap-3">
-          {liveCities.map((c) => (
-            <Link
-              key={c.slug}
-              href={`/we-buy-houses/${c.slug}`}
-              className="rounded-full border border-gray-300 px-4 py-2 text-sm text-brand-black hover:border-brand-yellow-dark hover:text-brand-yellow-dark"
-            >
-              {c.name}
-            </Link>
-          ))}
+      {/* Service areas (2026-11-07 revamp): one block per county with a free
+          Unsplash stock photo (alt text describes the photo, it does not claim
+          the place) and every city in that county as links. Tulare and Fresno
+          get the wide blocks since they have the most cities. */}
+      <section className="mx-auto max-w-6xl px-4 py-14 md:py-20">
+        <div className="mx-auto max-w-3xl text-center">
+          <p className="text-xs font-bold uppercase tracking-widest text-brand-yellow-dark">Where We Buy</p>
+          <h2 className="mt-2 text-3xl font-bold text-brand-black md:text-4xl">We Buy Houses Across the Central Valley</h2>
+          <p className="mt-3 text-gray-600">
+            From Visalia to Bakersfield and out to the coast, House Junkies buys houses in {cities.length} cities
+            across {counties.length} counties. Pick your county or city to see how we buy there.
+          </p>
         </div>
-        <Link href="/we-buy-houses" className="mt-4 inline-block text-sm font-semibold text-brand-yellow-dark hover:underline">
-          Browse every county and city we serve →
-        </Link>
+        <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {counties.map((county) => {
+            const photo = countyPhotos[county.slug];
+            const list = citiesInCounty(county.name);
+            const wide = county.slug === "tulare-county" || county.slug === "fresno-county";
+            return (
+              <div
+                key={county.slug}
+                className={`overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm ${wide ? "lg:col-span-2" : ""}`}
+              >
+                <Link href={`/counties/${county.slug}`} className="group relative block h-36 overflow-hidden bg-brand-black">
+                  {photo && (
+                    <img
+                      src={photo.src}
+                      alt={photo.alt}
+                      loading="lazy"
+                      className="h-full w-full object-cover opacity-80 transition-transform duration-300 group-hover:scale-105"
+                    />
+                  )}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" aria-hidden="true" />
+                  <div className="absolute bottom-3 left-4 right-4 flex items-end justify-between text-white">
+                    <h3 className="text-xl font-bold">{county.name}</h3>
+                    <span className="text-sm font-semibold text-brand-yellow group-hover:underline">
+                      {list.length} cities →
+                    </span>
+                  </div>
+                </Link>
+                <div className="flex flex-wrap gap-2 p-4">
+                  {list.map((c) => (
+                    <Link
+                      key={c.slug}
+                      href={`/we-buy-houses/${c.slug}`}
+                      className="rounded-full border border-gray-300 px-3 py-1 text-sm text-brand-black hover:border-brand-yellow-dark hover:text-brand-yellow-dark"
+                    >
+                      {c.name}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+        <div className="mt-8 text-center">
+          <Link href="/we-buy-houses" className="text-sm font-semibold text-brand-yellow-dark hover:underline">
+            Browse every county and city we serve →
+          </Link>
+        </div>
       </section>
 
       {/* Why us / authority */}
