@@ -160,8 +160,8 @@ export default function HomePage() {
               </div>
               <h3 className="mt-4 text-lg font-bold text-brand-black">Close on Your Timeline and Get Paid</h3>
               <p className="mt-2 text-sm leading-relaxed text-gray-600">
-                Pick a closing date that works for you. Most of our deals take about 14 days, and we can close
-                as fast as 7. We pay all the closing costs, there are no fees, and you can leave behind any
+                Pick a closing date that works for you. Most of our deals take 14 days, and we can close as
+                fast as 7. We pay all the closing costs, there are no fees, and you can leave behind any
                 items you don&apos;t want or need.
               </p>
             </li>
