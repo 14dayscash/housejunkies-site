@@ -377,7 +377,10 @@ export default function HomePage() {
                     className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.04]"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent" aria-hidden="true" />
-                  <StatusBadge status={p.status} className="absolute left-3 top-3 shadow-sm" />
+                  {/* Homepage snapshot always shows "Acquired" (Dominic, 2026-11-07), even
+                      for listings, so the three cards match. Real status stays in
+                      lib/properties.ts and on /projects and /buy. */}
+                  <StatusBadge status="Acquired" className="absolute left-3 top-3 shadow-sm" />
                   <div className="absolute bottom-3 left-4 right-4 text-white">
                     <p className="text-[11px] font-semibold uppercase tracking-wider text-white/75">Purchased For</p>
                     <p className="font-display text-3xl font-extrabold leading-none tabular-nums">{money(p.purchase)}</p>
