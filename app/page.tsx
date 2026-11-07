@@ -552,70 +552,61 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Why us / authority */}
-      <section className="mx-auto max-w-6xl px-4 py-14">
-        <h2 className="text-2xl font-bold text-brand-black">
-          Vertically Integrated, Start to Finish
-        </h2>
-        <p className="mt-2 max-w-2xl text-gray-600">
-          Most cash-offer companies are a lead form with a phone number behind it. {site.name} is
-          different: acquisitions, construction, and brokerage all happen under one roof, part of{" "}
-          <Link href="/about" className="underline decoration-dotted underline-offset-2 hover:text-brand-yellow-dark">
+      {/* Vertical integration (2026-11-07 rewrite): what one company with three
+          teams means for the seller, not how big we are. */}
+      <section className="mx-auto max-w-6xl px-4 py-14 md:py-20">
+        <div className="mx-auto max-w-2xl text-center">
+          <p className="text-xs font-bold uppercase tracking-widest text-brand-yellow-dark">One Company, Start to Finish</p>
+          <h2 className="mt-2 text-3xl font-bold text-brand-black md:text-4xl">One Call Handles Everything</h2>
+          <p className="mt-3 text-gray-600">
+            Most cash buyers have to find a contractor, a lender, or another buyer before they can close on your
+            house. We already have all three under one roof, so your offer does not change and your closing does
+            not slip.
+          </p>
+        </div>
+        <div className="mt-10 grid gap-6 md:grid-cols-3">
+            <div className="rounded-xl border border-gray-200 border-t-4 border-t-brand-yellow bg-white p-6 shadow-sm">
+              <span className="flex h-12 w-12 items-center justify-center rounded-full bg-brand-yellow text-black">
+                <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" className="h-7 w-7"><path d="M3 10.5 12 3l9 7.5" /><path d="M5 9.5V21h14V9.5" /><path d="M10 21v-6h4v6" /></svg>
+              </span>
+              <h3 className="mt-4 text-xl font-bold text-brand-black">We Buy It</h3>
+              <p className="mt-0.5 text-xs font-semibold uppercase tracking-wider text-gray-400">{site.name} Inc.</p>
+              <p className="mt-3 text-sm leading-relaxed text-gray-600">We close with our own capital, so there is no buyer's loan to fall through and no waiting on a bank. The offer we make is the offer we close on.</p>
+            </div>
+            <div className="rounded-xl border border-gray-200 border-t-4 border-t-brand-yellow bg-white p-6 shadow-sm">
+              <span className="flex h-12 w-12 items-center justify-center rounded-full bg-brand-yellow text-black">
+                <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" className="h-7 w-7"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.8-3.8a6 6 0 0 1-7.9 7.9l-6.9 6.9a2.1 2.1 0 0 1-3-3l6.9-6.9a6 6 0 0 1 7.9-7.9z" /></svg>
+              </span>
+              <h3 className="mt-4 text-xl font-bold text-brand-black">We Fix It</h3>
+              <p className="mt-0.5 text-xs font-semibold uppercase tracking-wider text-gray-400">House Junkies Construction, {site.licenses.generalContractor}</p>
+              <p className="mt-3 text-sm leading-relaxed text-gray-600">Our own licensed crew prices the repairs, so your offer is based on real numbers, not guesses. You never have to lift a hammer or hire a contractor.</p>
+            </div>
+            <div className="rounded-xl border border-gray-200 border-t-4 border-t-brand-yellow bg-white p-6 shadow-sm">
+              <span className="flex h-12 w-12 items-center justify-center rounded-full bg-brand-yellow text-black">
+                <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" className="h-7 w-7"><path d="M3 21h18" /><path d="M5 21V8l7-5 7 5v13" /><path d="M9 21v-4h6v4" /><path d="M9 11h.01M15 11h.01" /></svg>
+              </span>
+              <h3 className="mt-4 text-xl font-bold text-brand-black">Or We List It</h3>
+              <p className="mt-0.5 text-xs font-semibold uppercase tracking-wider text-gray-400">{site.legacyRealEstate.name}, {site.licenses.brokerage}</p>
+              <p className="mt-3 text-sm leading-relaxed text-gray-600">If your house would sell for more on the open market, our own brokerage can list it for you instead. One conversation, both options, an honest answer.</p>
+            </div>
+        </div>
+        <p className="mt-8 text-center text-sm text-gray-500">
+          All three are part of{" "}
+          <Link href="/about" className="font-semibold text-gray-700 underline decoration-gray-300 underline-offset-2 hover:text-brand-yellow-dark">
             {site.parentOrganization}
           </Link>
-          . That's what lets us pay more than a wholesaler and close faster
-          than a company that has to shop your house to a stranger before they can buy it. The
-          company is led by{" "}
-          <Link href="/team/abel-ulloa" className="underline decoration-dotted underline-offset-2 hover:text-brand-yellow-dark">
+          , led by{" "}
+          <Link href="/team/abel-ulloa" className="font-semibold text-gray-700 underline decoration-gray-300 underline-offset-2 hover:text-brand-yellow-dark">
             Abel Ulloa, Owner and CEO
           </Link>
           .
         </p>
-        <div className="mt-8 grid gap-6 md:grid-cols-3">
-          <div className="rounded-lg border border-gray-200 p-6">
-            <div className="text-sm font-bold uppercase tracking-wide text-brand-yellow-dark">Step 1 - Acquisitions</div>
-            <p className="mt-2 font-semibold text-brand-black">{site.stats.homesBought} Houses Flipped</p>
-            <p className="mt-1 text-sm text-gray-600">
-              Ranked {site.stats.sfrAnalyticsRank} in Visalia and Tulare County by transaction volume,
-              per {site.stats.sfrAnalyticsSource}. No banks slowing things down, just private money
-              and trusted partners who move as fast as we do. This allows us to close quickly and
-              efficiently.
-            </p>
-          </div>
-          <div className="rounded-lg border border-gray-200 p-6">
-            <div className="text-sm font-bold uppercase tracking-wide text-brand-yellow-dark">Step 2 - Construction</div>
-            <p className="mt-2 font-semibold text-brand-black">Renovated In-house</p>
-            <p className="mt-1 text-sm text-gray-600">
-              Our own licensed general contractor crew, {site.licenses.generalContractor}, handles
-              every rehab, no out-of-town subcontractors. The same crew also builds ground-up new
-              construction and full ADUs, from design through permitting to turnkey delivery.
-            </p>
-          </div>
-          <div className="rounded-lg border border-gray-200 p-6">
-            <div className="text-sm font-bold uppercase tracking-wide text-brand-yellow-dark">Step 3 - Brokerage</div>
-            <p className="mt-2 font-semibold text-brand-black">{site.legacyRealEstate.agentCount} Agents, {site.legacyRealEstate.monthlyVolume}/mo</p>
-            <p className="mt-1 text-sm text-gray-600">
-              Resold with{" "}
-              <Link href="/about" className="underline decoration-dotted underline-offset-2 hover:text-white">
-                {site.legacyRealEstate.name}
-              </Link>{" "}
-              ({site.licenses.brokerage}), the{" "}
-              {site.legacyRealEstate.countyRank.replace(/^the /i, "")}. Averaging{" "}
-              {site.legacyRealEstate.monthlySales} home sales and {site.legacyRealEstate.monthlyVolume} in
-              volume per month. Led by our broker,{" "}
-              <Link href="/team/jenny-madrid" className="underline decoration-dotted underline-offset-2 hover:text-white">
-                {site.people.broker.name}
-              </Link>
-              .
-            </p>
-          </div>
-        </div>
-        <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2">
-          <Link href="/about" className="text-sm font-semibold text-brand-yellow-dark hover:underline">
-            Read our full story →
+        <div className="mt-4 flex flex-wrap justify-center gap-x-8 gap-y-2 text-sm">
+          <Link href="/about" className="font-semibold text-brand-yellow-dark hover:underline">
+            Read Our Full Story →
           </Link>
-          <Link href="/team" className="text-sm font-semibold text-brand-yellow-dark hover:underline">
-            Meet the team →
+          <Link href="/team" className="font-semibold text-brand-yellow-dark hover:underline">
+            Meet the Team →
           </Link>
         </div>
       </section>
@@ -654,7 +645,7 @@ export default function HomePage() {
             >
               801 West Main Street, Visalia CA 93291
             </a>
-            <p className="mt-1 text-white/70">Monday - Friday | 9AM to 5PM</p>
+            <p className="mt-1 text-white/70">Monday - Friday | 8AM to 5PM</p>
             <p className="mt-1 font-semibold text-white/90">¡Se habla español!</p>
           </div>
         </div>
