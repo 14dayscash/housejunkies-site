@@ -553,11 +553,11 @@ export default function HomePage() {
       </section>
 
       {/* Vertical integration (2026-11-07 rewrite): what one company with three
-          teams means for the seller, not how big we are. */}
+          teams means for the seller. Buy, fix, then list and sell after we buy. */}
       <section className="mx-auto max-w-6xl px-4 py-14 md:py-20">
         <div className="mx-auto max-w-2xl text-center">
           <p className="text-xs font-bold uppercase tracking-widest text-brand-yellow-dark">One Company, Start to Finish</p>
-          <h2 className="mt-2 text-3xl font-bold text-brand-black md:text-4xl">One Call Handles Everything</h2>
+          <h2 className="mt-2 text-3xl font-bold text-brand-black md:text-4xl">One Call, One Team, One Goal</h2>
           <p className="mt-3 text-gray-600">
             Most cash buyers have to find a contractor, a lender, or another buyer before they can close on your
             house. We already have all three under one roof, so your offer does not change and your closing does
@@ -565,42 +565,91 @@ export default function HomePage() {
           </p>
         </div>
         <div className="mt-10 grid gap-6 md:grid-cols-3">
-            <div className="rounded-xl border border-gray-200 border-t-4 border-t-brand-yellow bg-white p-6 shadow-sm">
-              <span className="flex h-12 w-12 items-center justify-center rounded-full bg-brand-yellow text-black">
-                <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" className="h-7 w-7"><path d="M3 10.5 12 3l9 7.5" /><path d="M5 9.5V21h14V9.5" /><path d="M10 21v-6h4v6" /></svg>
-              </span>
-              <h3 className="mt-4 text-xl font-bold text-brand-black">We Buy It</h3>
-              <p className="mt-0.5 text-xs font-semibold uppercase tracking-wider text-gray-400">{site.name} Inc.</p>
-              <p className="mt-3 text-sm leading-relaxed text-gray-600">We close with our own capital, so there is no buyer's loan to fall through and no waiting on a bank. The offer we make is the offer we close on.</p>
+            <div className="flex flex-col rounded-xl border border-gray-200 border-t-4 border-t-brand-yellow bg-white p-6 shadow-sm">
+              <div className="flex items-center gap-4">
+                <span className="flex h-16 w-16 shrink-0 items-center justify-center rounded-xl border border-gray-200 bg-white p-1.5">
+                  <img src="/images/logo-black.png" alt="House Junkies Inc. logo" className="h-full w-full object-contain" loading="lazy" />
+                </span>
+                <div>
+                  <h3 className="text-xl font-bold text-brand-black">We Buy It</h3>
+                  <p className="text-xs font-semibold uppercase tracking-wider text-gray-400">House Junkies Inc.</p>
+                </div>
+              </div>
+              <p className="mt-4 flex-1 text-sm leading-relaxed text-gray-600">We close with our own capital, so there is no buyer's loan to fall through and no waiting on a bank. The offer we make is the offer we close on.</p>
+              <div className="mt-5 border-t border-gray-100 pt-4 text-sm">
+                <p className="font-bold text-brand-black">#1 Home Buyer in Visalia</p>
+                <a
+                  href="https://www.google.com/maps/search/?api=1&query=801+West+Main+Street+Visalia+CA+93291"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-1 inline-block text-gray-500 underline decoration-gray-300 underline-offset-2 hover:text-brand-yellow-dark"
+                >
+                  801 W Main St, Visalia, CA 93291
+                </a>
+              </div>
             </div>
-            <div className="rounded-xl border border-gray-200 border-t-4 border-t-brand-yellow bg-white p-6 shadow-sm">
-              <span className="flex h-12 w-12 items-center justify-center rounded-full bg-brand-yellow text-black">
-                <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" className="h-7 w-7"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.8-3.8a6 6 0 0 1-7.9 7.9l-6.9 6.9a2.1 2.1 0 0 1-3-3l6.9-6.9a6 6 0 0 1 7.9-7.9z" /></svg>
-              </span>
-              <h3 className="mt-4 text-xl font-bold text-brand-black">We Fix It</h3>
-              <p className="mt-0.5 text-xs font-semibold uppercase tracking-wider text-gray-400">House Junkies Construction, {site.licenses.generalContractor}</p>
-              <p className="mt-3 text-sm leading-relaxed text-gray-600">Our own licensed crew prices the repairs, so your offer is based on real numbers, not guesses. You never have to lift a hammer or hire a contractor.</p>
+            <div className="flex flex-col rounded-xl border border-gray-200 border-t-4 border-t-brand-yellow bg-white p-6 shadow-sm">
+              <div className="flex items-center gap-4">
+                <span className="flex h-16 w-16 shrink-0 items-center justify-center rounded-xl border border-gray-200 bg-white p-1.5">
+                  <img src="/images/logos/construction.png" alt="House Junkies Construction logo" className="h-full w-full object-contain" loading="lazy" />
+                </span>
+                <div>
+                  <h3 className="text-xl font-bold text-brand-black">We Fix It</h3>
+                  <p className="text-xs font-semibold uppercase tracking-wider text-gray-400">House Junkies Construction</p>
+                </div>
+              </div>
+              <p className="mt-4 flex-1 text-sm leading-relaxed text-gray-600">Our own licensed crew prices the repairs, so your offer is based on real numbers, not guesses. You never have to lift a hammer or hire a contractor.</p>
+              <div className="mt-5 border-t border-gray-100 pt-4 text-sm">
+                <p className="font-bold text-brand-black">{site.licenses.generalContractor}</p>
+                <a
+                  href="https://www.google.com/maps/search/?api=1&query=1640+West+Mineral+King+Ave+Visalia+CA"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-1 inline-block text-gray-500 underline decoration-gray-300 underline-offset-2 hover:text-brand-yellow-dark"
+                >
+                  1640 W Mineral King Ave, Visalia, CA
+                </a>
+              </div>
             </div>
-            <div className="rounded-xl border border-gray-200 border-t-4 border-t-brand-yellow bg-white p-6 shadow-sm">
-              <span className="flex h-12 w-12 items-center justify-center rounded-full bg-brand-yellow text-black">
-                <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" className="h-7 w-7"><path d="M3 21h18" /><path d="M5 21V8l7-5 7 5v13" /><path d="M9 21v-4h6v4" /><path d="M9 11h.01M15 11h.01" /></svg>
-              </span>
-              <h3 className="mt-4 text-xl font-bold text-brand-black">Or We List It</h3>
-              <p className="mt-0.5 text-xs font-semibold uppercase tracking-wider text-gray-400">{site.legacyRealEstate.name}, {site.licenses.brokerage}</p>
-              <p className="mt-3 text-sm leading-relaxed text-gray-600">If your house would sell for more on the open market, our own brokerage can list it for you instead. One conversation, both options, an honest answer.</p>
+            <div className="flex flex-col rounded-xl border border-gray-200 border-t-4 border-t-brand-yellow bg-white p-6 shadow-sm">
+              <div className="flex items-center gap-4">
+                <span className="flex h-16 w-16 shrink-0 items-center justify-center rounded-xl border border-gray-200 bg-white p-1.5">
+                  <img src="/images/logos/legacy.png" alt="Legacy Real Estate logo" className="h-full w-full object-contain" loading="lazy" />
+                </span>
+                <div>
+                  <h3 className="text-xl font-bold text-brand-black">We List It</h3>
+                  <p className="text-xs font-semibold uppercase tracking-wider text-gray-400">Legacy Real Estate</p>
+                </div>
+              </div>
+              <p className="mt-4 flex-1 text-sm leading-relaxed text-gray-600">Once a house is renovated, our own brokerage lists it and sells it to the next family. That same team works the Central Valley market every day, so the numbers behind your offer come from real, current sales.</p>
+              <div className="mt-5 border-t border-gray-100 pt-4 text-sm">
+                <p className="font-bold text-brand-black">{site.licenses.brokerage}</p>
+                <a
+                  href="https://www.google.com/maps/search/?api=1&query=1814+West+Dorothea+Ave+Visalia+CA+93277"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-1 inline-block text-gray-500 underline decoration-gray-300 underline-offset-2 hover:text-brand-yellow-dark"
+                >
+                  1814 W Dorothea Ave, Visalia, CA 93277
+                </a>
+              </div>
             </div>
         </div>
-        <p className="mt-8 text-center text-sm text-gray-500">
-          All three are part of{" "}
-          <Link href="/about" className="font-semibold text-gray-700 underline decoration-gray-300 underline-offset-2 hover:text-brand-yellow-dark">
-            {site.parentOrganization}
-          </Link>
-          , led by{" "}
-          <Link href="/team/abel-ulloa" className="font-semibold text-gray-700 underline decoration-gray-300 underline-offset-2 hover:text-brand-yellow-dark">
-            Abel Ulloa, Owner and CEO
-          </Link>
-          .
-        </p>
+        <div className="mt-8 text-center text-sm text-gray-500">
+          <p>
+            All part of the{" "}
+            <Link href="/about" className="font-semibold text-gray-700 underline decoration-gray-300 underline-offset-2 hover:text-brand-yellow-dark">
+              {site.parentOrganization}
+            </Link>
+          </p>
+          <p className="mt-0.5">
+            Led by{" "}
+            <Link href="/team/abel-ulloa" className="font-semibold text-gray-700 underline decoration-gray-300 underline-offset-2 hover:text-brand-yellow-dark">
+              Abel Ulloa, Owner and CEO
+            </Link>
+            .
+          </p>
+        </div>
         <div className="mt-4 flex flex-wrap justify-center gap-x-8 gap-y-2 text-sm">
           <Link href="/about" className="font-semibold text-brand-yellow-dark hover:underline">
             Read Our Full Story →
