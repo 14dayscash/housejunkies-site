@@ -7,7 +7,20 @@ import { site } from "@/lib/site";
 import { cities } from "@/lib/cities";
 import { situations } from "@/lib/situations";
 import { counties, citiesInCounty } from "@/lib/counties";
-import { RecentAcquisitions } from "@/components/RecentAcquisitions";
+import { ReviewSlider } from "@/components/ReviewSlider";
+import { SpecLine, StatusBadge } from "@/components/PropertyCard";
+import { properties, money } from "@/lib/properties";
+import { googleReviews } from "@/lib/reviews";
+
+// Homepage review slider: Dominic's five picks, in his order.
+const homeReviews = ["J N", "Corey Loewen", "Eli Stephens", "Hannah Pendleton", "Michael"]
+  .map((n) => googleReviews.find((r) => r.name === n))
+  .filter((r): r is { name: string; rating: number; text: string } => !!r && !!r.text);
+
+// Homepage purchase snapshot: Dominic's three picks.
+const homePurchases = ["19667-avenue-195-strathmore", "40074-road-56-dinuba", "215-s-crumal-st-visalia"]
+  .map((slug) => properties.find((p) => p.slug === slug))
+  .filter((p): p is (typeof properties)[number] => !!p);
 
 // Free Unsplash stock photos for the county blocks, taken in or near one of
 // each county's top cities where Unsplash had one (Dominic, 2026-11-07).
@@ -323,6 +336,106 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Google reviews slider (2026-11-07). Five real reviews, word for word
+          from lib/reviews.ts, picked by Dominic. */}
+      <section className="bg-gray-50">
+        <div className="mx-auto max-w-6xl px-4 py-14 md:py-20">
+          <div className="mx-auto max-w-2xl text-center">
+            <p className="text-xs font-bold uppercase tracking-widest text-brand-yellow-dark">Reviews</p>
+            <h2 className="mt-2 text-3xl font-bold text-brand-black md:text-4xl">What People Say About House Junkies</h2>
+          </div>
+          <div className="mt-10">
+            <ReviewSlider reviews={homeReviews} />
+          </div>
+        </div>
+      </section>
+
+      {/* Recent purchases snapshot (2026-11-07): three hand-picked real
+          purchases from lib/properties.ts, not the full projects preview. */}
+      <section className="mx-auto max-w-6xl px-4 py-14 md:py-20">
+        <div className="mx-auto max-w-2xl text-center">
+          <p className="text-xs font-bold uppercase tracking-widest text-brand-yellow-dark">Recent Purchases</p>
+          <h2 className="mt-2 text-3xl font-bold text-brand-black md:text-4xl">Local Homes Bought by House Junkies</h2>
+          <p className="mt-3 text-gray-600">
+            Over {site.stats.homesBought} homes purchased across the Central Valley. Here are some of the recent ones.
+          </p>
+        </div>
+        <ul className="mt-10 grid gap-6 md:grid-cols-3">
+          {homePurchases.map((p) => (
+            <li key={p.slug}>
+              <Link
+                href={`/projects/${p.slug}`}
+                className="group block overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm transition hover:-translate-y-0.5 hover:border-brand-yellow-dark hover:shadow-md"
+              >
+                <div className="relative aspect-[4/3] overflow-hidden bg-gray-100">
+                  <Image
+                    src={`/images/properties/${p.slug}-sm.jpg`}
+                    alt={`${p.street}, ${p.city} CA, ${p.type.toLowerCase()} purchased by House Junkies`}
+                    width={p.img.smW}
+                    height={p.img.smH}
+                    sizes="(min-width: 768px) 360px, 100vw"
+                    className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.04]"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent" aria-hidden="true" />
+                  <StatusBadge status={p.status} className="absolute left-3 top-3 shadow-sm" />
+                  <div className="absolute bottom-3 left-4 right-4 text-white">
+                    <p className="text-[11px] font-semibold uppercase tracking-wider text-white/75">Purchased For</p>
+                    <p className="font-display text-3xl font-extrabold leading-none tabular-nums">{money(p.purchase)}</p>
+                  </div>
+                </div>
+                <div className="p-5">
+                  <p className="font-semibold leading-snug text-brand-black group-hover:text-brand-yellow-dark">
+                    {p.street}
+                  </p>
+                  <p className="text-sm text-gray-500">
+                    {p.city}, CA {p.zip} · {p.type}
+                  </p>
+                  <SpecLine p={p} className="mt-3 border-t border-gray-100 pt-3" />
+                </div>
+              </Link>
+            </li>
+          ))}
+        </ul>
+        <div className="mt-8 flex flex-wrap justify-center gap-x-8 gap-y-2 text-sm">
+          <Link href="/projects" className="font-semibold text-brand-yellow-dark hover:underline">
+            Browse All Projects →
+          </Link>
+          <Link href="/buy" className="font-semibold text-brand-yellow-dark hover:underline">
+            Houses for Sale →
+          </Link>
+        </div>
+      </section>
+
+      {/* Condensed comparison table, full version lives on /compare */}
+      <section className="mx-auto max-w-6xl px-4 py-14">
+        <h2 className="text-2xl font-bold text-brand-black">Why Sell to Us Instead of Listing</h2>
+        <div className="mt-6 grid gap-6 sm:grid-cols-2">
+          <div className="rounded-lg border border-brand-yellow/40 bg-brand-yellow/5 p-6">
+            <div className="font-bold text-brand-black">Selling to {site.name}</div>
+            <ul className="mt-3 space-y-2 text-sm text-gray-700">
+              <li>✓ No Repairs, Sold As-Is</li>
+              <li>✓ No Agent Commissions</li>
+              <li>✓ We Cover Closing Costs</li>
+              <li>✓ No Financing Contingencies</li>
+              <li>✓ Close in 7 to 30 Days, My Choice</li>
+            </ul>
+          </div>
+          <div className="rounded-lg border border-gray-200 p-6">
+            <div className="font-bold text-gray-500">Listing With an Agent</div>
+            <ul className="mt-3 space-y-2 text-sm text-gray-500">
+              <li>• Repairs Often Required</li>
+              <li>• Typically 5-6% in Commissions</li>
+              <li>• Closing Costs Paid by the Seller</li>
+              <li>• Can Fall Through on Financing</li>
+              <li>• Typically 60 to 90+ Days</li>
+            </ul>
+          </div>
+        </div>
+        <Link href="/compare" className="mt-4 inline-block text-sm font-semibold text-brand-yellow-dark hover:underline">
+          See the full comparison, with real numbers →
+        </Link>
+      </section>
+
       {/* Why us / authority */}
       <section className="mx-auto max-w-6xl px-4 py-14">
         <h2 className="text-2xl font-bold text-brand-black">
@@ -390,39 +503,6 @@ export default function HomePage() {
           </Link>
         </div>
       </section>
-
-      {/* Condensed comparison table, full version lives on /compare */}
-      <section className="mx-auto max-w-6xl px-4 py-14">
-        <h2 className="text-2xl font-bold text-brand-black">Why Sell to Us Instead of Listing</h2>
-        <div className="mt-6 grid gap-6 sm:grid-cols-2">
-          <div className="rounded-lg border border-brand-yellow/40 bg-brand-yellow/5 p-6">
-            <div className="font-bold text-brand-black">Selling to {site.name}</div>
-            <ul className="mt-3 space-y-2 text-sm text-gray-700">
-              <li>✓ No Repairs, Sold As-Is</li>
-              <li>✓ No Agent Commissions</li>
-              <li>✓ We Cover Closing Costs</li>
-              <li>✓ No Financing Contingencies</li>
-              <li>✓ Close in 7 to 30 Days, My Choice</li>
-            </ul>
-          </div>
-          <div className="rounded-lg border border-gray-200 p-6">
-            <div className="font-bold text-gray-500">Listing With an Agent</div>
-            <ul className="mt-3 space-y-2 text-sm text-gray-500">
-              <li>• Repairs Often Required</li>
-              <li>• Typically 5-6% in Commissions</li>
-              <li>• Closing Costs Paid by the Seller</li>
-              <li>• Can Fall Through on Financing</li>
-              <li>• Typically 60 to 90+ Days</li>
-            </ul>
-          </div>
-        </div>
-        <Link href="/compare" className="mt-4 inline-block text-sm font-semibold text-brand-yellow-dark hover:underline">
-          See the full comparison, with real numbers →
-        </Link>
-      </section>
-
-      {/* Real purchases, from lib/properties.ts */}
-      <RecentAcquisitions id="recent-purchases" />
 
       {/* Explore the Site - the only link to /explore lives here, on purpose */}
       <section className="bg-gray-50">
