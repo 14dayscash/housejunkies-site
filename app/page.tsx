@@ -557,7 +557,7 @@ export default function HomePage() {
       <section className="mx-auto max-w-6xl px-4 py-14 md:py-20">
         <div className="mx-auto max-w-2xl text-center">
           <p className="text-xs font-bold uppercase tracking-widest text-brand-yellow-dark">One Company, Start to Finish</p>
-          <h2 className="mt-2 text-3xl font-bold text-brand-black md:text-4xl">One Call, One Team, One Goal</h2>
+          <h2 className="mt-2 text-3xl font-bold text-brand-black md:text-4xl">One Call, One Team</h2>
           <p className="mt-3 text-gray-600">
             Most cash buyers have to find a contractor, a lender, or another buyer before they can close on your
             house. We already have all three under one roof, so your offer does not change and your closing does
