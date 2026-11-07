@@ -39,6 +39,7 @@ export function Header({
             ["/faq", "FAQ"],
             ["/reviews", "Reviews"],
             ["/projects", "Projects"],
+            ["/blog", "Blog"],
             ["/partners/agents", "Partner"],
             ["/contact", "Contact"],
           ].map(([href, label]) => (

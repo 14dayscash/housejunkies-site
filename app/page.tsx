@@ -27,13 +27,24 @@ export default function HomePage() {
           left with his name block, the offer card on the right. Mobile puts
           the card first, then Abel. */}
       <section className="relative isolate overflow-hidden bg-black text-white">
+        {/* Desktop uses a tighter crop of the right end of the building so
+            the House Junkies sign lands between Abel and the offer card.
+            Phones keep the full-width photo (the card covers the top there). */}
         <Image
           src="/images/office/hero-office.jpg"
           alt="The House Junkies Inc. office building in the Central Valley"
           fill
           priority
           sizes="100vw"
-          className="-z-20 object-cover object-center"
+          className="-z-20 object-cover object-center md:hidden"
+        />
+        <Image
+          src="/images/office/hero-office-desktop.jpg"
+          alt="The House Junkies Inc. office building with the House Junkies sign"
+          fill
+          priority
+          sizes="100vw"
+          className="-z-20 hidden object-cover object-[50%_18%] md:block"
         />
         <div className="absolute inset-0 -z-10 bg-black/50" aria-hidden="true" />
 
