@@ -113,7 +113,7 @@ export default function HomePage() {
             <div className="flex h-10 w-10 items-center justify-center rounded-full bg-brand-yellow font-bold text-black">1</div>
             <p className="mt-4 font-semibold text-brand-black">Contact Us</p>
             <p className="mt-1 text-sm text-gray-600">
-              Tell us about your property (any condition). Fill out the form or call. It only takes a minute.
+              Tell us about your property (in any condition). Fill out the form or call. It only takes a minute.
             </p>
           </div>
           <div className="relative rounded-lg border border-gray-200 p-6">
