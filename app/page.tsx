@@ -122,25 +122,25 @@ export default function HomePage() {
 
       {/* Trust bar - sourced stats only */}
       <section className="border-b border-gray-200 bg-white">
-        <div className="mx-auto grid max-w-6xl grid-cols-2 gap-6 px-4 py-10 text-center md:grid-cols-4">
+        <div className="mx-auto grid max-w-6xl grid-cols-4 gap-1 px-2 py-4 text-center sm:gap-4 sm:px-4 md:gap-6 md:py-10">
           <div>
-            <div className="text-3xl font-bold text-brand-black">{site.stats.homesBought}</div>
-            <div className="mt-1 text-sm text-gray-500">Homes Bought & Renovated</div>
+            <div className="text-xl font-bold leading-tight text-brand-black sm:text-3xl">{site.stats.homesBought}</div>
+            <div className="mt-0.5 text-[10px] leading-tight text-gray-500 sm:mt-1 sm:text-sm">Homes Bought & Renovated</div>
           </div>
           <div>
-            <div className="text-3xl font-bold text-brand-black">{site.stats.yearsInBusiness}</div>
-            <div className="mt-1 text-sm text-gray-500">Years in Business</div>
+            <div className="text-xl font-bold leading-tight text-brand-black sm:text-3xl">{site.stats.yearsInBusiness}</div>
+            <div className="mt-0.5 text-[10px] leading-tight text-gray-500 sm:mt-1 sm:text-sm">Years in Business</div>
           </div>
           <div>
-            <div className="text-3xl font-bold text-brand-black">{site.stats.bbbRating}</div>
-            <div className="mt-1 text-sm text-gray-500">BBB Accredited Rating</div>
+            <div className="text-xl font-bold leading-tight text-brand-black sm:text-3xl">{site.stats.bbbRating}</div>
+            <div className="mt-0.5 text-[10px] leading-tight text-gray-500 sm:mt-1 sm:text-sm">BBB Accredited Rating</div>
           </div>
           <div>
-            <div className="text-3xl font-bold text-brand-black">{site.stats.sfrAnalyticsRank}</div>
-            <div className="mt-1 text-sm text-gray-500">Investor in Visalia</div>
+            <div className="text-xl font-bold leading-tight text-brand-black sm:text-3xl">{site.stats.sfrAnalyticsRank}</div>
+            <div className="mt-0.5 text-[10px] leading-tight text-gray-500 sm:mt-1 sm:text-sm">Investor in Visalia</div>
           </div>
         </div>
-        <div className="border-t border-gray-100 bg-gray-50 px-4 py-3 text-center text-xs text-gray-600">
+        <div className="border-t border-gray-100 bg-gray-50 px-3 py-2 text-center text-[11px] leading-snug text-gray-600 sm:px-4 sm:py-3 sm:text-xs">
           <p>
             Ranked <strong className="font-bold text-gray-800">#1</strong> by transactions and volume in{" "}
             <strong className="font-bold text-gray-800">Visalia</strong> by SFRAnalytics.com, an independent
