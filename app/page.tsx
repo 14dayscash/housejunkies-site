@@ -144,9 +144,9 @@ export default function HomePage() {
           <p>
             Ranked <strong className="font-bold text-gray-800">#1</strong> by transactions and volume in{" "}
             <strong className="font-bold text-gray-800">Visalia</strong> by SFRAnalytics.com, an independent
-            third-party data source. House Junkies has bought, renovated, and resold{" "}
+            third-party data source. House Junkies Inc. has bought, renovated, and resold{" "}
             <strong className="font-bold text-gray-800">{site.stats.homesBought}</strong> homes across the
-            Central Valley area.
+            local Central Valley area.
           </p>
           <p className="mt-1 font-bold text-gray-800">
             Local. Vertically integrated. No fees or obligations. {site.licenses.generalContractor}
