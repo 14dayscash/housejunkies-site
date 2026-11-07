@@ -132,7 +132,7 @@ export const post: HouseJunkiesPost = {
     }
   ],
   "heroImage": {
-    "src": "/images/office/office-interior.jpg",
-    "alt": "Inside the House Junkies office in Visalia, where we walk Tulare County families through probate costs"
+    "src": "https://images.unsplash.com/photo-1554224155-6726b3ff858f?fm=jpg&q=70&w=1600&auto=format&fit=crop",
+    "alt": "Hands going over paperwork with a calculator and a pen"
   }
 };
