@@ -181,3 +181,53 @@ export function ReviewJsonLd({
     />
   );
 }
+
+// BlogPosting schema for House Junkies blog posts. The author is a real Person
+// tied to their team page, and the publisher points at the sitewide
+// Organization @id so Google connects the post to the business.
+export function BlogPostingJsonLd({
+  slug,
+  title,
+  description,
+  datePublished,
+  dateModified,
+  authorName,
+  authorSlug,
+  image,
+}: {
+  slug: string;
+  title: string;
+  description: string;
+  datePublished: string;
+  dateModified?: string;
+  authorName: string;
+  authorSlug?: string;
+  image?: string;
+}) {
+  const toIso = (d: string) => {
+    const t = new Date(d);
+    return isNaN(t.getTime()) ? d : t.toISOString().slice(0, 10);
+  };
+  const url = `${site.url}/blog/${slug}`;
+  const data = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: title,
+    description,
+    url,
+    mainEntityOfPage: { "@type": "WebPage", "@id": url },
+    datePublished: toIso(datePublished),
+    dateModified: toIso(dateModified ?? datePublished),
+    author: authorSlug
+      ? { "@type": "Person", name: authorName, url: `${site.url}/team/${authorSlug}` }
+      : { "@type": "Organization", name: authorName, url: site.url },
+    publisher: { "@id": `${site.url}/#organization` },
+    ...(image ? { image: image.startsWith("http") ? image : `${site.url}${image}` } : {}),
+  };
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
+    />
+  );
+}

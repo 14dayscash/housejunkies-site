@@ -19,20 +19,31 @@
 // those), independently of whether a new House Junkies-authored post is
 // added here.
 
+// Newer posts each live in their own file under lib/posts/ (one post per
+// file, easier to edit on GitHub) and are pulled in through lib/posts/index.ts.
+// The three original posts stay in this file below. Body formatting rules
+// (lists, tables, bold, links, the [[FAQ]] marker) are documented at the top
+// of components/BlogBody.tsx.
+import { postFiles } from "./posts";
+
 export type HouseJunkiesPost = {
   slug: string;
   title: string;
-  date: string;
+  metaTitle?: string; // search-result title if different from the H1 (no brand, the layout adds it)
+  date: string; // "November 6, 2026"
+  updated?: string; // shown as the dateModified in schema when a post is refreshed
   category: string;
   author: string;
+  authorSlug?: string; // team page slug, e.g. "dominic-mcclelland", links the byline
   excerpt: string;
+  faqs?: { question: string; answer: string }[]; // rendered as H3s + FAQPage schema
   summary?: string[]; // 3 short bullet points shown at the top of the post
   body: string[]; // "## " line = H2, "### " = H3, "![caption](/images/...)" = image (property photos link to their page)
   links?: { label: string; url: string }[]; // real clickable citations/backlinks, shown at the end
   heroImage?: { src: string; alt: string }; // optional image shown at the top of the post
 };
 
-export const houseJunkiesPosts: HouseJunkiesPost[] = [
+const originalPosts: HouseJunkiesPost[] = [
   {
     slug: "16-recent-purchases-tulare-county",
     title: "A Snapshot of What We Have Been Buying: 16 Tulare County Houses and What We Paid",
@@ -166,6 +177,11 @@ export const houseJunkiesPosts: HouseJunkiesPost[] = [
   },
 
 ];
+
+// Newest first across both sources.
+export const houseJunkiesPosts: HouseJunkiesPost[] = [...postFiles, ...originalPosts].sort(
+  (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
+);
 
 export function getHouseJunkiesPost(slug: string) {
   return houseJunkiesPosts.find((p) => p.slug === slug);
