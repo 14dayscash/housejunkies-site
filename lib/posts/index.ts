@@ -3,9 +3,7 @@
 // list below. Order here does not matter, posts are sorted by date.
 import type { HouseJunkiesPost } from "../houseJunkiesPosts";
 import { post as sellInheritedHouseBeforeProbate } from "./sell-inherited-house-before-probate-california";
-import { post as howMuchDoesProbateCost } from "./how-much-does-probate-cost-california";
 
 export const postFiles: HouseJunkiesPost[] = [
   sellInheritedHouseBeforeProbate,
-  howMuchDoesProbateCost,
 ];
