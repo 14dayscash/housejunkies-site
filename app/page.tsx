@@ -48,9 +48,9 @@ export default function HomePage() {
         />
         <div className="absolute inset-0 -z-10 bg-black/50" aria-hidden="true" />
 
-        <div className="mx-auto grid max-w-7xl items-center gap-6 px-4 pt-8 md:h-[calc(100svh-68px)] md:max-h-[760px] md:min-h-[460px] md:grid-cols-[45fr_55fr] md:gap-8 md:px-8 md:pt-0 lg:h-[calc(100svh-76px)] lg:px-12">
+        <div className="mx-auto grid max-w-7xl items-center gap-2 px-4 pt-3 md:h-[calc(100svh-68px)] md:max-h-[760px] md:min-h-[460px] md:grid-cols-[45fr_55fr] md:gap-8 md:px-8 md:pt-0 lg:h-[calc(100svh-76px)] lg:px-12">
           {/* Abel + name block */}
-          <div className="relative order-2 mx-auto h-[340px] w-full max-w-sm self-end sm:h-[400px] md:order-1 md:mx-0 md:h-[min(500px,calc(100svh-96px))] md:max-w-none">
+          <div className="relative order-2 mx-auto h-[170px] w-full max-w-sm self-end overflow-hidden md:order-1 md:overflow-visible md:mx-0 md:h-[min(500px,calc(100svh-96px))] md:max-w-none">
             <Image
               src="/images/team/abel-hero.png"
               alt="Abel Ulloa, CEO and Owner of House Junkies Inc."
@@ -58,9 +58,9 @@ export default function HomePage() {
               height={960}
               priority
               sizes="(min-width: 768px) 240px, 170px"
-              className="absolute bottom-0 right-0 h-full w-auto drop-shadow-[0_12px_24px_rgba(0,0,0,0.55)] md:left-[8%] md:right-auto"
+              className="absolute right-0 top-0 h-[340px] w-auto drop-shadow-[0_12px_24px_rgba(0,0,0,0.55)] md:bottom-0 md:left-[8%] md:right-auto md:top-auto md:h-full"
             />
-            <div className="absolute bottom-6 left-0 rounded-lg bg-gradient-to-r from-black/70 via-black/40 to-transparent py-3 pl-4 pr-10 leading-snug [text-shadow:0_2px_8px_rgba(0,0,0,0.6)] md:bottom-10">
+            <div className="absolute left-0 top-3 rounded-lg bg-gradient-to-r from-black/70 via-black/40 to-transparent py-3 pl-4 pr-10 leading-snug [text-shadow:0_2px_8px_rgba(0,0,0,0.6)] md:bottom-10 md:top-auto">
               <p className="text-[22px] font-bold md:text-2xl">Abel Ulloa</p>
               <p className="text-base italic text-white/90">CEO &amp; Owner</p>
               <p className="text-[15px] font-light text-white/80">House Junkies Inc.</p>
