@@ -111,38 +111,75 @@ export default function HomePage() {
       </section>
 
       {/* How It Works - the simple process before we explain the company behind it */}
-      <section className="mx-auto max-w-6xl px-4 py-14">
-        <h2 className="text-2xl font-bold text-brand-black">How It Works - 3 Simple Steps</h2>
-        <div className="mt-8 grid gap-6 md:grid-cols-3">
-          <div className="relative rounded-lg border border-gray-200 p-6">
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-brand-yellow font-bold text-black">1</div>
-            <p className="mt-4 font-semibold text-brand-black">Contact Us</p>
-            <p className="mt-1 text-sm text-gray-600">
-              Tell us about your property (in any condition). Fill out the form or call. It only takes a minute.
+      <section className="bg-gray-50">
+        <div className="mx-auto max-w-6xl px-4 py-14 md:py-16">
+          <div className="mx-auto max-w-2xl text-center">
+            <p className="text-xs font-bold uppercase tracking-widest text-brand-yellow-dark">How It Works</p>
+            <h2 className="mt-2 text-3xl font-bold text-brand-black md:text-4xl">
+              Sell Your House in 3 Simple Steps
+            </h2>
+            <p className="mt-3 text-gray-600">
+              No repairs, no showings, and no agent fees. Just a fair cash offer from a local Visalia buyer
+              and a closing date you pick.
             </p>
           </div>
-          <div className="relative rounded-lg border border-gray-200 p-6">
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-brand-yellow font-bold text-black">2</div>
-            <p className="mt-4 font-semibold text-brand-black">Get Your Offer</p>
-            <p className="mt-1 text-sm text-gray-600">
-              We analyze your house and send a fair, no-obligation cash offer within 24 hours.
-            </p>
+
+          <ol className="mt-10 grid gap-6 md:grid-cols-3">
+            <li className="relative flex flex-col rounded-xl border border-gray-200 border-t-4 border-t-brand-yellow bg-white p-6 shadow-sm">
+              <div className="flex items-center gap-3">
+                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-brand-yellow text-lg font-bold text-black">1</span>
+                <span className="text-xs font-semibold uppercase tracking-wider text-gray-400">Step 1</span>
+              </div>
+              <h3 className="mt-4 text-lg font-bold text-brand-black">Tell Us About Your House</h3>
+              <p className="mt-2 text-sm leading-relaxed text-gray-600">
+                Fill out the form or call {site.phone} and tell us about the property, in any condition.
+                Behind on payments, needs a new roof, full of stuff, or tenants still living there. It takes
+                about a minute, and there is no cost or obligation.
+              </p>
+              <Link
+                href="/get-offer"
+                className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-lg bg-brand-yellow px-5 py-3 font-bold text-black transition-colors hover:bg-brand-yellow-dark md:mt-auto"
+              >
+                Start the Process <span aria-hidden="true">→</span>
+              </Link>
+            </li>
+            <li className="relative flex flex-col rounded-xl border border-gray-200 border-t-4 border-t-brand-yellow bg-white p-6 shadow-sm">
+              <div className="flex items-center gap-3">
+                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-brand-yellow text-lg font-bold text-black">2</span>
+                <span className="text-xs font-semibold uppercase tracking-wider text-gray-400">Step 2</span>
+              </div>
+              <h3 className="mt-4 text-lg font-bold text-brand-black">Get Your Cash Offer in 24 Hours</h3>
+              <p className="mt-2 text-sm leading-relaxed text-gray-600">
+                We look at the house with you, run the numbers on what it needs, and send a written,
+                no-obligation cash offer within 24 hours. We show you exactly{" "}
+                <Link href="/how-we-calculate-your-offer" className="font-semibold text-brand-yellow-dark hover:underline">
+                  how we got to that number
+                </Link>
+                , so you are never guessing.
+              </p>
+            </li>
+            <li className="relative flex flex-col rounded-xl border border-gray-200 border-t-4 border-t-brand-yellow bg-white p-6 shadow-sm">
+              <div className="flex items-center gap-3">
+                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-brand-yellow text-lg font-bold text-black">3</span>
+                <span className="text-xs font-semibold uppercase tracking-wider text-gray-400">Step 3</span>
+              </div>
+              <h3 className="mt-4 text-lg font-bold text-brand-black">Close on Your Timeline and Get Paid</h3>
+              <p className="mt-2 text-sm leading-relaxed text-gray-600">
+                Pick the closing date that works for you. Most of our closings take about 14 days, and we can
+                go as fast as 7 when the title is clean. We pay the closing costs, there are no commissions,
+                and you can leave behind anything you do not want.
+              </p>
+            </li>
+          </ol>
+
+          <div className="mt-8 flex flex-wrap justify-center gap-x-8 gap-y-2 text-sm">
+            <Link href="/compare" className="font-semibold text-brand-yellow-dark hover:underline">
+              Compare to Listing on the Market →
+            </Link>
+            <Link href="/faq" className="font-semibold text-brand-yellow-dark hover:underline">
+              Read FAQs →
+            </Link>
           </div>
-          <div className="relative rounded-lg border border-gray-200 p-6">
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-brand-yellow font-bold text-black">3</div>
-            <p className="mt-4 font-semibold text-brand-black">Get Paid</p>
-            <p className="mt-1 text-sm text-gray-600">
-              Accept the offer, pick your closing date, and get paid. We cover all fees and closing costs.
-            </p>
-          </div>
-        </div>
-        <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm">
-          <Link href="/compare" className="font-semibold text-brand-yellow-dark hover:underline">
-            Compare to Listing on the Market →
-          </Link>
-          <Link href="/faq" className="font-semibold text-brand-yellow-dark hover:underline">
-            Read FAQs →
-          </Link>
         </div>
       </section>
 
