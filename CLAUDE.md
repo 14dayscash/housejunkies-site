@@ -6,8 +6,7 @@ update the "Recent decisions" and "Open items" sections at the bottom so the
 next session knows.
 
 If this file and PRODUCT.md disagree, this file wins. PRODUCT.md is older and
-some of it is out of date (it says 10 city pages, and it says we buy with our
-own capital only, which is not accurate).
+some of it is out of date (it says 10 city pages).
 
 ---
 
@@ -88,13 +87,20 @@ sitewide, Person, FAQ, Breadcrumb), `LeadForm`, `ContactForm`, `HeroOfferForm`,
   phone numbers, or departments. Every local fact needs a real source (official
   city/county site or named news source). If you cannot source it, write general
   true wording instead.
-- **Never say we fund every deal in-house / own capital only / no partners.**
-  House Junkies uses its own cash, partners, private money and hard money lenders.
+- **Funding wording (Dominic, 2026-11-06, replaces the 2026-10-16 rule):** OK to say
+  "Ulloa Investment Group funds every deal in-house. No banks, no hard money
+  companies, no outside investors." and "we close / acquire with our own capital".
+  Never use "with in-house funding".
 - **350+ homes over 7+ years is the headline claim. Never undercut it.** Recent
-  purchases (25+ since July 2026, 16 shown on /projects) are framed as a snapshot
+  purchases (30+ in the last 6 months, 16 shown on /projects) are framed as a snapshot
   on top of 350+, never as the total.
-- SFR Analytics: #1 investor in Visalia by transaction volume ($16.0M, 110 deals).
-  BBB Accredited, A+, since September 22, 2026.
+- SFR Analytics: #1 investor in Visalia by volume. In new copy do not quote the old
+  $16.0M / 110 deals numbers (they have gone up). BBB Accredited, A+ (no date needed).
+- Close: 14 days standard, as quick as 7 but rare. Written offer within 24 hours.
+- **Blog posts:** read `claude/BLOG_BRAIN.md` (voice, structure, facts, what is
+  already covered) and `claude/BLOG_GAP_LIST.md` before drafting. New posts go on
+  housejunkiesinc.org, written as "we", author Dominic McClelland linked to
+  /team/dominic-mcclelland.
 - Estimated values on property pages are labeled as automated estimates, not
   appraisals. They stay. The paid-vs-estimate chart was removed on purpose.
 
@@ -180,9 +186,14 @@ WE ARE TRYING TO TAKE OVER, one street and one site at a time.**
   `<slug>.jpg` (~1100px) and `<slug>-sm.jpg` (640px) to `public/images/properties/`.
   Everything else (projects, detail page, city cards, /buy if For Sale, sitemap)
   updates automatically. Status changes (For Sale to Sold) are edited there too.
-- **Add a blog post:** draft as .txt, get Dominic's "post", then add to the TOP of
-  `lib/houseJunkiesPosts.ts` with `##` subheadings, inline property photos, a
-  `heroImage`, 3 summary bullets and `links`.
+- **Add a blog post (since 2026-11-06):** one file per post at `lib/posts/<slug>.ts`
+  exporting `post`, registered in `lib/posts/index.ts`. Body formatting (bullets,
+  numbered lists, tables, **bold**, *italic*, [links](/path), tap-to-call phone,
+  `[[FAQ]]` marker) is documented at the top of `components/BlogBody.tsx`. Put FAQs
+  in `faqs` (rendered as H3s + FAQPage schema). Set `authorSlug: "dominic-mcclelland"`.
+  Authoring shortcut: write the draft in the .txt format and run
+  `brain/md2post.py` (kept in the session, see BLOG_BRAIN.md). Posts sit on a branch
+  until Dominic says "post"; only then merge to `main`.
 - **Add a local fact:** `lib/localFacts.ts` (county or city), with its source URL.
 - **Add city data:** `lib/cityFacts.ts`. QuickFacts is at
   `census.gov/quickfacts/fact/table/<place>citycalifornia/PST045224` (places with
@@ -211,6 +222,14 @@ WE ARE TRYING TO TAKE OVER, one street and one site at a time.**
 
 ## 9. Recent decisions (newest first, keep this updated)
 
+- 2026-11-06: Blog page upgraded on branch `blog-batch-1`: `components/BlogBody.tsx`
+  renderer, BlogPosting + Breadcrumb schema on every post, FAQPage schema, byline
+  links to team page, per-file posts in `lib/posts/`. Old 3 posts render unchanged.
+- 2026-11-06: Built BLOG_BRAIN.md from all 13 posts and BLOG_GAP_LIST.md (about 115
+  post ideas from Home Helpers' ~385 posts). Plan: upload 1 = blog posts, upload 2 =
+  more city + situation pages. Funding wording changed to option B (see section 4).
+  Facts confirmed: 30+ buys in 6 months, $45M+ volume, ~50 employees, Legacy 220+
+  agents and 80+ sales / $30M+ a month, $1M+ paid to partners.
 - 2026-10-16: Strategy change from Dominic: match and beat competitors on page volume
   and search coverage (see STRATEGY in section 5). Unique content per page is the
   only guardrail.
@@ -250,11 +269,6 @@ WE ARE TRYING TO TAKE OVER, one street and one site at a time.**
   the 11 duplicate pages after the next deploy. Re-pull Search Console Oct 29, Nov 12.
 - Next waves under the new strategy: city + situation pages for all 63 cities,
   keyword variants, ZIP and neighborhood pages, then the big blog batch.
-- TRUTH CONFLICT to fix when Dominic says go: several live pages still say House
-  Junkies buys with "our own capital" or "no outside partner" (the city page template
-  and city FAQ, `/compare`, `/how-we-calculate-your-offer`, the Abel and Dominic bios
-  in `lib/site.ts`, and the FAQ line about being a real buyer). That breaks the
-  standing rule: we use our own cash, partners, private money and hard money lenders.
 - Internal link block (links to the pages Google has not crawled yet) on the homepage
   and footer. Explained to Dominic, waiting on his yes.
 - Blog content push (Dominic plans a big batch). Review push on the Google
