@@ -102,10 +102,10 @@ export default function HomePage() {
             <strong className="font-bold text-gray-800">Visalia</strong> by SFRAnalytics.com, an independent
             third-party data source. We&apos;ve bought, renovated, and resold{" "}
             <strong className="font-bold text-gray-800">{site.stats.homesBought}</strong> homes across the
-            Central Valley using our own capital and licensed construction crew.
+            Central Valley using our own capital, real estate brokerage and licensed construction crew.
           </p>
           <p className="mt-1 font-bold text-gray-800">
-            Locally owned. Vertically integrated. No fees. No obligations. {site.licenses.generalContractor}
+            Local. Vertically integrated. No fees or obligations. {site.licenses.generalContractor}
           </p>
         </div>
       </section>
