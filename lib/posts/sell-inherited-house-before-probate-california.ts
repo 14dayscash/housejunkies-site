@@ -139,7 +139,7 @@ export const post: HouseJunkiesPost = {
     }
   ],
   "heroImage": {
-    "src": "/images/office/main-st-exterior.jpg",
-    "alt": "House Junkies Inc. office at 801 W Main St in Visalia, where we buy inherited and probate houses across Tulare County"
+    "src": "https://images.unsplash.com/photo-1733244766159-f58f4184fd38?fm=jpg&q=70&w=1600&auto=format&fit=crop",
+    "alt": "A hand holding a key to the front door of a house"
   }
 };
