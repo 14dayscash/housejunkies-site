@@ -22,6 +22,22 @@ const homePurchases = ["19667-avenue-195-strathmore", "40074-road-56-dinuba", "2
   .map((slug) => properties.find((p) => p.slug === slug))
   .filter((p): p is (typeof properties)[number] => !!p);
 
+// Cash offer vs listing points for the homepage comparison (our copy).
+const compareUs: [string, string][] = [
+  ["Sell It As-Is", "No repairs, no cleaning, no clean-out. Leave the house exactly how it is, and leave behind anything you do not want."],
+  ["No Commissions or Fees", "There is no agent to pay and nothing comes out of your check for us. The number on the offer is the number you get."],
+  ["We Pay the Closing Costs", "Escrow, title, and the normal seller closing costs are on us, so you are not surprised at the closing table."],
+  ["A Cash Offer That Holds", "We close with our own capital, so there is no buyer's loan to fall through and no lender appraisal to blow up the deal."],
+  ["You Pick the Closing Date", "Most of our deals close in 14 days, as fast as 7 when you need it, or later if you need time to move."],
+];
+const compareListing: [string, string][] = [
+  ["Repairs and Prep First", "Buyers and their inspectors expect a house that is ready to go. Fixes, cleaning, and staging usually come out of your pocket before you list."],
+  ["Commissions Come Out of Your Sale", "Agent commissions commonly run 5 to 6 percent of the sale price, plus marketing and other selling costs."],
+  ["Seller Closing Costs", "Title, escrow, transfer tax, and any repair credits the buyer asks for after inspection get paid out of your proceeds."],
+  ["Deals Can Fall Through", "Most buyers need a loan. If their financing or the appraisal falls short, you can end up back on the market."],
+  ["Longer, Less Certain Timeline", "Showings, offers, inspections, and loan approval often take 60 to 90 days or more, with open houses along the way."],
+];
+
 // Free Unsplash stock photos for the county blocks, taken in or near one of
 // each county's top cities where Unsplash had one (Dominic, 2026-11-07).
 const countyPhotos: Record<string, { src: string; alt: string }> = {
@@ -198,7 +214,7 @@ export default function HomePage() {
           </ol>
 
           <div className="mt-8 flex flex-wrap justify-center gap-x-8 gap-y-2 text-sm">
-            <Link href="/compare" className="font-semibold text-brand-yellow-dark hover:underline">
+            <Link href="#compare" className="font-semibold text-brand-yellow-dark hover:underline">
               Compare to Listing on the Market →
             </Link>
             <Link href="/faq" className="font-semibold text-brand-yellow-dark hover:underline">
@@ -409,34 +425,76 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Condensed comparison table, full version lives on /compare */}
-      <section className="mx-auto max-w-6xl px-4 py-14">
-        <h2 className="text-2xl font-bold text-brand-black">Why Sell to Us Instead of Listing</h2>
-        <div className="mt-6 grid gap-6 sm:grid-cols-2">
-          <div className="rounded-lg border border-brand-yellow/40 bg-brand-yellow/5 p-6">
-            <div className="font-bold text-brand-black">Selling to {site.name}</div>
-            <ul className="mt-3 space-y-2 text-sm text-gray-700">
-              <li>✓ No Repairs, Sold As-Is</li>
-              <li>✓ No Agent Commissions</li>
-              <li>✓ We Cover Closing Costs</li>
-              <li>✓ No Financing Contingencies</li>
-              <li>✓ Close in 7 to 30 Days, My Choice</li>
-            </ul>
+      {/* Cash offer vs listing (2026-11-07 revamp): side by side on desktop,
+          stacked on phones, checks vs X marks. Copy is ours. The How It Works
+          "Compare to Listing" link jumps here (#compare); the full version with
+          real numbers lives on /compare. */}
+      <section id="compare" className="scroll-mt-24 bg-gray-50">
+        <div className="mx-auto max-w-6xl px-4 py-14 md:py-20">
+          <div className="mx-auto max-w-2xl text-center">
+            <p className="text-xs font-bold uppercase tracking-widest text-brand-yellow-dark">Cash Offer vs. Listing</p>
+            <h2 className="mt-2 text-3xl font-bold text-brand-black md:text-4xl">Why Sell to Us Instead of Listing</h2>
+            <p className="mt-3 text-gray-600">
+              Listing can get you top dollar on a house that is ready for the market. For everything else, here is
+              how the two options actually stack up.
+            </p>
           </div>
-          <div className="rounded-lg border border-gray-200 p-6">
-            <div className="font-bold text-gray-500">Listing With an Agent</div>
-            <ul className="mt-3 space-y-2 text-sm text-gray-500">
-              <li>• Repairs Often Required</li>
-              <li>• Typically 5-6% in Commissions</li>
-              <li>• Closing Costs Paid by the Seller</li>
-              <li>• Can Fall Through on Financing</li>
-              <li>• Typically 60 to 90+ Days</li>
-            </ul>
+
+          <div className="mt-10 grid gap-6 md:grid-cols-2 md:items-stretch">
+            <div className="relative rounded-2xl border-2 border-brand-yellow bg-white p-6 shadow-[0_20px_40px_rgba(0,0,0,0.08)] md:p-8">
+              <span className="absolute -top-3 left-6 rounded-full bg-brand-yellow px-3 py-1 text-xs font-bold uppercase tracking-wider text-black">
+                Our Way
+              </span>
+              <h3 className="text-2xl font-bold text-brand-black">Selling to {site.name}</h3>
+              <ul className="mt-6 space-y-5">
+                {compareUs.map(([title, body]) => (
+                  <li key={title} className="flex gap-3">
+                    <span className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-brand-yellow">
+                      <svg aria-hidden="true" viewBox="0 0 20 20" className="h-4 w-4 text-black">
+                        <path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    </span>
+                    <div>
+                      <p className="font-bold text-brand-black">{title}</p>
+                      <p className="mt-1 text-sm leading-relaxed text-gray-600">{body}</p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+              <Link
+                href="/get-offer"
+                className="mt-8 flex w-full items-center justify-center gap-2 rounded-lg bg-brand-yellow px-5 py-3 font-bold text-black transition-colors hover:bg-brand-yellow-dark"
+              >
+                Get My Cash Offer <span aria-hidden="true">→</span>
+              </Link>
+            </div>
+
+            <div className="rounded-2xl border border-gray-200 bg-white p-6 md:p-8">
+              <h3 className="mt-0 text-2xl font-bold text-gray-500">Listing With an Agent</h3>
+              <ul className="mt-6 space-y-5">
+                {compareListing.map(([title, body]) => (
+                  <li key={title} className="flex gap-3">
+                    <span className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-brand-black">
+                      <svg aria-hidden="true" viewBox="0 0 20 20" className="h-3.5 w-3.5 text-white">
+                        <path d="M5.5 5.5l9 9M14.5 5.5l-9 9" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" />
+                      </svg>
+                    </span>
+                    <div>
+                      <p className="font-bold text-brand-black">{title}</p>
+                      <p className="mt-1 text-sm leading-relaxed text-gray-600">{body}</p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          <div className="mt-8 text-center">
+            <Link href="/compare" className="text-sm font-semibold text-brand-yellow-dark hover:underline">
+              See the Full Cash Offer vs. Listing Comparison →
+            </Link>
           </div>
         </div>
-        <Link href="/compare" className="mt-4 inline-block text-sm font-semibold text-brand-yellow-dark hover:underline">
-          See the full comparison, with real numbers →
-        </Link>
       </section>
 
       {/* Why us / authority */}
