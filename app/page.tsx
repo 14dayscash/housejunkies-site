@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { SituationIcon } from "@/components/SituationIcon";
 import { HeroOfferForm } from "@/components/HeroOfferForm";
 import { site } from "@/lib/site";
 import { cities } from "@/lib/cities";
@@ -178,6 +179,87 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Situations (2026-11-07 revamp): every situation as a card with an
+          icon and a short blurb from lib/situations.ts (homeCard), on a dark
+          photo background. Card copy lives in the data file, not here. */}
+      <section className="relative isolate overflow-hidden bg-black text-white">
+        <Image
+          src="/images/properties/215-s-crumal-st-visalia.jpg"
+          alt=""
+          fill
+          sizes="100vw"
+          className="-z-20 scale-110 object-cover blur-sm"
+        />
+        <div className="absolute inset-0 -z-10 bg-black/85" aria-hidden="true" />
+        <div className="mx-auto max-w-6xl px-4 py-14 md:py-20">
+          <div className="mx-auto max-w-3xl text-center">
+            <p className="text-xs font-bold uppercase tracking-widest text-brand-yellow">Any Situation. Any Condition.</p>
+            <h2 className="mt-2 text-3xl font-bold md:text-4xl">We Buy Houses in Any Situation</h2>
+            <p className="mt-3 text-white/70">
+              Whatever the reason you need to sell, House Junkies can make you a fair cash offer on the house as it
+              sits today. No repairs, no listing, no waiting on a buyer&apos;s loan.
+            </p>
+          </div>
+          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {situations.map((sit) => (
+              <Link
+                key={sit.slug}
+                href={`/sell-your-house/${sit.slug}`}
+                className="group flex gap-4 rounded-xl border border-white/10 bg-white/[0.06] p-5 backdrop-blur-sm transition-colors hover:border-brand-yellow/70 hover:bg-white/[0.1]"
+              >
+                <SituationIcon slug={sit.slug} className="h-9 w-9 shrink-0 text-brand-yellow" />
+                <div>
+                  <h3 className="text-lg font-bold">{sit.navLabel}</h3>
+                  <p className="mt-1 text-sm leading-relaxed text-white/70">{sit.homeCard}</p>
+                  <span className="mt-2 inline-block text-sm font-semibold text-brand-yellow group-hover:underline">
+                    Learn more →
+                  </span>
+                </div>
+              </Link>
+            ))}
+            <Link
+              href="/sell-your-house"
+              className="group flex gap-4 rounded-xl border border-brand-yellow/60 bg-brand-yellow/10 p-5 backdrop-blur-sm transition-colors hover:bg-brand-yellow/20 lg:col-span-2"
+            >
+              <SituationIcon slug="other" className="h-9 w-9 shrink-0 text-brand-yellow" />
+              <div>
+                <h3 className="text-lg font-bold">Something Else?</h3>
+                <p className="mt-1 text-sm leading-relaxed text-white/70">
+                  Bankruptcy, a bad neighborhood, a house you just want gone. If it is a house in the Central
+                  Valley, call us at {site.phone}. Every situation gets a real answer and a real offer.
+                </p>
+                <span className="mt-2 inline-block text-sm font-semibold text-brand-yellow group-hover:underline">
+                  See every situation we buy →
+                </span>
+              </div>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Service areas */}
+      <section className="mx-auto max-w-6xl px-4 py-14">
+        <h2 className="text-2xl font-bold text-brand-black">Service Areas</h2>
+        <p className="mt-2 text-gray-600">
+          Proudly serving homeowners across Tulare, Kings, Fresno, and Kern counties, and
+          beyond.
+        </p>
+        <div className="mt-6 flex flex-wrap gap-3">
+          {liveCities.map((c) => (
+            <Link
+              key={c.slug}
+              href={`/we-buy-houses/${c.slug}`}
+              className="rounded-full border border-gray-300 px-4 py-2 text-sm text-brand-black hover:border-brand-yellow-dark hover:text-brand-yellow-dark"
+            >
+              {c.name}
+            </Link>
+          ))}
+        </div>
+        <Link href="/we-buy-houses" className="mt-4 inline-block text-sm font-semibold text-brand-yellow-dark hover:underline">
+          Browse every county and city we serve →
+        </Link>
+      </section>
+
       {/* Why us / authority */}
       <section className="mx-auto max-w-6xl px-4 py-14">
         <h2 className="text-2xl font-bold text-brand-black">
@@ -278,62 +360,6 @@ export default function HomePage() {
 
       {/* Real purchases, from lib/properties.ts */}
       <RecentAcquisitions id="recent-purchases" />
-
-      {/* Situations - grouped into Any Reason / Any Condition / Any Challenge */}
-      <section className="bg-gray-50">
-        <div className="mx-auto max-w-6xl px-4 py-14">
-          <h2 className="text-2xl font-bold text-brand-black">We Buy Houses in Any Situation</h2>
-          <div className="mt-6 grid gap-8 md:grid-cols-3">
-            {[
-              { heading: "Any Reason", slugs: ["inherited-property", "relocating", "divorce"] },
-              { heading: "Any Condition", slugs: ["fire-damage", "water-damage", "vacant", "as-is"] },
-              { heading: "Any Challenge", slugs: ["probate", "foreclosure", "code-violations", "with-tenants", "liens"] },
-            ].map((group) => (
-              <div key={group.heading}>
-                <h3 className="text-sm font-bold uppercase tracking-wide text-brand-yellow-dark">{group.heading}</h3>
-                <div className="mt-3 space-y-2">
-                  {group.slugs.map((slug) => {
-                    const s = situations.find((x) => x.slug === slug);
-                    if (!s) return null;
-                    return (
-                      <Link
-                        key={s.slug}
-                        href={`/sell-your-house/${s.slug}`}
-                        className="block rounded-md border border-gray-200 bg-white px-4 py-3 text-sm font-medium text-brand-black hover:border-brand-yellow-dark hover:text-brand-yellow-dark"
-                      >
-                        {s.navLabel}
-                      </Link>
-                    );
-                  })}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Service areas */}
-      <section className="mx-auto max-w-6xl px-4 py-14">
-        <h2 className="text-2xl font-bold text-brand-black">Service Areas</h2>
-        <p className="mt-2 text-gray-600">
-          Proudly serving homeowners across Tulare, Kings, Fresno, and Kern counties, and
-          beyond.
-        </p>
-        <div className="mt-6 flex flex-wrap gap-3">
-          {liveCities.map((c) => (
-            <Link
-              key={c.slug}
-              href={`/we-buy-houses/${c.slug}`}
-              className="rounded-full border border-gray-300 px-4 py-2 text-sm text-brand-black hover:border-brand-yellow-dark hover:text-brand-yellow-dark"
-            >
-              {c.name}
-            </Link>
-          ))}
-        </div>
-        <Link href="/we-buy-houses" className="mt-4 inline-block text-sm font-semibold text-brand-yellow-dark hover:underline">
-          Browse every county and city we serve →
-        </Link>
-      </section>
 
       {/* Explore the Site - the only link to /explore lives here, on purpose */}
       <section className="bg-gray-50">

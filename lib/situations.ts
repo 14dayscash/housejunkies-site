@@ -9,6 +9,7 @@ export type SituationData = {
   slug: string;
   title: string;
   navLabel: string; // one word, for the header dropdown
+  homeCard: string; // 1-2 sentence blurb for the homepage Situations grid
   metaTitle: string;
   metaDescription: string;
   summary: string;
@@ -30,6 +31,8 @@ export const situations: SituationData[] = [
   {
     slug: "inherited-property",
     navLabel: "Inherited",
+    homeCard:
+      "Inherited a house you do not want to fix, clean out, or keep? We buy it as-is, work alongside probate if it is still open, and you can leave behind anything you do not want.",
     title: "Sell an Inherited House",
     metaTitle: "Sell an Inherited House in Visalia & Tulare County",
     metaDescription:
@@ -51,6 +54,8 @@ export const situations: SituationData[] = [
   {
     slug: "probate",
     navLabel: "Probate",
+    homeCard:
+      "Our probate team works with your attorney through Letters, court confirmation, and every notice, so the house can sell while the rest of the estate keeps moving.",
     title: "Sell a House in Probate",
     metaTitle: "Sell an Inherited House During Probate in Visalia, CA",
     metaDescription:
@@ -88,6 +93,8 @@ export const situations: SituationData[] = [
   {
     slug: "foreclosure",
     navLabel: "Foreclosure",
+    homeCard:
+      "Behind on payments or got a Notice of Default? A cash sale before the trustee sale can pay off the loan and protect the equity you have left. Call early, time matters.",
     title: "Sell Before Foreclosure",
     metaTitle: "Facing Foreclosure in Visalia, CA? Your 5 Options",
     metaDescription:
@@ -140,6 +147,8 @@ export const situations: SituationData[] = [
   {
     slug: "divorce",
     navLabel: "Divorce",
+    homeCard:
+      "Selling a shared house during a divorce is hard enough. We work with both owners, and both attorneys if needed, on a clear price and a closing date that fits the case.",
     title: "Sell a House During Divorce",
     metaTitle: "Selling a House During Divorce in Visalia",
     metaDescription:
@@ -161,6 +170,8 @@ export const situations: SituationData[] = [
   {
     slug: "fire-damage",
     navLabel: "Fire Damage",
+    homeCard:
+      "Smoke, soot, or a full burn, we buy fire-damaged houses as they sit. Our own licensed construction crew handles the rebuild, not you.",
     title: "Sell a Fire-Damaged House",
     metaTitle: "Fire-Damaged House in Visalia? Sell It As-Is for Cash",
     metaDescription:
@@ -201,6 +212,8 @@ export const situations: SituationData[] = [
   {
     slug: "water-damage",
     navLabel: "Water Damage",
+    homeCard:
+      "Burst pipes, roof leaks, flooding, or mold. You do not have to dry it out or tear it open first. We make offers on water-damaged houses in their current condition.",
     title: "Sell a Water-Damaged House",
     metaTitle: "Sell a Water-Damaged House in the Central Valley",
     metaDescription:
@@ -222,6 +235,8 @@ export const situations: SituationData[] = [
   {
     slug: "code-violations",
     navLabel: "Violations",
+    homeCard:
+      "Open code cases, fines, or a red tag from the city? We buy houses with violations and work out the fixes with the city after closing.",
     title: "Sell a House With Code Violations",
     metaTitle: "Code Violations in Visalia? Sell Your House As-Is for Cash",
     metaDescription:
@@ -263,6 +278,8 @@ export const situations: SituationData[] = [
   {
     slug: "with-tenants",
     navLabel: "Tenants",
+    homeCard:
+      "Tired of late rent, repairs, or tenants who will not leave? We buy rentals with the tenants still living there, so you do not have to handle the move-out.",
     title: "Sell a Rental With Tenants",
     metaTitle: "Sell a Rental Property With Tenants in Visalia",
     metaDescription:
@@ -287,6 +304,8 @@ export const situations: SituationData[] = [
   {
     slug: "vacant",
     navLabel: "Vacant",
+    homeCard:
+      "An empty house still costs you taxes, insurance, and break-in worries every month. We buy vacant houses fast so the bills stop.",
     title: "Sell a Vacant House",
     metaTitle: "Vacant House in Visalia? Sell It As-Is for Cash",
     metaDescription:
@@ -328,6 +347,8 @@ export const situations: SituationData[] = [
   {
     slug: "liens",
     navLabel: "Liens",
+    homeCard:
+      "Back taxes, mechanics liens, judgments, or old code liens. They get paid off out of escrow at closing, and you keep what is left.",
     title: "Sell a House With Liens or Back Taxes",
     metaTitle: "Sell a House With Liens or Tax Debt in Tulare County",
     metaDescription:
@@ -349,6 +370,8 @@ export const situations: SituationData[] = [
   {
     slug: "hoarder-house",
     navLabel: "Hoarder House",
+    homeCard:
+      "Too much stuff to even know where to start? Leave it all. We buy hoarder houses as-is and handle the full clean-out ourselves.",
     title: "Sell a Hoarder House",
     metaTitle: "Sell a Hoarder House in Visalia & the Central Valley",
     metaDescription:
@@ -376,6 +399,8 @@ export const situations: SituationData[] = [
   {
     slug: "as-is",
     navLabel: "As-Is",
+    homeCard:
+      "Old roof, bad foundation, outdated everything. Skip the repairs, the inspections, and the showings. We buy the house exactly the way it is.",
     title: "Sell As-Is, No Repairs",
     metaTitle: "Sell Your House As-Is in Visalia | No Repairs Needed",
     metaDescription:
@@ -400,6 +425,8 @@ export const situations: SituationData[] = [
   {
     slug: "relocating",
     navLabel: "Relocating",
+    homeCard:
+      "New job, family move, or military orders? We can close on your schedule, even if you have already left the area.",
     title: "Sell Fast Because You're Relocating",
     metaTitle: "Relocating? Sell Your House Fast in Visalia",
     metaDescription:
