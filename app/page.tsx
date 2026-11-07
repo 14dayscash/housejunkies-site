@@ -119,8 +119,7 @@ export default function HomePage() {
               Sell Your House in 3 Simple Steps
             </h2>
             <p className="mt-3 text-gray-600">
-              No repairs, no showings, and no agent fees. Just a fair cash offer from a local Visalia buyer
-              and a closing date you pick.
+              No repairs, no showings, and no agent fees. Just a fair cash offer from a local Visalia buyer.
             </p>
           </div>
 
@@ -128,13 +127,11 @@ export default function HomePage() {
             <li className="relative flex flex-col rounded-xl border border-gray-200 border-t-4 border-t-brand-yellow bg-white p-6 shadow-sm">
               <div className="flex items-center gap-3">
                 <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-brand-yellow text-lg font-bold text-black">1</span>
-                <span className="text-xs font-semibold uppercase tracking-wider text-gray-400">Step 1</span>
               </div>
               <h3 className="mt-4 text-lg font-bold text-brand-black">Tell Us About Your House</h3>
               <p className="mt-2 text-sm leading-relaxed text-gray-600">
-                Fill out the form or call {site.phone} and tell us about the property, in any condition.
-                Behind on payments, needs a new roof, full of stuff, or tenants still living there. It takes
-                about a minute, and there is no cost or obligation.
+                Fill out the form or call {site.phone} and tell us about the property, in any condition. It
+                only takes about a minute, and there is no cost or obligation.
               </p>
               <Link
                 href="/get-offer"
@@ -146,7 +143,6 @@ export default function HomePage() {
             <li className="relative flex flex-col rounded-xl border border-gray-200 border-t-4 border-t-brand-yellow bg-white p-6 shadow-sm">
               <div className="flex items-center gap-3">
                 <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-brand-yellow text-lg font-bold text-black">2</span>
-                <span className="text-xs font-semibold uppercase tracking-wider text-gray-400">Step 2</span>
               </div>
               <h3 className="mt-4 text-lg font-bold text-brand-black">Get Your Cash Offer in 24 Hours</h3>
               <p className="mt-2 text-sm leading-relaxed text-gray-600">
@@ -161,13 +157,12 @@ export default function HomePage() {
             <li className="relative flex flex-col rounded-xl border border-gray-200 border-t-4 border-t-brand-yellow bg-white p-6 shadow-sm">
               <div className="flex items-center gap-3">
                 <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-brand-yellow text-lg font-bold text-black">3</span>
-                <span className="text-xs font-semibold uppercase tracking-wider text-gray-400">Step 3</span>
               </div>
               <h3 className="mt-4 text-lg font-bold text-brand-black">Close on Your Timeline and Get Paid</h3>
               <p className="mt-2 text-sm leading-relaxed text-gray-600">
-                Pick the closing date that works for you. Most of our closings take about 14 days, and we can
-                go as fast as 7 when the title is clean. We pay the closing costs, there are no commissions,
-                and you can leave behind anything you do not want.
+                Pick the closing date that works for you. Most of our deals take about 14 days, and we can close
+                as fast as 7 when needed. We pay all the closing costs, there are no commissions, and you can
+                leave behind any items you do not want.
               </p>
             </li>
           </ol>
