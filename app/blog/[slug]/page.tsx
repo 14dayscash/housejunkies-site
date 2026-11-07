@@ -5,43 +5,23 @@ import { houseJunkiesPosts, getHouseJunkiesPost } from "@/lib/houseJunkiesPosts"
 import { cities } from "@/lib/cities";
 import { situations } from "@/lib/situations";
 import { ContactForm } from "@/components/ContactForm";
-import { Linkify } from "@/components/Linkify";
+import { BlogBody } from "@/components/BlogBody";
+import { BlogPostingJsonLd, FaqJsonLd, BreadcrumbJsonLd } from "@/components/JsonLd";
+import { site } from "@/lib/site";
 
 export function generateStaticParams() {
   return houseJunkiesPosts.map((p) => ({ slug: p.slug }));
-}
-
-function BlogImage({ line }: { line: string }) {
-  const m = line.match(/^!\[(.*)\]\((.+)\)$/);
-  if (!m) return <p>{line}</p>;
-  const [, caption, src] = m;
-  const slug = src.match(/^\/images\/properties\/(.+)\.jpg$/)?.[1];
-  const img = <img src={src} alt={caption} loading="lazy" className="w-full rounded-lg border border-gray-200" />;
-  return (
-    <figure className="py-2">
-      {slug ? <Link href={`/projects/${slug}`}>{img}</Link> : img}
-      <figcaption className="mt-2 text-sm text-gray-500">
-        {slug ? (
-          <Link href={`/projects/${slug}`} className="hover:text-brand-yellow-dark hover:underline">
-            {caption}
-          </Link>
-        ) : (
-          caption
-        )}
-      </figcaption>
-    </figure>
-  );
 }
 
 export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
   const post = getHouseJunkiesPost(params.slug);
   if (!post) return {};
   return {
-    title: post.title,
+    title: post.metaTitle ?? post.title,
     description: post.excerpt,
     alternates: { canonical: `/blog/${post.slug}` },
     openGraph: {
-      title: post.title,
+      title: post.metaTitle ?? post.title,
       description: post.excerpt,
       type: "article",
       url: `/blog/${post.slug}`,
@@ -56,9 +36,37 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
 
   return (
     <div>
+      <BlogPostingJsonLd
+        slug={post.slug}
+        title={post.title}
+        description={post.excerpt}
+        datePublished={post.date}
+        dateModified={post.updated}
+        authorName={post.author}
+        authorSlug={post.authorSlug}
+        image={post.heroImage?.src}
+      />
+      {post.faqs && post.faqs.length > 0 && <FaqJsonLd items={post.faqs} />}
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", url: site.url },
+          { name: "Blog", url: `${site.url}/blog` },
+          { name: post.title, url: `${site.url}/blog/${post.slug}` },
+        ]}
+      />
       <section className="bg-brand-black text-white">
         <div className="mx-auto max-w-3xl px-4 py-14">
-          <p className="text-xs text-white/50">{post.date} · {post.category} · By {post.author}</p>
+          <p className="text-xs text-white/50">
+            {post.date} · {post.category} · By{" "}
+            {post.authorSlug ? (
+              <Link href={`/team/${post.authorSlug}`} className="underline decoration-dotted underline-offset-2 hover:text-brand-yellow">
+                {post.author}
+              </Link>
+            ) : (
+              post.author
+            )}
+            {post.updated && post.updated !== post.date ? ` · Updated ${post.updated}` : ""}
+          </p>
           <h1 className="mt-2 text-3xl font-bold md:text-4xl">{post.title}</h1>
         </div>
       </section>
@@ -90,19 +98,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
           </div>
         )}
 
-        <div className="space-y-4 text-gray-600">
-          {post.body.map((paragraph, i) =>
-            paragraph.startsWith("![") ? (
-              <BlogImage key={i} line={paragraph} />
-            ) : paragraph.startsWith("## ") ? (
-              <h2 key={i} className="pt-4 text-2xl font-bold text-brand-black">{paragraph.slice(3)}</h2>
-            ) : paragraph.startsWith("### ") ? (
-              <h3 key={i} className="pt-2 text-xl font-bold text-brand-black">{paragraph.slice(4)}</h3>
-            ) : (
-              <p key={i}><Linkify text={paragraph} /></p>
-            ),
-          )}
-        </div>
+        <BlogBody body={post.body} faqs={post.faqs} />
 
         {post.links && post.links.length > 0 && (
           <div className="mt-8 border-t border-gray-100 pt-6">
