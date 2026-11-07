@@ -7,6 +7,7 @@ import { site } from "@/lib/site";
 import { cities } from "@/lib/cities";
 import { situations } from "@/lib/situations";
 import { counties, citiesInCounty } from "@/lib/counties";
+import { FaqJsonLd } from "@/components/JsonLd";
 import { ReviewSlider } from "@/components/ReviewSlider";
 import { SpecLine, StatusBadge } from "@/components/PropertyCard";
 import { properties, money } from "@/lib/properties";
@@ -36,6 +37,51 @@ const compareListing: [string, string][] = [
   ["Seller Closing Costs", "Title, escrow, transfer tax, and any repair credits the buyer asks for after inspection get paid out of your proceeds."],
   ["Deals Can Fall Through", "Most buyers need a loan. If their financing or the appraisal falls short, you can end up back on the market when you need to move."],
   ["Longer, Less Certain Timeline", "Showings, offers, inspections, and loan approval often take 60 to 90 days or more, with open houses along the way."],
+];
+
+// Homepage FAQ picks (answers kept in line with the current standing facts:
+// 14 days standard, as fast as 7, written offer within 24 hours).
+const homeFaqs = [
+  {
+    question: "How does selling my house to House Junkies work?",
+    answer:
+      "Fill out the form or call us with your property address. We look at the house, run the numbers, and send a fair, no-obligation cash offer within 24 hours. If you accept, you pick the closing date and we handle the rest.",
+  },
+  {
+    question: "Do I have to make any repairs before selling?",
+    answer:
+      "No. We buy houses as-is, in any condition, including major repairs, fire or water damage, code violations, and houses still full of belongings.",
+  },
+  {
+    question: "Are there any fees or commissions?",
+    answer:
+      "No. You are selling directly to us, so there is no agent commission, and we pay the closing costs. The cash offer itself is always free.",
+  },
+  {
+    question: "How fast can you close, and can I choose the date?",
+    answer:
+      "Yes, you choose the date. Most of our deals close in 14 days, we can close as fast as 7 if you need to, or later if you need more time to move.",
+  },
+  {
+    question: "How do you calculate my cash offer?",
+    answer:
+      "From four real numbers: what the house will be worth after repairs based on recent sales, what our own construction crew will spend to fix it, holding and closing costs, and our margin. We walk you through every one.",
+  },
+  {
+    question: "Is House Junkies a legitimate company?",
+    answer:
+      "Yes. We are part of Ulloa Investment Group, along with House Junkies Construction (CA LIC#1077593) and Legacy Real Estate (DRE #02165291). We are BBB Accredited with an A+ rating, ranked #1 in Visalia by SFR Analytics, and you can visit our office at 801 W Main St in Visalia.",
+  },
+  {
+    question: "Can I sell if I still owe money on the house?",
+    answer:
+      "Yes. Any mortgage or lien is paid off out of the sale at closing through escrow, and you get what is left. We go over those numbers with you before you accept anything.",
+  },
+  {
+    question: "Do I need a real estate agent to sell my house for cash?",
+    answer:
+      "No. You can sell directly to us without hiring an agent, and you are always welcome to have your own agent or attorney look over the offer. If listing would net you more, our brokerage, Legacy Real Estate, can list it for you instead.",
+  },
 ];
 
 // Free Unsplash stock photos for the county blocks, taken in or near one of
@@ -574,6 +620,71 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Soft final CTA (2026-11-07): one plain-spoken push, dark like the hero. */}
+      <section className="bg-brand-black text-white">
+        <div className="mx-auto max-w-3xl px-4 py-14 text-center md:py-20">
+          <p className="text-xs font-bold uppercase tracking-widest text-brand-yellow">No Pressure, No Obligation</p>
+          <h2 className="mt-2 text-3xl font-bold md:text-4xl">Not Sure Yet? Get the Numbers First.</h2>
+          <p className="mt-4 leading-relaxed text-white/75">
+            Tell us about the house and what is going on, even if it needs work or is still full of stuff. We will
+            look at it with you, show you how we got to our number, and send a written cash offer within 24 hours.
+            If listing it would put more money in your pocket, we will tell you that too.
+          </p>
+          <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+            <Link
+              href="/get-offer"
+              className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-brand-yellow px-6 py-3 font-bold text-black transition-colors hover:bg-brand-yellow-dark sm:w-auto"
+            >
+              Get My Cash Offer <span aria-hidden="true">→</span>
+            </Link>
+            <a
+              href={`tel:${site.phoneE164}`}
+              className="inline-flex w-full items-center justify-center gap-2 rounded-lg border-2 border-white/80 px-6 py-2.5 font-bold text-white transition-colors hover:bg-white hover:text-black sm:w-auto"
+            >
+              Call or Text {site.phone}
+            </a>
+          </div>
+          <p className="mt-5 text-sm text-white/50">
+            Or stop by the office at 801 W Main St, Visalia. Se habla español.
+          </p>
+        </div>
+      </section>
+
+      {/* Homepage FAQ (2026-11-07): 8 picks from /faq plus one new one, as
+          native dropdowns with FAQPage schema. Full list lives on /faq. */}
+      <FaqJsonLd items={homeFaqs} />
+      <section className="mx-auto max-w-3xl px-4 py-14 md:py-20">
+        <div className="text-center">
+          <p className="text-xs font-bold uppercase tracking-widest text-brand-yellow-dark">FAQ</p>
+          <h2 className="mt-2 text-3xl font-bold text-brand-black md:text-4xl">Frequently Asked Questions</h2>
+        </div>
+        <div className="mt-8 space-y-2">
+          {homeFaqs.map((f) => (
+            <details
+              key={f.question}
+              className="group rounded-lg border border-gray-200 bg-white shadow-sm open:border-brand-yellow/60"
+            >
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-4 py-4 [&::-webkit-details-marker]:hidden">
+                <h3 className="text-sm font-semibold text-brand-black md:text-base">{f.question}</h3>
+                <svg
+                  aria-hidden="true"
+                  viewBox="0 0 20 20"
+                  className="h-4 w-4 shrink-0 text-gray-500 transition-transform group-open:rotate-180"
+                >
+                  <path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </summary>
+              <p className="border-t border-gray-100 px-4 pb-4 pt-3 text-sm leading-relaxed text-gray-600">{f.answer}</p>
+            </details>
+          ))}
+        </div>
+        <div className="mt-6 text-center">
+          <Link href="/faq" className="text-sm font-semibold text-brand-yellow-dark hover:underline">
+            Read All FAQs →
+          </Link>
+        </div>
+      </section>
+
       {/* Explore the Site - the only link to /explore lives here, on purpose */}
       <section className="bg-gray-50">
         <div className="mx-auto max-w-6xl px-4 py-14 text-center">
@@ -590,19 +701,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* CTA band */}
-      <section className="bg-brand-black">
-        <div className="mx-auto max-w-6xl px-4 py-12 text-center text-white">
-          <h2 className="text-2xl font-bold">Ready for a No-Obligation Cash Offer?</h2>
-          <p className="mt-2 text-white/70">Call, text, or fill out the form. We respond within 24 hours.</p>
-          <a
-            href={`tel:${site.phoneE164}`}
-            className="mt-6 inline-block rounded-md bg-brand-yellow px-6 py-3 font-bold text-black hover:bg-brand-yellow-dark"
-          >
-            Call {site.phone}
-          </a>
-        </div>
-      </section>
     </div>
   );
 }
