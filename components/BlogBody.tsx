@@ -135,17 +135,31 @@ function BlogTable({ source }: { source: string }) {
 export type BlogFaq = { question: string; answer: string };
 
 export function BlogFaqs({ faqs }: { faqs: BlogFaq[] }) {
+  // Native <details> dropdowns: no JavaScript, and every answer stays in the
+  // page HTML so Google still reads it (FAQPage schema is added by the page).
   return (
     <div>
-      <h2 className="pt-4 text-2xl font-bold text-brand-black">Frequently Asked Questions</h2>
-      <div className="mt-4 space-y-5">
+      <h2 className="pt-4 text-center text-2xl font-bold text-brand-black">Frequently Asked Questions</h2>
+      <div className="mt-5 space-y-2">
         {faqs.map((f, i) => (
-          <div key={i}>
-            <h3 className="text-lg font-bold text-brand-black">{f.question}</h3>
-            <p className="mt-1">
+          <details
+            key={i}
+            className="group rounded-lg border border-gray-200 bg-white shadow-sm open:border-brand-yellow/60"
+          >
+            <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-4 py-3 [&::-webkit-details-marker]:hidden">
+              <h3 className="text-sm font-semibold text-brand-black md:text-base">{f.question}</h3>
+              <svg
+                aria-hidden="true"
+                viewBox="0 0 20 20"
+                className="h-4 w-4 shrink-0 text-gray-500 transition-transform group-open:rotate-180"
+              >
+                <path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </summary>
+            <p className="border-t border-gray-100 px-4 pb-4 pt-3 text-gray-600">
               <Inline text={f.answer} />
             </p>
-          </div>
+          </details>
         ))}
       </div>
     </div>
