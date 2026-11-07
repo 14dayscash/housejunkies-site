@@ -99,11 +99,8 @@ export default function HomePage() {
         <div className="border-t border-gray-100 bg-gray-50 px-4 py-3 text-center text-xs text-gray-600">
           <p>
             Ranked <strong className="font-bold text-gray-800">#1</strong> by transactions and volume in{" "}
-            <strong className="font-bold text-gray-800">Visalia</strong> by SFR Analytics, an independent
-            third-party data source.
-          </p>
-          <p className="mt-1">
-            We&apos;ve bought, renovated, and resold{" "}
+            <strong className="font-bold text-gray-800">Visalia</strong> by SFRAnalytics.com, an independent
+            third-party data source. We&apos;ve bought, renovated, and resold{" "}
             <strong className="font-bold text-gray-800">{site.stats.homesBought}</strong> homes across the
             Central Valley using our own capital and licensed construction crew.
           </p>
