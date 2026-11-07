@@ -97,11 +97,19 @@ export default function HomePage() {
           </div>
         </div>
         <div className="border-t border-gray-100 bg-gray-50 px-4 py-3 text-center text-xs text-gray-600">
-          Ranked #1 by transaction volume in Visalia by{" "}
-          <span className="font-medium text-gray-700">SFR Analytics</span>, an independent third-party
-          data source. We&apos;ve bought, renovated, and resold {site.stats.homesBought} homes across the
-          Central Valley using our own capital and licensed construction crew. Local. Vertically
-          integrated. No fees. No obligation. {site.licenses.generalContractor}
+          <p>
+            Ranked <strong className="font-bold text-gray-800">#1</strong> by transactions and volume in{" "}
+            <strong className="font-bold text-gray-800">Visalia</strong> by SFR Analytics, an independent
+            third-party data source.
+          </p>
+          <p className="mt-1">
+            We&apos;ve bought, renovated, and resold{" "}
+            <strong className="font-bold text-gray-800">{site.stats.homesBought}</strong> homes across the
+            Central Valley using our own capital and licensed construction crew.
+          </p>
+          <p className="mt-1 font-bold text-gray-800">
+            Locally owned. Vertically integrated. No fees. No obligations. {site.licenses.generalContractor}
+          </p>
         </div>
       </section>
 
