@@ -97,10 +97,11 @@ export default function HomePage() {
           </div>
         </div>
         <div className="border-t border-gray-100 bg-gray-50 px-4 py-3 text-center text-xs text-gray-600">
-          Ranked #1 by transaction volume in Visalia ({site.stats.sfrAnalyticsVolume} across{" "}
-          {site.stats.sfrAnalyticsDeals} deals) by{" "}
-          <span className="font-medium text-gray-700">{site.stats.sfrAnalyticsSource}</span>, an
-          independent, third-party market data source.
+          Ranked #1 by transaction volume in Visalia by{" "}
+          <span className="font-medium text-gray-700">SFR Analytics</span>, an independent third-party
+          data source. We&apos;ve bought, renovated, and resold {site.stats.homesBought} homes across the
+          Central Valley using our own capital and licensed construction crew. Local. Vertically
+          integrated. No fees. No obligation. {site.licenses.generalContractor}
         </div>
       </section>
 
@@ -112,30 +113,30 @@ export default function HomePage() {
             <div className="flex h-10 w-10 items-center justify-center rounded-full bg-brand-yellow font-bold text-black">1</div>
             <p className="mt-4 font-semibold text-brand-black">Contact Us</p>
             <p className="mt-1 text-sm text-gray-600">
-              Fill out our form or call us. Tell us about your property, no matter its condition.
+              Tell us about your property (any condition). Fill out the form or call. It only takes a minute.
             </p>
           </div>
           <div className="relative rounded-lg border border-gray-200 p-6">
             <div className="flex h-10 w-10 items-center justify-center rounded-full bg-brand-yellow font-bold text-black">2</div>
-            <p className="mt-4 font-semibold text-brand-black">Get My Offer</p>
+            <p className="mt-4 font-semibold text-brand-black">Get Your Offer</p>
             <p className="mt-1 text-sm text-gray-600">
-              We'll analyze your property and present a fair, no-obligation cash offer within 24 hours.
+              We analyze your house and send a fair, no-obligation cash offer within 24 hours.
             </p>
           </div>
           <div className="relative rounded-lg border border-gray-200 p-6">
             <div className="flex h-10 w-10 items-center justify-center rounded-full bg-brand-yellow font-bold text-black">3</div>
             <p className="mt-4 font-semibold text-brand-black">Get Paid</p>
             <p className="mt-1 text-sm text-gray-600">
-              Accept our offer, choose your closing date, and get paid. We cover all fees.
+              Accept the offer, pick your closing date, and get paid. We cover all fees and closing costs.
             </p>
           </div>
         </div>
         <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm">
           <Link href="/compare" className="font-semibold text-brand-yellow-dark hover:underline">
-            See how this compares to listing →
+            Compare to Listing on the Market →
           </Link>
           <Link href="/faq" className="font-semibold text-brand-yellow-dark hover:underline">
-            Read frequently asked questions →
+            Read FAQs →
           </Link>
         </div>
       </section>
