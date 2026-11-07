@@ -143,7 +143,16 @@ export default function HomePage() {
         <div className="border-t border-gray-100 bg-gray-50 px-3 py-2 text-center text-[11px] leading-snug text-gray-600 sm:px-4 sm:py-3 sm:text-xs">
           <p>
             Ranked <strong className="font-bold text-gray-800">#1</strong> by transactions and volume in{" "}
-            <strong className="font-bold text-gray-800">Visalia</strong> by SFRAnalytics.com, an independent
+            <strong className="font-bold text-gray-800">Visalia</strong> by{" "}
+            <a
+              href="https://sfranalytics.com/investors/ca/visalia-ca"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline decoration-gray-400 underline-offset-2 hover:text-brand-yellow-dark"
+            >
+              SFRAnalytics.com
+            </a>
+            , an independent
             third-party data source. House Junkies Inc. has bought, renovated, and resold{" "}
             <strong className="font-bold text-gray-800">{site.stats.homesBought}</strong> homes across the
             local Central Valley area.
