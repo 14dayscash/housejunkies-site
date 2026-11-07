@@ -125,7 +125,7 @@ export default function HomePage() {
         <div className="mx-auto grid max-w-6xl grid-cols-4 gap-1 px-2 py-4 text-center sm:gap-4 sm:px-4 md:gap-6 md:py-10">
           <div>
             <div className="text-xl font-bold leading-tight text-brand-black sm:text-3xl">{site.stats.homesBought}</div>
-            <div className="mt-0.5 text-[10px] leading-tight text-gray-500 sm:mt-1 sm:text-sm">Homes Bought & Renovated</div>
+            <div className="mt-0.5 text-[10px] leading-tight text-gray-500 sm:mt-1 sm:text-sm">Homes Bought</div>
           </div>
           <div>
             <div className="text-xl font-bold leading-tight text-brand-black sm:text-3xl">{site.stats.yearsInBusiness}</div>
@@ -133,7 +133,7 @@ export default function HomePage() {
           </div>
           <div>
             <div className="text-xl font-bold leading-tight text-brand-black sm:text-3xl">{site.stats.bbbRating}</div>
-            <div className="mt-0.5 text-[10px] leading-tight text-gray-500 sm:mt-1 sm:text-sm">BBB Accredited Rating</div>
+            <div className="mt-0.5 text-[10px] leading-tight text-gray-500 sm:mt-1 sm:text-sm">BBB Rating</div>
           </div>
           <div>
             <div className="text-xl font-bold leading-tight text-brand-black sm:text-3xl">{site.stats.sfrAnalyticsRank}</div>
