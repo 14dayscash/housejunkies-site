@@ -4,24 +4,24 @@ import { useEffect, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { AddressInput } from "./AddressInput";
 
-// Always-visible header bar: address field + "Get My Offer" button.
-// Submitting takes the visitor to /get-offer with the address carried
-// over, where the full 5-field form picks up with the address prefilled.
+// Address + "Get My Offer" form that follows the visitor down the page.
+// Submitting takes them to /get-offer with the address carried over.
 //
-// Fully hidden on pages whose own form is already right at the top
-// (/get-offer, /contact), since showing it there just doubles up the ask.
+// Where it shows (Dominic, 2026-11-07):
+// - Desktop (lg and up): it REPLACES the middle of the black header (the nav
+//   links), between the logo and the phone button. See Header.tsx.
+// - Phones and tablets: a floating white card just under the header.
+// Same design in both places: white card, slow pulsing yellow glow.
 //
-// On the homepage specifically: hidden while the hero (which has its own
-// address+offer widget) is in view, then reappears once you've scrolled
-// past it, watching a sentinel element placed at the end of the hero
-// section rather than a hardcoded pixel height.
+// Fully hidden on pages whose own form is already at the top (/get-offer,
+// /contact). On the homepage it stays hidden while the hero (which has its
+// own offer card) is in view, then appears once you scroll past it, using a
+// sentinel element at the end of the hero.
 const FULLY_HIDDEN_ON = ["/get-offer", "/contact"];
 const SCROLL_REVEAL_ON = ["/"];
 
-export function StickyOfferBar({ hidden = false }: { hidden?: boolean }) {
-  const router = useRouter();
+export function useShowOffer() {
   const pathname = usePathname();
-  const [address, setAddress] = useState("");
   const [scrolledPastHero, setScrolledPastHero] = useState(false);
 
   useEffect(() => {
@@ -29,20 +29,22 @@ export function StickyOfferBar({ hidden = false }: { hidden?: boolean }) {
     setScrolledPastHero(false);
     const sentinel = document.getElementById("hero-end-sentinel");
     if (!sentinel) return;
-
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        setScrolledPastHero(entry.boundingClientRect.top < 0);
-      },
-      { threshold: 0 }
+      ([entry]) => setScrolledPastHero(entry.boundingClientRect.top < 0),
+      { threshold: 0 },
     );
     observer.observe(sentinel);
     return () => observer.disconnect();
   }, [pathname]);
 
-  if (hidden) return null;
-  if (FULLY_HIDDEN_ON.includes(pathname)) return null;
-  if (SCROLL_REVEAL_ON.includes(pathname) && !scrolledPastHero) return null;
+  if (FULLY_HIDDEN_ON.includes(pathname)) return false;
+  if (SCROLL_REVEAL_ON.includes(pathname) && !scrolledPastHero) return false;
+  return true;
+}
+
+export function OfferForm({ id, className = "" }: { id: string; className?: string }) {
+  const router = useRouter();
+  const [address, setAddress] = useState("");
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -50,31 +52,36 @@ export function StickyOfferBar({ hidden = false }: { hidden?: boolean }) {
     router.push(`/get-offer?address=${encodeURIComponent(address.trim())}`);
   }
 
-  // Floating card under the header (Dominic, 2026-11-07): detached from the
-  // black header with a gap, white card, slow pulsing yellow glow so it
-  // catches the eye. The outer wrapper is transparent and ignores clicks, so
-  // the page behind the gap stays clickable.
   return (
-    <div className="pointer-events-none px-3 pt-2 sm:px-4 sm:pt-3">
-      <form
-        onSubmit={handleSubmit}
-        className="hj-offer-glow hj-offer-drop pointer-events-auto mx-auto flex max-w-3xl items-center gap-2 rounded-xl border border-brand-yellow/60 bg-white p-1.5 sm:p-2"
+    <form
+      onSubmit={handleSubmit}
+      className={`hj-offer-glow hj-offer-drop flex items-center gap-2 rounded-xl border border-brand-yellow/60 bg-white p-1.5 sm:p-2 ${className}`}
+    >
+      <AddressInput
+        id={id}
+        name="address"
+        placeholder="Enter your property address"
+        containerClassName="min-w-0 flex-1"
+        className="w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-brand-black placeholder-gray-400 focus:border-brand-yellow-dark focus:outline-none sm:py-2.5 sm:text-base"
+        onChange={setAddress}
+      />
+      <button
+        type="submit"
+        className="whitespace-nowrap rounded-lg bg-brand-yellow px-4 py-2 text-sm font-bold text-black transition-colors hover:bg-brand-yellow-dark sm:px-6 sm:py-2.5 sm:text-base"
       >
-        <AddressInput
-          id="sticky_address"
-          name="address"
-          placeholder="Enter your property address"
-          containerClassName="min-w-0 flex-1"
-          className="w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-brand-black placeholder-gray-400 focus:border-brand-yellow-dark focus:outline-none sm:py-2.5 sm:text-base"
-          onChange={setAddress}
-        />
-        <button
-          type="submit"
-          className="whitespace-nowrap rounded-lg bg-brand-yellow px-4 py-2 text-sm font-bold text-black transition-colors hover:bg-brand-yellow-dark sm:px-6 sm:py-2.5 sm:text-base"
-        >
-          Get My Offer
-        </button>
-      </form>
+        Get My Offer
+      </button>
+    </form>
+  );
+}
+
+// Phones and tablets only: floating card under the header. The outer wrapper
+// is transparent and ignores clicks, so the page behind the gap stays usable.
+export function StickyOfferBar({ show }: { show: boolean }) {
+  if (!show) return null;
+  return (
+    <div className="pointer-events-none px-3 pt-2 sm:px-4 sm:pt-3 lg:hidden">
+      <OfferForm id="sticky_address" className="pointer-events-auto mx-auto max-w-3xl" />
     </div>
   );
 }

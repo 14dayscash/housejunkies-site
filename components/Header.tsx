@@ -6,6 +6,7 @@ import Link from "next/link";
 import { site } from "@/lib/site";
 import { cities } from "@/lib/cities";
 import { situations } from "@/lib/situations";
+import { OfferForm } from "./StickyOfferBar";
 
 const liveCities = cities.filter((c) => c.featured);
 
@@ -15,9 +16,11 @@ const liveCities = cities.filter((c) => c.featured);
 export function Header({
   mobileOpen,
   setMobileOpen,
+  showOffer = false,
 }: {
   mobileOpen: boolean;
   setMobileOpen: Dispatch<SetStateAction<boolean>>;
+  showOffer?: boolean; // desktop: offer form takes the nav's place (see StickyOfferBar.tsx)
 }) {
   return (
     <header className="border-b border-white/10 bg-black">
@@ -35,7 +38,13 @@ export function Header({
           </span>
         </Link>
 
-        <nav className="hidden items-center gap-7 text-[15px] font-medium text-white lg:flex xl:gap-8">
+        {showOffer && <OfferForm id="header_address" className="mx-8 hidden max-w-2xl flex-1 lg:flex" />}
+
+        <nav
+          className={`items-center gap-7 text-[15px] font-medium text-white xl:gap-8 ${
+            showOffer ? "hidden" : "hidden lg:flex"
+          }`}
+        >
           {[
             ["/about", "About"],
             ["/faq", "FAQ"],
