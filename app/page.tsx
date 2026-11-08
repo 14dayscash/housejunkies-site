@@ -272,7 +272,7 @@ export default function HomePage() {
             <Link href="#compare" className="font-semibold text-brand-yellow-dark hover:underline">
               Compare to Listing on the Market →
             </Link>
-            <Link href="/faq" className="font-semibold text-brand-yellow-dark hover:underline">
+            <Link href="#faq" className="font-semibold text-brand-yellow-dark hover:underline">
               Read FAQs →
             </Link>
           </div>
@@ -703,7 +703,7 @@ export default function HomePage() {
       {/* Homepage FAQ (2026-11-07): 8 picks from /faq plus one new one, as
           native dropdowns with FAQPage schema. Full list lives on /faq. */}
       <FaqJsonLd items={homeFaqs} />
-      <section className="mx-auto max-w-3xl px-4 py-14 md:py-20">
+      <section id="faq" className="scroll-mt-24 mx-auto max-w-3xl px-4 py-14 md:py-20">
         <div className="text-center">
           <p className="text-xs font-bold uppercase tracking-widest text-brand-yellow-dark">FAQ</p>
           <h2 className="mt-2 text-3xl font-bold text-brand-black md:text-4xl">House Junkies Frequently Asked Questions</h2>
