@@ -50,20 +50,27 @@ export function StickyOfferBar({ hidden = false }: { hidden?: boolean }) {
     router.push(`/get-offer?address=${encodeURIComponent(address.trim())}`);
   }
 
+  // Floating card under the header (Dominic, 2026-11-07): detached from the
+  // black header with a gap, white card, slow pulsing yellow glow so it
+  // catches the eye. The outer wrapper is transparent and ignores clicks, so
+  // the page behind the gap stays clickable.
   return (
-    <div className="border-b border-white/10 bg-brand-black px-4 py-2">
-      <form onSubmit={handleSubmit} className="mx-auto flex max-w-6xl items-center gap-2">
+    <div className="pointer-events-none px-3 pt-2 sm:px-4 sm:pt-3">
+      <form
+        onSubmit={handleSubmit}
+        className="hj-offer-glow hj-offer-drop pointer-events-auto mx-auto flex max-w-3xl items-center gap-2 rounded-xl border border-brand-yellow/60 bg-white p-1.5 sm:p-2"
+      >
         <AddressInput
           id="sticky_address"
           name="address"
           placeholder="Enter your property address"
           containerClassName="min-w-0 flex-1"
-          className="w-full rounded-md border border-white/20 bg-white/10 px-3 py-2 text-sm text-white placeholder-white/50 focus:bg-white focus:text-brand-black"
+          className="w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-brand-black placeholder-gray-400 focus:border-brand-yellow-dark focus:outline-none sm:py-2.5 sm:text-base"
           onChange={setAddress}
         />
         <button
           type="submit"
-          className="whitespace-nowrap rounded-md bg-brand-yellow px-4 py-2 text-sm font-bold text-black hover:bg-brand-yellow-dark"
+          className="whitespace-nowrap rounded-lg bg-brand-yellow px-4 py-2 text-sm font-bold text-black transition-colors hover:bg-brand-yellow-dark sm:px-6 sm:py-2.5 sm:text-base"
         >
           Get My Offer
         </button>

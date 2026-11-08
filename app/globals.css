@@ -12,3 +12,37 @@ html {
     font-family: var(--font-display);
   }
 }
+
+/* Sticky offer bar: slow yellow pulse + slide-in (Dominic, 2026-11-07). */
+@keyframes hj-offer-glow {
+  0%,
+  100% {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18), 0 0 0 0 rgba(245, 197, 24, 0.55);
+  }
+  50% {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18), 0 0 0 7px rgba(245, 197, 24, 0);
+  }
+}
+@keyframes hj-offer-drop {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.hj-offer-glow {
+  animation: hj-offer-glow 2.4s ease-in-out infinite;
+}
+.hj-offer-drop {
+  animation: hj-offer-drop 0.3s ease-out, hj-offer-glow 2.4s ease-in-out 0.3s infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hj-offer-glow,
+  .hj-offer-drop {
+    animation: none;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18), 0 0 0 3px rgba(245, 197, 24, 0.45);
+  }
+}
