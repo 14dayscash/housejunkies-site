@@ -36,9 +36,10 @@ some of it is out of date (it says 10 city pages).
 - Repo: github.com/14dayscash/housejunkies-site. **A push to `main` is a production
   deploy.** There is no staging. Vercel keeps the old site live if a build fails.
 - Before pushing: `git pull --rebase` first (Dominic and other sessions also push),
-  then `npx tsc --noEmit`. Only run a full `next build` for structural changes
-  (new routes, new components). Dominic has asked not to burn usage on full
-  builds for copy changes.
+  then `npx tsc --noEmit`. **Do NOT run `next build` or take screenshots to check
+  changes (Dominic, 2026-11-06): he checks the live site himself.** Push after the
+  type check passes, and only build or screenshot if something can't be judged any
+  other way (and say why first).
 - Full build in a sandbox: Google Fonts and Supabase are unreachable, so mock them:
   `NEXT_FONT_GOOGLE_MOCKED_RESPONSES=<mock.js> NEXT_PUBLIC_SUPABASE_URL=https://example.supabase.co NEXT_PUBLIC_SUPABASE_ANON_KEY=x SUPABASE_SERVICE_ROLE_KEY=x npx next build`
   where mock.js exports a Proxy returning a dummy `@font-face` CSS string.
@@ -222,7 +223,32 @@ WE ARE TRYING TO TAKE OVER, one street and one site at a time.**
 
 ## 9. Recent decisions (newest first, keep this updated)
 
-- 2026-11-06: Blog page upgraded on branch `blog-batch-1`: `components/BlogBody.tsx`
+- 2026-11-07: Homepage revamp finished (order: Header, Hero, Stats bar, How It Works,
+  Situations, Cities by county, Google review slider, Recent Purchases snapshot,
+  Cash vs Listing comparison (#compare), One Call One Team (vertical integration),
+  soft CTA with Visit in Person, 8-question FAQ dropdown (#faq), site map button,
+  Footer). Desktop header: once the sticky offer shows, the glowing offer form
+  REPLACES the nav links (logo left, phone right). Phones: floating card under the
+  header. **Standing rule (Dominic): the homepage carries the internal linking, and
+  homepage buttons keep the visitor on the homepage (jump to #compare, #faq, etc.)
+  unless the link is clearly to a specific page (projects, FAQ page, about, team).**
+- 2026-11-06: Homepage header + hero overhaul (Dominic's mockup, modeled on Home
+  Helpers / Dean Rogers). Header: original small logo + "House Junkies" wordmark
+  (Dominic preferred it over the full logo), About/FAQ/Reviews/Projects/Blog/Partner/
+  Contact centered, yellow phone pill. The We Buy Houses and Situations dropdowns
+  were removed from the desktop nav at his request (mobile menu and footer keep
+  them). Hero: office photo background (desktop uses a tighter crop,
+  `hero-office-desktop.jpg`, so the House Junkies sign shows), 50% black overlay,
+  Abel cutout left with name block ("CEO & Owner" is Dominic's wording), white
+  card right with the H1 "Sell Your Home Fast in the Central Valley!", "Get Your
+  FREE Offer in Less Than 24 Hours", address + Get My Offer, 3 checkmarks, Google
+  + BBB badges. Hero is one screen tall on desktop (fits 1365x600 with no scroll).
+  Do not change colors or fonts from his mockups.
+- 2026-11-06: Blog: FAQ is a native dropdown (details/summary), post hero image is
+  small inside the black header with a thin white border, hero images are free
+  Unsplash stock. Vercel preview deploys fail on this project (production is
+  fine); judge deploys by the Production deployment status, not the commit status.
+- 2026-11-06: Blog page upgraded live on main; drafts wait on branch `blog-drafts`: `components/BlogBody.tsx`
   renderer, BlogPosting + Breadcrumb schema on every post, FAQPage schema, byline
   links to team page, per-file posts in `lib/posts/`. Old 3 posts render unchanged.
 - 2026-11-06: Built BLOG_BRAIN.md from all 13 posts and BLOG_GAP_LIST.md (about 115
