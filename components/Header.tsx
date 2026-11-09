@@ -25,15 +25,15 @@ export function Header({
   return (
     <header className="border-b border-white/10 bg-black">
       <div className="mx-auto flex h-[68px] max-w-7xl items-center justify-between px-4 md:px-8 lg:h-[76px] lg:px-12">
-        <Link href="/" className="flex shrink-0 items-center gap-3">
+        <Link href="/" className="flex shrink-0 items-center gap-2 sm:gap-3">
           <Image
             src="/images/logo-white.png"
             alt={site.name}
             width={44}
             height={44}
-            className="h-11 w-11 object-contain"
+            className="h-9 w-9 object-contain sm:h-11 sm:w-11"
           />
-          <span className="text-lg font-bold tracking-tight text-white">
+          <span className="text-base font-bold tracking-tight text-white max-[359px]:hidden sm:text-lg">
             {site.name}
           </span>
         </Link>
@@ -64,12 +64,12 @@ export function Header({
           ))}
         </nav>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1 sm:gap-2">
           <a
             href={`tel:${site.phoneE164}`}
-            className="hidden items-center gap-2 rounded-lg bg-brand-yellow px-5 py-3 text-[15px] font-bold text-black transition-colors hover:bg-brand-yellow-dark sm:flex"
+            className="flex items-center gap-1.5 whitespace-nowrap rounded-lg bg-brand-yellow px-2.5 py-2 text-[13px] font-bold text-black transition-colors hover:bg-brand-yellow-dark sm:gap-2 sm:px-5 sm:py-3 sm:text-[15px]"
           >
-            <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4 shrink-0 sm:h-[18px] sm:w-[18px]">
               <path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.6a1 1 0 0 1-.25 1z" />
             </svg>
             {site.phone}
