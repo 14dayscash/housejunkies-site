@@ -1,6 +1,16 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { site } from "@/lib/site";
+import {
+  CompareMini,
+  PageHero,
+  ReviewsSection,
+  Section,
+  SituationGrid,
+  btnYellow,
+  cardCls,
+  linkCls,
+} from "@/components/sections/Shared";
 
 export const metadata: Metadata = {
   title: `How It Works`,
@@ -17,32 +27,41 @@ const steps = [
 
 export default function HowItWorksPage() {
   return (
-    <div className="mx-auto max-w-3xl px-4 py-12">
-      <h1 className="text-3xl font-bold">How It Works</h1>
-      <ol className="mt-8 space-y-8">
-        {steps.map((s, i) => (
-          <li key={s.title} className="flex gap-4">
-            <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-brand-yellow font-bold text-black">
-              {i + 1}
-            </div>
-            <div>
-              <div className="font-semibold">{s.title}</div>
-              <p className="mt-1 text-gray-600">{s.body}</p>
-            </div>
-          </li>
-        ))}
-      </ol>
-      <div className="mt-10 flex flex-wrap gap-x-6 gap-y-2 border-t border-gray-100 pt-6 text-sm">
-        <Link href="/how-we-calculate-your-offer" className="font-semibold text-brand-yellow-dark hover:underline">
-          How we calculate your offer →
-        </Link>
-        <Link href="/compare" className="font-semibold text-brand-yellow-dark hover:underline">
-          Cash offer vs. listing →
-        </Link>
-        <Link href="/faq" className="font-semibold text-brand-yellow-dark hover:underline">
-          Read our FAQ →
-        </Link>
-      </div>
+    <div>
+      <PageHero
+        eyebrow="Simple. Fast. Fair."
+        title="How It Works"
+        sub={<>Four steps from your first call to cash in hand.<br className="hidden sm:block" /> No repairs, no fees, no obligation.</>}
+      />
+
+      <Section>
+        <ol className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {steps.map((s, i) => (
+            <li key={s.title} className={cardCls}>
+              <span className="flex h-10 w-10 items-center justify-center rounded-full bg-brand-yellow font-bold text-black">{i + 1}</span>
+              <h2 className="mt-4 text-lg font-bold text-brand-black">{s.title}</h2>
+              <p className="mt-2 text-sm leading-relaxed text-gray-600">{s.body}</p>
+            </li>
+          ))}
+        </ol>
+        <div className="mt-10 text-center">
+          <Link href="/get-offer" className={btnYellow}>
+            Start the Process <span aria-hidden="true">→</span>
+          </Link>
+          <p className="mt-3 text-sm text-gray-500">
+            Or call <a href={`tel:${site.phoneE164}`} className={linkCls}>{site.phone}</a>
+          </p>
+        </div>
+        <div className="mt-10 flex flex-wrap justify-center gap-x-6 gap-y-2 border-t border-gray-100 pt-6 text-sm">
+          <Link href="/how-we-calculate-your-offer" className={linkCls}>How We Calculate Your Offer →</Link>
+          <Link href="/compare" className={linkCls}>Cash Offer vs. Listing →</Link>
+          <Link href="/faq" className={linkCls}>Read Our FAQ →</Link>
+        </div>
+      </Section>
+
+      <SituationGrid />
+      <CompareMini />
+      <ReviewsSection gray={false} />
     </div>
   );
 }

@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { BuyerInquiryForm } from "@/components/BuyerInquiryForm";
-import { BreadcrumbJsonLd, FaqJsonLd } from "@/components/JsonLd";
+import { BreadcrumbJsonLd } from "@/components/JsonLd";
+import { FaqList, PageHero, ReviewsSection, Section, SectionHeader, cardCls, linkCls } from "@/components/sections/Shared";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -69,54 +70,56 @@ export default function ConstructionPage() {
   return (
     <div>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }} />
-      <FaqJsonLd items={constructionFaqs} />
       <BreadcrumbJsonLd
         items={[
           { name: "Home", url: site.url },
           { name: "Construction", url: `${site.url}/construction` },
         ]}
       />
-      <section className="bg-brand-black text-white">
-        <div className="mx-auto max-w-6xl px-4 py-14">
-          <p className="text-sm font-semibold uppercase tracking-wide text-brand-yellow">{site.licenses.generalContractor}</p>
-          <h1 className="mt-1 text-3xl font-bold md:text-4xl">Construction &amp; Remodeling in Visalia, CA</h1>
-          <p className="mt-4 max-w-2xl text-white/70">
+      <PageHero
+        eyebrow={site.licenses.generalContractor}
+        title={<>Construction &amp; Remodeling<br className="hidden sm:block" /> in Visalia, CA</>}
+        sub={
+          <>
             House Junkies Construction is the licensed general contractor in our group. The same crew that
             renovates the houses we buy and resell also takes on remodeling and construction projects in
             Visalia and Tulare County.
-          </p>
+          </>
+        }
+      />
+
+      <Section>
+        <SectionHeader eyebrow="Services" title="What We Build and Remodel" />
+        <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {services.map((s) => (
+            <div key={s.name} className={cardCls}>
+              <h3 className="font-bold text-brand-black">{s.name}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-gray-600">{s.body}</p>
+            </div>
+          ))}
         </div>
-      </section>
+      </Section>
 
-      <section className="mx-auto grid max-w-6xl gap-10 px-4 py-12 md:grid-cols-3">
-        <div className="md:col-span-2">
-          <h2 className="text-xl font-bold text-brand-black">What We Build and Remodel</h2>
-          <div className="mt-4 grid gap-4 sm:grid-cols-2">
-            {services.map((s) => (
-              <div key={s.name} className="rounded-lg border border-gray-200 p-4">
-                <h3 className="font-semibold text-brand-black">{s.name}</h3>
-                <p className="mt-1 text-sm text-gray-600">{s.body}</p>
-              </div>
-            ))}
-          </div>
-
-          <h2 className="mt-10 text-xl font-bold text-brand-black">A Contractor That Renovates for a Living</h2>
-          <p className="mt-3 text-gray-600">
+      <section className="bg-gray-50">
+      <div className="mx-auto grid max-w-6xl gap-10 px-4 py-14 md:py-20 lg:grid-cols-5">
+        <div className="lg:col-span-3">
+          <h2 className="text-2xl font-bold text-brand-black">A Contractor That Renovates for a Living</h2>
+          <p className="mt-4 leading-relaxed text-gray-600">
             Most contractors do a handful of projects a year. Our crew renovates houses constantly, because
             we buy, renovate, and resell {site.stats.homesBought} homes. That means we price work from real
             numbers, know what finishes hold up in Central Valley rentals and resale, and keep projects
             moving. Dominic McClelland, COO of House Junkies Construction, runs day-to-day operations.
           </p>
 
-          <h2 className="mt-10 text-xl font-bold text-brand-black">Licensed in California</h2>
-          <p className="mt-3 text-gray-600">
+          <h2 className="mt-12 text-2xl font-bold text-brand-black">Licensed in California</h2>
+          <p className="mt-4 leading-relaxed text-gray-600">
             House Junkies Construction operates under {site.licenses.generalContractor}. You can verify any
             California contractor license on the Contractors State License Board website. We are part of
             the same group as {site.name} and {site.legacyRealEstate.name}, based in Visalia.
           </p>
 
-          <h2 className="mt-10 text-xl font-bold text-brand-black">ADUs: Pre-Approved Plans or a Custom Build</h2>
-          <p className="mt-3 text-gray-600">
+          <h2 className="mt-12 text-2xl font-bold text-brand-black">ADUs: Pre-Approved Plans or a Custom Build</h2>
+          <p className="mt-4 leading-relaxed text-gray-600">
             An ADU (accessory dwelling unit) is a second small home on the same lot, like a backyard
             unit or a garage conversion. It can add rental income or give family a place to live
             close by. House Junkies Construction offers two ways to do it: pre-approved ADU plans that
@@ -125,49 +128,63 @@ export default function ConstructionPage() {
             are not hiring an architect, an engineer, and a builder separately.
           </p>
 
-          <h2 className="mt-10 text-xl font-bold text-brand-black">Counties We Build In</h2>
-          <p className="mt-3 text-gray-600">
+          <h2 className="mt-12 text-2xl font-bold text-brand-black">Counties We Build In</h2>
+          <p className="mt-4 leading-relaxed text-gray-600">
             Our office is at {site.entityAddresses.construction}, and we take outside construction and ADU
             clients across Tulare, Kings, Kern, and Fresno counties. Many of our projects are in and
             around Visalia. See our pages for{" "}
-            <Link href="/we-buy-houses/visalia" className="font-semibold text-brand-yellow-dark hover:underline">Visalia</Link>,{" "}
-            <Link href="/counties/tulare-county" className="font-semibold text-brand-yellow-dark hover:underline">Tulare County</Link>,{" "}
-            <Link href="/counties/kings-county" className="font-semibold text-brand-yellow-dark hover:underline">Kings County</Link>,{" "}
-            <Link href="/counties/kern-county" className="font-semibold text-brand-yellow-dark hover:underline">Kern County</Link>, and{" "}
-            <Link href="/counties/fresno-county" className="font-semibold text-brand-yellow-dark hover:underline">Fresno County</Link>.
+            <Link href="/we-buy-houses/visalia" className={linkCls}>Visalia</Link>,{" "}
+            <Link href="/counties/tulare-county" className={linkCls}>Tulare County</Link>,{" "}
+            <Link href="/counties/kings-county" className={linkCls}>Kings County</Link>,{" "}
+            <Link href="/counties/kern-county" className={linkCls}>Kern County</Link>, and{" "}
+            <Link href="/counties/fresno-county" className={linkCls}>Fresno County</Link>.
           </p>
 
-          <h2 className="mt-10 text-xl font-bold text-brand-black">Who Runs Your Project</h2>
-          <p className="mt-3 text-gray-600">
-            <Link href="/team/omar-ayon" className="font-semibold text-brand-yellow-dark hover:underline">Omar Ayon</Link>, Project
+          <h2 className="mt-12 text-2xl font-bold text-brand-black">Who Runs Your Project</h2>
+          <p className="mt-4 leading-relaxed text-gray-600">
+            <Link href="/team/omar-ayon" className={linkCls}>Omar Ayon</Link>, Project
             Manager, runs every renovation and ADU project for House Junkies Construction.{" "}
-            <Link href="/team/dominic-mcclelland" className="font-semibold text-brand-yellow-dark hover:underline">Dominic McClelland</Link>,
+            <Link href="/team/dominic-mcclelland" className={linkCls}>Dominic McClelland</Link>,
             COO, runs day-to-day operations. House Junkies Construction is part of {site.parentOrganization},
             along with {site.name} and {site.legacyRealEstate.name}. You can reach us at{" "}
-            <a href={`tel:${site.phoneE164}`} className="font-semibold text-brand-yellow-dark hover:underline">{site.phone}</a>.
+            <a href={`tel:${site.phoneE164}`} className={linkCls}>{site.phone}</a>.
           </p>
-
-          <h2 className="mt-10 text-xl font-bold text-brand-black">Construction Questions</h2>
-          <dl className="mt-4 space-y-5">
-            {constructionFaqs.map((f) => (
-              <div key={f.question}>
-                <dt className="font-semibold text-brand-black">{f.question}</dt>
-                <dd className="mt-1 text-gray-600">{f.answer}</dd>
-              </div>
-            ))}
-          </dl>
 
           <p className="mt-8 text-sm text-gray-500">
             Looking to sell a house that needs work instead of fixing it?{" "}
-            <Link href="/sell-your-house/as-is" className="font-semibold text-brand-yellow-dark hover:underline">We buy houses as-is</Link>.
+            <Link href="/sell-your-house/as-is" className={linkCls}>We buy houses as-is</Link>.
             Need land to build on?{" "}
-            <Link href="/buy/vacant-land" className="font-semibold text-brand-yellow-dark hover:underline">See land for sale</Link>.
+            <Link href="/buy/vacant-land" className={linkCls}>See land for sale</Link>.
           </p>
         </div>
-        <div>
-          <BuyerInquiryForm topic="Construction / remodeling estimate" placeholder="What project do you have in mind?" />
+        <div className="lg:col-span-2">
+          <OfferCardConstruction />
         </div>
+      </div>
       </section>
+
+      <Section id="faq" narrow>
+        <SectionHeader eyebrow="FAQ" title="Construction Questions" />
+        <div className="mt-10">
+          <FaqList items={constructionFaqs} />
+        </div>
+      </Section>
+
+      <ReviewsSection />
+    </div>
+  );
+}
+
+function OfferCardConstruction() {
+  return (
+    <div className="lg:sticky lg:top-24">
+      <div className="rounded-t-lg bg-brand-black px-6 pb-4 pt-5 text-center text-white">
+        <p className="text-xl font-bold">Get a Free Estimate</p>
+        <p className="mt-1 text-sm text-white/70">Tell us what you want done and where.</p>
+      </div>
+      <div className="[&>form]:rounded-t-none">
+        <BuyerInquiryForm topic="Construction / remodeling estimate" placeholder="What project do you have in mind?" />
+      </div>
     </div>
   );
 }

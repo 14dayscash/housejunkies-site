@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { site } from "@/lib/site";
 import { ReviewJsonLd } from "@/components/JsonLd";
-import { googleReviews, GBP_URL } from "@/lib/reviews";
+import { googleReviews } from "@/lib/reviews";
+import { CompareMini, PageHero, btnYellow, linkCls } from "@/components/sections/Shared";
 
 export const metadata: Metadata = {
   title: `Reviews`,
@@ -41,28 +42,32 @@ export default function ReviewsPage() {
         reviewCount={googleReviews.length}
         reviews={reviewsWithText}
       />
-      <section className="bg-brand-black text-white">
-        <div className="mx-auto max-w-4xl px-4 py-14 text-center">
-          <h1 className="text-3xl font-bold md:text-4xl">Reviews</h1>
-          <div className="mt-4 flex items-center justify-center gap-3">
-            <span className="text-4xl font-bold text-brand-yellow">{avg.toFixed(1)}</span>
-            <div className="text-left">
-              <Stars count={Math.round(avg)} />
-              <p className="text-sm text-white/60">{googleReviews.length} Google reviews</p>
-            </div>
+      <PageHero
+        eyebrow="Google Reviews"
+        title="Reviews"
+        sub={
+          <>
+            Pulled directly from our Google Business Profile at {site.address.street}.
+            <br className="hidden sm:block" /> Real reviews only, and we keep this page current with new ones weekly.
+          </>
+        }
+      >
+        <div className="mt-6 flex items-center justify-center gap-3">
+          <span className="text-4xl font-bold text-brand-yellow">{avg.toFixed(1)}</span>
+          <div className="text-left">
+            <Stars count={Math.round(avg)} />
+            <p className="text-sm text-white/60">{googleReviews.length} Google reviews</p>
           </div>
-          <p className="mx-auto mt-4 max-w-md text-sm text-white/50">
-            Pulled directly from our Google Business Profile at {site.address.street}. We're
-            early in building this out, real reviews only, and we'll keep this page current with
-            new ones weekly.
-          </p>
         </div>
-      </section>
+        <a href="https://share.google/ECflKJ4L9kjEdvdAI" target="_blank" rel="noopener noreferrer" className="mt-5 inline-block text-sm font-semibold text-brand-yellow hover:underline">
+          See Our Google Reviews →
+        </a>
+      </PageHero>
 
-      <section className="mx-auto max-w-3xl px-4 py-14">
-        <div className="grid gap-5 sm:grid-cols-2">
+      <section className="mx-auto max-w-5xl px-4 py-14 md:py-20">
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {googleReviews.map((r) => (
-            <div key={r.name} className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+            <div key={r.name} className="rounded-xl border border-gray-200 border-t-4 border-t-brand-yellow bg-white p-6 shadow-sm">
               <div className="flex items-center gap-3">
                 <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full bg-brand-black text-sm font-bold text-brand-yellow">
                   {initials(r.name)}
@@ -83,19 +88,19 @@ export default function ReviewsPage() {
           ))}
         </div>
 
-        <div className="mt-12 rounded-xl bg-gray-50 p-8 text-center">
-          <p className="text-lg font-semibold text-brand-black">Worked with us before?</p>
+        <div className="mx-auto mt-14 max-w-3xl rounded-2xl border border-gray-200 bg-gray-50 p-8 text-center">
+          <h2 className="text-2xl font-bold text-brand-black">Worked With Us Before?</h2>
           <p className="mt-1 text-gray-600">
             A quick review helps other Visalia homeowners find us.
           </p>
           <div className="mt-5 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <a
-              href={GBP_URL}
+              href="https://g.page/r/CYTb_JJYuE9AEBM/review"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block rounded-md bg-brand-yellow px-6 py-3 font-bold text-black hover:bg-brand-yellow-dark"
+              className={btnYellow}
             >
-              Leave a Google Review
+              Leave a Google Review →
             </a>
             <a
               href="https://www.bbb.org/pacific-southwest/customer-reviews/real-estate-investing/house-junkies-inc-in-visalia-ca-850058147/add/"
@@ -110,15 +115,17 @@ export default function ReviewsPage() {
             </a>
           </div>
           <div className="mt-4 flex justify-center gap-6 text-sm">
-            <Link href="/projects" className="font-semibold text-brand-yellow-dark hover:underline">
-              See our projects →
+            <Link href="/projects" className={linkCls}>
+              See Our Projects →
             </Link>
-            <Link href="/team" className="font-semibold text-brand-yellow-dark hover:underline">
-              Meet the team →
+            <Link href="/team" className={linkCls}>
+              Meet the Team →
             </Link>
           </div>
         </div>
       </section>
+
+      <CompareMini />
     </div>
   );
 }
