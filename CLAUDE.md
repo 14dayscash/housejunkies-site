@@ -223,6 +223,9 @@ WE ARE TRYING TO TAKE OVER, one street and one site at a time.**
 
 ## 9. Recent decisions (newest first, keep this updated)
 
+- 2026-11-08 (night): Homepage order changed by Dominic to: Header, Hero, Stats bar,
+  How It Works, Cash vs Listing (#compare), Situations, Reviews, soft CTA, Cities,
+  Recent Purchases, One Call One Team, FAQ (#faq), Explore, Footer.
 - 2026-11-08 (later): Every remaining page moved to the new look in one push:
   city (63), city + situation (90), situation (13), county (10), contact,
   how-it-works, partners/agents, construction, reviews, projects/[slug],

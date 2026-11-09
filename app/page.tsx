@@ -246,7 +246,51 @@ export default function HomePage() {
         </div>
       </section>
 
+      <CompareMini id="compare" gray={false} />
+
       <SituationGrid />
+
+      <ReviewsSection />
+
+      {/* Soft final CTA (2026-11-07): one plain-spoken push, dark like the hero. */}
+      <section className="bg-brand-black text-white">
+        <div className="mx-auto max-w-3xl px-4 py-14 text-center md:py-20">
+          <p className="text-xs font-bold uppercase tracking-widest text-brand-yellow">No Pressure, No Obligation</p>
+          <h2 className="mt-2 text-3xl font-bold md:text-4xl">Not Sure Yet? Get the Numbers First.</h2>
+          <p className="mt-4 leading-relaxed text-white/75">
+            Tell us about the house and what is going on, even if it needs work or is still full of stuff. We will
+            look at it with you, show you how we got to our number, and send a written cash offer within 24 hours.
+            If listing it would put more money in your pocket, we tell you that!
+          </p>
+          <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+            <Link
+              href="/get-offer"
+              className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-brand-yellow px-6 py-3 font-bold text-black transition-colors hover:bg-brand-yellow-dark sm:w-auto"
+            >
+              Get My Cash Offer <span aria-hidden="true">→</span>
+            </Link>
+            <a
+              href={`tel:${site.phoneE164}`}
+              className="inline-flex w-full items-center justify-center gap-2 rounded-lg border-2 border-white/80 px-6 py-2.5 font-bold text-white transition-colors hover:bg-white hover:text-black sm:w-auto"
+            >
+              Call or Text {site.phone}
+            </a>
+          </div>
+          <div className="mx-auto mt-10 max-w-sm border-t border-white/15 pt-6 text-sm">
+            <p className="text-xs font-bold uppercase tracking-widest text-brand-yellow">Visit in Person</p>
+            <a
+              href="https://www.google.com/maps/search/?api=1&query=801+West+Main+Street+Visalia+CA+93291"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-2 inline-block font-semibold text-white underline decoration-white/40 underline-offset-2 hover:text-brand-yellow"
+            >
+              801 West Main Street, Visalia CA 93291
+            </a>
+            <p className="mt-1 text-white/70">Monday - Friday | 8AM to 5PM</p>
+            <p className="mt-1 font-semibold text-white/90">¡Se habla español!</p>
+          </div>
+        </div>
+      </section>
 
       {/* Service areas (2026-11-07 revamp): one block per county with a free
           Unsplash stock photo (alt text describes the photo, it does not claim
@@ -270,8 +314,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <ReviewsSection />
-
+      <div className="bg-gray-50">
       {/* Recent purchases snapshot (2026-11-07): three hand-picked real
           purchases from lib/properties.ts, not the full projects preview. */}
       <section className="mx-auto max-w-6xl px-4 py-14 md:py-20">
@@ -330,8 +373,7 @@ export default function HomePage() {
           </Link>
         </div>
       </section>
-
-      <CompareMini id="compare" />
+      </div>
 
       {/* Vertical integration (2026-11-07 rewrite): what one company with three
           teams means for the seller. Buy, fix, then list and sell after we buy. */}
@@ -441,49 +483,10 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Soft final CTA (2026-11-07): one plain-spoken push, dark like the hero. */}
-      <section className="bg-brand-black text-white">
-        <div className="mx-auto max-w-3xl px-4 py-14 text-center md:py-20">
-          <p className="text-xs font-bold uppercase tracking-widest text-brand-yellow">No Pressure, No Obligation</p>
-          <h2 className="mt-2 text-3xl font-bold md:text-4xl">Not Sure Yet? Get the Numbers First.</h2>
-          <p className="mt-4 leading-relaxed text-white/75">
-            Tell us about the house and what is going on, even if it needs work or is still full of stuff. We will
-            look at it with you, show you how we got to our number, and send a written cash offer within 24 hours.
-            If listing it would put more money in your pocket, we tell you that!
-          </p>
-          <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <Link
-              href="/get-offer"
-              className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-brand-yellow px-6 py-3 font-bold text-black transition-colors hover:bg-brand-yellow-dark sm:w-auto"
-            >
-              Get My Cash Offer <span aria-hidden="true">→</span>
-            </Link>
-            <a
-              href={`tel:${site.phoneE164}`}
-              className="inline-flex w-full items-center justify-center gap-2 rounded-lg border-2 border-white/80 px-6 py-2.5 font-bold text-white transition-colors hover:bg-white hover:text-black sm:w-auto"
-            >
-              Call or Text {site.phone}
-            </a>
-          </div>
-          <div className="mx-auto mt-10 max-w-sm border-t border-white/15 pt-6 text-sm">
-            <p className="text-xs font-bold uppercase tracking-widest text-brand-yellow">Visit in Person</p>
-            <a
-              href="https://www.google.com/maps/search/?api=1&query=801+West+Main+Street+Visalia+CA+93291"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-2 inline-block font-semibold text-white underline decoration-white/40 underline-offset-2 hover:text-brand-yellow"
-            >
-              801 West Main Street, Visalia CA 93291
-            </a>
-            <p className="mt-1 text-white/70">Monday - Friday | 8AM to 5PM</p>
-            <p className="mt-1 font-semibold text-white/90">¡Se habla español!</p>
-          </div>
-        </div>
-      </section>
-
       {/* Homepage FAQ (2026-11-07): 8 picks from /faq plus one new one, as
           native dropdowns with FAQPage schema. Full list lives on /faq. */}
       <FaqJsonLd items={homeFaqs} />
+      <div className="bg-gray-50">
       <section id="faq" className="scroll-mt-24 mx-auto max-w-3xl px-4 py-14 md:py-20">
         <div className="text-center">
           <p className="text-xs font-bold uppercase tracking-widest text-brand-yellow-dark">FAQ</p>
@@ -515,9 +518,10 @@ export default function HomePage() {
           </Link>
         </div>
       </section>
+      </div>
 
       {/* Explore the Site - the only link to /explore lives here, on purpose */}
-      <section className="bg-gray-50">
+      <section className="border-t border-gray-200">
         <div className="mx-auto max-w-6xl px-4 py-10 text-center">
           <Link
             href="/explore"
