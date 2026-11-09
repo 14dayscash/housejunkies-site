@@ -1,43 +1,20 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { SituationIcon } from "@/components/SituationIcon";
 import { HeroOfferForm } from "@/components/HeroOfferForm";
 import { site } from "@/lib/site";
-import { cities } from "@/lib/cities";
-import { situations } from "@/lib/situations";
-import { counties, citiesInCounty } from "@/lib/counties";
 import { FaqJsonLd } from "@/components/JsonLd";
-import { ReviewSlider } from "@/components/ReviewSlider";
+import { SituationGrid, ReviewsSection, CompareMini, CountyGrid } from "@/components/sections/Shared";
 import { SpecLine, StatusBadge } from "@/components/PropertyCard";
 import { properties, money } from "@/lib/properties";
-import { googleReviews } from "@/lib/reviews";
 
-// Homepage review slider: Dominic's five picks, in his order.
-const homeReviews = ["J N", "Corey Loewen", "Eli Stephens", "Hannah Pendleton", "Michael"]
-  .map((n) => googleReviews.find((r) => r.name === n))
-  .filter((r): r is { name: string; rating: number; text: string } => !!r && !!r.text);
 
 // Homepage purchase snapshot: Dominic's three picks.
 const homePurchases = ["19667-avenue-195-strathmore", "40074-road-56-dinuba", "215-s-crumal-st-visalia"]
   .map((slug) => properties.find((p) => p.slug === slug))
   .filter((p): p is (typeof properties)[number] => !!p);
 
-// Cash offer vs listing points for the homepage comparison (our copy).
-const compareUs: [string, string][] = [
-  ["Sell It As-Is", "No repairs, no cleaning, no property clean-out. Leave the house exactly how it is, and leave behind anything you do not want."],
-  ["No Commissions or Fees", "There is no agent to pay and nothing comes out of your check for us. The number on the offer is the number you get."],
-  ["We Pay the Closing Costs", "Escrow, title, and closing costs are on us, so there are no surprises at the closing table."],
-  ["A Cash Offer That Holds", "We close with our own capital, so there is no buyer's loan to fall through and no lender appraisal to blow up the deal."],
-  ["You Pick the Closing Date", "Most deals close in 14 days, as fast as 7 if you need to, or later if you need time to move."],
-];
-const compareListing: [string, string][] = [
-  ["Repairs and Prep First", "Buyers and their inspectors expect a house that is ready to go. Fixes, cleaning, and staging usually come out of your pocket."],
-  ["Commissions Come Out of Your Sale", "Agent commissions usually run 5-6% of the sale price, plus marketing and other costs."],
-  ["Seller Closing Costs", "Title, escrow, transfer tax, and any repair credits the buyer asks for after inspection get paid out of your proceeds."],
-  ["Deals Can Fall Through", "Most buyers need a loan. If their financing or the appraisal falls short, you can end up back on the market when you need to move."],
-  ["Longer, Less Certain Timeline", "Showings, offers, inspections, and loan approval often take 60 to 90 days or more, with open houses along the way."],
-];
+
 
 // Homepage FAQ picks (answers kept in line with the current standing facts:
 // 14 days standard, as fast as 7, written offer within 24 hours).
@@ -84,20 +61,6 @@ const homeFaqs = [
   },
 ];
 
-// Free Unsplash stock photos for the county blocks, taken in or near one of
-// each county's top cities where Unsplash had one (Dominic, 2026-11-07).
-const countyPhotos: Record<string, { src: string; alt: string }> = {
-  "tulare-county": { src: "https://images.unsplash.com/photo-1753635555129-3529087a7da2?fm=jpg&q=70&w=1200&auto=format&fit=crop", alt: "The Darling Hotel in downtown Visalia against a bright blue sky" },
-  "fresno-county": { src: "https://images.unsplash.com/photo-1648742022394-34575e15bcf7?fm=jpg&q=70&w=1200&auto=format&fit=crop", alt: "A building with a sign on the side of it" },
-  "kern-county": { src: "https://images.unsplash.com/photo-1610820438019-b2688a6d9308?fm=jpg&q=70&w=1200&auto=format&fit=crop", alt: "The Bakersfield sign" },
-  "kings-county": { src: "https://images.unsplash.com/photo-1647927082960-025da25544ba?fm=jpg&q=70&w=1200&auto=format&fit=crop", alt: "A tall building with a clock on the front" },
-  "madera-county": { src: "https://images.unsplash.com/photo-1681618314193-fb7379527a1b?fm=jpg&q=70&w=1200&auto=format&fit=crop", alt: "A red, white and blue barn in a field" },
-  "merced-county": { src: "https://images.unsplash.com/photo-1595800881132-9571d9aa9019?fm=jpg&q=70&w=1200&auto=format&fit=crop", alt: "A green grass field under a blue sky" },
-  "monterey-county": { src: "https://images.unsplash.com/photo-1757715628829-34cd468203b6?fm=jpg&q=70&w=1200&auto=format&fit=crop", alt: "A coastal town with buildings along the oceanfront" },
-  "san-luis-obispo-county": { src: "https://images.unsplash.com/photo-1642958707285-405685996700?fm=jpg&q=70&w=1200&auto=format&fit=crop", alt: "A dirt road going through a lush green valley" },
-  "inyo-county": { src: "https://images.unsplash.com/photo-1649042250663-4d8ad5551e02?fm=jpg&q=70&w=1200&auto=format&fit=crop", alt: "A mountain range in the distance" },
-  "san-benito-county": { src: "https://images.unsplash.com/photo-1639691000349-c3d2c4b503af?fm=jpg&q=70&w=1200&auto=format&fit=crop", alt: "A town with mountains behind it" },
-};
 
 // SEO TEST (started 2026-10-08): the homepage had 12 clicks / 429 impressions
 // at avg position 7.2 (Search Console). Previous title: "We Buy Houses in
@@ -279,62 +242,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Situations (2026-11-07 revamp): every situation as a card with an
-          icon and a short blurb from lib/situations.ts (homeCard), on a dark
-          photo background. Card copy lives in the data file, not here. */}
-      <section className="relative isolate overflow-hidden bg-black text-white">
-        <img
-          src="https://images.unsplash.com/photo-1758304480344-f8d0de5f4f25?fm=jpg&q=70&w=1920&auto=format&fit=crop"
-          alt=""
-          loading="lazy"
-          className="absolute inset-0 -z-20 h-full w-full object-cover"
-        />
-        <div className="absolute inset-0 -z-10 bg-gradient-to-b from-black/85 via-black/75 to-black/90" aria-hidden="true" />
-        <div className="mx-auto max-w-6xl px-4 py-14 md:py-20">
-          <div className="mx-auto max-w-3xl text-center">
-            <p className="text-xs font-bold uppercase tracking-widest text-brand-yellow">Any Situation. Any Condition.</p>
-            <h2 className="mt-2 text-3xl font-bold md:text-4xl">We Buy Central Valley Houses in Any Situation</h2>
-            <p className="mt-3 text-white/70">
-              Whatever the reason you need to sell, House Junkies can make you a fair cash offer on the house as it
-              sits. No repairs, no listing, no hidden fees.
-            </p>
-          </div>
-          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {situations.map((sit) => (
-              <Link
-                key={sit.slug}
-                href={`/sell-your-house/${sit.slug}`}
-                className="group flex gap-4 rounded-xl border border-white/10 bg-white/[0.06] p-5 backdrop-blur-sm transition-colors hover:border-brand-yellow/70 hover:bg-white/[0.1]"
-              >
-                <SituationIcon slug={sit.slug} className="h-9 w-9 shrink-0 text-brand-yellow" />
-                <div>
-                  <h3 className="text-lg font-bold">{sit.navLabel}</h3>
-                  <p className="mt-1 text-sm leading-relaxed text-white/70">{sit.homeCard}</p>
-                  <span className="mt-2 inline-block text-sm font-semibold text-brand-yellow group-hover:underline">
-                    Learn More →
-                  </span>
-                </div>
-              </Link>
-            ))}
-            <Link
-              href="/sell-your-house"
-              className="group flex gap-4 rounded-xl border border-brand-yellow/60 bg-brand-yellow/10 p-5 backdrop-blur-sm transition-colors hover:bg-brand-yellow/20 lg:col-span-2"
-            >
-              <SituationIcon slug="other" className="h-9 w-9 shrink-0 text-brand-yellow" />
-              <div>
-                <h3 className="text-lg font-bold">Something Else?</h3>
-                <p className="mt-1 text-sm leading-relaxed text-white/70">
-                  Bankruptcy, a bad neighborhood, a house you just want gone. If it is a house in the Central
-                  Valley, call us at {site.phone}. Every situation gets a real answer and a real offer.
-                </p>
-                <span className="mt-2 inline-block text-sm font-semibold text-brand-yellow group-hover:underline">
-                  See every situation we buy →
-                </span>
-              </div>
-            </Link>
-          </div>
-        </div>
-      </section>
+      <SituationGrid />
 
       {/* Service areas (2026-11-07 revamp): one block per county with a free
           Unsplash stock photo (alt text describes the photo, it does not claim
@@ -348,57 +256,8 @@ export default function HomePage() {
             From Visalia to Bakersfield and out to the coast, House Junkies buys houses across the Central Valley!
           </p>
         </div>
-        <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {counties
-            // Kept off the homepage (Dominic, 2026-11-07); their pages still exist.
-            .filter((c) => !["san-benito-county", "inyo-county", "monterey-county"].includes(c.slug))
-            .map((county) => {
-            const photo = countyPhotos[county.slug];
-            // Top 3: featured cities first, then by population.
-            const list = [...citiesInCounty(county.name)]
-              .sort(
-                (x, y) =>
-                  Number(!!y.featured) - Number(!!x.featured) ||
-                  Number(String(y.population).replace(/\D/g, "")) - Number(String(x.population).replace(/\D/g, "")),
-              )
-              .slice(0, 3);
-            const wide = county.slug === "tulare-county" || county.slug === "fresno-county";
-            return (
-              <div
-                key={county.slug}
-                className={`overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm ${wide ? "lg:col-span-2" : ""}`}
-              >
-                <Link href={`/counties/${county.slug}`} className="group relative block h-36 overflow-hidden bg-brand-black">
-                  {photo && (
-                    <img
-                      src={photo.src}
-                      alt={photo.alt}
-                      loading="lazy"
-                      className="h-full w-full object-cover opacity-80 transition-transform duration-300 group-hover:scale-105"
-                    />
-                  )}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" aria-hidden="true" />
-                  <div className="absolute bottom-3 left-4 right-4 flex items-end justify-between text-white">
-                    <h3 className="text-xl font-bold">{county.name}</h3>
-                    <span className="text-sm font-semibold text-brand-yellow group-hover:underline">
-                      View All Cities →
-                    </span>
-                  </div>
-                </Link>
-                <div className="flex flex-wrap gap-2 p-4">
-                  {list.map((c) => (
-                    <Link
-                      key={c.slug}
-                      href={`/we-buy-houses/${c.slug}`}
-                      className="rounded-full border border-gray-300 px-3 py-1 text-sm text-brand-black hover:border-brand-yellow-dark hover:text-brand-yellow-dark"
-                    >
-                      {c.name}
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            );
-          })}
+        <div className="mt-10">
+          <CountyGrid />
         </div>
         <div className="mt-8 text-center">
           <Link href="/we-buy-houses" className="text-sm font-semibold text-brand-yellow-dark hover:underline">
@@ -407,19 +266,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Google reviews slider (2026-11-07). Five real reviews, word for word
-          from lib/reviews.ts, picked by Dominic. */}
-      <section className="bg-gray-50">
-        <div className="mx-auto max-w-6xl px-4 py-14 md:py-20">
-          <div className="mx-auto max-w-2xl text-center">
-            <p className="text-xs font-bold uppercase tracking-widest text-brand-yellow-dark">Reviews</p>
-            <h2 className="mt-2 text-3xl font-bold text-brand-black md:text-4xl">What People Say About House Junkies</h2>
-          </div>
-          <div className="mt-10">
-            <ReviewSlider reviews={homeReviews} />
-          </div>
-        </div>
-      </section>
+      <ReviewsSection />
 
       {/* Recent purchases snapshot (2026-11-07): three hand-picked real
           purchases from lib/properties.ts, not the full projects preview. */}
@@ -480,77 +327,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Cash offer vs listing (2026-11-07 revamp): side by side on desktop,
-          stacked on phones, checks vs X marks. Copy is ours. The How It Works
-          "Compare to Listing" link jumps here (#compare); the full version with
-          real numbers lives on /compare. */}
-      <section id="compare" className="scroll-mt-24 bg-gray-50">
-        <div className="mx-auto max-w-6xl px-4 py-14 md:py-20">
-          <div className="mx-auto max-w-2xl text-center">
-            <p className="text-xs font-bold uppercase tracking-widest text-brand-yellow-dark">Cash Offer vs. Listing</p>
-            <h2 className="mt-2 text-3xl font-bold text-brand-black md:text-4xl">Why Sell to House Junkies Instead of a Market Listing</h2>
-            <p className="mt-3 text-gray-600">
-              Listing will get you top dollar with the right timing and a house that is market ready. For homes
-              that need work, here is how the options actually stack up.
-            </p>
-          </div>
-
-          <div className="mt-10 grid gap-6 md:grid-cols-2 md:items-stretch">
-            <div className="relative rounded-2xl border-2 border-brand-yellow bg-white p-6 shadow-[0_20px_40px_rgba(0,0,0,0.08)] md:p-8">
-              <span className="absolute -top-3 left-6 rounded-full bg-brand-yellow px-3 py-1 text-xs font-bold uppercase tracking-wider text-black">
-                Our Way
-              </span>
-              <h3 className="text-2xl font-bold text-brand-black">Selling to {site.name}</h3>
-              <ul className="mt-6 space-y-5">
-                {compareUs.map(([title, body]) => (
-                  <li key={title} className="flex gap-3">
-                    <span className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-brand-yellow">
-                      <svg aria-hidden="true" viewBox="0 0 20 20" className="h-4 w-4 text-black">
-                        <path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" />
-                      </svg>
-                    </span>
-                    <div>
-                      <p className="font-bold text-brand-black">{title}</p>
-                      <p className="mt-1 text-sm leading-relaxed text-gray-600">{body}</p>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-              <Link
-                href="/get-offer"
-                className="mt-8 flex w-full items-center justify-center gap-2 rounded-lg bg-brand-yellow px-5 py-3 font-bold text-black transition-colors hover:bg-brand-yellow-dark"
-              >
-                Get My Cash Offer <span aria-hidden="true">→</span>
-              </Link>
-            </div>
-
-            <div className="rounded-2xl border border-gray-200 bg-white p-6 md:p-8">
-              <h3 className="mt-0 text-2xl font-bold text-gray-500">Listing With an Agent</h3>
-              <ul className="mt-6 space-y-5">
-                {compareListing.map(([title, body]) => (
-                  <li key={title} className="flex gap-3">
-                    <span className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-brand-black">
-                      <svg aria-hidden="true" viewBox="0 0 20 20" className="h-3.5 w-3.5 text-white">
-                        <path d="M5.5 5.5l9 9M14.5 5.5l-9 9" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" />
-                      </svg>
-                    </span>
-                    <div>
-                      <p className="font-bold text-brand-black">{title}</p>
-                      <p className="mt-1 text-sm leading-relaxed text-gray-600">{body}</p>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-
-          <div className="mt-8 text-center">
-            <Link href="/compare" className="text-sm font-semibold text-brand-yellow-dark hover:underline">
-              See the Full Cash Offer vs. Listing Comparison →
-            </Link>
-          </div>
-        </div>
-      </section>
+      <CompareMini id="compare" />
 
       {/* Vertical integration (2026-11-07 rewrite): what one company with three
           teams means for the seller. Buy, fix, then list and sell after we buy. */}
