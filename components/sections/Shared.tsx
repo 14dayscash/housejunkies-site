@@ -69,16 +69,129 @@ export function PageHero({
 }
 
 // Google review slider section. Goes at the bottom of every major page.
-export function ReviewsSection({ gray = true }: { gray?: boolean }) {
+export function ReviewsSection({
+  gray = true,
+  title = "What People Say About House Junkies",
+  sub,
+  children,
+}: {
+  gray?: boolean;
+  title?: ReactNode;
+  sub?: ReactNode;
+  children?: ReactNode;
+}) {
   return (
     <section className={gray ? "bg-gray-50" : ""}>
       <div className="mx-auto max-w-6xl px-4 py-14 md:py-20">
-        <SectionHeader eyebrow="Reviews" title="What People Say About House Junkies" />
+        <SectionHeader eyebrow="Reviews" title={title} sub={sub} />
         <div className="mt-10">
           <ReviewSlider reviews={reviewPicks} />
         </div>
+        {children}
       </div>
     </section>
+  );
+}
+
+// Standard page section: alternating white / gray, same padding everywhere.
+export function Section({
+  id,
+  gray = false,
+  narrow = false,
+  border = false,
+  children,
+}: {
+  id?: string;
+  gray?: boolean;
+  narrow?: boolean;
+  border?: boolean; // thin top line when two same-color sections meet
+  children: ReactNode;
+}) {
+  return (
+    <section id={id} className={`scroll-mt-24 ${gray ? "bg-gray-50" : ""} ${border ? "border-t border-gray-200" : ""}`}>
+      <div className={`mx-auto px-4 py-14 md:py-20 ${narrow ? "max-w-3xl" : "max-w-6xl"}`}>{children}</div>
+    </section>
+  );
+}
+
+// Yellow-top white card.
+export const cardCls = "rounded-xl border border-gray-200 border-t-4 border-t-brand-yellow bg-white p-6 shadow-sm";
+
+// Centered pill links (cities, situations, combos).
+export function Pills({ items }: { items: { href: string; label: ReactNode }[] }) {
+  return (
+    <div className="flex flex-wrap justify-center gap-2.5">
+      {items.map((i) => (
+        <Link
+          key={i.href}
+          href={i.href}
+          className="rounded-full border border-gray-300 bg-white px-4 py-2 text-sm text-brand-black transition-colors hover:border-brand-yellow-dark hover:text-brand-yellow-dark"
+        >
+          {i.label}
+        </Link>
+      ))}
+    </div>
+  );
+}
+
+// Yellow check list (same check as the comparison cards).
+export function CheckList({ items, className = "" }: { items: ReactNode[]; className?: string }) {
+  return (
+    <ul className={`space-y-3 ${className}`}>
+      {items.map((t, i) => (
+        <li key={i} className="flex items-start gap-3 text-gray-700">
+          <Check />
+          <span className="pt-0.5">{t}</span>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+// Yellow dot fact list, two columns on desktop.
+export function FactList({ items, single = false }: { items: ReactNode[]; single?: boolean }) {
+  return (
+    <ul className={`grid gap-3 ${single ? "" : "sm:grid-cols-2"}`}>
+      {items.map((t, i) => (
+        <li key={i} className="flex gap-3 rounded-lg border border-gray-200 bg-white p-4 text-sm leading-relaxed text-gray-600 shadow-sm">
+          <span className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-brand-yellow" aria-hidden="true" />
+          <span>{t}</span>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+// Offer form card for page sidebars, with the "Get Your FREE Offer" top.
+export function OfferCard({ children }: { children: ReactNode }) {
+  return (
+    <div className="lg:sticky lg:top-24">
+      <div className="rounded-t-lg border border-b-0 border-gray-200 bg-brand-black px-6 pb-4 pt-5 text-center text-white">
+        <p className="text-xl font-bold">
+          Get Your <span className="underline decoration-2 underline-offset-4">FREE</span> Offer
+        </p>
+        <p className="mt-1 text-sm text-white/70">Written cash offer in less than 24 hours.</p>
+      </div>
+      <div className="[&>form]:rounded-t-none [&>form]:shadow-md">{children}</div>
+    </div>
+  );
+}
+
+// Small source line under sourced local content.
+export function Sources({ items }: { items: { url: string; label: string }[] }) {
+  if (!items.length) return null;
+  return (
+    <p className="mt-4 text-xs text-gray-500">
+      Sources:{" "}
+      {items.map((s, i) => (
+        <span key={s.url}>
+          {i > 0 ? ", " : ""}
+          <a href={s.url} target="_blank" rel="noopener noreferrer" className="underline hover:text-brand-yellow-dark">
+            {s.label}
+          </a>
+        </span>
+      ))}
+    </p>
   );
 }
 

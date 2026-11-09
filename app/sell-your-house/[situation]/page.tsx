@@ -4,7 +4,21 @@ import Link from "next/link";
 import { situations, getSituation } from "@/lib/situations";
 import { cities } from "@/lib/cities";
 import { LeadForm } from "@/components/LeadForm";
-import { FaqJsonLd, BreadcrumbJsonLd } from "@/components/JsonLd";
+import { BreadcrumbJsonLd } from "@/components/JsonLd";
+import {
+  CompareMini,
+  FactList,
+  FaqList,
+  OfferCard,
+  PageHero,
+  Pills,
+  ReviewsSection,
+  Section,
+  SectionHeader,
+  Sources,
+  cardCls,
+  linkCls,
+} from "@/components/sections/Shared";
 import { Linkify } from "@/components/Linkify";
 import { RichText } from "@/components/RichText";
 import { comboCitySlugs, isComboSituation } from "@/lib/combos";
@@ -37,7 +51,6 @@ export default function SituationPage({ params }: { params: { situation: string 
 
   return (
     <div>
-      {situation.faqs && <FaqJsonLd items={situation.faqs} />}
       <BreadcrumbJsonLd
         items={[
           { name: "Home", url: site.url },
@@ -46,30 +59,20 @@ export default function SituationPage({ params }: { params: { situation: string 
         ]}
       />
 
-      <section className="bg-brand-black text-white">
-        <div className="mx-auto max-w-6xl px-4 py-14">
-          <h1 className="text-3xl font-bold md:text-4xl">{situation.title}</h1>
-          <p className="mt-4 max-w-2xl text-white/70">{situation.summary}</p>
-        </div>
-      </section>
+      <PageHero eyebrow="Sell Your House" title={situation.title} sub={situation.summary} />
 
-      <section className="mx-auto grid max-w-6xl gap-10 px-4 py-12 md:grid-cols-3">
-        <div className="md:col-span-2">
-          <h2 className="text-xl font-bold text-brand-black">Quick Facts</h2>
-          <ul className="mt-4 space-y-3">
-            {situation.quickFacts.map((fact, i) => (
-              <li key={i} className="flex gap-3 text-gray-600">
-                <span className="mt-1 text-brand-yellow-dark">•</span>
-                <span>{fact}</span>
-              </li>
-            ))}
-          </ul>
+      <section className="mx-auto grid max-w-6xl gap-10 px-4 py-12 md:py-16 lg:grid-cols-5">
+        <div className="lg:col-span-3">
+          <h2 className="text-2xl font-bold text-brand-black">Quick Facts</h2>
+          <div className="mt-5">
+            <FactList single items={situation.quickFacts} />
+          </div>
 
           {situation.details && (
             <>
-              <h2 className="mt-10 text-xl font-bold text-brand-black">More Detail</h2>
+              <h2 className="mt-12 text-2xl font-bold text-brand-black">More Detail</h2>
               {situation.details.map((paragraph, i) => (
-                <p key={i} className="mt-4 text-gray-600">
+                <p key={i} className="mt-4 leading-relaxed text-gray-600">
                   <Linkify text={paragraph} />
                 </p>
               ))}
@@ -78,132 +81,114 @@ export default function SituationPage({ params }: { params: { situation: string 
 
           {situation.localSection && (
             <>
-              <h2 className="mt-10 text-xl font-bold text-brand-black">{situation.localSection.heading}</h2>
+              <h2 className="mt-12 text-2xl font-bold text-brand-black">{situation.localSection.heading}</h2>
               {situation.localSection.paragraphs.map((paragraph, i) => (
-                <p key={i} className="mt-4 text-gray-600">
+                <p key={i} className="mt-4 leading-relaxed text-gray-600">
                   <RichText text={paragraph} />
                 </p>
               ))}
-              {situation.localSection.sources && situation.localSection.sources.length > 0 && (
-                <p className="mt-4 text-xs text-gray-500">
-                  Sources:{" "}
-                  {situation.localSection.sources.map((src, i) => (
-                    <span key={src.url}>
-                      {i > 0 ? ", " : ""}
-                      <a href={src.url} target="_blank" rel="noopener noreferrer" className="underline hover:text-brand-yellow-dark">
-                        {src.label}
-                      </a>
-                    </span>
-                  ))}
-                </p>
-              )}
+              <Sources items={situation.localSection.sources ?? []} />
             </>
           )}
 
-          <div className="mt-8">
-            <h2 className="text-xl font-bold text-brand-black">How It Works</h2>
-            <div className="mt-4 space-y-4">
-              {keySteps.map((step) => (
-                <div key={step.title} className="rounded-lg border border-gray-200 p-4">
-                  <div className="font-semibold text-brand-black">{step.title}</div>
-                  <p className="mt-1 text-sm text-gray-600">{step.body}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {situation.faqs && (
-            <div className="mt-10">
-              <h2 className="text-xl font-bold text-brand-black">Frequently Asked Questions</h2>
-              <div className="mt-4 space-y-5">
-                {situation.faqs.map((f) => (
-                  <div key={f.question}>
-                    <h3 className="font-semibold text-brand-black">{f.question}</h3>
-                    <p className="mt-1 text-gray-600"><Linkify text={f.answer} /></p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {situation.legalDisclaimer && (
-            <p className="mt-10 border-t border-gray-200 pt-4 text-xs text-gray-600">
-              {situation.legalDisclaimer}
-            </p>
-          )}
-
-          <p className="mt-8 text-sm text-gray-500">
+          <p className="mt-10 text-sm text-gray-500">
             {site.name} is vertically integrated: we buy, renovate with our own
             licensed crew ({site.licenses.generalContractor}), and can resell
             through our own brokerage ({site.licenses.brokerage}), so there's no
             middleman shopping your deal to a stranger.
           </p>
         </div>
-        <div>
-          <LeadForm sourcePage={`/sell-your-house/${situation.slug}`} />
+        <div className="lg:col-span-2">
+          <OfferCard>
+            <LeadForm sourcePage={`/sell-your-house/${situation.slug}`} />
+          </OfferCard>
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-4 pb-12">
-        <h2 className="text-lg font-bold text-brand-black">Top Cities We Buy In</h2>
-        <div className="mt-4 flex flex-wrap gap-3">
-          {cities.filter((c) => c.featured).slice(0, 5).map((c) => (
-            <Link
-              key={c.slug}
-              href={`/we-buy-houses/${c.slug}`}
-              className="rounded-full border border-gray-300 px-4 py-2 text-sm text-brand-black hover:border-brand-yellow-dark hover:text-brand-yellow-dark"
-            >
-              {c.name}
-            </Link>
+      <Section gray>
+        <SectionHeader eyebrow="The Process" title="How It Works" />
+        <div className={`mt-10 grid gap-5 sm:grid-cols-2 ${keySteps.length >= 4 ? "lg:grid-cols-4" : "lg:grid-cols-3"}`}>
+          {keySteps.map((step, i) => (
+            <div key={step.title} className={cardCls}>
+              <span className="flex h-9 w-9 items-center justify-center rounded-full bg-brand-yellow text-sm font-bold text-black">
+                {i + 1}
+              </span>
+              <h3 className="mt-4 font-bold text-brand-black">{step.title}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-gray-600">{step.body}</p>
+            </div>
           ))}
         </div>
-        <Link href="/we-buy-houses" className="mt-3 inline-block text-sm font-semibold text-brand-yellow-dark hover:underline">
-          See every city we serve →
-        </Link>
+      </Section>
+
+      {situation.faqs && (
+        <Section id="faq" narrow>
+          <SectionHeader eyebrow="FAQ" title="Frequently Asked Questions" />
+          <div className="mt-10">
+            <FaqList
+              items={situation.faqs.map((f) => ({ question: f.question, answer: <Linkify text={f.answer} />, text: f.answer }))}
+            />
+          </div>
+          {situation.legalDisclaimer && (
+            <p className="mt-10 border-t border-gray-200 pt-4 text-xs text-gray-600">{situation.legalDisclaimer}</p>
+          )}
+        </Section>
+      )}
+      {!situation.faqs && situation.legalDisclaimer && (
+        <Section narrow>
+          <p className="text-xs text-gray-600">{situation.legalDisclaimer}</p>
+        </Section>
+      )}
+
+      <Section gray>
+        <SectionHeader title="Top Cities We Buy In" />
+        <div className="mt-8">
+          <Pills
+            items={cities
+              .filter((c) => c.featured)
+              .slice(0, 5)
+              .map((c) => ({ href: `/we-buy-houses/${c.slug}`, label: c.name }))}
+          />
+        </div>
+        <div className="mt-6 text-center">
+          <Link href="/we-buy-houses" className={`text-sm ${linkCls}`}>
+            See Every City We Serve →
+          </Link>
+        </div>
 
         {isComboSituation(situation.slug) && (
-          <>
-            <h2 className="mt-10 text-lg font-bold text-brand-black">{situation.title} in Your City</h2>
-            <div className="mt-4 flex flex-wrap gap-3">
-              {comboCitySlugs.map((slug) => {
-                const c = cities.find((x) => x.slug === slug);
-                if (!c) return null;
-                return (
-                  <Link
-                    key={slug}
-                    href={`/we-buy-houses/${slug}/${situation.slug}`}
-                    className="rounded-full border border-gray-300 px-4 py-2 text-sm text-brand-black hover:border-brand-yellow-dark hover:text-brand-yellow-dark"
-                  >
-                    {c.name}
-                  </Link>
-                );
-              })}
+          <div className="mt-14">
+            <SectionHeader title={`${situation.title} in Your City`} />
+            <div className="mt-8">
+              <Pills
+                items={comboCitySlugs.flatMap((slug) => {
+                  const c = cities.find((x) => x.slug === slug);
+                  return c ? [{ href: `/we-buy-houses/${slug}/${situation.slug}`, label: c.name }] : [];
+                })}
+              />
             </div>
-          </>
+          </div>
         )}
 
-        <h2 className="mt-10 text-lg font-bold text-brand-black">Other Situations We Buy In</h2>
-        <div className="mt-4 flex flex-wrap gap-3">
-          {situations
-            .filter((s) => s.slug !== situation.slug)
-            .map((s) => (
-              <Link
-                key={s.slug}
-                href={`/sell-your-house/${s.slug}`}
-                className="rounded-full border border-gray-300 px-4 py-2 text-sm text-brand-black hover:border-brand-yellow-dark hover:text-brand-yellow-dark"
-              >
-                {s.title}
-              </Link>
-            ))}
+        <div className="mt-14">
+          <SectionHeader title="Other Situations We Buy In" />
+          <div className="mt-8">
+            <Pills
+              items={situations
+                .filter((s) => s.slug !== situation.slug)
+                .map((s) => ({ href: `/sell-your-house/${s.slug}`, label: s.title }))}
+            />
+          </div>
         </div>
-        <p className="mt-6 text-sm text-gray-600">
+        <div className="mt-8 text-center text-sm text-gray-600">
           Based in Visalia?{" "}
-          <Link href="/we-buy-houses/visalia" className="font-semibold text-brand-yellow-dark hover:underline">
-            See how we buy houses in Visalia, CA
+          <Link href="/we-buy-houses/visalia" className={linkCls}>
+            See How We Buy Houses in Visalia, CA →
           </Link>
-          .
-        </p>
-      </section>
+        </div>
+      </Section>
+
+      <CompareMini gray={false} />
+      <ReviewsSection />
     </div>
   );
 }

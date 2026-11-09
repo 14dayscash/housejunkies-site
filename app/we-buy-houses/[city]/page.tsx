@@ -1,18 +1,33 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import type { ReactNode } from "react";
 import Link from "next/link";
 import { cities, getCity } from "@/lib/cities";
 import { RichText } from "@/components/RichText";
 import { comboLabels, comboSituationSlugs, isComboCity } from "@/lib/combos";
-import { googleReviews, GBP_URL } from "@/lib/reviews";
+import { GBP_URL } from "@/lib/reviews";
 import { counties } from "@/lib/counties";
 import { situations } from "@/lib/situations";
 import { LeadForm } from "@/components/LeadForm";
-import { FaqJsonLd, BreadcrumbJsonLd } from "@/components/JsonLd";
+import { BreadcrumbJsonLd } from "@/components/JsonLd";
 import { site } from "@/lib/site";
-import { cityFaq, money, newestFirst, portfolioStats, propertiesIn } from "@/lib/properties";
+import { cityFaq, newestFirst, portfolioStats, propertiesIn } from "@/lib/properties";
 import { PropertyCard } from "@/components/PropertyCard";
 import { CityFactsSection } from "@/components/CityFactsSection";
+import {
+  CheckList,
+  CompareMini,
+  FactList,
+  FaqList,
+  OfferCard,
+  PageHero,
+  Pills,
+  ReviewsSection,
+  Section,
+  SectionHeader,
+  cardCls,
+  linkCls,
+} from "@/components/sections/Shared";
 
 export function generateStaticParams() {
   return cities.map((c) => ({ city: c.slug }));
@@ -69,9 +84,12 @@ export default function CityPage({ params }: { params: { city: string } }) {
 
   const countyMatch = counties.find((c) => c.name === city.county);
 
+  const L = ({ href, children }: { href: string; children: ReactNode }) => (
+    <Link href={href} className={linkCls}>{children}</Link>
+  );
+
   return (
     <div>
-      <FaqJsonLd items={faqs} />
       <BreadcrumbJsonLd
         items={[
           { name: "Home", url: site.url },
@@ -79,238 +97,204 @@ export default function CityPage({ params }: { params: { city: string } }) {
           { name: city.name, url: `${site.url}/we-buy-houses/${city.slug}` },
         ]}
       />
-      <section className="bg-brand-black text-white">
-        <div className="mx-auto max-w-6xl px-4 py-14">
-          <p className="text-sm font-semibold uppercase tracking-wide text-brand-yellow">{city.county}</p>
-          <h1 className="mt-1 text-3xl font-bold md:text-4xl">
-            Sell Your House Fast for Cash in {city.name}, CA
-          </h1>
-          {city.slug === "visalia" && (
-            <p className="mt-3 text-sm font-semibold text-white/80">
-              House Junkies Inc., 801 W Main Street, Visalia. Part of Ulloa Investment Group.
-            </p>
-          )}
-          <p className="mt-4 max-w-2xl text-white/70">
-            {city.description}
+      <PageHero
+        eyebrow={city.county}
+        title={<>Sell Your House Fast for Cash<br className="hidden sm:block" /> in {city.name}, CA</>}
+        sub={city.description}
+      >
+        {city.slug === "visalia" && (
+          <p className="mt-4 text-sm font-semibold text-white/80">
+            House Junkies Inc., 801 W Main Street, Visalia.<br />Part of Ulloa Investment Group.
           </p>
-        </div>
-      </section>
+        )}
+      </PageHero>
 
-      <section className="mx-auto grid max-w-6xl gap-10 px-4 py-12 md:grid-cols-3">
-        <div className="md:col-span-2">
-          {city.marketNote && (
-            <p className="text-sm text-gray-500">{city.marketNote}</p>
-          )}
+      <section className="mx-auto grid max-w-6xl gap-10 px-4 py-12 md:py-16 lg:grid-cols-5">
+        <div className="lg:col-span-3">
+          <CheckList
+            items={[
+              "No repairs or renovations needed",
+              "No inspections or appraisals required",
+              "No realtor commissions, no escrow fees",
+              "You choose the closing date",
+            ]}
+          />
+          {city.marketNote && <p className="mt-8 text-gray-600">{city.marketNote}</p>}
           {city.neighborhoods.length > 0 && (
-            <p className="mt-3 text-sm text-gray-500">
+            <p className="mt-4 text-sm text-gray-500">
               Serving {city.neighborhoods.join(", ")}
               {city.zipCodes.length > 0 ? ` (${city.zipCodes.slice(0, 6).join(", ")}${city.zipCodes.length > 6 ? "…" : ""})` : ""}.
               Population approximately {city.population}.
             </p>
           )}
-          <ul className="mt-6 space-y-2 text-gray-700">
-            <li>✓ No repairs or renovations needed</li>
-            <li>✓ No inspections or appraisals required</li>
-            <li>✓ No realtor commissions, no escrow fees</li>
-            <li>✓ You choose the closing date</li>
-          </ul>
-          <p className="mt-6 text-sm text-gray-500">
+          <p className="mt-4 text-sm text-gray-500">
             {site.name} is a vertically integrated buyer, meaning we buy, renovate,
             and resell with our own capital and our own licensed crew
             ({site.licenses.generalContractor}), not a wholesaler shopping your
             house to a stranger.
           </p>
         </div>
-        <div>
-          <LeadForm sourcePage={`/we-buy-houses/${city.slug}`} />
+        <div className="lg:col-span-2">
+          <OfferCard>
+            <LeadForm sourcePage={`/we-buy-houses/${city.slug}`} />
+          </OfferCard>
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-4 pb-8">
-        <h2 className="text-xl font-bold text-brand-black">Cash Home Buyers in {city.name}</h2>
-        <p className="mt-3 text-gray-600">
-          If you want to skip listing, showings, and agent commissions, a direct cash sale is the
-          simplest route. {site.name} is a local cash home buyer: we make the offer, we pay the
-          closing costs, and you pick the closing date, in as little as 7 days. There is no
-          obligation, and you get a written offer within 24 hours of sharing your address.
-        </p>
-
-        <h2 className="mt-8 text-xl font-bold text-brand-black">House Buyers in {city.name}, CA: Any Condition</h2>
-        <p className="mt-3 text-gray-600">
-          We buy houses in {city.name} in any condition, including{" "}
-          <Link href="/sell-your-house/fire-damage" className="font-semibold text-brand-yellow-dark hover:underline">fire damage</Link>,{" "}
-          <Link href="/sell-your-house/water-damage" className="font-semibold text-brand-yellow-dark hover:underline">water damage</Link>,{" "}
-          <Link href="/sell-your-house/code-violations" className="font-semibold text-brand-yellow-dark hover:underline">code violations</Link>,{" "}
-          <Link href="/sell-your-house/with-tenants" className="font-semibold text-brand-yellow-dark hover:underline">tenant-occupied rentals</Link>,{" "}
-          <Link href="/sell-your-house/hoarder-house" className="font-semibold text-brand-yellow-dark hover:underline">hoarder houses</Link>,{" "}
-          <Link href="/sell-your-house/vacant" className="font-semibold text-brand-yellow-dark hover:underline">vacant houses</Link>,{" "}
-          <Link href="/sell-your-house/foreclosure" className="font-semibold text-brand-yellow-dark hover:underline">homes facing foreclosure</Link>,{" "}
-          and{" "}
-          <Link href="/sell-your-house/inherited-property" className="font-semibold text-brand-yellow-dark hover:underline">inherited or probate properties</Link>.
-          Because we renovate with our own crew, a house that needs work is something we price in,
-          not a reason to walk away.
-        </p>
-
-        <h2 className="mt-8 text-xl font-bold text-brand-black">Sell My House Fast in {city.name}, CA, As-Is</h2>
-        <p className="mt-3 text-gray-600">
-          Selling <Link href="/sell-your-house/as-is" className="font-semibold text-brand-yellow-dark hover:underline">as-is</Link> means no
-          repairs, no cleaning out the garage, and no inspection or appraisal waiting on a buyer&apos;s lender.
-          See exactly{" "}
-          <Link href="/how-we-calculate-your-offer" className="font-semibold text-brand-yellow-dark hover:underline">how we calculate your offer</Link>{" "}
-          and how it compares with{" "}
-          <Link href="/compare" className="font-semibold text-brand-yellow-dark hover:underline">listing with an agent</Link>{" "}
-          before you decide.
-        </p>
-      </section>
+      <Section gray>
+        <SectionHeader eyebrow={`We Buy Houses in ${city.name}`} title={`How a Cash Sale Works in ${city.name}`} />
+        <div className="mt-10 grid gap-5 lg:grid-cols-3">
+          <div className={cardCls}>
+            <h2 className="text-lg font-bold text-brand-black">Cash Home Buyers in {city.name}</h2>
+            <p className="mt-3 text-sm leading-relaxed text-gray-600">
+              If you want to skip listing, showings, and agent commissions, a direct cash sale is the
+              simplest route. {site.name} is a local cash home buyer: we make the offer, we pay the
+              closing costs, and you pick the closing date, in as little as 7 days. There is no
+              obligation, and you get a written offer within 24 hours of sharing your address.
+            </p>
+          </div>
+          <div className={cardCls}>
+            <h2 className="text-lg font-bold text-brand-black">House Buyers in {city.name}, CA: Any Condition</h2>
+            <p className="mt-3 text-sm leading-relaxed text-gray-600">
+              We buy houses in {city.name} in any condition, including{" "}
+              <L href="/sell-your-house/fire-damage">fire damage</L>,{" "}
+              <L href="/sell-your-house/water-damage">water damage</L>,{" "}
+              <L href="/sell-your-house/code-violations">code violations</L>,{" "}
+              <L href="/sell-your-house/with-tenants">tenant-occupied rentals</L>,{" "}
+              <L href="/sell-your-house/hoarder-house">hoarder houses</L>,{" "}
+              <L href="/sell-your-house/vacant">vacant houses</L>,{" "}
+              <L href="/sell-your-house/foreclosure">homes facing foreclosure</L>, and{" "}
+              <L href="/sell-your-house/inherited-property">inherited or probate properties</L>.
+              Because we renovate with our own crew, a house that needs work is something we price in,
+              not a reason to walk away.
+            </p>
+          </div>
+          <div className={cardCls}>
+            <h2 className="text-lg font-bold text-brand-black">Sell My House Fast in {city.name}, CA, As-Is</h2>
+            <p className="mt-3 text-sm leading-relaxed text-gray-600">
+              Selling <L href="/sell-your-house/as-is">as-is</L> means no
+              repairs, no cleaning out the garage, and no inspection or appraisal waiting on a buyer&apos;s lender.
+              See exactly <L href="/how-we-calculate-your-offer">how we calculate your offer</L>{" "}
+              and how it compares with <L href="/compare">listing with an agent</L> before you decide.
+            </p>
+          </div>
+        </div>
+      </Section>
 
       {city.longContent && (
-        <section className="mx-auto max-w-6xl px-4 pb-8">
-          {city.longContent.map((block) => (
-            <div key={block.heading} className="mb-8">
-              <h2 className="text-xl font-bold text-brand-black">{block.heading}</h2>
+        <Section narrow>
+          {city.longContent.map((block, bi) => (
+            <div key={block.heading} className={bi > 0 ? "mt-12" : ""}>
+              <h2 className="text-2xl font-bold text-brand-black md:text-3xl">{block.heading}</h2>
               {block.paragraphs.map((para, i) => (
-                <p key={i} className="mt-3 text-gray-600">
+                <p key={i} className="mt-4 leading-relaxed text-gray-600">
                   <RichText text={para} />
                 </p>
               ))}
             </div>
           ))}
-        </section>
-      )}
-
-      {city.slug === "visalia" && (
-        <section className="mx-auto max-w-6xl px-4 pb-10">
-          <h2 className="text-xl font-bold text-brand-black">What People Say About House Junkies in Visalia</h2>
-          <p className="mt-3 max-w-3xl text-gray-600">
-            Real reviews from our Google Business Profile at our Visalia office, quoted word for word.
-          </p>
-          <div className="mt-6 grid gap-5 md:grid-cols-3">
-            {googleReviews
-              .filter((r) => r.text && ["John Doe", "Michael", "Corey Loewen"].includes(r.name))
-              .map((r) => (
-                <figure key={r.name} className="rounded-lg border border-gray-200 bg-white p-5">
-                  <div className="text-brand-yellow-dark" aria-label={`${r.rating} out of 5 stars`}>★★★★★</div>
-                  <blockquote className="mt-2 text-sm text-gray-700">&ldquo;{r.text}&rdquo;</blockquote>
-                  <figcaption className="mt-3 text-sm font-semibold text-brand-black">{r.name}, Google review</figcaption>
-                </figure>
-              ))}
-          </div>
-          <p className="mt-4 text-sm">
-            <Link href="/reviews" className="font-semibold text-brand-yellow-dark hover:underline">Read all our reviews</Link>
-            {" "}or{" "}
-            <a href={GBP_URL} target="_blank" rel="noopener noreferrer" className="font-semibold text-brand-yellow-dark hover:underline">see them on Google</a>.
-          </p>
-        </section>
+        </Section>
       )}
 
       {recent.length > 0 && (
-        <section className="mx-auto max-w-6xl px-4 pb-10">
-          <h2 className="text-xl font-bold text-brand-black">Recent House Junkies Purchases in {city.name}</h2>
-          <p className="mt-3 max-w-3xl text-gray-600">
-            Here {recentStats.count === 1 ? "is one" : `are ${recentStats.count}`} of our recent purchases in{" "}
-            {city.name}, with photos, square footage, lot size, and the price we paid for each one.
-          </p>
-          <ul className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <Section gray border={!city.longContent}>
+          <SectionHeader
+            eyebrow="Recent Purchases"
+            title={`Recent House Junkies Purchases in ${city.name}`}
+            sub={
+              <>
+                Here {recentStats.count === 1 ? "is one" : `are ${recentStats.count}`} of our recent purchases in {city.name},
+                <br className="hidden md:block" /> with photos, square footage, lot size, and the price we paid for each one.
+              </>
+            }
+          />
+          <ul className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {recent.slice(0, 6).map((p) => (
               <li key={p.slug}>
                 <PropertyCard p={p} />
               </li>
             ))}
           </ul>
-          <Link href="/projects" className="mt-5 inline-block text-sm font-semibold text-brand-yellow-dark hover:underline">
-            See every House Junkies project →
-          </Link>
-        </section>
+          <div className="mt-8 text-center">
+            <Link href="/projects" className={`text-sm ${linkCls}`}>
+              See Every House Junkies Project →
+            </Link>
+          </div>
+        </Section>
       )}
 
       <CityFactsSection slug={city.slug} name={city.name} />
 
-      <section className="mx-auto max-w-6xl px-4 pb-4">
-        <h2 className="text-xl font-bold text-brand-black">{city.name} Quick Facts</h2>
-        <ul className="mt-4 grid gap-3 sm:grid-cols-2">
-          {city.quickFacts.map((fact, i) => (
-            <li key={i} className="flex gap-3 text-gray-600">
-              <span className="mt-1 text-brand-yellow-dark">•</span>
-              <span>{fact}</span>
-            </li>
-          ))}
-        </ul>
-      </section>
+      <Section gray>
+        <SectionHeader eyebrow="Local Facts" title={`${city.name} Quick Facts`} />
+        <div className="mt-10">
+          <FactList items={city.quickFacts} />
+        </div>
+      </Section>
 
-      <section className="mx-auto max-w-6xl px-4 pb-12">
+      <Section>
         {isComboCity(city.slug) && (
-          <div className="mb-10">
-            <h2 className="text-lg font-bold text-brand-black">Selling a {city.name} House in a Tough Spot?</h2>
-            <div className="mt-4 flex flex-wrap gap-3">
-              {comboSituationSlugs.map((s) => (
-                <Link
-                  key={s}
-                  href={`/we-buy-houses/${city.slug}/${s}`}
-                  className="rounded-full border border-gray-300 px-4 py-2 text-sm text-brand-black hover:border-brand-yellow-dark hover:text-brand-yellow-dark"
-                >
-                  {comboLabels[s]} in {city.name}
-                </Link>
-              ))}
+          <div className="mb-14">
+            <SectionHeader title={`Selling a ${city.name} House in a Tough Spot?`} />
+            <div className="mt-8">
+              <Pills
+                items={comboSituationSlugs.map((s) => ({
+                  href: `/we-buy-houses/${city.slug}/${s}`,
+                  label: `${comboLabels[s]} in ${city.name}`,
+                }))}
+              />
             </div>
           </div>
         )}
-        <h2 className="text-lg font-bold text-brand-black">Common Situations in {city.name}</h2>
-        <div className="mt-4 flex flex-wrap gap-3">
-          {situations.slice(0, 5).map((s) => (
-            <Link
-              key={s.slug}
-              href={`/sell-your-house/${s.slug}`}
-              className="rounded-full border border-gray-300 px-4 py-2 text-sm text-brand-black hover:border-brand-yellow-dark hover:text-brand-yellow-dark"
-            >
-              {s.navLabel}
-            </Link>
-          ))}
+        <SectionHeader title={`Common Situations in ${city.name}`} />
+        <div className="mt-8">
+          <Pills items={situations.slice(0, 5).map((s) => ({ href: `/sell-your-house/${s.slug}`, label: s.navLabel }))} />
         </div>
-        <Link href="/sell-your-house" className="mt-3 inline-block text-sm font-semibold text-brand-yellow-dark hover:underline">
-          See every situation we buy →
-        </Link>
-        {countyMatch && (
-          <p className="mt-6 text-sm text-gray-500">
-            See every city we serve in{" "}
-            <Link href={`/counties/${countyMatch.slug}`} className="font-semibold text-brand-yellow-dark hover:underline">
-              {city.county}
-            </Link>
-            .
-          </p>
-        )}
+        <div className="mt-6 text-center">
+          <Link href="/sell-your-house" className={`text-sm ${linkCls}`}>
+            See Every Situation We Buy →
+          </Link>
+        </div>
         {nearby.length > 0 && (
-          <div className="mt-8">
-            <h2 className="text-lg font-bold text-brand-black">We Also Buy Houses Near {city.name}</h2>
-            <div className="mt-3 flex flex-wrap gap-3">
-              {nearby.map((c) => (
-                <Link
-                  key={c.slug}
-                  href={`/we-buy-houses/${c.slug}`}
-                  className="rounded-full border border-gray-300 px-4 py-2 text-sm text-brand-black hover:border-brand-yellow-dark hover:text-brand-yellow-dark"
-                >
-                  {c.name}
-                </Link>
-              ))}
+          <div className="mt-14">
+            <SectionHeader title={`We Also Buy Houses Near ${city.name}`} />
+            <div className="mt-8">
+              <Pills items={nearby.map((c) => ({ href: `/we-buy-houses/${c.slug}`, label: c.name }))} />
             </div>
           </div>
         )}
-      </section>
-
-      <section className="bg-gray-50">
-        <div className="mx-auto max-w-6xl px-4 py-12">
-          <h2 className="text-xl font-bold text-brand-black">
-            {city.name} Cash Home Sale FAQ
-          </h2>
-          <div className="mt-4 space-y-5">
-            {faqs.map((f) => (
-              <div key={f.question}>
-                <h3 className="font-semibold text-brand-black">{f.question}</h3>
-                <p className="mt-1 text-gray-600">{f.answer}</p>
-              </div>
-            ))}
+        {countyMatch && (
+          <div className="mt-6 text-center">
+            <Link href={`/counties/${countyMatch.slug}`} className={`text-sm ${linkCls}`}>
+              See Every City We Serve in {city.county} →
+            </Link>
           </div>
+        )}
+      </Section>
+
+      <CompareMini />
+
+      <Section id="faq" narrow>
+        <SectionHeader eyebrow="FAQ" title={`${city.name} Cash Home Sale FAQ`} />
+        <div className="mt-10">
+          <FaqList items={faqs} />
         </div>
-      </section>
+      </Section>
+
+      {city.slug === "visalia" ? (
+        <ReviewsSection
+          title="What People Say About House Junkies in Visalia"
+          sub="Real reviews from our Google Business Profile at our Visalia office, quoted word for word."
+        >
+          <div className="mt-8 text-center text-sm">
+            <Link href="/reviews" className={linkCls}>Read All Our Reviews →</Link>
+            <span className="mx-3 text-gray-300">|</span>
+            <a href={GBP_URL} target="_blank" rel="noopener noreferrer" className={linkCls}>See Them on Google →</a>
+          </div>
+        </ReviewsSection>
+      ) : (
+        <ReviewsSection />
+      )}
     </div>
   );
 }

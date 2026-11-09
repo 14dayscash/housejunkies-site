@@ -1,4 +1,5 @@
 import { RichText } from "@/components/RichText";
+import { FactList, Section, SectionHeader } from "@/components/sections/Shared";
 import { californiaBaseline, cityFacts, usBaseline, type CityFacts } from "@/lib/cityFacts";
 
 // "By the numbers" and "About" sections for a city page. Every number comes
@@ -101,77 +102,70 @@ export function CityFactsSection({ slug, name }: { slug: string; name: string })
   const showCompare = rows.some((r) => r.ca);
 
   return (
-    <>
-      <section className="mx-auto max-w-6xl px-4 pb-8">
-        <h2 className="text-xl font-bold text-brand-black">{name} Housing and Neighborhood Data</h2>
-        <div className="mt-3 max-w-3xl space-y-3 text-gray-600">
-          {paras.map((p, i) => (
-            <p key={i}>
-              <RichText text={p} />
-            </p>
-          ))}
-        </div>
+    <Section>
+      <SectionHeader eyebrow="By the Numbers" title={`${name} Housing and Neighborhood Data`} />
+      <div className="mx-auto mt-8 max-w-3xl space-y-4 leading-relaxed text-gray-600">
+        {paras.map((p, i) => (
+          <p key={i}>
+            <RichText text={p} />
+          </p>
+        ))}
+      </div>
 
-        {rows.length > 1 && (
-        <div className="mt-6 overflow-x-auto">
+      {rows.length > 1 && (
+        <div className="mx-auto mt-10 max-w-4xl overflow-x-auto rounded-xl border border-gray-200 border-t-4 border-t-brand-yellow bg-white shadow-sm">
           <table className="w-full min-w-[480px] border-collapse text-sm">
             <caption className="sr-only">{name} compared with California and the United States</caption>
             <thead>
-              <tr className="border-b border-gray-200 text-left">
-                <th className="py-2 pr-4 font-semibold text-brand-black">{name} at a glance</th>
-                <th className="py-2 pr-4 font-semibold text-brand-yellow-dark">{name}</th>
-                {showCompare && <th className="py-2 pr-4 font-semibold text-gray-500">California</th>}
-                {showCompare && <th className="py-2 font-semibold text-gray-500">U.S.</th>}
+              <tr className="border-b border-gray-200 bg-gray-50 text-left">
+                <th className="px-4 py-3 font-semibold text-brand-black">{name} at a glance</th>
+                <th className="px-4 py-3 font-semibold text-brand-yellow-dark">{name}</th>
+                {showCompare && <th className="px-4 py-3 font-semibold text-gray-500">California</th>}
+                {showCompare && <th className="px-4 py-3 font-semibold text-gray-500">U.S.</th>}
               </tr>
             </thead>
             <tbody>
               {rows.map((r) => (
-                <tr key={r.label} className="border-b border-gray-100">
-                  <td className="py-2 pr-4 text-brand-black">{r.label}</td>
-                  <td className="py-2 pr-4 font-semibold text-brand-black">{r.city}</td>
-                  {showCompare && <td className="py-2 pr-4 text-gray-500">{r.ca ?? ""}</td>}
-                  {showCompare && <td className="py-2 text-gray-500">{r.us ?? ""}</td>}
+                <tr key={r.label} className="border-b border-gray-100 last:border-0">
+                  <td className="px-4 py-3 text-brand-black">{r.label}</td>
+                  <td className="px-4 py-3 font-semibold text-brand-black">{r.city}</td>
+                  {showCompare && <td className="px-4 py-3 text-gray-500">{r.ca ?? ""}</td>}
+                  {showCompare && <td className="px-4 py-3 text-gray-500">{r.us ?? ""}</td>}
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
+      )}
+      <p className="mx-auto mt-4 max-w-3xl text-center text-xs text-gray-400">
+        {f.source === "quickfacts" ? (
+          <>
+            Source:{" "}
+            <a href={f.sourceUrl} target="_blank" rel="noopener noreferrer" className="underline">
+              U.S. Census Bureau QuickFacts
+            </a>
+            , 2020 Census and 2020-2024 American Community Survey estimates. These are citywide numbers, not an
+            offer on your house. Call for a number on your address.
+          </>
+        ) : (
+          <>
+            Source: 2020 Census figures as listed on{" "}
+            <a href={f.sourceUrl} target="_blank" rel="noopener noreferrer" className="underline">
+              Wikipedia&apos;s {name} page
+            </a>
+            . Census QuickFacts does not cover places this small, so only the 2020 count is shown.
+          </>
         )}
-        <p className="mt-3 max-w-3xl text-xs text-gray-400">
-          {f.source === "quickfacts" ? (
-            <>
-              Source:{" "}
-              <a href={f.sourceUrl} target="_blank" rel="noopener noreferrer" className="underline">
-                U.S. Census Bureau QuickFacts
-              </a>
-              , 2020 Census and 2020-2024 American Community Survey estimates. These are citywide numbers, not an
-              offer on your house. Call for a number on your address.
-            </>
-          ) : (
-            <>
-              Source: 2020 Census figures as listed on{" "}
-              <a href={f.sourceUrl} target="_blank" rel="noopener noreferrer" className="underline">
-                Wikipedia&apos;s {name} page
-              </a>
-              . Census QuickFacts does not cover places this small, so only the 2020 count is shown.
-            </>
-          )}
-        </p>
-      </section>
+      </p>
 
       {about.length > 0 && (
-        <section className="mx-auto max-w-6xl px-4 pb-8">
-          <h2 className="text-xl font-bold text-brand-black">About {name}</h2>
-          <ul className="mt-4 grid gap-3 sm:grid-cols-2">
-            {about.map((line, i) => (
-              <li key={i} className="flex gap-3 text-gray-600">
-                <span className="mt-1 text-brand-yellow-dark">•</span>
-                <span>{line}</span>
-              </li>
-            ))}
-          </ul>
-        </section>
+        <div className="mt-14">
+          <SectionHeader title={`About ${name}`} />
+          <div className="mt-8">
+            <FactList items={about} />
+          </div>
+        </div>
       )}
-    </>
+    </Section>
   );
 }
