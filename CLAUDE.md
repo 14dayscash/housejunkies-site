@@ -5,8 +5,8 @@ Claude session that works on this site. When you finish a meaningful change,
 update the "Recent decisions" and "Open items" sections at the bottom so the
 next session knows.
 
-If this file and PRODUCT.md disagree, this file wins. PRODUCT.md is older and
-some of it is out of date (it says 10 city pages).
+Read `claude/SITE_PROFILE.md` (in the project) for the look, voice and SEO
+guardrails every page follows since the Nov 2026 revamp.
 
 ---
 
@@ -51,7 +51,7 @@ No CMS. Content is TypeScript data. Edit the data file, not the page.
 
 | File | What it holds |
 |---|---|
-| `lib/site.ts` | Every company fact: name, phone, address, licenses, stats (350+ homes, 7+ years, SFR #1, $16.0M / 110 deals), people bios. Pages must read from here, never hardcode. |
+| `lib/site.ts` | Every company fact: name, phone, address, licenses, stats (350+ homes, 7+ years, SFR #1), people bios. Pages must read from here, never hardcode. |
 | `lib/cities.ts` | 63 city pages (`/we-buy-houses/[city]`). `featured` = top 12. Visalia has `longContent`. |
 | `lib/cityFacts.ts` | Sourced Census data for all 63 cities (2020 count, July 2025 estimate, home value, owner rate, rent, income, household size, education, area) plus "about" history lines and incorporation dates. Rendered by `components/CityFactsSection.tsx` on every city page. Small towns QuickFacts does not cover only have the 2020 count, area, elevation and history. Add facts here, with a source. |
 | `lib/counties.ts` | 10 county hub pages (`/counties/[county]`). |

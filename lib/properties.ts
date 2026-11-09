@@ -418,15 +418,6 @@ export function mapsLink(p: Property) {
   return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(fullAddress(p))}`;
 }
 
-export function shortDate(iso: string) {
-  return new Date(`${iso}T12:00:00Z`).toLocaleDateString("en-US", {
-    month: "numeric",
-    day: "numeric",
-    year: "numeric",
-    timeZone: "UTC",
-  });
-}
-
 export function longDate(iso: string) {
   return new Date(`${iso}T12:00:00Z`).toLocaleDateString("en-US", {
     month: "long",
@@ -448,10 +439,6 @@ export function daysBetween(a: string, b: string) {
   return Math.round(
     (new Date(`${b}T12:00:00Z`).getTime() - new Date(`${a}T12:00:00Z`).getTime()) / 86_400_000,
   );
-}
-
-export function pricePerSqft(price: number, sqft: number) {
-  return sqft > 0 ? price / sqft : 0;
 }
 
 /** The headline number on every card and page is what we paid. */
