@@ -14,11 +14,11 @@ export const metadata: Metadata = {
 // the form, then a thin-bordered "Why Choose Us?" box with our five points,
 // the Google + BBB badges, and the House Junkies logo, then the review slider.
 const whyUs: [string, string][] = [
-  ["No Fees to Sell Your House", "No agent commission, no hidden charges, and the offer itself is always free."],
-  ["A Strong Off-Market Offer", "Our own construction crew prices the repairs, so we can pay more than buyers who have to hire the work out."],
+  ["No Fees to Sell Your House", "No agent commissions, no hidden charges, no obligations, the offer is always free."],
+  ["A Strong Off-Market Offer", "Our own construction crew prices the repairs, so we pay more than other buyers."],
   ["Sell As-Is. No Cleanup. No Repairs.", "Leave the house the way it is, along with anything inside you do not want."],
   ["Close in as Little as 7 Days", "Most deals close in 14 days, faster if you need it, or later if you need time to move."],
-  ["No Closing Costs", "Escrow, title, and closing costs are on us, so the number we agree on is what you walk away with."],
+  ["No Closing Costs", "Escrow, title, and closing costs are on us, you walk away with the number we give you."],
 ];
 
 export default function GetOfferPage({

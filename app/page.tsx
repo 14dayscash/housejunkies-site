@@ -114,7 +114,11 @@ export default function HomePage() {
               className="absolute right-0 top-0 h-[340px] w-auto drop-shadow-[0_12px_24px_rgba(0,0,0,0.55)] md:bottom-0 md:left-[8%] md:right-auto md:top-auto md:h-full"
             />
             <div className="absolute left-0 top-3 rounded-lg bg-gradient-to-r from-black/70 via-black/40 to-transparent py-3 pl-4 pr-10 leading-snug [text-shadow:0_2px_8px_rgba(0,0,0,0.6)] md:bottom-10 md:top-auto">
-              <p className="text-[22px] font-bold md:text-2xl">Abel Ulloa</p>
+              <p className="text-[22px] font-bold md:text-2xl">
+                <Link href="/team/abel-ulloa" className="hover:text-brand-yellow hover:underline">
+                  Abel Ulloa
+                </Link>
+              </p>
               <p className="text-base italic text-white/90">CEO &amp; Owner</p>
               <p className="text-[15px] font-light text-white/80">House Junkies Inc.</p>
               <p className="text-[15px] font-light text-white/80">Ulloa Investment Group</p>
@@ -164,7 +168,7 @@ export default function HomePage() {
             , an independent
             third-party data source. House Junkies Inc. has bought, renovated, and resold{" "}
             <strong className="font-bold text-gray-800">{site.stats.homesBought}</strong> homes across the
-            local Central Valley area.
+            local Central Valley area since 2019.
           </p>
           <p className="mt-1 font-bold text-gray-800">
             Local. Vertically integrated. No fees or obligations. {site.licenses.generalContractor}

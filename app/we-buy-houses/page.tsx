@@ -16,7 +16,13 @@ export default function WeBuyHousesPage() {
       <PageHero
         eyebrow="Where We Buy"
         title="Where We Buy Houses"
-        sub="House Junkies buys houses for cash across Tulare, Kings, Fresno, and Kern counties, and beyond. Pick your county or city below."
+        sub={
+          <>
+            House Junkies buys houses for cash across Tulare, Kings, Fresno, and Kern counties, and beyond.
+            <br />
+            Pick your county or city below.
+          </>
+        }
       />
       <section className="mx-auto max-w-6xl px-4 py-14 md:py-20">
         <CountyGrid showAll maxCities={Infinity} />

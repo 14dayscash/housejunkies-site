@@ -171,7 +171,7 @@ export const situations: SituationData[] = [
     slug: "fire-damage",
     navLabel: "Fire Damage",
     homeCard:
-      "Smoke, soot, or a full burn, we buy fire-damaged houses as they sit. Our own licensed construction crew handles the rebuild, not you.",
+      "Smoke, soot, or a full burn, we buy fire-damaged houses as-is. Our licensed construction crew handles the rebuild, not you.",
     title: "Sell a Fire-Damaged House",
     metaTitle: "Fire-Damaged House in Visalia? Sell It As-Is for Cash",
     metaDescription:
@@ -279,7 +279,7 @@ export const situations: SituationData[] = [
     slug: "with-tenants",
     navLabel: "Tenants",
     homeCard:
-      "Tired of late rent, repairs, or tenants who will not leave? We buy rentals with the tenants still living there, so you do not have to handle the move-out.",
+      "Tired of late rent, repairs, or tenants who won't leave? We buy rentals while still occupied, so you do not have to handle the move-out.",
     title: "Sell a Rental With Tenants",
     metaTitle: "Sell a Rental Property With Tenants in Visalia",
     metaDescription:
@@ -400,7 +400,7 @@ export const situations: SituationData[] = [
     slug: "as-is",
     navLabel: "As-Is",
     homeCard:
-      "Old roof, bad foundation, outdated everything. Skip the repairs, the inspections, and the showings. We buy the house exactly the way it is.",
+      "Old roof, bad foundation, or just outdated. Skip the repairs, inspections, and the showings. We buy the house exactly as-is.",
     title: "Sell As-Is, No Repairs",
     metaTitle: "Sell Your House As-Is in Visalia | No Repairs Needed",
     metaDescription:
@@ -426,7 +426,7 @@ export const situations: SituationData[] = [
     slug: "relocating",
     navLabel: "Relocating",
     homeCard:
-      "New job, family move, or military orders? We can close on your schedule, even if you have already left the area.",
+      "New job, family move, or military orders? We can close on a schedule that works for you, even if you've already left the area.",
     title: "Sell Fast Because You're Relocating",
     metaTitle: "Relocating? Sell Your House Fast in Visalia",
     metaDescription:

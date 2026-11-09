@@ -27,8 +27,8 @@ export const hiddenCounties = ["san-benito-county", "inyo-county", "monterey-cou
 
 // Free Unsplash stock photos for the county blocks, taken in or near one of
 // each county's top cities where Unsplash had one (Dominic, 2026-11-07).
-export const countyPhotos: Record<string, { src: string; alt: string }> = {
-  "tulare-county": { src: "https://images.unsplash.com/photo-1753635555129-3529087a7da2?fm=jpg&q=70&w=1200&auto=format&fit=crop", alt: "The Darling Hotel in downtown Visalia against a bright blue sky" },
+export const countyPhotos: Record<string, { src: string; alt: string; pos?: string }> = {
+  "tulare-county": { src: "https://images.unsplash.com/photo-1753635555129-3529087a7da2?fm=jpg&q=70&w=1200&auto=format&fit=crop", alt: "The Darling Hotel in downtown Visalia against a bright blue sky", pos: "object-[50%_85%]" },
   "fresno-county": { src: "https://images.unsplash.com/photo-1648742022394-34575e15bcf7?fm=jpg&q=70&w=1200&auto=format&fit=crop", alt: "A building with a sign on the side of it" },
   "kern-county": { src: "https://images.unsplash.com/photo-1610820438019-b2688a6d9308?fm=jpg&q=70&w=1200&auto=format&fit=crop", alt: "The Bakersfield sign" },
   "kings-county": { src: "https://images.unsplash.com/photo-1647927082960-025da25544ba?fm=jpg&q=70&w=1200&auto=format&fit=crop", alt: "A tall building with a clock on the front" },

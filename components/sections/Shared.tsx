@@ -234,7 +234,7 @@ export function SituationGrid({
                 call us at {site.phone}. Every situation gets a real answer and a real offer.
               </p>
               <span className="mt-2 inline-block text-sm font-semibold text-brand-yellow group-hover:underline">
-                {otherToPage ? "See every situation we buy →" : `Call or Text ${site.phone} →`}
+                {otherToPage ? "See Every Situation We Solve →" : `Call or Text ${site.phone} →`}
               </span>
             </div>
           </OtherTag>
@@ -275,7 +275,7 @@ export function CountyGrid({ maxCities = 3, showAll = false }: { maxCities?: num
                   src={photo.src}
                   alt={photo.alt}
                   loading="lazy"
-                  className="h-full w-full object-cover opacity-80 transition-transform duration-300 group-hover:scale-105"
+                  className={`h-full w-full object-cover opacity-80 transition-transform duration-300 group-hover:scale-105 ${photo.pos ?? ""}`}
                 />
               )}
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" aria-hidden="true" />
