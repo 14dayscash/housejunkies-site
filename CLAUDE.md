@@ -223,6 +223,15 @@ WE ARE TRYING TO TAKE OVER, one street and one site at a time.**
 
 ## 9. Recent decisions (newest first, keep this updated)
 
+- 2026-11-08: Site-wide overhaul to match the homepage. Shared sections live in
+  `components/sections/Shared.tsx` (PageHero, SectionHeader, ReviewsSection,
+  CompareMini/CompareCards, SituationGrid, CountyGrid, FaqList) with content in
+  `lib/homeContent.ts`. Every major page ends with the Google review slider.
+  Overhauled: /get-offer (Get Your FREE Offer on the form, Why Choose Us box),
+  /how-we-calculate-your-offer, /sell-your-house, /we-buy-houses, /projects (stat
+  line and Featured Renovation removed), /buy, /compare (check vs X cards),
+  /about (AI team photo removed, less ego, same facts), /team, /team/[slug], /faq
+  (dropdowns, "House Junkies Frequently Asked Questions"). /explore untouched.
 - 2026-11-07: Homepage revamp finished (order: Header, Hero, Stats bar, How It Works,
   Situations, Cities by county, Google review slider, Recent Purchases snapshot,
   Cash vs Listing comparison (#compare), One Call One Team (vertical integration),

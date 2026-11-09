@@ -2,9 +2,10 @@ import type { Metadata } from "next";
 import { site } from "@/lib/site";
 import { FaqJsonLd } from "@/components/JsonLd";
 import { RichText } from "@/components/RichText";
+import { PageHero, FaqList, CompareMini, ReviewsSection } from "@/components/sections/Shared";
 
 export const metadata: Metadata = {
-  title: `Frequently Asked Questions`,
+  title: `House Junkies Frequently Asked Questions`,
   description: "Answers to the most common questions about selling your house for cash to House Junkies, from how fast we close to what happens with probate, liens, tenants, and repairs.",
   alternates: { canonical: "/faq" },
 };
@@ -34,7 +35,7 @@ const groups: FaqGroup[] = [
       },
       {
         question: "How fast can you close?",
-        answer: "As little as 7 days, or up to 30 days if that fits your timeline better. You choose the date.",
+        answer: "You choose the date. Most of our deals close in 14 days, we can close as fast as 7 if you need to, or later if you need more time to move.",
       },
       {
         question: "How do you calculate my cash offer?",
@@ -46,7 +47,7 @@ const groups: FaqGroup[] = [
       },
       {
         question: "Can I speak with someone in Spanish?",
-        answer: "Yes, se habla espanol.",
+        answer: "Yes, ¡se habla español!",
       },
     ],
   },
@@ -171,37 +172,34 @@ export default function FaqPage() {
   return (
     <div>
       <FaqJsonLd items={allFaqs.map((f) => ({ question: f.question, answer: plain(f.answer) }))} />
-      <section className="bg-brand-black text-white">
-        <div className="mx-auto max-w-4xl px-4 py-14">
-          <h1 className="text-3xl font-bold md:text-4xl">Frequently Asked Questions</h1>
-          <p className="mt-4 max-w-2xl text-white/70">
-            The most common questions we hear from Central Valley homeowners.
-          </p>
-        </div>
-      </section>
+      {/* 2026-11-08: SEO heading, dropdown FAQs (same questions and groups),
+          mini comparison, reviews. */}
+      <PageHero
+        eyebrow="FAQ"
+        title="House Junkies Frequently Asked Questions"
+        sub="The most common questions we hear from Central Valley homeowners."
+      />
 
-      <section className="mx-auto max-w-4xl px-4 py-12">
+      <section className="mx-auto max-w-3xl px-4 py-14 md:py-20">
         {groups.map((g, gi) => (
           <div key={g.heading} className={gi === 0 ? "" : "mt-12"}>
-            <h2 className="text-xl font-bold text-brand-black">{g.heading}</h2>
-            {g.intro && <p className="mt-2 text-gray-600">{g.intro}</p>}
-            <dl className="mt-4 space-y-6">
-              {g.items.map((f) => (
-                <div key={f.question} className="border-b border-gray-100 pb-6">
-                  <dt className="font-semibold text-brand-black">{f.question}</dt>
-                  <dd className="mt-2 text-gray-600"><RichText text={f.answer} /></dd>
-                </div>
-              ))}
-            </dl>
+            <h2 className="text-center text-2xl font-bold text-brand-black">{g.heading}</h2>
+            {g.intro && <p className="mt-2 text-center text-gray-600">{g.intro}</p>}
+            <div className="mt-5">
+              <FaqList schema={false} items={g.items.map((f) => ({ question: f.question, answer: <RichText text={f.answer} /> }))} />
+            </div>
           </div>
         ))}
         <p className="mt-10 text-center text-gray-600">
           Still have a question?{" "}
           <a href={`tel:${site.phoneE164}`} className="font-semibold text-brand-yellow-dark hover:underline">
-            Call {site.phone}
+            Call or Text {site.phone}
           </a>
         </p>
       </section>
+
+      <CompareMini />
+      <ReviewsSection gray={false} />
     </div>
   );
 }
