@@ -140,7 +140,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
           ))}
         </div>
         <Link href="/we-buy-houses" className="mt-3 inline-block text-sm font-semibold text-brand-yellow-dark hover:underline">
-          See every city we serve →
+          See Every City We Serve →
         </Link>
       </section>
 
@@ -158,7 +158,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
           ))}
         </div>
         <Link href="/sell-your-house" className="mt-3 inline-block text-sm font-semibold text-brand-yellow-dark hover:underline">
-          See every situation we buy →
+          See Every Situation We Buy →
         </Link>
       </section>
 

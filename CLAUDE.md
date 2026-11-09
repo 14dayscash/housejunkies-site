@@ -124,7 +124,7 @@ sitewide, Person, FAQ, Breadcrumb), `LeadForm`, `ContactForm`, `HeroOfferForm`,
   Madrid's photo + DRE #01882650 (`ListingBroker`).
 - Construction page (`/construction`) is linked only from the footer, About and
   Team pages (and search), not the main nav.
-- Do not touch the reviews page layout unless asked.
+- Reviews page restyled on request 2026-11-08; otherwise leave its layout alone.
 
 ## 5. SEO approach
 
@@ -223,6 +223,16 @@ WE ARE TRYING TO TAKE OVER, one street and one site at a time.**
 
 ## 9. Recent decisions (newest first, keep this updated)
 
+- 2026-11-08 (later): Every remaining page moved to the new look in one push:
+  city (63), city + situation (90), situation (13), county (10), contact,
+  how-it-works, partners/agents, construction, reviews, projects/[slug],
+  buy/[type], blog index, get-offer-success, 404. Same words, H1/H2/H3 keyword
+  headings, FAQs, schema and URLs; only the containers changed. New shared
+  helpers in Shared.tsx: Section, Pills, CheckList, FactList, OfferCard
+  (sidebar form with "Get Your FREE Offer" top), Sources, cardCls;
+  ReviewsSection now takes title/sub/children. CityFactsSection restyled.
+  All arrow links are Title Case. Dominic: do not police his figures ("7 to 30
+  days", "as little as 7", private capital/lenders, older SFR numbers are fine).
 - 2026-11-08: Site-wide overhaul to match the homepage. Shared sections live in
   `components/sections/Shared.tsx` (PageHero, SectionHeader, ReviewsSection,
   CompareMini/CompareCards, SituationGrid, CountyGrid, FaqList) with content in

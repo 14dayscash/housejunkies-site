@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import { ReviewsSection, SectionHeader, cardCls, linkCls } from "@/components/sections/Shared";
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
@@ -229,9 +230,9 @@ export default function PropertyPage({ params }: { params: { slug: string } }) {
 
               {forSale ? <ListingBroker className="mt-10" /> : null}
 
-              <div className={`${forSale ? "mt-4" : "mt-10"} rounded-lg border border-brand-yellow/60 bg-white p-6`}>
+              <div className={`${forSale ? "mt-4" : "mt-10"} ${cardCls}`}>
                 <p className="font-bold text-brand-black">
-                  {forSale ? "Interested in this home?" : "Own a house like this one?"}
+                  {forSale ? "Interested in This Home?" : "Own a House Like This One?"}
                 </p>
                 <p className="mt-2 text-sm leading-relaxed text-gray-600">
                   {forSale
@@ -249,7 +250,7 @@ export default function PropertyPage({ params }: { params: { slug: string } }) {
                     href={`sms:${site.phoneE164}`}
                     className="inline-flex h-11 items-center rounded-md border border-gray-300 px-5 text-sm font-semibold text-brand-black hover:border-brand-yellow-dark hover:text-brand-yellow-dark"
                   >
-                    Text
+                    Text Us
                   </a>
                 </div>
               </div>
@@ -273,14 +274,7 @@ export default function PropertyPage({ params }: { params: { slug: string } }) {
       {more.length ? (
         <section className="border-t border-gray-100 bg-gray-50">
           <div className="mx-auto max-w-6xl px-4 py-12 sm:py-14">
-            <div className="flex flex-wrap items-end justify-between gap-4">
-              <h2 className="text-2xl font-bold text-brand-black">
-                {others.length ? `More in ${p.city}` : "More Projects"}
-              </h2>
-              <Link href="/projects" className="text-sm font-semibold text-brand-yellow-dark hover:underline">
-                All projects →
-              </Link>
-            </div>
+            <SectionHeader eyebrow="Projects" title={others.length ? `More in ${p.city}` : "More Projects"} />
             <ul className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {more.map((o) => (
                 <li key={o.slug}>
@@ -288,18 +282,23 @@ export default function PropertyPage({ params }: { params: { slug: string } }) {
                 </li>
               ))}
             </ul>
+            <div className="mt-8 text-center">
+              <Link href="/projects" className={`text-sm ${linkCls}`}>
+                Browse All Projects →
+              </Link>
+            </div>
           </div>
         </section>
       ) : null}
 
-      <section className="mx-auto max-w-2xl px-4 py-14">
-        <h2 className="text-center text-xl font-bold text-brand-black">
-          {forSale ? `Ask About ${p.street}` : `Have a Property in ${p.city} You Need to Sell?`}
-        </h2>
-        <div className="mt-6">
+      <section className="mx-auto max-w-2xl px-4 py-14 md:py-20">
+        <SectionHeader title={forSale ? `Ask About ${p.street}` : `Have a Property in ${p.city} You Need to Sell?`} />
+        <div className="mt-8">
           {forSale ? <BuyerInquiryForm topic={`Listing: ${p.street}, ${p.city}`} placeholder="Showing times, offer, questions" /> : <ContactForm />}
         </div>
       </section>
+
+      <ReviewsSection />
     </div>
   );
 }
