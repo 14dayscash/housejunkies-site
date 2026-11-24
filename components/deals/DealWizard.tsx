@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState, type ReactNode } from "react";
+import { useMemo, useRef, useState, type ReactNode } from "react";
 import { dealsSupabase } from "@/lib/deals/supabaseClient";
 import { sameAddress } from "@/lib/deals/address";
 import {
@@ -166,7 +166,8 @@ export function DealWizard({
         <Screen eyebrow={deal ? "Edit Deal" : "New Deal"} title="Property Address">
           <form onSubmit={submitAddress} className="space-y-4">
             <input
-              autoFocus
+              autoFocus={desktopFocus()}
+              enterKeyHint="next"
               value={address}
               onChange={(e) => {
                 setAddress(e.target.value);
@@ -283,7 +284,8 @@ export function DealWizard({
           >
             <div className="relative">
               <input
-                autoFocus
+                autoFocus={desktopFocus()}
+                enterKeyHint="next"
                 inputMode="numeric"
                 value={sqft}
                 onChange={(e) => setSqft(e.target.value.replace(/\D/g, ""))}
@@ -432,9 +434,29 @@ function Results({
   );
 }
 
+// Phones and tablets: never pop the keyboard open on a new screen (it covers
+// everything). Computers with a mouse still get the cursor in the box.
+function desktopFocus() {
+  return typeof window !== "undefined" && window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+}
+
+// When the keyboard opens on a phone, slide the card up so the question and
+// the box sit at the top of the screen, above the keyboard.
+function liftAboveKeyboard(card: HTMLElement | null, target: EventTarget) {
+  if (!card || desktopFocus()) return;
+  const el = target as HTMLElement;
+  if (!["INPUT", "TEXTAREA", "SELECT"].includes(el.tagName)) return;
+  setTimeout(() => {
+    const header = 80; // sticky site header
+    const top = card.getBoundingClientRect().top + window.scrollY - header;
+    window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
+  }, 300);
+}
+
 function Screen({ eyebrow, title, sub, children }: { eyebrow: string; title: string; sub?: string; children: ReactNode }) {
+  const ref = useRef<HTMLDivElement>(null);
   return (
-    <div className="rounded-2xl bg-white p-6 shadow-sm sm:p-8">
+    <div ref={ref} onFocusCapture={(e) => liftAboveKeyboard(ref.current, e.target)} className="rounded-2xl bg-white p-6 shadow-sm sm:p-8">
       <p className="text-xs font-bold uppercase tracking-widest text-brand-yellow-dark">{eyebrow}</p>
       <h2 className="mt-1 text-2xl font-extrabold text-brand-black sm:text-3xl">{title}</h2>
       {sub && <p className="mt-1 text-gray-600">{sub}</p>}
@@ -489,7 +511,8 @@ function MoneyField({
     <div className="relative">
       <span className={`pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 font-bold text-gray-400 ${big ? "text-lg" : ""}`}>$</span>
       <input
-        autoFocus={autoFocus}
+        autoFocus={autoFocus && desktopFocus()}
+        enterKeyHint="next"
         inputMode="numeric"
         value={value}
         onChange={(e) => onChange(moneyInput(e.target.value))}
