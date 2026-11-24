@@ -43,7 +43,7 @@ export function DealsApp() {
           <div className="flex items-center gap-3">
             <Image src="/images/logo-white.png" alt="House Junkies" width={56} height={37} className="h-10 w-auto sm:h-12" />
             <div>
-              <p className="text-[11px] font-bold uppercase tracking-widest text-brand-yellow sm:text-xs">House Junkies Team Only</p>
+              <p className="text-[11px] font-bold uppercase tracking-widest text-brand-yellow sm:text-xs">House Junkies Team</p>
               <h1 className="text-2xl font-extrabold leading-tight sm:text-3xl">Deal Tracker</h1>
             </div>
           </div>
