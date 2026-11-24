@@ -38,8 +38,10 @@ export function Dashboard({
   const counts = useMemo(() => {
     const c: Record<string, number> = {};
     for (const d of directory) c[d.status] = (c[d.status] ?? 0) + 1;
+    // Closed counts only your own closed deals (Dominic, 2026-11-24).
+    c["Closed"] = myDeals.filter((d) => d.status === "Closed").length;
     return c;
-  }, [directory]);
+  }, [directory, myDeals]);
 
   const match = (address: string, status: string) =>
     (!statusFilter || status === statusFilter) && (!search.trim() || address.toLowerCase().includes(search.trim().toLowerCase()));
