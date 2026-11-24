@@ -321,6 +321,9 @@ WE ARE TRYING TO TAKE OVER, one street and one site at a time.**
 
 ## 10. Open items
 
+- /deals text rule (Dominic, 2026-11-24): labels are Title Case ("6 Months") or ALL CAPS;
+  only questions and small helper text use normal sentence case. Filters and stat
+  labels are caps. Team Deals lists every deal, the user's own included.
 - /deals: add team users with `supabase/team_users.sql` (one line per person:
   `select private.add_team_user('Name', 'email', 'password');` in the SQL editor; the
   helper is already installed). Display name = `raw_user_meta_data.display_name`.

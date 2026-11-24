@@ -9,6 +9,7 @@ import {
   TYPE_LABELS,
   addressLines,
   rehabCost,
+  savedDealProfit,
   shortDate,
   usd,
   type Deal,
@@ -146,8 +147,9 @@ export function DealDetail({
     { label: "Renovation", value: usd(rehabCost(deal.sqft, deal.condition)) },
     { label: "Rehab Level", value: deal.condition ? CONDITION_LABELS[deal.condition] : "-" },
     { label: "Square Feet", value: deal.sqft ? deal.sqft.toLocaleString("en-US") : "-" },
-    { label: "Hold", value: deal.months ? `${deal.months} months` : "-" },
+    { label: "Hold", value: deal.months ? `${deal.months} Months` : "-" },
     { label: "Listing", value: deal.listing_by ? LISTING_OPTIONS[deal.listing_by].label : "-" },
+    { label: "Estimated Profit", value: usd(savedDealProfit(deal)) },
   ];
 
   const unused = (fields: FieldDef[]) => fields.filter((f) => !shown.includes(f.key));
@@ -186,7 +188,7 @@ export function DealDetail({
             <PencilIcon className="h-4 w-4" /> Recalculate
           </button>
         </div>
-        <dl className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-3">
+        <dl className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-5">
           {numbers.map((n) => (
             <div key={n.label} className="rounded-lg bg-gray-50 px-3 py-2">
               <dt className="text-xs font-semibold text-gray-500">{n.label}</dt>
@@ -202,7 +204,7 @@ export function DealDetail({
                 <li key={i} className="flex flex-wrap justify-between gap-x-4 py-2">
                   <span className="font-semibold text-brand-black">{c.address || "-"}</span>
                   <span className="text-gray-600">
-                    {usd(c.price)} &bull; {/^\d{4}-\d{2}-\d{2}/.test(c.date) ? shortDate(c.date) : c.date || "-"} &bull; {c.sqft ? `${c.sqft.toLocaleString("en-US")} sf` : "- sf"}
+                    {usd(c.price)} &bull; {/^\d{4}-\d{2}-\d{2}/.test(c.date) ? shortDate(c.date) : c.date || "-"} &bull; {c.sqft ? `${c.sqft.toLocaleString("en-US")} SQ FT` : "- SQ FT"}
                   </span>
                 </li>
               ))}
@@ -213,7 +215,7 @@ export function DealDetail({
 
       <div className="rounded-2xl bg-white p-6 shadow-sm">
         <h2 className="font-display text-lg font-extrabold text-brand-black">Deal Info</h2>
-        {shown.length === 0 && <p className="mt-2 text-gray-600">Nothing added yet. Tap Add Info for contact details, APN, dates and more.</p>}
+        {shown.length === 0 && <p className="mt-2 text-gray-600">Click ADD INFO for contact details, dates, and more!</p>}
 
         <div className="mt-4 grid gap-4 sm:grid-cols-2">
           {ALL_FIELDS.filter((f) => shown.includes(f.key)).map((f) => (
@@ -256,7 +258,7 @@ export function DealDetail({
           onClick={() => setMenuOpen((o) => !o)}
           className="mt-5 inline-flex items-center gap-2 rounded-xl border-2 border-dashed border-gray-300 px-4 py-3 font-bold text-brand-black hover:border-brand-yellow-dark"
         >
-          <span className="text-xl leading-none">{menuOpen ? "−" : "+"}</span> Add Info
+          <span className="text-xl leading-none">{menuOpen ? "−" : "+"}</span> ADD INFO
         </button>
 
         {menuOpen && (
@@ -299,7 +301,7 @@ export function DealDetail({
       <div className="flex items-center justify-between">
         <StatusPill status={deal.status} />
         <button onClick={remove} className="font-semibold text-red-600 hover:underline">
-          Delete Deal
+          DELETE DEAL
         </button>
       </div>
     </div>
@@ -312,7 +314,7 @@ function FieldInput({ def, value, onChange }: { def: FieldDef; value: string; on
   if (def.kind === "select")
     return (
       <select id={id} value={value} onChange={(e) => onChange(e.target.value)} className={inputCls}>
-        <option value="">Pick one</option>
+        <option value="">Pick One</option>
         {def.options?.map((o) => (
           <option key={o} value={o}>
             {o}

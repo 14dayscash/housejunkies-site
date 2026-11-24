@@ -182,6 +182,17 @@ export function calcDeal(i: CalcInput): CalcResult {
   };
 }
 
+// Estimated profit for a saved deal, using the real purchase price once it
+// is entered, otherwise our max offer.
+export function savedDealProfit(d: Deal): number | null {
+  const purchase = d.purchase_price ?? d.max_offer;
+  if (purchase == null || !d.arv || !d.listing_by) return null;
+  const subtotal = purchase + (rehabCost(d.sqft, d.condition) ?? 0) + (d.closing_costs ?? CLOSING_COSTS) + (d.assignment_fee ?? 0);
+  const rate = d.interest_rate ?? INTEREST_RATE;
+  const allIn = subtotal * (1 + POINTS_RATE + (rate / 100 / 12) * (d.months ?? 6));
+  return d.arv - d.arv * LISTING_OPTIONS[d.listing_by].rate - allIn;
+}
+
 export function usd(n: number | null | undefined) {
   if (n == null || Number.isNaN(n)) return "-";
   return n.toLocaleString("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 });

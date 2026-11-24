@@ -280,7 +280,7 @@ export function DealWizard({
               {CONDITIONS.map((c) => (
                 <OptionBox key={c} selected={condition === c} onClick={() => setCondition(c)} className="py-4">
                   <span className="font-extrabold leading-tight">{CONDITION_LABELS[c]}</span>
-                  <span className="mt-1 text-sm font-semibold text-gray-500">${CONDITION_RATES[c]}/sf</span>
+                  <span className="mt-1 text-sm font-semibold text-gray-500">${CONDITION_RATES[c]}/SF</span>
                 </OptionBox>
               ))}
             </div>

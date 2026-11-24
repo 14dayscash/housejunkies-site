@@ -45,7 +45,8 @@ export function Dashboard({
     (!statusFilter || status === statusFilter) && (!search.trim() || address.toLowerCase().includes(search.trim().toLowerCase()));
 
   const mine = myDeals.filter((d) => match(d.address, d.status));
-  const others = directory.filter((d) => !d.is_mine && match(d.address, d.status));
+  // Team Deals is every deal in the company, yours included.
+  const others = directory.filter((d) => match(d.address, d.status));
 
   return (
     <div className="space-y-6">
@@ -63,7 +64,7 @@ export function Dashboard({
             }`}
           >
             <p className="font-display text-2xl font-extrabold text-brand-black sm:text-3xl">{counts[s] ?? 0}</p>
-            <p className="text-xs font-semibold leading-tight text-gray-600 sm:text-sm">{s}</p>
+            <p className="text-xs font-bold uppercase leading-tight tracking-wide text-gray-600 sm:text-sm">{s}</p>
           </button>
         ))}
       </div>
@@ -77,10 +78,10 @@ export function Dashboard({
           className={`${inputCls} sm:flex-1`}
         />
         <select value={statusFilter} onChange={(e) => setStatusFilter(e.target.value as "" | DealStatus)} className={`${inputCls} sm:w-56`}>
-          <option value="">All Deals</option>
+          <option value="">ALL DEALS</option>
           {DEAL_STATUSES.map((s) => (
             <option key={s} value={s}>
-              {s}
+              {s.toUpperCase()}
             </option>
           ))}
         </select>
@@ -96,7 +97,7 @@ export function Dashboard({
             <h2 className="mb-3 text-xl font-extrabold text-brand-black">My Deals</h2>
             {mine.length === 0 ? (
               <p className="rounded-xl bg-white p-5 text-gray-600 shadow-sm">
-                {myDeals.length === 0 ? "You have not added a deal yet. Tap Add New Deal to start." : "None of your deals match."}
+                {myDeals.length === 0 ? "Click Add New Deal to Start!" : "None of your deals match."}
               </p>
             ) : (
               <ul className="grid gap-3 md:grid-cols-2 lg:grid-cols-3">
@@ -150,8 +151,8 @@ function MetaLine({ status, type, date }: { status: DealStatus; type: keyof type
 function MyDealCard({ deal, onOpen }: { deal: Deal; onOpen: () => void }) {
   const stats = [
     { label: "Purchase Price", value: deal.purchase_price ?? deal.max_offer },
-    { label: "Renovation", value: rehabCost(deal.sqft, deal.condition) },
-    { label: "Assignment", value: deal.assignment_fee },
+    { label: "Rehab Cost", value: rehabCost(deal.sqft, deal.condition) },
+    { label: "Finders Fee", value: deal.assignment_fee, green: true },
     { label: "ARV", value: deal.arv },
   ];
   return (
@@ -171,7 +172,7 @@ function MyDealCard({ deal, onOpen }: { deal: Deal; onOpen: () => void }) {
         {stats.map((s) => (
           <div key={s.label} className="rounded-lg bg-gray-50 px-3 py-2">
             <dt className="text-xs font-semibold text-gray-500">{s.label}</dt>
-            <dd className="font-bold text-brand-black">{usd(s.value)}</dd>
+            <dd className={`font-bold ${s.green ? "text-green-700" : "text-brand-black"}`}>{usd(s.value)}</dd>
           </div>
         ))}
       </dl>

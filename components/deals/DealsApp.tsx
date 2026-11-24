@@ -49,7 +49,9 @@ export function DealsApp() {
           </div>
           {session && (
             <div className="text-right text-sm">
-              <p className="hidden text-gray-300 sm:block">{session.user.email}</p>
+              <p className="font-bold text-white">
+                {session.user.user_metadata?.display_name || session.user.user_metadata?.full_name || session.user.email}
+              </p>
               <button onClick={signOut} className="font-semibold text-brand-yellow hover:underline">
                 Sign Out
               </button>
