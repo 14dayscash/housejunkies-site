@@ -56,9 +56,9 @@ export function DealPhotos({ deal, readOnly, onChanged }: { deal: Deal; readOnly
   }
 
   return (
-    <div className="rounded-2xl bg-white p-6 shadow-sm">
+    <div className="rounded-2xl border border-white/10 bg-brand-charcoal p-6">
       <div className="flex items-center justify-between gap-3">
-        <h2 className="font-display text-lg font-extrabold text-brand-black">
+        <h2 className="font-display text-lg font-extrabold text-white">
           PHOTOS <span className="text-sm font-bold text-gray-400">({photos.length}/{MAX_PHOTOS})</span>
         </h2>
         {!readOnly && photos.length < MAX_PHOTOS && (
@@ -75,11 +75,11 @@ export function DealPhotos({ deal, readOnly, onChanged }: { deal: Deal; readOnly
       </div>
 
       {photos.length === 0 ? (
-        readOnly && <p className="mt-2 text-gray-600">No photos yet.</p>
+        readOnly && <p className="mt-2 text-gray-400">No photos yet.</p>
       ) : (
         <ul className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-5">
           {photos.map((p, i) => (
-            <li key={p} className="relative aspect-square overflow-hidden rounded-xl bg-gray-100">
+            <li key={p} className="relative aspect-square overflow-hidden rounded-xl bg-white/10">
               {urls[p] ? (
                 <a href={urls[p]} target="_blank" rel="noreferrer">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -102,7 +102,7 @@ export function DealPhotos({ deal, readOnly, onChanged }: { deal: Deal; readOnly
           ))}
         </ul>
       )}
-      {error && <p className="mt-3 text-sm font-semibold text-red-600">{error}</p>}
+      {error && <p className="mt-3 text-sm font-semibold text-red-400">{error}</p>}
     </div>
   );
 }

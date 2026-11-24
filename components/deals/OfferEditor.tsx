@@ -59,9 +59,9 @@ export function OfferEditor({
 
   if (!base || !result) {
     return (
-      <div className="rounded-2xl bg-white p-6 shadow-sm">
-        <h2 className="font-display text-lg font-extrabold text-brand-black">OFFER BREAKDOWN</h2>
-        <p className="mt-2 text-gray-600">
+      <div className="rounded-2xl border border-white/10 bg-brand-charcoal p-6">
+        <h2 className="font-display text-lg font-extrabold text-white">OFFER BREAKDOWN</h2>
+        <p className="mt-2 text-gray-400">
           {readOnly ? "This deal has no calculator numbers yet." : "Click RECALCULATE to fill in the deal numbers."}
         </p>
         {!readOnly && onRecalculate && (
@@ -109,11 +109,11 @@ export function OfferEditor({
     <div className="space-y-4">
       <OfferHeadline result={result} />
 
-      <div className="rounded-2xl bg-white p-6 shadow-sm">
-        <h2 className="mb-4 font-display text-lg font-extrabold text-brand-black">OFFER BREAKDOWN</h2>
+      <div className="rounded-2xl border border-white/10 bg-brand-charcoal p-6">
+        <h2 className="mb-4 font-display text-lg font-extrabold text-white">OFFER BREAKDOWN</h2>
 
         {!readOnly && (
-          <div className="mb-5 grid grid-cols-2 gap-3 rounded-xl bg-gray-50 p-4 sm:grid-cols-3">
+          <div className="mb-5 grid grid-cols-2 gap-3 rounded-xl bg-white/5 p-4 sm:grid-cols-3">
             <Control label="Purchase Price" wide>
               <Money value={purchase} onChange={change(setPurchase)} placeholder={result.works ? `${moneyInput(String(result.maxOffer))} (Max Offer)` : "Purchase price"} />
             </Control>
@@ -152,7 +152,7 @@ export function OfferEditor({
 
         <OfferRows result={result} />
 
-        {message && <p className={`mt-4 text-sm font-semibold ${message.ok ? "text-green-700" : "text-red-600"}`}>{message.text}</p>}
+        {message && <p className={`mt-4 text-sm font-semibold ${message.ok ? "text-green-400" : "text-red-400"}`}>{message.text}</p>}
         {!readOnly && dirty && (
           <button onClick={save} disabled={busy} className={`${btnPrimary} mt-5 w-full`}>
             <CheckIcon className="h-5 w-5" /> {busy ? "SAVING..." : "SAVE NUMBERS"}
@@ -166,7 +166,7 @@ export function OfferEditor({
 function Control({ label, wide, children }: { label: string; wide?: boolean; children: React.ReactNode }) {
   return (
     <label className={`block ${wide ? "col-span-2 sm:col-span-1" : ""}`}>
-      <span className="mb-1 block text-xs font-bold uppercase tracking-wide text-gray-500">{label}</span>
+      <span className="mb-1 block text-xs font-bold uppercase tracking-wide text-gray-400">{label}</span>
       {children}
     </label>
   );

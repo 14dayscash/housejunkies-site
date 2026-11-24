@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { AdminApp } from "@/components/deals/AdminApp";
 
 // Internal admin view of every account and deal. Not in the sitemap or nav,
@@ -11,3 +11,6 @@ export const metadata: Metadata = {
 export default function AdminPage() {
   return <AdminApp />;
 }
+
+// Black phone status bar on the team tools.
+export const viewport: Viewport = { themeColor: "#0a0a0a" };

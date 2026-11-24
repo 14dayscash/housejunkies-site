@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { dealsSupabase } from "@/lib/deals/supabaseClient";
-import { PHOTO_BUCKET } from "@/lib/deals/photos";
+import { PHOTO_BUCKET, signedPhotoUrls } from "@/lib/deals/photos";
 import {
   CONDITION_LABELS,
   DEAL_STATUSES,
@@ -17,7 +17,7 @@ import {
   type Deal,
   type DealStatus,
 } from "@/lib/deals/calc";
-import { PencilIcon, StatusPill, inputCls } from "./ui";
+import { PencilIcon, StatusPill, inputCls, statusBar } from "./ui";
 import { OfferEditor } from "./OfferEditor";
 import { DealPhotos } from "./DealPhotos";
 import { DealInfo } from "./DealInfo";
@@ -43,6 +43,12 @@ export function DealDetail({
   const supabase = dealsSupabase()!;
   const [error, setError] = useState<string | null>(null);
   const [line1, line2] = addressLines(deal.address);
+  const [cover, setCover] = useState<string | null>(null);
+  const firstPhoto = deal.photos?.[0] ?? null;
+  useEffect(() => {
+    if (!firstPhoto) return setCover(null);
+    signedPhotoUrls(supabase, [firstPhoto]).then((u) => setCover(u[firstPhoto] ?? null));
+  }, [supabase, firstPhoto]);
 
   async function updateStatus(status: DealStatus) {
     const { error } = await supabase.from("deals").update({ status }).eq("id", deal.id);
@@ -74,12 +80,25 @@ export function DealDetail({
 
   return (
     <div className="mx-auto max-w-3xl space-y-5">
-      <button onClick={onBack} className="font-semibold text-brand-yellow-dark hover:underline">
+      <button onClick={onBack} className="font-semibold text-brand-yellow hover:underline">
         &larr; Back to Deals
       </button>
 
-      <div className="rounded-2xl bg-brand-black p-6 text-white shadow-sm">
-        <p className="text-xl font-extrabold leading-snug">
+      <div className="hj-rise relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-[#1f1f1f] to-brand-black p-6 text-white">
+        {cover && (
+          <>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={cover} alt="" className="absolute inset-0 h-full w-full object-cover opacity-40" />
+            <span className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-black/30" />
+          </>
+        )}
+        <span className={`absolute inset-x-0 top-0 h-1 ${statusBar(deal.status)}`} />
+        <div className="relative">
+        <p className="text-2xl font-extrabold leading-snug">
+          {line1}
+          {line2 && <span className="block text-base font-normal text-gray-300">{line2}</span>}
+        </p>
+        <p className="mt-2 text-sm text-gray-300">
           {line1}
           {line2 && <span className="block text-base font-normal text-gray-400">{line2}</span>}
         </p>
@@ -109,11 +128,12 @@ export function DealDetail({
             </select>
           </label>
         )}
+        </div>
       </div>
 
-      <div className="rounded-2xl bg-white p-6 shadow-sm">
+      <div className="rounded-2xl border border-white/10 bg-brand-charcoal p-6">
         <div className="flex items-center justify-between gap-3">
-          <h2 className="font-display text-lg font-extrabold text-brand-black">Deal Numbers</h2>
+          <h2 className="font-display text-lg font-extrabold text-white">Deal Numbers</h2>
           {!readOnly && onRecalculate && (
             <button onClick={onRecalculate} className="inline-flex items-center gap-1.5 rounded-lg bg-brand-yellow px-3 py-2 text-sm font-bold text-black hover:bg-brand-yellow-dark">
               <PencilIcon className="h-4 w-4" /> RECALCULATE
@@ -122,20 +142,20 @@ export function DealDetail({
         </div>
         <dl className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-5">
           {numbers.map((n) => (
-            <div key={n.label} className="rounded-lg bg-gray-50 px-3 py-2">
-              <dt className="text-xs font-bold uppercase tracking-wide text-gray-500">{n.label}</dt>
-              <dd className="font-bold text-brand-black">{n.value}</dd>
+            <div key={n.label} className="rounded-lg bg-white/5 px-3 py-2">
+              <dt className="text-xs font-bold uppercase tracking-wide text-gray-400">{n.label}</dt>
+              <dd className="font-bold text-white">{n.value}</dd>
             </div>
           ))}
         </dl>
         {deal.comps && deal.comps.length > 0 && (
           <div className="mt-5">
-            <h3 className="text-sm font-extrabold uppercase tracking-wide text-gray-500">Comps</h3>
-            <ul className="mt-2 divide-y divide-gray-100 text-sm">
+            <h3 className="text-sm font-extrabold uppercase tracking-wide text-gray-400">Comps</h3>
+            <ul className="mt-2 divide-y divide-white/10 text-sm">
               {deal.comps.map((c, i) => (
                 <li key={i} className="flex flex-wrap justify-between gap-x-4 py-2">
-                  <span className="font-semibold text-brand-black">{c.address || "-"}</span>
-                  <span className="text-gray-600">
+                  <span className="font-semibold text-white">{c.address || "-"}</span>
+                  <span className="text-gray-400">
                     {usd(c.price)} &bull; {/^\d{4}-\d{2}-\d{2}/.test(c.date) ? shortDate(c.date) : c.date || "-"} &bull;{" "}
                     {c.sqft ? `${c.sqft.toLocaleString("en-US")} SQ FT` : "- SQ FT"}
                     {pricePerSqft(c.price, c.sqft) != null && <> &bull; ${pricePerSqft(c.price, c.sqft)!.toLocaleString("en-US")}/SF</>}
@@ -154,12 +174,12 @@ export function DealDetail({
 
       <DealInfo deal={deal} readOnly={readOnly} onChanged={onChanged} />
 
-      {error && <p className="rounded-xl bg-red-50 p-4 text-sm font-semibold text-red-700">{error}</p>}
+      {error && <p className="rounded-xl bg-red-500/10 p-4 text-sm font-semibold text-red-300">{error}</p>}
 
       {!readOnly && (
         <div className="flex items-center justify-between">
           <StatusPill status={deal.status} />
-          <button onClick={remove} className="font-semibold text-red-600 hover:underline">
+          <button onClick={remove} className="font-semibold text-red-400 hover:underline">
             DELETE DEAL
           </button>
         </div>

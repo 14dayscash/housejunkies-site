@@ -16,7 +16,8 @@ import {
 } from "@/lib/deals/calc";
 import { DealsShell } from "./Shell";
 import { DealDetail } from "./DealDetail";
-import { StatusPill, inputCls } from "./ui";
+import { HouseIcon, StatusPill, inputCls, statusBar, statusText } from "./ui";
+import { signedPhotoUrls } from "@/lib/deals/photos";
 
 type Account = {
   id: string;
@@ -48,13 +49,13 @@ function AdminGate() {
     supabase.rpc("is_admin").then(({ data }) => setAllowed(data === true));
   }, [supabase]);
 
-  if (allowed === null) return <p className="text-gray-500">Loading...</p>;
+  if (allowed === null) return <p className="text-gray-400">Loading...</p>;
   if (!allowed)
     return (
-      <div className="mx-auto max-w-md rounded-2xl bg-white p-6 text-center shadow-sm">
-        <p className="font-display text-xl font-extrabold text-brand-black">ADMINS ONLY</p>
-        <p className="mt-2 text-gray-600">This page is only for Dominic, Abel and Ciara.</p>
-        <Link href="/deals" className="mt-4 inline-block font-bold text-brand-yellow-dark hover:underline">
+      <div className="mx-auto max-w-md rounded-2xl border border-white/10 bg-brand-charcoal p-6 text-center">
+        <p className="font-display text-xl font-extrabold text-white">ADMINS ONLY</p>
+        <p className="mt-2 text-gray-400">This page is only for Dominic, Abel and Ciara.</p>
+        <Link href="/deals" className="mt-4 inline-block font-bold text-brand-yellow hover:underline">
           Go to Deal Tracker &rarr;
         </Link>
       </div>
@@ -72,6 +73,7 @@ function AdminDashboard() {
   const [status, setStatus] = useState<"" | DealStatus>("");
   const [owner, setOwner] = useState("");
   const [search, setSearch] = useState("");
+  const [covers, setCovers] = useState<Record<string, string>>({});
 
   const load = useCallback(async () => {
     const [d, a] = await Promise.all([
@@ -91,6 +93,18 @@ function AdminDashboard() {
   useEffect(() => {
     window.scrollTo({ top: 0 });
   }, [openId]);
+
+  // Cover photo = first photo on each deal (admins can read every photo).
+  const coverPaths = deals.map((d) => d.photos?.[0]).filter((p): p is string => !!p);
+  const coverKey = coverPaths.join("|");
+  useEffect(() => {
+    let alive = true;
+    signedPhotoUrls(supabase, coverPaths).then((u) => alive && setCovers(u));
+    return () => {
+      alive = false;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [coverKey]);
 
   const nameOf = useMemo(() => {
     const m = new Map(accounts.map((a) => [a.id, a.display_name]));
@@ -129,11 +143,11 @@ function AdminDashboard() {
 
   return (
     <div className="space-y-8">
-      {error && <p className="rounded-xl bg-red-50 p-4 text-sm font-semibold text-red-700">{error}</p>}
+      {error && <p className="rounded-xl bg-red-500/10 p-4 text-sm font-semibold text-red-300">{error}</p>}
 
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
         {topStats.map((s) => (
-          <div key={s.label} className="rounded-xl bg-brand-black p-4 text-white shadow-sm">
+          <div key={s.label} className="hj-rise rounded-xl border border-white/10 bg-gradient-to-br from-[#1f1f1f] to-brand-black p-4 text-white">
             <p className="font-display text-xl font-extrabold sm:text-2xl">{loading ? "-" : s.value}</p>
             <p className="text-xs font-bold uppercase tracking-wide text-brand-yellow">{s.label}</p>
           </div>
@@ -145,40 +159,41 @@ function AdminDashboard() {
           <button
             key={s}
             onClick={() => setStatus(status === s ? "" : s)}
-            className={`rounded-xl border bg-white p-3 text-left shadow-sm transition-colors sm:p-4 ${
-              status === s ? "border-brand-yellow-dark ring-2 ring-brand-yellow/50" : "border-gray-200 hover:border-gray-300"
+            className={`relative overflow-hidden rounded-xl border bg-brand-charcoal p-3 text-left transition sm:p-4 ${
+              status === s ? "border-white/40 bg-white/10" : "border-white/10 hover:border-white/25"
             }`}
           >
-            <p className="font-display text-2xl font-extrabold text-brand-black sm:text-3xl">{counts[s] ?? 0}</p>
-            <p className="text-xs font-bold uppercase leading-tight tracking-wide text-gray-600 sm:text-sm">{s}</p>
+            <span className={`absolute inset-x-0 top-0 h-1 ${statusBar(s)}`} />
+            <p className={`font-display text-2xl font-extrabold tabular-nums sm:text-3xl ${statusText(s)}`}>{counts[s] ?? 0}</p>
+            <p className="text-[10px] font-bold uppercase leading-tight tracking-wide text-gray-400 sm:text-xs">{s}</p>
           </button>
         ))}
       </div>
 
       <section>
-        <h2 className="mb-3 text-xl font-extrabold text-brand-black">ACCOUNTS</h2>
+        <h2 className="mb-3 text-xl font-extrabold text-white">ACCOUNTS</h2>
         <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {accounts.map((a) => (
             <li key={a.id}>
               <button
                 onClick={() => setOwner(owner === a.id ? "" : a.id)}
-                className={`w-full rounded-xl border bg-white p-4 text-left shadow-sm transition-colors ${
-                  owner === a.id ? "border-brand-yellow-dark ring-2 ring-brand-yellow/50" : "border-gray-200 hover:border-gray-300"
+                className={`w-full rounded-xl border bg-brand-charcoal p-4 text-left transition-colors ${
+                  owner === a.id ? "border-brand-yellow-dark ring-2 ring-brand-yellow/50" : "border-white/10 hover:border-white/25"
                 }`}
               >
                 <div className="flex items-start justify-between gap-2">
-                  <p className="font-bold text-brand-black">{a.display_name}</p>
-                  {a.is_admin && <span className="rounded-full bg-brand-black px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-brand-yellow">Admin</span>}
+                  <p className="font-bold text-white">{a.display_name}</p>
+                  {a.is_admin && <span className="rounded-full bg-brand-yellow px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-black">Admin</span>}
                 </div>
-                <p className="break-all text-sm text-gray-500">{a.email}</p>
+                <p className="break-all text-sm text-gray-400">{a.email}</p>
                 <dl className="mt-3 grid grid-cols-2 gap-2 text-sm">
-                  <div className="rounded-lg bg-gray-50 px-3 py-2">
-                    <dt className="text-xs font-bold uppercase tracking-wide text-gray-500">Deals</dt>
-                    <dd className="font-bold text-brand-black">{a.deal_count}</dd>
+                  <div className="rounded-lg bg-white/5 px-3 py-2">
+                    <dt className="text-xs font-bold uppercase tracking-wide text-gray-400">Deals</dt>
+                    <dd className="font-bold text-white">{a.deal_count}</dd>
                   </div>
-                  <div className="rounded-lg bg-gray-50 px-3 py-2">
-                    <dt className="text-xs font-bold uppercase tracking-wide text-gray-500">Last Sign In</dt>
-                    <dd className="font-bold text-brand-black">{a.last_sign_in_at ? shortDate(a.last_sign_in_at) : "Never"}</dd>
+                  <div className="rounded-lg bg-white/5 px-3 py-2">
+                    <dt className="text-xs font-bold uppercase tracking-wide text-gray-400">Last Sign In</dt>
+                    <dd className="font-bold text-white">{a.last_sign_in_at ? shortDate(a.last_sign_in_at) : "Never"}</dd>
                   </div>
                 </dl>
               </button>
@@ -188,7 +203,7 @@ function AdminDashboard() {
       </section>
 
       <section className="space-y-3">
-        <h2 className="text-xl font-extrabold text-brand-black">ALL DEALS</h2>
+        <h2 className="text-xl font-extrabold text-white">ALL DEALS</h2>
         <div className="grid gap-3 sm:grid-cols-2">
           <select value={status} onChange={(e) => setStatus(e.target.value as "" | DealStatus)} className={inputCls}>
             <option value="">All Deals</option>
@@ -211,13 +226,19 @@ function AdminDashboard() {
         <input type="search" placeholder="SEARCH BY ADDRESS" value={search} onChange={(e) => setSearch(e.target.value)} className={inputCls} />
 
         {loading ? (
-          <p className="text-gray-500">Loading deals...</p>
+          <p className="text-gray-400">Loading deals...</p>
         ) : visible.length === 0 ? (
-          <p className="rounded-xl bg-white p-5 text-gray-600 shadow-sm">No deals match.</p>
+          <p className="rounded-xl border border-white/10 bg-brand-charcoal p-5 text-gray-400">No deals match.</p>
         ) : (
           <ul className="grid gap-3 md:grid-cols-2 lg:grid-cols-3">
             {visible.map((d) => (
-              <AdminDealCard key={d.id} deal={d} owner={nameOf(d.created_by)} onOpen={() => setOpenId(d.id)} />
+              <AdminDealCard
+                key={d.id}
+                deal={d}
+                owner={nameOf(d.created_by)}
+                cover={d.photos?.[0] ? covers[d.photos[0]] : undefined}
+                onOpen={() => setOpenId(d.id)}
+              />
             ))}
           </ul>
         )}
@@ -226,7 +247,7 @@ function AdminDashboard() {
   );
 }
 
-function AdminDealCard({ deal, owner, onOpen }: { deal: Deal; owner: string; onOpen: () => void }) {
+function AdminDealCard({ deal, owner, cover, onOpen }: { deal: Deal; owner: string; cover?: string; onOpen: () => void }) {
   const [line1, line2] = addressLines(deal.address);
   const est = savedDealProfit(deal);
   const stats = [
@@ -236,32 +257,45 @@ function AdminDealCard({ deal, owner, onOpen }: { deal: Deal; owner: string; onO
     { label: "ARV", value: usd(deal.arv) },
   ];
   return (
-    <li>
-      <button onClick={onOpen} className="w-full rounded-xl border border-gray-200 bg-white p-4 text-left shadow-sm hover:border-brand-yellow-dark">
-        <p className="font-bold leading-snug text-brand-black">
+    <li className="hj-rise">
+      <button onClick={onOpen} className="w-full overflow-hidden rounded-2xl border border-white/10 bg-brand-charcoal text-left transition hover:border-white/25">
+        <span className="relative block aspect-[16/9] w-full overflow-hidden bg-gradient-to-br from-[#222] to-brand-black">
+          {cover ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img src={cover} alt="" className="h-full w-full object-cover" />
+          ) : (
+            <span className="flex h-full w-full items-center justify-center text-white/15">
+              <HouseIcon className="h-14 w-14" />
+            </span>
+          )}
+          <span className={`absolute inset-x-0 top-0 h-1 ${statusBar(deal.status)}`} />
+        </span>
+        <span className="block p-4">
+        <p className="font-bold leading-snug text-white">
           {line1}
-          {line2 && <span className="block font-normal text-gray-600">{line2}</span>}
+          {line2 && <span className="block font-normal text-gray-400">{line2}</span>}
         </p>
-        <p className="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-gray-600">
+        <p className="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-gray-400">
           <StatusPill status={deal.status} />
           <span>&bull;</span>
           <span className="font-bold uppercase tracking-wide">{TYPE_LABELS[deal.deal_type] ?? deal.deal_type}</span>
           <span>&bull;</span>
           <span>{shortDate(deal.purchase_date ?? deal.created_at)}</span>
         </p>
-        <p className="mt-2 text-sm font-bold text-brand-yellow-dark">{owner}</p>
+        <p className="mt-2 text-sm font-bold text-brand-yellow">{owner}</p>
         <dl className="mt-3 grid grid-cols-2 gap-2">
           {stats.map((s) => (
-            <div key={s.label} className="rounded-lg bg-gray-50 px-3 py-2">
-              <dt className="text-xs font-bold uppercase tracking-wide text-gray-500">{s.label}</dt>
-              <dd className={`font-bold ${s.green ? "text-green-700" : "text-brand-black"}`}>{s.value}</dd>
+            <div key={s.label} className="rounded-lg bg-white/5 px-3 py-2">
+              <dt className="text-xs font-bold uppercase tracking-wide text-gray-400">{s.label}</dt>
+              <dd className={`font-bold ${s.green ? "text-green-400" : "text-white"}`}>{s.value}</dd>
             </div>
           ))}
-          <div className="col-span-2 rounded-lg bg-gray-50 px-3 py-2">
-            <dt className="text-xs font-bold uppercase tracking-wide text-gray-500">Estimated Profit</dt>
-            <dd className="font-bold text-brand-black">{est ? `${usd(est.profit)} (${est.pct.toFixed(1)}%)` : "-"}</dd>
+          <div className="col-span-2 rounded-lg bg-white/5 px-3 py-2">
+            <dt className="text-xs font-bold uppercase tracking-wide text-gray-400">Estimated Profit</dt>
+            <dd className="font-bold text-white">{est ? `${usd(est.profit)} (${est.pct.toFixed(1)}%)` : "-"}</dd>
           </div>
         </dl>
+        </span>
       </button>
     </li>
   );

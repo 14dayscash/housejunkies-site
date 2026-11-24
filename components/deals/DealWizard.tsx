@@ -71,13 +71,17 @@ export function DealWizard({
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
 
+  // Which way the screens slide: forward slides in from the right.
+  const [dir, setDir] = useState<"next" | "back">("next");
   const next = () => {
     setError(null);
+    setDir("next");
     setStep((s) => s + 1);
     window.scrollTo({ top: 0 });
   };
   const back = () => {
     setError(null);
+    setDir("back");
     if (step === 0) onCancel();
     else setStep((s) => s - 1);
   };
@@ -147,21 +151,22 @@ export function DealWizard({
   return (
     <div className="mx-auto max-w-2xl">
       <div className="mb-4 flex items-center justify-between">
-        <button onClick={back} className="font-semibold text-brand-yellow-dark hover:underline">
+        <button onClick={back} className="font-semibold text-brand-yellow hover:underline">
           &larr; {step === 0 ? "Back to Deals" : "Back"}
         </button>
         {step < STEP_COUNT && (
-          <p className="text-sm font-bold text-gray-500">
+          <p className="text-sm font-bold text-gray-400">
             Step {step + 1} of {STEP_COUNT}
           </p>
         )}
       </div>
       {step < STEP_COUNT && (
-        <div className="mb-6 h-2 overflow-hidden rounded-full bg-gray-200">
-          <div className="h-full rounded-full bg-brand-yellow transition-all" style={{ width: `${((step + 1) / STEP_COUNT) * 100}%` }} />
+        <div className="mb-6 h-2 overflow-hidden rounded-full bg-white/10">
+          <div className="h-full rounded-full bg-brand-yellow shadow-[0_0_12px_rgba(245,197,24,0.6)] transition-all duration-500" style={{ width: `${((step + 1) / STEP_COUNT) * 100}%` }} />
         </div>
       )}
 
+      <div key={step} className={dir === "next" ? "hj-slide-next" : "hj-slide-back"}>
       {step === 0 && (
         <Screen eyebrow={deal ? "Edit Deal" : "New Deal"} title="Property Address">
           <form onSubmit={submitAddress} className="space-y-4">
@@ -218,9 +223,9 @@ export function DealWizard({
           >
             <MoneyField value={arv} onChange={setArv} placeholder="300,000" autoFocus big />
             <div>
-              <h3 className="text-base font-extrabold text-brand-black">Comparable Properties</h3>
-              <p className="text-sm italic text-gray-500">OPTIONAL / Up to {MAX_COMPS} Sold Homes</p>
-              <div className={`mt-3 hidden ${COMP_GRID} gap-2 px-1 text-xs font-bold uppercase tracking-wide text-gray-500 sm:grid`}>
+              <h3 className="text-base font-extrabold text-white">Comparable Properties</h3>
+              <p className="text-sm italic text-gray-400">OPTIONAL / Up to {MAX_COMPS} Sold Homes</p>
+              <div className={`mt-3 hidden ${COMP_GRID} gap-2 px-1 text-xs font-bold uppercase tracking-wide text-gray-400 sm:grid`}>
                 <span>ADDRESS</span>
                 <span>SALE PRICE</span>
                 <span>SALE DATE</span>
@@ -233,7 +238,7 @@ export function DealWizard({
                   const set = (patch: Partial<CompDraft>) => setComps((all) => all.map((x, j) => (j === i ? { ...x, ...patch } : x)));
                   const ppsf = pricePerSqft(parseNum(c.price), parseNum(c.sqft));
                   return (
-                    <div key={i} className={`grid grid-cols-2 gap-2 rounded-xl border border-gray-200 bg-gray-50 p-3 ${COMP_GRID_SM} sm:border-0 sm:bg-transparent sm:p-0`}>
+                    <div key={i} className={`grid grid-cols-2 gap-2 rounded-xl border border-white/10 bg-white/5 p-3 ${COMP_GRID_SM} sm:border-0 sm:bg-transparent sm:p-0`}>
                       <input value={c.address} onChange={(e) => set({ address: e.target.value })} placeholder="ADDRESS" className={`${inputCls} col-span-2 py-2.5 sm:col-span-1`} />
                       <input inputMode="numeric" value={c.price} onChange={(e) => set({ price: moneyInput(e.target.value) })} placeholder="SALE PRICE" className={`${inputCls} py-2.5`} />
                       <input inputMode="numeric" value={c.date} onChange={(e) => set({ date: formatDateTyping(e.target.value) })} placeholder="SALE DATE" aria-label="Sale date" className={`${inputCls} py-2.5`} />
@@ -241,7 +246,7 @@ export function DealWizard({
                       <div
                         aria-label="Price per square foot"
                         title="Figured from sale price and square feet"
-                        className="flex items-center rounded-xl border border-gray-200 bg-gray-100 px-4 py-2.5 font-semibold text-gray-600"
+                        className="flex items-center rounded-xl border border-white/10 bg-white/10 px-4 py-2.5 font-semibold text-gray-400"
                       >
                         {ppsf != null ? `$${ppsf.toLocaleString("en-US")}/SF` : "$/SF"}
                       </div>
@@ -249,7 +254,7 @@ export function DealWizard({
                         type="button"
                         onClick={() => setComps((all) => (all.length === 1 ? [emptyComp()] : all.filter((_, j) => j !== i)))}
                         aria-label="Remove comp"
-                        className="col-span-2 text-right text-xl font-bold text-gray-400 hover:text-red-600 sm:col-span-1 sm:text-center"
+                        className="col-span-2 text-right text-xl font-bold text-gray-400 hover:text-red-400 sm:col-span-1 sm:text-center"
                       >
                         &times;
                       </button>
@@ -258,7 +263,7 @@ export function DealWizard({
                 })}
               </div>
               {comps.length < MAX_COMPS && (
-                <button type="button" onClick={() => setComps((all) => [...all, emptyComp()])} className="mt-3 font-bold text-brand-yellow-dark hover:underline">
+                <button type="button" onClick={() => setComps((all) => [...all, emptyComp()])} className="mt-3 font-bold text-brand-yellow hover:underline">
                   + Add More
                 </button>
               )}
@@ -294,17 +299,17 @@ export function DealWizard({
               />
               <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 font-semibold text-gray-400">SQ FT</span>
             </div>
-            <h3 className="text-base font-extrabold text-brand-black">How much work does it need?</h3>
+            <h3 className="text-base font-extrabold text-white">How much work does it need?</h3>
             <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
               {CONDITIONS.map((c) => (
                 <OptionBox key={c} selected={condition === c} onClick={() => setCondition(c)} className="py-4">
                   <span className="font-extrabold leading-tight">{CONDITION_LABELS[c]}</span>
-                  <span className="mt-1 text-sm font-semibold text-gray-500">${CONDITION_RATES[c]}/SF</span>
+                  <span className="mt-1 text-sm font-semibold text-gray-400">${CONDITION_RATES[c]}/SF</span>
                 </OptionBox>
               ))}
             </div>
             {condition && parseNum(sqft) ? (
-              <p className="text-center text-sm font-semibold text-gray-600">Renovation Estimate: {usd(result.rehab)}</p>
+              <p className="text-center text-sm font-semibold text-gray-400">Renovation Estimate: {usd(result.rehab)}</p>
             ) : null}
             <ErrorText error={error} />
             <button type="submit" className={`${btnPrimary} w-full`}>
@@ -347,7 +352,7 @@ export function DealWizard({
                 className="py-6"
               >
                 <span className="font-display text-3xl font-black">{m}</span>
-                <span className="text-sm font-bold text-gray-500">MONTHS</span>
+                <span className="text-sm font-bold text-gray-400">MONTHS</span>
               </OptionBox>
             ))}
           </div>
@@ -382,6 +387,7 @@ export function DealWizard({
           onSave={save}
         />
       )}
+      </div>
     </div>
   );
 }
@@ -426,8 +432,8 @@ function Results({
         }
       />
 
-      <div className="rounded-2xl bg-white p-6 shadow-sm">
-        <h3 className="mb-3 font-display text-lg font-extrabold text-brand-black">OFFER BREAKDOWN</h3>
+      <div className="rounded-2xl border border-white/10 bg-brand-charcoal p-6">
+        <h3 className="mb-3 font-display text-lg font-extrabold text-white">OFFER BREAKDOWN</h3>
         <OfferRows result={r} />
       </div>
     </div>
@@ -456,10 +462,10 @@ function liftAboveKeyboard(card: HTMLElement | null, target: EventTarget) {
 function Screen({ eyebrow, title, sub, children }: { eyebrow: string; title: string; sub?: string; children: ReactNode }) {
   const ref = useRef<HTMLDivElement>(null);
   return (
-    <div ref={ref} onFocusCapture={(e) => liftAboveKeyboard(ref.current, e.target)} className="rounded-2xl bg-white p-6 shadow-sm sm:p-8">
-      <p className="text-xs font-bold uppercase tracking-widest text-brand-yellow-dark">{eyebrow}</p>
-      <h2 className="mt-1 text-2xl font-extrabold text-brand-black sm:text-3xl">{title}</h2>
-      {sub && <p className="mt-1 text-gray-600">{sub}</p>}
+    <div ref={ref} onFocusCapture={(e) => liftAboveKeyboard(ref.current, e.target)} className="rounded-2xl border border-white/10 bg-brand-charcoal p-6 sm:p-8">
+      <p className="text-xs font-bold uppercase tracking-widest text-brand-yellow">{eyebrow}</p>
+      <h2 className="mt-1 text-2xl font-extrabold text-white sm:text-3xl">{title}</h2>
+      {sub && <p className="mt-1 text-gray-400">{sub}</p>}
       <div className="mt-6">{children}</div>
     </div>
   );
@@ -480,8 +486,10 @@ function OptionBox({
     <button
       type="button"
       onClick={onClick}
-      className={`relative flex flex-col items-center justify-center rounded-xl border-2 px-3 text-center text-brand-black transition-colors ${
-        selected ? "border-brand-yellow-dark bg-brand-yellow/20" : "border-gray-200 bg-white hover:border-brand-yellow"
+      className={`relative flex flex-col items-center justify-center rounded-xl border-2 px-3 text-center text-white transition active:scale-[0.97] ${
+        selected
+          ? "border-brand-yellow bg-brand-yellow/15 shadow-[0_0_24px_rgba(245,197,24,0.18)]"
+          : "border-white/10 bg-white/5 hover:border-brand-yellow/60"
       } ${className}`}
     >
       {selected && (
@@ -526,7 +534,7 @@ function MoneyField({
 
 function ErrorText({ error }: { error: string | null }) {
   if (!error) return null;
-  return <p className="mt-3 rounded-xl bg-red-50 p-3 text-sm font-semibold text-red-700">{error}</p>;
+  return <p className="mt-3 rounded-xl bg-red-500/10 p-3 text-sm font-semibold text-red-300">{error}</p>;
 }
 
 function ChevronIcon() {
@@ -556,7 +564,7 @@ function formatDateTyping(v: string) {
 }
 
 function TypeIcon({ type }: { type: DealType }) {
-  const common = { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 1.8, strokeLinecap: "round" as const, strokeLinejoin: "round" as const, className: "h-10 w-10 text-brand-black", "aria-hidden": true };
+  const common = { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 1.8, strokeLinecap: "round" as const, strokeLinejoin: "round" as const, className: "h-10 w-10 text-white", "aria-hidden": true };
   if (type === "flip")
     return (
       <svg {...common}>

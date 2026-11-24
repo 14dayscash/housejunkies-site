@@ -329,6 +329,12 @@ WE ARE TRYING TO TAKE OVER, one street and one site at a time.**
   (`AdminApp.tsx`) is a read-only view of every account and deal for admins in
   `public.admins` (add with `select private.make_admin('email');`). Admins can read
   every deal, so /deals filters My Deals by `created_by`. DB: `supabase/deals_v3.sql`.
+- /deals + /admin look (Dominic, 2026-11-24): dark app style (black page, charcoal
+  cards, yellow actions, green money), no site header/footer (`HideOnInternal`), phone
+  bottom tab bar (Home, Team, yellow +, Profile), photo cover cards, "Pipeline Value /
+  Finders Fees" headline (open deals only, no extra subtext), one color per status
+  (`STATUS_COLORS` in `components/deals/ui.tsx`), slide/count-up/confetti motion
+  (keyframes at the end of `app/globals.css`). Keep new screens in this style.
 - /deals text rule (Dominic, 2026-11-24): labels are Title Case ("6 Months") or ALL CAPS;
   only questions and small helper text use normal sentence case. Filters and stat
   labels are caps. Team Deals lists every deal, the user's own included.

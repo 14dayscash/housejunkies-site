@@ -1,30 +1,40 @@
 // Offer results shared by the Add Deal results screen and the deal page.
+"use client";
+
 import { usd, type CalcResult } from "@/lib/deals/calc";
+import { CountUpMoney } from "./ui";
 
 // Black card: Our Max Offer, You Will Make, Opening Offer.
 export function OfferHeadline({ result: r, top }: { result: CalcResult; top?: React.ReactNode }) {
   return (
-    <div className="rounded-2xl bg-brand-black p-6 text-white shadow-sm sm:p-8">
-      {top}
-      <div className={`${top ? "mt-6" : ""} text-center`}>
-        <p className="text-xs font-bold uppercase tracking-widest text-brand-yellow">Our Max Offer</p>
-        <p className="font-display text-5xl font-black sm:text-6xl">{r.works ? usd(r.maxOffer) : "-"}</p>
-      </div>
-      <div className="mt-6 grid grid-cols-2 gap-3">
-        <div className="rounded-xl bg-brand-yellow p-4 text-center text-black">
-          <p className="text-xs font-bold uppercase tracking-wide">You Will Make</p>
-          <p className="font-display text-2xl font-black sm:text-3xl">{usd(r.findersFee)}</p>
+    <div className="relative overflow-hidden rounded-2xl border border-brand-yellow/30 bg-gradient-to-b from-[#1f1f1f] to-brand-black p-6 text-white shadow-[0_0_60px_rgba(245,197,24,0.08)] sm:p-8">
+      <div className="pointer-events-none absolute -top-24 left-1/2 h-48 w-72 -translate-x-1/2 rounded-full bg-brand-yellow/10 blur-3xl" />
+      <div className="relative">
+        {top}
+        <div className={`${top ? "mt-6" : ""} text-center`}>
+          <p className="text-xs font-bold uppercase tracking-widest text-brand-yellow">Our Max Offer</p>
+          <p className="font-display text-5xl font-black tabular-nums sm:text-6xl">{r.works ? <CountUpMoney value={r.maxOffer} /> : "-"}</p>
         </div>
-        <div className="rounded-xl bg-white p-4 text-center text-black">
-          <p className="text-xs font-bold uppercase tracking-wide text-gray-500">Opening Offer</p>
-          <p className="font-display text-2xl font-black sm:text-3xl">{r.works && r.openingOffer > 0 ? usd(r.openingOffer) : "-"}</p>
+        <div className="mt-6 grid grid-cols-2 gap-3">
+          <div className="rounded-xl bg-brand-yellow p-4 text-center text-black">
+            <p className="text-xs font-bold uppercase tracking-wide">You Will Make</p>
+            <p className="font-display text-2xl font-black tabular-nums sm:text-3xl">
+              <CountUpMoney value={r.findersFee} />
+            </p>
+          </div>
+          <div className="rounded-xl border border-white/10 bg-white/5 p-4 text-center text-white">
+            <p className="text-xs font-bold uppercase tracking-wide text-gray-400">Opening Offer</p>
+            <p className="font-display text-2xl font-black tabular-nums sm:text-3xl">
+              {r.works && r.openingOffer > 0 ? <CountUpMoney value={r.openingOffer} /> : "-"}
+            </p>
+          </div>
         </div>
-      </div>
       {!r.works && (
         <p className="mt-5 rounded-xl bg-red-600 p-3 text-center text-sm font-bold">
           These numbers leave no room for an offer. Check the ARV, rehab and finders fee.
         </p>
       )}
+      </div>
     </div>
   );
 }
@@ -58,15 +68,15 @@ export function OfferRows({ result: r }: { result: CalcResult }) {
 function Row({ label, value, strong, note }: { label: string; value: number; strong?: boolean; note?: string }) {
   return (
     <div className="flex justify-between gap-4">
-      <dt className={strong ? "font-extrabold text-brand-black" : "text-gray-600"}>{label}</dt>
-      <dd className={strong ? "font-extrabold text-brand-black" : "font-semibold text-gray-900"}>
+      <dt className={strong ? "font-extrabold text-white" : "text-gray-400"}>{label}</dt>
+      <dd className={strong ? "font-extrabold text-white" : "font-semibold text-white"}>
         {usd(value)}
-        {note && <span className="ml-1.5 text-sm font-semibold text-gray-500">{note}</span>}
+        {note && <span className="ml-1.5 text-sm font-semibold text-gray-400">{note}</span>}
       </dd>
     </div>
   );
 }
 
 function Divider() {
-  return <div className="border-t border-gray-100" />;
+  return <div className="border-t border-white/10" />;
 }

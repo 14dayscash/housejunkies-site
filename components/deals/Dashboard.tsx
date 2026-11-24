@@ -1,7 +1,8 @@
 "use client";
 
-import { useMemo, useState } from "react";
-import type { Session } from "@supabase/supabase-js";
+import { useEffect, useMemo, useState } from "react";
+import { dealsSupabase } from "@/lib/deals/supabaseClient";
+import { signedPhotoUrls } from "@/lib/deals/photos";
 import {
   DEAL_STATUSES,
   TYPE_LABELS,
@@ -13,10 +14,14 @@ import {
   type DealStatus,
   type DirectoryRow,
 } from "@/lib/deals/calc";
-import { PencilIcon, StatusPill, btnPrimary, inputCls } from "./ui";
+import { CountUpMoney, HouseIcon, PencilIcon, StatusPill, btnPrimary, inputCls, statusBar, statusText } from "./ui";
+
+// "home" = My Deals, "team" = Team Deals. Phones show one at a time (bottom
+// tab bar); tablets and computers always show both.
+export type DashTab = "home" | "team";
 
 export function Dashboard({
-  session,
+  tab,
   myDeals,
   directory,
   loading,
@@ -24,7 +29,7 @@ export function Dashboard({
   onAdd,
   onOpen,
 }: {
-  session: Session;
+  tab: DashTab;
   myDeals: Deal[];
   directory: DirectoryRow[];
   loading: boolean;
@@ -32,8 +37,10 @@ export function Dashboard({
   onAdd: () => void;
   onOpen: (id: string) => void;
 }) {
+  const supabase = dealsSupabase()!;
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState<"" | DealStatus>("");
+  const [covers, setCovers] = useState<Record<string, string>>({});
 
   const counts = useMemo(() => {
     const c: Record<string, number> = {};
@@ -43,6 +50,23 @@ export function Dashboard({
     return c;
   }, [directory, myDeals]);
 
+  // Your open deals: what we would pay, and what you would make.
+  const open = myDeals.filter((d) => d.status !== "Closed");
+  const pipeline = open.reduce((t, d) => t + (d.purchase_price ?? d.max_offer ?? 0), 0);
+  const fees = open.reduce((t, d) => t + (d.assignment_fee ?? 0), 0);
+
+  // Cover photo = first photo on each of your deals.
+  const coverPaths = myDeals.map((d) => d.photos?.[0]).filter((p): p is string => !!p);
+  const coverKey = coverPaths.join("|");
+  useEffect(() => {
+    let alive = true;
+    signedPhotoUrls(supabase, coverPaths).then((u) => alive && setCovers(u));
+    return () => {
+      alive = false;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [coverKey]);
+
   const match = (address: string, status: string) =>
     (!statusFilter || status === statusFilter) && (!search.trim() || address.toLowerCase().includes(search.trim().toLowerCase()));
 
@@ -50,23 +74,42 @@ export function Dashboard({
   // Team Deals is every deal in the company, yours included.
   const others = directory.filter((d) => match(d.address, d.status));
 
+  const onlyHome = tab === "team" ? "hidden md:block" : "";
+  const onlyTeam = tab === "home" ? "hidden md:block" : "";
+
   return (
     <div className="space-y-6">
-      <button onClick={onAdd} className={`${btnPrimary} w-full py-4 text-lg sm:w-auto sm:px-10`}>
+      <button onClick={onAdd} className={`${btnPrimary} hidden py-4 text-lg md:inline-flex md:px-10`}>
         + Add New Deal
       </button>
 
-      <div className="grid grid-cols-3 gap-3 lg:grid-cols-6">
+      <div className={`hj-rise grid grid-cols-2 overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-[#1c1c1c] to-brand-black ${onlyHome}`}>
+        <div className="p-5 sm:p-6">
+          <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-brand-yellow">Pipeline Value</p>
+          <p className="mt-1 font-display text-2xl font-black tabular-nums text-white sm:text-4xl">
+            <CountUpMoney value={pipeline} />
+          </p>
+        </div>
+        <div className="border-l border-white/10 p-5 sm:p-6">
+          <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-brand-yellow">Finders Fees</p>
+          <p className="mt-1 font-display text-2xl font-black tabular-nums text-green-400 sm:text-4xl">
+            <CountUpMoney value={fees} />
+          </p>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-3 gap-2 sm:gap-3 lg:grid-cols-6">
         {DEAL_STATUSES.map((s) => (
           <button
             key={s}
             onClick={() => setStatusFilter(statusFilter === s ? "" : s)}
-            className={`rounded-xl border bg-white p-3 text-left shadow-sm transition-colors sm:p-4 ${
-              statusFilter === s ? "border-brand-yellow-dark ring-2 ring-brand-yellow/50" : "border-gray-200 hover:border-gray-300"
+            className={`relative overflow-hidden rounded-xl border bg-brand-charcoal p-3 text-left transition sm:p-4 ${
+              statusFilter === s ? "border-white/40 bg-white/10" : "border-white/10 hover:border-white/25"
             }`}
           >
-            <p className="font-display text-2xl font-extrabold text-brand-black sm:text-3xl">{counts[s] ?? 0}</p>
-            <p className="text-xs font-bold uppercase leading-tight tracking-wide text-gray-600 sm:text-sm">{s}</p>
+            <span className={`absolute inset-x-0 top-0 h-1 ${statusBar(s)}`} />
+            <p className={`font-display text-2xl font-extrabold tabular-nums sm:text-3xl ${statusText(s)}`}>{counts[s] ?? 0}</p>
+            <p className="text-[10px] font-bold uppercase leading-tight tracking-wide text-gray-400 sm:text-xs">{s}</p>
           </button>
         ))}
       </div>
@@ -89,35 +132,35 @@ export function Dashboard({
         />
       </div>
 
-      {error && <p className="rounded-xl bg-red-50 p-4 text-sm font-semibold text-red-700">{error}</p>}
+      {error && <p className="rounded-xl bg-red-500/10 p-4 text-sm font-semibold text-red-300">{error}</p>}
 
       {loading ? (
-        <p className="text-gray-500">Loading deals...</p>
+        <p className="text-gray-400">Loading deals...</p>
       ) : (
         <>
-          <section>
-            <h2 className="mb-3 text-xl font-extrabold text-brand-black">My Deals</h2>
+          <section className={onlyHome}>
+            <h2 className="mb-3 text-xl font-extrabold text-white">My Deals</h2>
             {mine.length === 0 ? (
-              <p className="rounded-xl bg-white p-5 text-gray-600 shadow-sm">
+              <p className="rounded-xl border border-white/10 bg-brand-charcoal p-5 text-gray-400">
                 {myDeals.length === 0 ? "Click Add New Deal to Start!" : "None of your deals match."}
               </p>
             ) : (
-              <ul className="grid gap-3 md:grid-cols-2 lg:grid-cols-3">
-                {mine.map((d) => (
-                  <MyDealCard key={d.id} deal={d} onOpen={() => onOpen(d.id)} />
+              <ul className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                {mine.map((d, i) => (
+                  <MyDealCard key={d.id} deal={d} cover={d.photos?.[0] ? covers[d.photos[0]] : undefined} index={i} onOpen={() => onOpen(d.id)} />
                 ))}
               </ul>
             )}
           </section>
 
-          <section>
-            <h2 className="mb-3 text-xl font-extrabold text-brand-black">Team Deals</h2>
+          <section className={onlyTeam}>
+            <h2 className="mb-3 text-xl font-extrabold text-white">Team Deals</h2>
             {others.length === 0 ? (
-              <p className="rounded-xl bg-white p-5 text-gray-600 shadow-sm">No team deals match.</p>
+              <p className="rounded-xl border border-white/10 bg-brand-charcoal p-5 text-gray-400">No team deals match.</p>
             ) : (
               <ul className="grid gap-3 md:grid-cols-2 lg:grid-cols-3">
-                {others.map((d) => (
-                  <TeamDealCard key={d.id} row={d} />
+                {others.map((d, i) => (
+                  <TeamDealCard key={d.id} row={d} index={i} />
                 ))}
               </ul>
             )}
@@ -128,19 +171,21 @@ export function Dashboard({
   );
 }
 
+const stagger = (i: number) => ({ animationDelay: `${Math.min(i, 12) * 35}ms` });
+
 function AddressBlock({ address }: { address: string }) {
   const [line1, line2] = addressLines(address);
   return (
-    <p className="font-bold leading-snug text-brand-black">
+    <p className="font-bold leading-snug text-white">
       {line1}
-      {line2 && <span className="block font-normal text-gray-600">{line2}</span>}
+      {line2 && <span className="block font-normal text-gray-400">{line2}</span>}
     </p>
   );
 }
 
 function MetaLine({ status, type, date }: { status: DealStatus; type: keyof typeof TYPE_LABELS; date: string | null }) {
   return (
-    <p className="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-gray-600">
+    <p className="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-gray-400">
       <StatusPill status={status} />
       <span>&bull;</span>
       <span className="font-bold uppercase tracking-wide">{TYPE_LABELS[type] ?? type}</span>
@@ -150,7 +195,7 @@ function MetaLine({ status, type, date }: { status: DealStatus; type: keyof type
   );
 }
 
-function MyDealCard({ deal, onOpen }: { deal: Deal; onOpen: () => void }) {
+function MyDealCard({ deal, cover, index, onOpen }: { deal: Deal; cover?: string; index: number; onOpen: () => void }) {
   const stats = [
     { label: "Purchase Price", value: deal.purchase_price ?? deal.max_offer },
     { label: "Rehab Cost", value: rehabCost(deal.sqft, deal.condition) },
@@ -158,36 +203,51 @@ function MyDealCard({ deal, onOpen }: { deal: Deal; onOpen: () => void }) {
     { label: "ARV", value: deal.arv },
   ];
   return (
-    <li className="relative rounded-xl border border-gray-200 bg-white p-4 shadow-sm">
-      <button onClick={onOpen} className="block w-full pr-10 text-left">
-        <AddressBlock address={deal.address} />
-        <MetaLine status={deal.status} type={deal.deal_type} date={deal.purchase_date ?? deal.created_at} />
+    <li className="hj-rise overflow-hidden rounded-2xl border border-white/10 bg-brand-charcoal transition hover:border-white/25" style={stagger(index)}>
+      <button onClick={onOpen} className="relative block aspect-[16/9] w-full overflow-hidden bg-gradient-to-br from-[#222] to-brand-black text-left">
+        {cover ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img src={cover} alt="" className="h-full w-full object-cover" />
+        ) : (
+          <span className="flex h-full w-full items-center justify-center text-white/15">
+            <HouseIcon className="h-14 w-14" />
+          </span>
+        )}
+        <span className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/70 to-transparent" />
+        <span className={`absolute inset-x-0 top-0 h-1 ${statusBar(deal.status)}`} />
       </button>
-      <button
-        onClick={onOpen}
-        aria-label={`Edit ${deal.address}`}
-        className="absolute right-3 top-3 rounded-lg bg-brand-yellow p-2 text-black transition-colors hover:bg-brand-yellow-dark"
-      >
-        <PencilIcon className="h-4 w-4" />
-      </button>
-      <dl className="mt-4 grid grid-cols-2 gap-2">
-        {stats.map((s) => (
-          <div key={s.label} className="rounded-lg bg-gray-50 px-3 py-2">
-            <dt className="text-xs font-bold uppercase tracking-wide text-gray-500">{s.label}</dt>
-            <dd className={`font-bold ${s.green ? "text-green-700" : "text-brand-black"}`}>{usd(s.value)}</dd>
-          </div>
-        ))}
-      </dl>
+      <div className="relative p-4">
+        <button
+          onClick={onOpen}
+          aria-label={`Edit ${deal.address}`}
+          className="absolute -top-5 right-4 flex h-10 w-10 items-center justify-center rounded-full bg-brand-yellow text-black shadow-lg transition active:scale-95 hover:bg-brand-yellow-dark"
+        >
+          <PencilIcon className="h-4 w-4" />
+        </button>
+        <button onClick={onOpen} className="block w-full pr-12 text-left">
+          <AddressBlock address={deal.address} />
+          <MetaLine status={deal.status} type={deal.deal_type} date={deal.purchase_date ?? deal.created_at} />
+        </button>
+        <dl className="mt-4 grid grid-cols-2 gap-2">
+          {stats.map((s) => (
+            <div key={s.label} className="rounded-lg bg-white/5 px-3 py-2">
+              <dt className="text-[10px] font-bold uppercase tracking-wide text-gray-400">{s.label}</dt>
+              <dd className={`font-bold tabular-nums ${s.green ? "text-green-400" : "text-white"}`}>{usd(s.value)}</dd>
+            </div>
+          ))}
+        </dl>
+      </div>
     </li>
   );
 }
 
-function TeamDealCard({ row }: { row: DirectoryRow }) {
+function TeamDealCard({ row, index }: { row: DirectoryRow; index: number }) {
   return (
-    <li className="rounded-xl border border-gray-200 bg-white p-4 shadow-sm">
+    <li className="hj-rise relative overflow-hidden rounded-xl border border-white/10 bg-brand-charcoal p-4 pl-5" style={stagger(index)}>
+      <span className={`absolute inset-y-0 left-0 w-1 ${statusBar(row.status)}`} />
       <AddressBlock address={row.address} />
       <MetaLine status={row.status} type={row.deal_type} date={row.deal_date} />
-      <p className="mt-2 text-sm font-bold text-brand-yellow-dark">{row.owner_name}</p>
+      <p className="mt-2 text-sm font-bold text-brand-yellow">{row.owner_name}</p>
     </li>
   );
 }

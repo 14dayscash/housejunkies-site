@@ -129,11 +129,11 @@ export function DealInfo({ deal, readOnly, onChanged }: { deal: Deal; readOnly?:
   }
 
   const addMenu = (
-    <div className="mt-4 space-y-4 rounded-xl bg-gray-50 p-4">
+    <div className="mt-4 space-y-4 rounded-xl bg-white/5 p-4">
       {FIELD_GROUPS.map((g) =>
         unused(g.fields).length === 0 ? null : (
           <div key={g.title}>
-            <p className="mb-2 text-xs font-bold uppercase tracking-widest text-gray-500">{g.title}</p>
+            <p className="mb-2 text-xs font-bold uppercase tracking-widest text-gray-400">{g.title}</p>
             <div className="flex flex-wrap gap-2">
               {unused(g.fields).map((f) => (
                 <button
@@ -144,7 +144,7 @@ export function DealInfo({ deal, readOnly, onChanged }: { deal: Deal; readOnly?:
                     setShown((s) => [...s, f.key]);
                     setTimeout(() => document.getElementById(`f-${f.key}`)?.focus(), 0);
                   }}
-                  className="rounded-full border border-gray-300 bg-white px-3 py-1.5 text-sm font-semibold text-gray-800 hover:border-brand-yellow-dark hover:bg-brand-yellow/20"
+                  className="rounded-full border border-white/15 bg-brand-charcoal px-3 py-1.5 text-sm font-semibold text-gray-200 hover:border-brand-yellow-dark hover:bg-brand-yellow/20"
                 >
                   + {f.label}
                 </button>
@@ -153,14 +153,14 @@ export function DealInfo({ deal, readOnly, onChanged }: { deal: Deal; readOnly?:
           </div>
         ),
       )}
-      {ALL_FIELDS.every((f) => shown.includes(f.key)) && <p className="text-sm text-gray-500">Every field is already added.</p>}
+      {ALL_FIELDS.every((f) => shown.includes(f.key)) && <p className="text-sm text-gray-400">Every field is already added.</p>}
     </div>
   );
 
   return (
-    <div className="rounded-2xl bg-white p-6 shadow-sm">
+    <div className="rounded-2xl border border-white/10 bg-brand-charcoal p-6">
       <div className="flex items-center justify-between gap-3">
-        <h2 className="font-display text-lg font-extrabold text-brand-black">Deal Info</h2>
+        <h2 className="font-display text-lg font-extrabold text-white">Deal Info</h2>
         {!readOnly && !editing && savedFields.length > 0 && (
           <button
             onClick={() => startEdit()}
@@ -174,16 +174,16 @@ export function DealInfo({ deal, readOnly, onChanged }: { deal: Deal; readOnly?:
       {!editing ? (
         <>
           {savedFields.length === 0 ? (
-            <p className="mt-2 text-gray-600">{readOnly ? "No extra info added yet." : "Contact info, property details, and more!"}</p>
+            <p className="mt-2 text-gray-400">{readOnly ? "No extra info added yet." : "Contact info, property details, and more!"}</p>
           ) : (
             <dl className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-4">
               {savedFields.map((f) => {
                 const raw = deal[f.key];
                 const text = display(f, raw);
                 return (
-                  <div key={f.key} className={`rounded-lg bg-gray-50 px-3 py-2 ${f.kind === "textarea" ? "col-span-2 sm:col-span-4" : ""} ${f.kind === "email" ? "col-span-2" : ""}`}>
-                    <dt className="text-xs font-bold uppercase tracking-wide text-gray-500">{f.label}</dt>
-                    <dd className={`font-bold text-brand-black ${f.kind === "textarea" ? "whitespace-pre-wrap font-semibold" : "break-words"}`}>
+                  <div key={f.key} className={`rounded-lg bg-white/5 px-3 py-2 ${f.kind === "textarea" ? "col-span-2 sm:col-span-4" : ""} ${f.kind === "email" ? "col-span-2" : ""}`}>
+                    <dt className="text-xs font-bold uppercase tracking-wide text-gray-400">{f.label}</dt>
+                    <dd className={`font-bold text-white ${f.kind === "textarea" ? "whitespace-pre-wrap font-semibold" : "break-words"}`}>
                       {f.kind === "tel" ? (
                         <a href={`tel:${String(raw).replace(/[^\d+]/g, "")}`} className="hover:underline">
                           {text}
@@ -207,14 +207,14 @@ export function DealInfo({ deal, readOnly, onChanged }: { deal: Deal; readOnly?:
           {ALL_FIELDS.filter((f) => shown.includes(f.key)).map((f) => (
             <div key={f.key} className={f.kind === "textarea" ? "sm:col-span-2" : ""}>
               <div className="mb-1 flex items-center justify-between">
-                <label htmlFor={`f-${f.key}`} className="text-xs font-bold uppercase tracking-wide text-gray-600">
+                <label htmlFor={`f-${f.key}`} className="text-xs font-bold uppercase tracking-wide text-gray-400">
                   {f.label}
                 </label>
                 <button
                   type="button"
                   onClick={() => setShown((s) => s.filter((k) => k !== f.key))}
                   aria-label={`Remove ${f.label}`}
-                  className="text-lg font-bold leading-none text-gray-400 hover:text-red-600"
+                  className="text-lg font-bold leading-none text-gray-400 hover:text-red-400"
                 >
                   &times;
                 </button>
@@ -229,14 +229,14 @@ export function DealInfo({ deal, readOnly, onChanged }: { deal: Deal; readOnly?:
         <button
           type="button"
           onClick={() => setMenuOpen((o) => !o)}
-          className="mt-5 inline-flex items-center gap-2 rounded-xl border-2 border-dashed border-gray-300 px-4 py-3 font-bold text-brand-black hover:border-brand-yellow-dark"
+          className="mt-5 inline-flex items-center gap-2 rounded-xl border-2 border-dashed border-white/15 px-4 py-3 font-bold text-white hover:border-brand-yellow-dark"
         >
           <span className="text-xl leading-none">{menuOpen ? "−" : "+"}</span> ADD INFO
         </button>
       )}
       {!readOnly && menuOpen && addMenu}
 
-      {message && <p className={`mt-4 text-sm font-semibold ${message.ok ? "text-green-700" : "text-red-600"}`}>{message.text}</p>}
+      {message && <p className={`mt-4 text-sm font-semibold ${message.ok ? "text-green-400" : "text-red-400"}`}>{message.text}</p>}
 
       {editing && (
         <div className="mt-5 grid grid-cols-2 gap-3">
