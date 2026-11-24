@@ -447,7 +447,7 @@ function liftAboveKeyboard(card: HTMLElement | null, target: EventTarget) {
   const el = target as HTMLElement;
   if (!["INPUT", "TEXTAREA", "SELECT"].includes(el.tagName)) return;
   setTimeout(() => {
-    const header = 80; // sticky site header
+    const header = 12; // no site header on /deals, small gap only
     const top = card.getBoundingClientRect().top + window.scrollY - header;
     window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
   }, 300);

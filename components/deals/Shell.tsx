@@ -43,7 +43,7 @@ export function DealsShell({
   };
 
   return (
-    <div className="min-h-[70vh] bg-gray-50">
+    <div className="min-h-screen bg-gray-50">
       <div className="bg-brand-black text-white">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-5">
           <div className="flex items-center gap-3">
