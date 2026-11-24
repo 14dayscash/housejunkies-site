@@ -43,7 +43,7 @@ export function statusText(status: string) {
 }
 
 // Counts a number up to its value (and smoothly between values after that).
-export function useCountUp(value: number, ms = 900) {
+export function useCountUp(value: number, ms = 1300) {
   const [shown, setShown] = useState(0);
   const from = useRef(0);
   useEffect(() => {
@@ -78,20 +78,20 @@ export function CountUpMoney({ value, ms }: { value: number; ms?: number }) {
 // Short yellow and white confetti burst (used after SAVE DEAL).
 export function Confetti() {
   const [pieces] = useState(() =>
-    Array.from({ length: 70 }, (_, i) => ({
+    Array.from({ length: 120 }, (_, i) => ({
       id: i,
       left: 50 + (Math.random() - 0.5) * 30,
-      dx: (Math.random() - 0.5) * 520,
-      up: -(140 + Math.random() * 260),
+      dx: (Math.random() - 0.5) * 700,
+      up: -(180 + Math.random() * 320),
       rot: (Math.random() - 0.5) * 900,
-      delay: Math.random() * 120,
+      delay: Math.random() * 180,
       color: ["#f5c518", "#f5c518", "#ffffff", "#4ade80", "#d9ac0c"][i % 5],
-      w: 6 + Math.random() * 6,
+      w: 8 + Math.random() * 8,
     })),
   );
   const [done, setDone] = useState(false);
   useEffect(() => {
-    const t = setTimeout(() => setDone(true), 2400);
+    const t = setTimeout(() => setDone(true), 3200);
     return () => clearTimeout(t);
   }, []);
   if (done) return null;

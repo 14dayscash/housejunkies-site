@@ -16,12 +16,7 @@ import {
 } from "@/lib/deals/calc";
 import { CountUpMoney, HouseIcon, PencilIcon, StatusPill, btnPrimary, inputCls, statusBar, statusText } from "./ui";
 
-// "home" = My Deals, "team" = Team Deals. Phones show one at a time (bottom
-// tab bar); tablets and computers always show both.
-export type DashTab = "home" | "team";
-
 export function Dashboard({
-  tab,
   myDeals,
   directory,
   loading,
@@ -29,7 +24,6 @@ export function Dashboard({
   onAdd,
   onOpen,
 }: {
-  tab: DashTab;
   myDeals: Deal[];
   directory: DirectoryRow[];
   loading: boolean;
@@ -74,8 +68,6 @@ export function Dashboard({
   // Team Deals is every deal in the company, yours included.
   const others = directory.filter((d) => match(d.address, d.status));
 
-  const onlyHome = tab === "team" ? "hidden md:block" : "";
-  const onlyTeam = tab === "home" ? "hidden md:block" : "";
 
   return (
     <div className="space-y-6">
@@ -83,7 +75,7 @@ export function Dashboard({
         + Add New Deal
       </button>
 
-      <div className={`hj-rise grid grid-cols-2 overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-[#1c1c1c] to-brand-black ${onlyHome}`}>
+      <div className={`hj-rise grid grid-cols-2 overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-[#1c1c1c] to-brand-black`}>
         <div className="p-5 sm:p-6">
           <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-brand-yellow">Pipeline Value</p>
           <p className="mt-1 font-display text-2xl font-black tabular-nums text-white sm:text-4xl">
@@ -138,7 +130,7 @@ export function Dashboard({
         <p className="text-gray-400">Loading deals...</p>
       ) : (
         <>
-          <section className={onlyHome}>
+          <section>
             <h2 className="mb-3 text-xl font-extrabold text-white">My Deals</h2>
             {mine.length === 0 ? (
               <p className="rounded-xl border border-white/10 bg-brand-charcoal p-5 text-gray-400">
@@ -153,7 +145,7 @@ export function Dashboard({
             )}
           </section>
 
-          <section className={onlyTeam}>
+          <section>
             <h2 className="mb-3 text-xl font-extrabold text-white">Team Deals</h2>
             {others.length === 0 ? (
               <p className="rounded-xl border border-white/10 bg-brand-charcoal p-5 text-gray-400">No team deals match.</p>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { dealsSupabase } from "@/lib/deals/supabaseClient";
 import {
   CONDITIONS,
@@ -11,6 +11,7 @@ import {
   calcDeal,
   dealCalcInput,
   usd,
+  type CalcResult,
   type Condition,
   type Deal,
 } from "@/lib/deals/calc";
@@ -24,11 +25,14 @@ export function OfferEditor({
   readOnly,
   onChanged,
   onRecalculate,
+  onResult,
 }: {
   deal: Deal;
   readOnly?: boolean;
   onChanged?: () => Promise<void>;
   onRecalculate?: () => void;
+  // The deal page shows the Max Offer card higher up, fed live from here.
+  onResult?: (r: CalcResult | null) => void;
 }) {
   const supabase = dealsSupabase()!;
   const base = dealCalcInput(deal);
@@ -56,6 +60,11 @@ export function OfferEditor({
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [deal, condition, months, rate, closing, finders, purchase]);
+
+  useEffect(() => {
+    onResult?.(result);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [result]);
 
   if (!base || !result) {
     return (
@@ -107,7 +116,7 @@ export function OfferEditor({
 
   return (
     <div className="space-y-4">
-      <OfferHeadline result={result} />
+      {!onResult && <OfferHeadline result={result} />}
 
       <div className="rounded-2xl border border-white/10 bg-brand-charcoal p-6">
         <h2 className="mb-4 font-display text-lg font-extrabold text-white">OFFER BREAKDOWN</h2>

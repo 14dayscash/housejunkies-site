@@ -14,11 +14,13 @@ import {
   savedDealProfit,
   shortDate,
   usd,
+  type CalcResult,
   type Deal,
   type DealStatus,
 } from "@/lib/deals/calc";
 import { PencilIcon, StatusPill, inputCls, statusBar } from "./ui";
 import { OfferEditor } from "./OfferEditor";
+import { OfferHeadline } from "./Breakdown";
 import { DealPhotos } from "./DealPhotos";
 import { DealInfo } from "./DealInfo";
 
@@ -44,6 +46,7 @@ export function DealDetail({
   const [error, setError] = useState<string | null>(null);
   const [line1, line2] = addressLines(deal.address);
   const [cover, setCover] = useState<string | null>(null);
+  const [live, setLive] = useState<CalcResult | null>(null);
   const firstPhoto = deal.photos?.[0] ?? null;
   useEffect(() => {
     if (!firstPhoto) return setCover(null);
@@ -79,7 +82,7 @@ export function DealDetail({
   ];
 
   return (
-    <div className="mx-auto max-w-3xl space-y-5">
+    <div className="hj-slide-next mx-auto max-w-3xl space-y-5">
       <button onClick={onBack} className="font-semibold text-brand-yellow hover:underline">
         &larr; Back to Deals
       </button>
@@ -131,6 +134,8 @@ export function DealDetail({
         </div>
       </div>
 
+      {live && <OfferHeadline result={live} />}
+
       <div className="rounded-2xl border border-white/10 bg-brand-charcoal p-6">
         <div className="flex items-center justify-between gap-3">
           <h2 className="font-display text-lg font-extrabold text-white">Deal Numbers</h2>
@@ -168,7 +173,7 @@ export function DealDetail({
       </div>
 
       {/* key: rebuild the editors when the saved deal changes */}
-      <OfferEditor key={`o-${deal.purchase_price}-${deal.max_offer}-${deal.months}-${deal.interest_rate}-${deal.closing_costs}-${deal.assignment_fee}-${deal.condition}`} deal={deal} readOnly={readOnly} onChanged={onChanged} onRecalculate={onRecalculate} />
+      <OfferEditor key={`o-${deal.purchase_price}-${deal.max_offer}-${deal.months}-${deal.interest_rate}-${deal.closing_costs}-${deal.assignment_fee}-${deal.condition}`} deal={deal} readOnly={readOnly} onChanged={onChanged} onRecalculate={onRecalculate} onResult={setLive} />
 
       <DealPhotos deal={deal} readOnly={readOnly} onChanged={onChanged} />
 

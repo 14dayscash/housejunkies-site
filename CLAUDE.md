@@ -330,8 +330,10 @@ WE ARE TRYING TO TAKE OVER, one street and one site at a time.**
   `public.admins` (add with `select private.make_admin('email');`). Admins can read
   every deal, so /deals filters My Deals by `created_by`. DB: `supabase/deals_v3.sql`.
 - /deals + /admin look (Dominic, 2026-11-24): dark app style (black page, charcoal
-  cards, yellow actions, green money), no site header/footer (`HideOnInternal`), phone
-  bottom tab bar (Home, Team, yellow +, Profile), photo cover cards, "Pipeline Value /
+  cards, yellow actions, green money), no site header/footer (`HideOnInternal`), sticky black
+  top bar, phone floating pill bar (Home, yellow +, Profile; sticky in the page flow,
+  NOT position fixed, because iPhone Safari drops fixed bars mid-screen), Profile shows
+  only name, email, deal count and sign out (no admin link; admins go to /admin), photo cover cards, "Pipeline Value /
   Finders Fees" headline (open deals only, no extra subtext), one color per status
   (`STATUS_COLORS` in `components/deals/ui.tsx`), slide/count-up/confetti motion
   (keyframes at the end of `app/globals.css`). Keep new screens in this style.

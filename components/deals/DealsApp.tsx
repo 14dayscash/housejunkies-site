@@ -1,11 +1,10 @@
 "use client";
 
-import Link from "next/link";
 import { useCallback, useEffect, useState, type ReactNode } from "react";
 import type { Session } from "@supabase/supabase-js";
 import { dealsSupabase } from "@/lib/deals/supabaseClient";
 import { addressLines, type Deal, type DirectoryRow } from "@/lib/deals/calc";
-import { Dashboard, type DashTab } from "./Dashboard";
+import { Dashboard } from "./Dashboard";
 import { DealWizard } from "./DealWizard";
 import { DealDetail } from "./DealDetail";
 import { CheckIcon, Confetti, btnGhost, btnPrimary, btnDark } from "./ui";
@@ -18,7 +17,7 @@ const TEAM_CONTACTS: { name: string; phone: string; email?: string }[] = [
   { name: "Ciara Seaton", phone: "(559) 358-0523", email: "ciaraseaton23@gmail.com" },
 ];
 
-type Tab = DashTab | "profile";
+type Tab = "home" | "profile";
 type View =
   | { name: "dashboard" }
   | { name: "wizard"; deal?: Deal }
@@ -90,8 +89,9 @@ function SignedIn({ session, signOut }: { session: Session; signOut: () => void 
   if (view.name === "success") {
     const [line1, line2] = addressLines(view.deal.address);
     content = (
-      <div className="hj-rise mx-auto max-w-lg rounded-2xl border border-white/10 bg-brand-charcoal p-8 text-center">
-        <Confetti />
+      <>
+      <Confetti />
+      <div className="hj-pop mx-auto max-w-lg rounded-2xl border border-white/10 bg-brand-charcoal p-8 text-center">
         <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-brand-yellow text-black shadow-[0_0_40px_rgba(245,197,24,0.45)]">
           <CheckIcon className="h-8 w-8" />
         </div>
@@ -132,6 +132,7 @@ function SignedIn({ session, signOut }: { session: Session; signOut: () => void 
           </button>
         </div>
       </div>
+      </>
     );
   } else if (view.name === "detail") {
     const deal = myDeals.find((d) => d.id === view.id);
@@ -161,7 +162,6 @@ function SignedIn({ session, signOut }: { session: Session; signOut: () => void 
   } else {
     content = (
       <Dashboard
-        tab={tab}
         myDeals={myDeals}
         directory={directory}
         loading={loading}
@@ -174,18 +174,19 @@ function SignedIn({ session, signOut }: { session: Session; signOut: () => void 
 
   return (
     <>
-      {content}
+      <div className="flex-1">{content}</div>
       <TabBar active={view.name === "dashboard" ? tab : null} onTab={go} onAdd={addDeal} />
     </>
   );
 }
 
-// Phone-only bottom bar: Home, Team, big yellow + (Add Deal), Profile.
+// Phone-only floating bar: Home, big yellow +, Profile. It sits in the page
+// flow (sticky, not fixed) so iPhone Safari never drops it mid-screen.
 function TabBar({ active, onTab, onAdd }: { active: Tab | null; onTab: (t: Tab) => void; onAdd: () => void }) {
   const item = (t: Tab, label: string, icon: ReactNode) => (
     <button
       onClick={() => onTab(t)}
-      className={`flex flex-1 flex-col items-center gap-1 py-2 text-[10px] font-bold uppercase tracking-wider transition-colors ${
+      className={`flex flex-1 flex-col items-center gap-0.5 py-2 text-[10px] font-bold uppercase tracking-wider transition active:scale-90 ${
         active === t ? "text-brand-yellow" : "text-gray-500"
       }`}
     >
@@ -194,58 +195,36 @@ function TabBar({ active, onTab, onAdd }: { active: Tab | null; onTab: (t: Tab) 
     </button>
   );
   return (
-    <nav className="fixed inset-x-0 bottom-0 z-40 border-t border-white/10 bg-brand-black/95 pb-[env(safe-area-inset-bottom)] backdrop-blur md:hidden">
-      <div className="mx-auto flex max-w-md items-end px-2">
-        <div className="flex flex-1">
-          {item("home", "Home", <IconHome />)}
-          {item("team", "Team", <IconTeam />)}
-        </div>
-        <div className="flex w-20 justify-center">
-          <button
-            onClick={onAdd}
-            aria-label="Add New Deal"
-            className="-mt-6 flex h-16 w-16 items-center justify-center rounded-full bg-brand-yellow text-black shadow-[0_6px_24px_rgba(245,197,24,0.45)] transition active:scale-95"
-          >
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" className="h-7 w-7" aria-hidden="true">
-              <path d="M12 5v14M5 12h14" />
-            </svg>
-          </button>
-        </div>
-        <div className="flex flex-1">{item("profile", "Profile", <IconUser />)}</div>
+    <nav className="pointer-events-none sticky bottom-0 z-40 -mx-4 mt-6 bg-gradient-to-t from-brand-black via-brand-black/90 to-transparent px-6 pb-[calc(env(safe-area-inset-bottom)+14px)] pt-6 md:hidden">
+      <div className="pointer-events-auto mx-auto flex max-w-[300px] items-center rounded-full border border-white/10 bg-[#1a1a1a] px-3 py-1.5 shadow-[0_12px_40px_rgba(0,0,0,0.65)]">
+        {item("home", "Home", <IconHome />)}
+        <button
+          onClick={onAdd}
+          aria-label="Add New Deal"
+          className="mx-2 flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-brand-yellow text-black shadow-[0_0_0_4px_rgba(245,197,24,0.15),0_8px_24px_rgba(245,197,24,0.35)] transition active:scale-90"
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" className="h-7 w-7" aria-hidden="true">
+            <path d="M12 5v14M5 12h14" />
+          </svg>
+        </button>
+        {item("profile", "Profile", <IconUser />)}
       </div>
     </nav>
   );
 }
 
+// Profile: display name, email, deal count, sign out. Nothing else.
 function Profile({ session, myDeals, signOut }: { session: Session; myDeals: Deal[]; signOut: () => void }) {
-  const supabase = dealsSupabase()!;
-  const [isAdmin, setIsAdmin] = useState(false);
-  useEffect(() => {
-    supabase.rpc("is_admin").then(({ data }) => setIsAdmin(data === true));
-  }, [supabase]);
-  const name = displayName(session);
-  const initials = name
-    .split(/\s+/)
-    .map((p) => p[0])
-    .join("")
-    .slice(0, 2)
-    .toUpperCase();
   return (
     <div className="hj-rise mx-auto max-w-md space-y-4">
       <div className="rounded-2xl border border-white/10 bg-brand-charcoal p-6 text-center">
-        <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-brand-yellow font-display text-2xl font-black text-black">
-          {initials}
+        <p className="text-2xl font-extrabold text-white">{displayName(session)}</p>
+        <p className="mt-1 break-all text-sm text-gray-400">{session.user.email}</p>
+        <div className="mt-6 rounded-xl bg-white/5 py-4">
+          <p className="font-display text-4xl font-black tabular-nums text-white">{myDeals.length}</p>
+          <p className="text-xs font-bold uppercase tracking-widest text-gray-400">Deals</p>
         </div>
-        <p className="mt-4 text-xl font-extrabold text-white">{name}</p>
-        <p className="break-all text-sm text-gray-400">{session.user.email}</p>
-        <p className="mt-4 font-display text-3xl font-black text-white">{myDeals.length}</p>
-        <p className="text-xs font-bold uppercase tracking-widest text-gray-400">My Deals</p>
       </div>
-      {isAdmin && (
-        <Link href="/admin" className={`${btnDark} w-full`}>
-          ADMIN DASHBOARD
-        </Link>
-      )}
       <button onClick={signOut} className={`${btnGhost} w-full`}>
         SIGN OUT
       </button>
@@ -259,16 +238,6 @@ function IconHome() {
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={iconCls} aria-hidden="true">
       <path d="M3 11l9-7 9 7" />
       <path d="M5 10v10h14V10" />
-    </svg>
-  );
-}
-function IconTeam() {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={iconCls} aria-hidden="true">
-      <circle cx="9" cy="8" r="3.5" />
-      <path d="M2.5 20c.8-3.6 3.4-5.5 6.5-5.5s5.7 1.9 6.5 5.5" />
-      <circle cx="17" cy="9" r="2.5" />
-      <path d="M17 14c2.4 0 4 1.5 4.5 4.5" />
     </svg>
   );
 }
