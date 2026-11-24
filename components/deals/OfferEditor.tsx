@@ -37,6 +37,8 @@ export function OfferEditor({
   const [rate, setRate] = useState(String(deal.interest_rate ?? 10));
   const [closing, setClosing] = useState(moneyInput(String(deal.closing_costs ?? 5000)));
   const [finders, setFinders] = useState(moneyInput(String(deal.assignment_fee ?? 0)));
+  // Blank = use our max offer. Filled = what we actually paid or agreed to pay.
+  const [purchase, setPurchase] = useState(deal.purchase_price != null ? moneyInput(String(deal.purchase_price)) : "");
   const [dirty, setDirty] = useState(false);
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState<{ ok: boolean; text: string } | null>(null);
@@ -50,9 +52,10 @@ export function OfferEditor({
       ratePct: parseNum(rate) ?? 0,
       closing: parseNum(closing) ?? 0,
       findersFee: parseNum(finders) ?? 0,
+      purchase: parseNum(purchase),
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [deal, condition, months, rate, closing, finders]);
+  }, [deal, condition, months, rate, closing, finders, purchase]);
 
   if (!base || !result) {
     return (
@@ -79,7 +82,8 @@ export function OfferEditor({
   async function save() {
     const fee = parseNum(finders) ?? 0;
     if (fee < MIN_FINDERS_FEE) return setMessage({ ok: false, text: `The minimum finders fee is ${usd(MIN_FINDERS_FEE)}.` });
-    if (!result!.works) return setMessage({ ok: false, text: "These numbers leave no room for an offer." });
+    const paid = parseNum(purchase);
+    if (paid == null && !result!.works) return setMessage({ ok: false, text: "These numbers leave no room for an offer." });
     setBusy(true);
     const { error } = await supabase
       .from("deals")
@@ -89,6 +93,7 @@ export function OfferEditor({
         interest_rate: parseNum(rate),
         closing_costs: parseNum(closing),
         assignment_fee: fee,
+        purchase_price: paid,
         max_offer: result!.maxOffer,
         opening_offer: result!.openingOffer,
       })
@@ -108,7 +113,10 @@ export function OfferEditor({
         <h2 className="mb-4 font-display text-lg font-extrabold text-brand-black">OFFER BREAKDOWN</h2>
 
         {!readOnly && (
-          <div className="mb-5 grid grid-cols-2 gap-3 rounded-xl bg-gray-50 p-4 sm:grid-cols-5">
+          <div className="mb-5 grid grid-cols-2 gap-3 rounded-xl bg-gray-50 p-4 sm:grid-cols-3">
+            <Control label="Purchase Price" wide>
+              <Money value={purchase} onChange={change(setPurchase)} placeholder={result.works ? `${moneyInput(String(result.maxOffer))} (Max Offer)` : "Purchase price"} />
+            </Control>
             <Control label="Rehab Level" wide>
               <select value={condition ?? ""} onChange={(e) => change((v) => setCondition(v as Condition))(e.target.value)} className={inputCls}>
                 {CONDITIONS.map((c) => (
@@ -164,11 +172,11 @@ function Control({ label, wide, children }: { label: string; wide?: boolean; chi
   );
 }
 
-function Money({ value, onChange }: { value: string; onChange: (v: string) => void }) {
+function Money({ value, onChange, placeholder }: { value: string; onChange: (v: string) => void; placeholder?: string }) {
   return (
     <div className="relative">
       <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 font-bold text-gray-400">$</span>
-      <input inputMode="numeric" value={value} onChange={(e) => onChange(moneyInput(e.target.value))} className={`${inputCls} pl-7`} />
+      <input inputMode="numeric" value={value} placeholder={placeholder} onChange={(e) => onChange(moneyInput(e.target.value))} className={`${inputCls} pl-7`} />
     </div>
   );
 }

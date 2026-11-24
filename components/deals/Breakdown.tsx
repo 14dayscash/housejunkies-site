@@ -34,7 +34,7 @@ export function OfferRows({ result: r }: { result: CalcResult }) {
   const pct = (n: number) => (r.allIn > 0 ? `(${((n / r.allIn) * 100).toFixed(1)}%)` : "");
   return (
     <dl className="space-y-2 text-[15px]">
-      <Row label="Purchase Price" value={r.maxOffer} />
+      <Row label="Purchase Price" value={r.purchase} />
       <Row label="Rehab Cost" value={r.rehab} />
       <Row label="Closing Cost" value={r.closing} />
       <Row label="Finders Fee" value={r.findersFee} />

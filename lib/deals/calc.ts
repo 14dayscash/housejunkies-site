@@ -116,11 +116,13 @@ export type CalcInput = {
   listingBy: ListingBy;
   ratePct?: number; // interest, defaults to INTEREST_RATE
   closing?: number; // closing costs, defaults to CLOSING_COSTS
+  purchase?: number | null; // actual purchase price; the breakdown uses max offer when empty
 };
 
 export type CalcResult = {
   works: boolean; // false when the numbers leave no room for an offer
   ratePct: number;
+  purchase: number; // the purchase price the breakdown is built on
   maxOffer: number;
   openingOffer: number;
   rehab: number;
@@ -164,13 +166,15 @@ export function calcDeal(i: CalcInput): CalcResult {
   const maxOffer = floor500(purchaseFor(MAO_PROFIT));
   const openingOffer = floor500(purchaseFor(OPENING_PROFIT));
 
-  const subtotal = maxOffer + rehab + closing + i.findersFee;
+  const purchase = i.purchase ?? maxOffer;
+  const subtotal = purchase + rehab + closing + i.findersFee;
   const points = subtotal * POINTS_RATE;
   const interest = subtotal * (ratePct / 100 / 12) * i.months;
   const allIn = subtotal + points + interest;
   return {
     works: maxOffer > 0,
     ratePct,
+    purchase,
     maxOffer,
     openingOffer,
     rehab,
@@ -213,6 +217,7 @@ export function dealCalcInput(d: Deal): CalcInput | null {
     listingBy: d.listing_by,
     ratePct: d.interest_rate ?? INTEREST_RATE,
     closing: d.closing_costs ?? CLOSING_COSTS,
+    purchase: d.purchase_price,
   };
 }
 

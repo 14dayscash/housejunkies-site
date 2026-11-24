@@ -148,7 +148,7 @@ export function DealDetail({
       </div>
 
       {/* key: rebuild the editors when the saved deal changes */}
-      <OfferEditor key={`o-${deal.max_offer}-${deal.months}-${deal.interest_rate}-${deal.closing_costs}-${deal.assignment_fee}-${deal.condition}`} deal={deal} readOnly={readOnly} onChanged={onChanged} onRecalculate={onRecalculate} />
+      <OfferEditor key={`o-${deal.purchase_price}-${deal.max_offer}-${deal.months}-${deal.interest_rate}-${deal.closing_costs}-${deal.assignment_fee}-${deal.condition}`} deal={deal} readOnly={readOnly} onChanged={onChanged} onRecalculate={onRecalculate} />
 
       <DealPhotos deal={deal} readOnly={readOnly} onChanged={onChanged} />
 
