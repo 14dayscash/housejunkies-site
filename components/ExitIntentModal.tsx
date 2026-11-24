@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import { LeadForm } from "./LeadForm";
 
 // Fires once per browser session when the cursor leaves toward the top of the
@@ -10,8 +11,11 @@ import { LeadForm } from "./LeadForm";
 
 export function ExitIntentModal() {
   const [show, setShow] = useState(false);
+  // Never on the internal team tool.
+  const internal = usePathname()?.startsWith("/deals") ?? false;
 
   useEffect(() => {
+    if (internal) return;
     if (sessionStorage.getItem("hj_exit_intent_shown")) return;
 
     function handleMouseLeave(e: MouseEvent) {
@@ -24,9 +28,9 @@ export function ExitIntentModal() {
 
     document.addEventListener("mouseleave", handleMouseLeave);
     return () => document.removeEventListener("mouseleave", handleMouseLeave);
-  }, []);
+  }, [internal]);
 
-  if (!show) return null;
+  if (!show || internal) return null;
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 p-4">

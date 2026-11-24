@@ -223,6 +223,13 @@ WE ARE TRYING TO TAKE OVER, one street and one site at a time.**
 
 ## 9. Recent decisions (newest first, keep this updated)
 
+- 2026-11-24: Internal deal tracker at `/deals` (branch `deploy-deals`, not merged).
+  Supabase email + password login (accounts made in the Supabase dashboard, no sign
+  up), `deals` table with RLS for authenticated users only (`supabase/deals.sql`,
+  run by hand in the SQL editor). Code: `app/deals/page.tsx`, `components/deals/`,
+  `lib/deals/calc.ts` (all calculator math). noindex, not in sitemap or nav. Sticky
+  offer bar and exit popup are hidden on /deals. Seed = the 16 real purchases in
+  `lib/properties.ts`.
 - 2026-11-08 (night): Homepage order changed by Dominic to: Header, Hero, Stats bar,
   How It Works, Cash vs Listing (#compare), Situations, Reviews, soft CTA, Cities,
   Recent Purchases, One Call One Team, FAQ (#faq), Explore, Footer.
@@ -305,6 +312,9 @@ WE ARE TRYING TO TAKE OVER, one street and one site at a time.**
 
 ## 10. Open items
 
+- /deals: owner runs `supabase/deals.sql`, creates team users, sets the Supabase env
+  vars in Vercel, then merges `deploy-deals`. Seed has 16 deals; 2 more were mentioned
+  (18) but not in the repo.
 - Google Places autocomplete for address fields: code is in, needs an API key with
   billing (`NEXT_PUBLIC_GOOGLE_PLACES_API_KEY`). Dominic deferred it.
 - Abel's Facebook URL for `sameAs` (only add a URL Dominic gives you).
