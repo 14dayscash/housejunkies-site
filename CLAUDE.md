@@ -321,8 +321,10 @@ WE ARE TRYING TO TAKE OVER, one street and one site at a time.**
 
 ## 10. Open items
 
-- /deals: team users are created in Supabase (Authentication, Users). Turn off public
-  sign ups. Seed has 16 deals; 2 more were mentioned (18) but not in the repo.
+- /deals: add team users with `supabase/team_users.sql` (one line per person:
+  `select private.add_team_user('Name', 'email', 'password');` in the SQL editor; the
+  helper is already installed). Display name = `raw_user_meta_data.display_name`.
+  Turn off public sign ups. Seed has 16 deals; 2 more were mentioned (18) but not in the repo.
 - Google Places autocomplete for address fields: code is in, needs an API key with
   billing (`NEXT_PUBLIC_GOOGLE_PLACES_API_KEY`). Dominic deferred it.
 - Abel's Facebook URL for `sameAs` (only add a URL Dominic gives you).

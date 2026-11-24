@@ -133,7 +133,7 @@ function SignedIn({ session, signOut }: { session: Session; signOut: () => void 
           <span className="font-bold text-brand-black">{line1}</span>
           {line2 && <span className="block text-gray-500">{line2}</span>}
         </p>
-        <p className="mt-2 text-gray-600">was successfully added to your deals.</p>
+        <p className="mt-2 font-bold uppercase tracking-wide text-gray-600">was successfully added to your deals</p>
         <div className="mt-8 grid gap-3">
           <button onClick={() => setView({ name: "detail", id: view.deal.id })} className={btnPrimary}>
             Add More Info

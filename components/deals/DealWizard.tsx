@@ -170,7 +170,7 @@ export function DealWizard({
             />
             <ErrorText error={error} />
             <button type="submit" className={`${btnPrimary} w-full`}>
-              Next
+              NEXT <ChevronIcon />
             </button>
           </form>
         </Screen>
@@ -198,7 +198,7 @@ export function DealWizard({
       )}
 
       {step === 2 && (
-        <Screen eyebrow="After Repair Value" title="What is the property's estimated ARV?">
+        <Screen eyebrow="After Repair Value" title="Estimated Property ARV">
           <form
             onSubmit={(e) => {
               e.preventDefault();
@@ -209,13 +209,13 @@ export function DealWizard({
           >
             <MoneyField value={arv} onChange={setArv} placeholder="300,000" autoFocus big />
             <div>
-              <h3 className="text-base font-extrabold text-brand-black">Comps</h3>
-              <p className="text-sm text-gray-500">Optional. Up to {MAX_COMPS} sold properties nearby.</p>
+              <h3 className="text-base font-extrabold text-brand-black">Comparable Properties</h3>
+              <p className="text-sm italic text-gray-500">OPTIONAL / Up to {MAX_COMPS}</p>
               <div className="mt-3 hidden grid-cols-[2fr_1.2fr_1.2fr_0.9fr_28px] gap-2 px-1 text-xs font-bold uppercase tracking-wide text-gray-500 sm:grid">
-                <span>Address</span>
-                <span>Sale Price</span>
-                <span>Sale Date</span>
-                <span>Sq Ft</span>
+                <span>ADDRESS</span>
+                <span>SALE PRICE</span>
+                <span>SALE DATE</span>
+                <span>SQ FT</span>
                 <span />
               </div>
               <div className="mt-2 space-y-3 sm:space-y-2">
@@ -223,10 +223,10 @@ export function DealWizard({
                   const set = (patch: Partial<CompDraft>) => setComps((all) => all.map((x, j) => (j === i ? { ...x, ...patch } : x)));
                   return (
                     <div key={i} className="grid grid-cols-2 gap-2 rounded-xl border border-gray-200 bg-gray-50 p-3 sm:grid-cols-[2fr_1.2fr_1.2fr_0.9fr_28px] sm:border-0 sm:bg-transparent sm:p-0">
-                      <input value={c.address} onChange={(e) => set({ address: e.target.value })} placeholder="Address" className={`${inputCls} col-span-2 py-2.5 sm:col-span-1`} />
-                      <input inputMode="numeric" value={c.price} onChange={(e) => set({ price: moneyInput(e.target.value) })} placeholder="Sale price" className={`${inputCls} py-2.5`} />
-                      <input type="date" value={c.date} onChange={(e) => set({ date: e.target.value })} aria-label="Sale date" className={`${inputCls} py-2.5`} />
-                      <input inputMode="numeric" value={c.sqft} onChange={(e) => set({ sqft: e.target.value.replace(/\D/g, "") })} placeholder="Sq ft" className={`${inputCls} py-2.5`} />
+                      <input value={c.address} onChange={(e) => set({ address: e.target.value })} placeholder="ADDRESS" className={`${inputCls} col-span-2 py-2.5 sm:col-span-1`} />
+                      <input inputMode="numeric" value={c.price} onChange={(e) => set({ price: moneyInput(e.target.value) })} placeholder="SALE PRICE" className={`${inputCls} py-2.5`} />
+                      <input inputMode="numeric" value={c.date} onChange={(e) => set({ date: formatDateTyping(e.target.value) })} placeholder="SALE DATE (MM/DD/YYYY)" aria-label="Sale date" className={`${inputCls} py-2.5`} />
+                      <input inputMode="numeric" value={c.sqft} onChange={(e) => set({ sqft: e.target.value.replace(/\D/g, "") })} placeholder="SQ FT" className={`${inputCls} py-2.5`} />
                       <button
                         type="button"
                         onClick={() => setComps((all) => (all.length === 1 ? [emptyComp()] : all.filter((_, j) => j !== i)))}
@@ -247,14 +247,14 @@ export function DealWizard({
             </div>
             <ErrorText error={error} />
             <button type="submit" className={`${btnPrimary} w-full`}>
-              Next
+              NEXT <ChevronIcon />
             </button>
           </form>
         </Screen>
       )}
 
       {step === 3 && (
-        <Screen eyebrow="Rehab" title="Property square footage">
+        <Screen eyebrow="Rehab" title="Property Square Footage">
           <form
             onSubmit={(e) => {
               e.preventDefault();
@@ -271,9 +271,9 @@ export function DealWizard({
                 value={sqft}
                 onChange={(e) => setSqft(e.target.value.replace(/\D/g, ""))}
                 placeholder="1,200"
-                className={`${bigInputCls} pr-14`}
+                className={`${bigInputCls} pr-20`}
               />
-              <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 font-semibold text-gray-400">sf</span>
+              <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 font-semibold text-gray-400">SQ FT</span>
             </div>
             <h3 className="text-base font-extrabold text-brand-black">How much work does it need?</h3>
             <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
@@ -285,18 +285,18 @@ export function DealWizard({
               ))}
             </div>
             {condition && parseNum(sqft) ? (
-              <p className="text-center text-sm font-semibold text-gray-600">Rehab estimate: {usd(result.rehab)}</p>
+              <p className="text-center text-sm font-semibold text-gray-600">Renovation Estimate: {usd(result.rehab)}</p>
             ) : null}
             <ErrorText error={error} />
             <button type="submit" className={`${btnPrimary} w-full`}>
-              Next
+              NEXT <ChevronIcon />
             </button>
           </form>
         </Screen>
       )}
 
       {step === 4 && (
-        <Screen eyebrow="Your Cut" title="Finders Fee" sub={`How much you make (minimum ${usd(MIN_FINDERS_FEE)})`}>
+        <Screen eyebrow="Your Cut" title="Finders Fee" sub={`How Much You Make! (Minimum: ${usd(MIN_FINDERS_FEE)})`}>
           <form
             onSubmit={(e) => {
               e.preventDefault();
@@ -308,14 +308,14 @@ export function DealWizard({
             <MoneyField value={finders} onChange={setFinders} placeholder="2,000" autoFocus big />
             <ErrorText error={error} />
             <button type="submit" className={`${btnPrimary} w-full`}>
-              Next
+              NEXT <ChevronIcon />
             </button>
           </form>
         </Screen>
       )}
 
       {step === 5 && (
-        <Screen eyebrow="Holding Costs" title="How long will the flip take?">
+        <Screen eyebrow="Holding Costs" title="Project Timeline">
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
             {HOLD_MONTHS.map((m) => (
               <OptionBox
@@ -328,7 +328,7 @@ export function DealWizard({
                 className="py-6"
               >
                 <span className="font-display text-3xl font-black">{m}</span>
-                <span className="text-sm font-bold text-gray-500">Months</span>
+                <span className="text-sm font-bold text-gray-500">MONTHS</span>
               </OptionBox>
             ))}
           </div>
@@ -336,7 +336,7 @@ export function DealWizard({
       )}
 
       {step === 6 && (
-        <Screen eyebrow="Listing" title="Who will list it?">
+        <Screen eyebrow="Listing" title="Who will list the flip?">
           <div className="grid gap-3 sm:grid-cols-2">
             {(Object.keys(LISTING_OPTIONS) as ListingBy[]).map((k) => (
               <OptionBox key={k} selected={listingBy === k} onClick={() => setListingBy(k)} className="py-6">
@@ -345,7 +345,7 @@ export function DealWizard({
             ))}
           </div>
           <button onClick={() => (listingBy ? next() : setError("Pick who will list it."))} className={`${btnPrimary} mt-6 w-full`}>
-            Calculate
+            <CalculatorIcon /> CALCULATE
           </button>
           <ErrorText error={error} />
         </Screen>
@@ -354,6 +354,8 @@ export function DealWizard({
       {step === 7 && (
         <Results
           address={address}
+          sqft={parseNum(sqft)}
+          condition={condition}
           result={result}
           busy={busy}
           error={error}
@@ -367,6 +369,8 @@ export function DealWizard({
 
 function Results({
   address,
+  sqft,
+  condition,
   result: r,
   busy,
   error,
@@ -374,6 +378,8 @@ function Results({
   onSave,
 }: {
   address: string;
+  sqft: number | null;
+  condition: Condition | null;
   result: ReturnType<typeof calcDeal>;
   busy: boolean;
   error: string | null;
@@ -381,12 +387,21 @@ function Results({
   onSave: () => void;
 }) {
   const [line1, line2] = addressLines(address);
+  const pct = (n: number) => (r.allIn > 0 ? `(${((n / r.allIn) * 100).toFixed(1)}%)` : "");
   return (
     <div className="space-y-4">
+      <button onClick={onSave} disabled={busy || !r.works} className={`${btnPrimary} w-full py-4 text-lg`}>
+        <CheckIcon className="h-5 w-5" /> {busy ? "SAVING..." : isEdit ? "SAVE CHANGES" : "SAVE DEAL"}
+      </button>
+      <ErrorText error={error} />
+
       <div className="rounded-2xl bg-brand-black p-6 text-white shadow-sm sm:p-8">
         <p className="text-center font-bold text-white">
           {line1}
           {line2 && <span className="block text-sm font-normal text-gray-400">{line2}</span>}
+          <span className="mt-1 block text-sm font-semibold text-brand-yellow">
+            {sqft ? sqft.toLocaleString("en-US") : "-"} SF / {condition ? CONDITION_LABELS[condition] : "-"}
+          </span>
         </p>
         <div className="mt-6 text-center">
           <p className="text-xs font-bold uppercase tracking-widest text-brand-yellow">Our Max Offer</p>
@@ -410,30 +425,27 @@ function Results({
       </div>
 
       <div className="rounded-2xl bg-white p-6 shadow-sm">
-        <h3 className="font-display text-lg font-extrabold text-brand-black">Breakdown</h3>
+        <h3 className="font-display text-lg font-extrabold text-brand-black">OFFER BREAKDOWN</h3>
         <dl className="mt-3 space-y-2 text-[15px]">
           <Row label="Purchase Price" value={r.maxOffer} />
           <Row label="Rehab Cost" value={r.rehab} />
           <Row label="Closing Cost" value={r.closing} />
           <Row label="Finders Fee" value={r.findersFee} />
+          <Row label="Purchase Costs:" value={r.purchaseCosts} strong />
           <Divider />
           <Row label="Points (2%)" value={r.points} />
           <Row label={`Interest (${INTEREST_RATE}%)`} value={r.interest} />
+          <Row label="Holding Costs:" value={r.holdingCosts} strong />
           <Divider />
-          <Row label="All In" value={r.allIn} strong />
+          <Row label="All In:" value={r.allIn} strong />
           <Divider />
           <Row label="After Repair Value" value={r.arv} />
           <Row label="Listing Agent" value={r.listingAgent} />
           <Divider />
-          <Row label="Estimated Profit" value={r.profit} strong />
-          <Row label="Target Profit" value={r.target} />
+          <Row label="Estimated Profit" value={r.profit} note={pct(r.profit)} strong />
+          <Row label="Target Profit" value={r.target} note={pct(r.target)} />
         </dl>
       </div>
-
-      <ErrorText error={error} />
-      <button onClick={onSave} disabled={busy || !r.works} className={`${btnPrimary} w-full py-4 text-lg`}>
-        {busy ? "Saving..." : isEdit ? "SAVE CHANGES" : "SAVE DEAL"}
-      </button>
     </div>
   );
 }
@@ -506,11 +518,14 @@ function MoneyField({
   );
 }
 
-function Row({ label, value, strong }: { label: string; value: number; strong?: boolean }) {
+function Row({ label, value, strong, note }: { label: string; value: number; strong?: boolean; note?: string }) {
   return (
     <div className="flex justify-between gap-4">
       <dt className={strong ? "font-extrabold text-brand-black" : "text-gray-600"}>{label}</dt>
-      <dd className={strong ? "font-extrabold text-brand-black" : "font-semibold text-gray-900"}>{usd(value)}</dd>
+      <dd className={strong ? "font-extrabold text-brand-black" : "font-semibold text-gray-900"}>
+        {usd(value)}
+        {note && <span className="ml-1.5 text-sm font-semibold text-gray-500">{note}</span>}
+      </dd>
     </div>
   );
 }
@@ -522,6 +537,32 @@ function Divider() {
 function ErrorText({ error }: { error: string | null }) {
   if (!error) return null;
   return <p className="mt-3 rounded-xl bg-red-50 p-3 text-sm font-semibold text-red-700">{error}</p>;
+}
+
+function ChevronIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5" aria-hidden="true">
+      <path d="m9 6 6 6-6 6" />
+    </svg>
+  );
+}
+
+function CalculatorIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5" aria-hidden="true">
+      <rect x="5" y="2" width="14" height="20" rx="2" />
+      <path d="M8 6h8" />
+      <path d="M8 11h.01M12 11h.01M16 11h.01M8 15h.01M12 15h.01M16 15h.01M8 19h.01M12 19h.01M16 19h.01" />
+    </svg>
+  );
+}
+
+// Types a date as MM/DD/YYYY.
+function formatDateTyping(v: string) {
+  const d = v.replace(/\D/g, "").slice(0, 8);
+  if (d.length <= 2) return d;
+  if (d.length <= 4) return `${d.slice(0, 2)}/${d.slice(2)}`;
+  return `${d.slice(0, 2)}/${d.slice(2, 4)}/${d.slice(4)}`;
 }
 
 function TypeIcon({ type }: { type: DealType }) {

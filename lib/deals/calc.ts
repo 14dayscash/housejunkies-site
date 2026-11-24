@@ -122,8 +122,10 @@ export type CalcResult = {
   rehab: number;
   closing: number;
   findersFee: number;
+  purchaseCosts: number; // purchase + rehab + closing + finders fee
   points: number;
   interest: number;
+  holdingCosts: number; // points + interest
   allIn: number;
   arv: number;
   listingAgent: number;
@@ -168,8 +170,10 @@ export function calcDeal(i: CalcInput): CalcResult {
     rehab,
     closing,
     findersFee: i.findersFee,
+    purchaseCosts: subtotal,
     points,
     interest,
+    holdingCosts: points + interest,
     allIn,
     arv: i.arv,
     listingAgent,

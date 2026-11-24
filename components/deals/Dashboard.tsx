@@ -2,7 +2,6 @@
 
 import { useMemo, useState } from "react";
 import type { Session } from "@supabase/supabase-js";
-import { dealsSupabase } from "@/lib/deals/supabaseClient";
 import {
   DEAL_STATUSES,
   TYPE_LABELS,
@@ -54,24 +53,6 @@ export function Dashboard({
         + Add New Deal
       </button>
 
-      <div className="flex flex-col gap-3 sm:flex-row">
-        <input
-          type="search"
-          placeholder="Search by address"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className={`${inputCls} sm:flex-1`}
-        />
-        <select value={statusFilter} onChange={(e) => setStatusFilter(e.target.value as "" | DealStatus)} className={`${inputCls} sm:w-56`}>
-          <option value="">All statuses</option>
-          {DEAL_STATUSES.map((s) => (
-            <option key={s} value={s}>
-              {s}
-            </option>
-          ))}
-        </select>
-      </div>
-
       <div className="grid grid-cols-3 gap-3 lg:grid-cols-6">
         {DEAL_STATUSES.map((s) => (
           <button
@@ -87,7 +68,23 @@ export function Dashboard({
         ))}
       </div>
 
-      <NameBanner session={session} />
+      <div className="flex flex-col gap-3 sm:flex-row">
+        <input
+          type="search"
+          placeholder="SEARCH BY ADDRESS"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          className={`${inputCls} sm:flex-1`}
+        />
+        <select value={statusFilter} onChange={(e) => setStatusFilter(e.target.value as "" | DealStatus)} className={`${inputCls} sm:w-56`}>
+          <option value="">All Deals</option>
+          {DEAL_STATUSES.map((s) => (
+            <option key={s} value={s}>
+              {s}
+            </option>
+          ))}
+        </select>
+      </div>
 
       {error && <p className="rounded-xl bg-red-50 p-4 text-sm font-semibold text-red-700">{error}</p>}
 
@@ -143,7 +140,7 @@ function MetaLine({ status, type, date }: { status: DealStatus; type: keyof type
     <p className="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-gray-600">
       <StatusPill status={status} />
       <span>&bull;</span>
-      <span>{TYPE_LABELS[type] ?? type}</span>
+      <span className="font-bold uppercase tracking-wide">{TYPE_LABELS[type] ?? type}</span>
       <span>&bull;</span>
       <span>{shortDate(date)}</span>
     </p>
@@ -189,32 +186,5 @@ function TeamDealCard({ row }: { row: DirectoryRow }) {
       <MetaLine status={row.status} type={row.deal_type} date={row.deal_date} />
       <p className="mt-2 text-sm font-bold text-brand-yellow-dark">{row.owner_name}</p>
     </li>
-  );
-}
-
-// Asks once for a display name, so teammates see who owns each deal.
-function NameBanner({ session }: { session: Session }) {
-  const supabase = dealsSupabase()!;
-  const hasName = Boolean(session.user.user_metadata?.full_name);
-  const [name, setName] = useState("");
-  const [busy, setBusy] = useState(false);
-  if (hasName) return null;
-
-  async function save(e: React.FormEvent) {
-    e.preventDefault();
-    if (!name.trim()) return;
-    setBusy(true);
-    await supabase.auth.updateUser({ data: { full_name: name.trim() } });
-    setBusy(false);
-  }
-
-  return (
-    <form onSubmit={save} className="flex flex-col gap-3 rounded-xl border border-brand-yellow bg-brand-yellow/10 p-4 sm:flex-row sm:items-center">
-      <p className="text-sm font-semibold text-brand-black sm:flex-1">Add your name so the team knows who owns your deals.</p>
-      <input value={name} onChange={(e) => setName(e.target.value)} placeholder="Your full name" className={`${inputCls} sm:w-60`} />
-      <button type="submit" disabled={busy || !name.trim()} className={btnPrimary}>
-        Save
-      </button>
-    </form>
   );
 }

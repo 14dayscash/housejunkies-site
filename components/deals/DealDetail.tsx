@@ -164,7 +164,8 @@ export function DealDetail({
           {line2 && <span className="block text-base font-normal text-gray-400">{line2}</span>}
         </p>
         <p className="mt-2 text-sm text-gray-400">
-          {TYPE_LABELS[deal.deal_type] ?? deal.deal_type} &bull; Added {shortDate(deal.created_at)}
+          <span className="font-bold uppercase tracking-wide">{TYPE_LABELS[deal.deal_type] ?? deal.deal_type}</span> &bull; Added{" "}
+          {shortDate(deal.created_at)}
         </p>
         <label className="mt-4 block max-w-xs">
           <span className="mb-1 block text-xs font-bold uppercase tracking-widest text-brand-yellow">Status</span>
@@ -201,7 +202,7 @@ export function DealDetail({
                 <li key={i} className="flex flex-wrap justify-between gap-x-4 py-2">
                   <span className="font-semibold text-brand-black">{c.address || "-"}</span>
                   <span className="text-gray-600">
-                    {usd(c.price)} &bull; {shortDate(c.date)} &bull; {c.sqft ? `${c.sqft.toLocaleString("en-US")} sf` : "- sf"}
+                    {usd(c.price)} &bull; {/^\d{4}-\d{2}-\d{2}/.test(c.date) ? shortDate(c.date) : c.date || "-"} &bull; {c.sqft ? `${c.sqft.toLocaleString("en-US")} sf` : "- sf"}
                   </span>
                 </li>
               ))}

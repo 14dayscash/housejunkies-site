@@ -20,7 +20,7 @@ export function StatusPill({ status }: { status: DealStatus | string }) {
         : status === "Escrow Opened" || status === "Contract Signed"
           ? "bg-brand-black text-brand-yellow"
           : "bg-brand-yellow/30 text-black";
-  return <span className={`inline-block whitespace-nowrap rounded-full px-2.5 py-0.5 text-xs font-bold ${cls}`}>{status}</span>;
+  return <span className={`inline-block whitespace-nowrap rounded-full px-2.5 py-0.5 text-xs font-bold uppercase tracking-wide ${cls}`}>{status}</span>;
 }
 
 export function PencilIcon({ className = "h-5 w-5" }: { className?: string }) {
