@@ -17,7 +17,7 @@ import { AddressInput } from "./AddressInput";
 // /contact). On the homepage it stays hidden while the hero (which has its
 // own offer card) is in view, then appears once you scroll past it, using a
 // sentinel element at the end of the hero.
-const FULLY_HIDDEN_ON = ["/get-offer", "/contact", "/deals"];
+const FULLY_HIDDEN_ON = ["/get-offer", "/contact", "/deals", "/admin"];
 const SCROLL_REVEAL_ON = ["/"];
 
 export function useShowOffer() {

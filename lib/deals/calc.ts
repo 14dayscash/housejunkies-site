@@ -93,6 +93,7 @@ export type Deal = {
   motivation: string | null;
   follow_up_date: string | null;
   notes: string | null;
+  photos: string[] | null; // storage paths in the deal-photos bucket
 };
 
 // What every team member can see about any deal (from the deal_directory function).
@@ -113,10 +114,13 @@ export type CalcInput = {
   findersFee: number;
   months: number;
   listingBy: ListingBy;
+  ratePct?: number; // interest, defaults to INTEREST_RATE
+  closing?: number; // closing costs, defaults to CLOSING_COSTS
 };
 
 export type CalcResult = {
   works: boolean; // false when the numbers leave no room for an offer
+  ratePct: number;
   maxOffer: number;
   openingOffer: number;
   rehab: number;
@@ -150,8 +154,9 @@ export function rehabCost(sqft: number | null, condition: Condition | null) {
 // Solve for the purchase price where profit = all-in x target.
 export function calcDeal(i: CalcInput): CalcResult {
   const rehab = i.sqft * (i.condition ? CONDITION_RATES[i.condition] : 0);
-  const closing = CLOSING_COSTS;
-  const carry = 1 + POINTS_RATE + (INTEREST_RATE / 100 / 12) * i.months;
+  const closing = i.closing ?? CLOSING_COSTS;
+  const ratePct = i.ratePct ?? INTEREST_RATE;
+  const carry = 1 + POINTS_RATE + (ratePct / 100 / 12) * i.months;
   const listingAgent = i.arv * LISTING_OPTIONS[i.listingBy].rate;
   const net = i.arv - listingAgent;
   const purchaseFor = (target: number) => net / ((1 + target) * carry) - rehab - closing - i.findersFee;
@@ -161,10 +166,11 @@ export function calcDeal(i: CalcInput): CalcResult {
 
   const subtotal = maxOffer + rehab + closing + i.findersFee;
   const points = subtotal * POINTS_RATE;
-  const interest = subtotal * (INTEREST_RATE / 100 / 12) * i.months;
+  const interest = subtotal * (ratePct / 100 / 12) * i.months;
   const allIn = subtotal + points + interest;
   return {
     works: maxOffer > 0,
+    ratePct,
     maxOffer,
     openingOffer,
     rehab,
@@ -193,6 +199,21 @@ export function savedDealProfit(d: Deal): { profit: number; pct: number } | null
   const allIn = subtotal * (1 + POINTS_RATE + (rate / 100 / 12) * (d.months ?? 6));
   const profit = d.arv - d.arv * LISTING_OPTIONS[d.listing_by].rate - allIn;
   return { profit, pct: allIn > 0 ? (profit / allIn) * 100 : 0 };
+}
+
+// The calculator inputs saved on a deal, or null if the wizard was never finished.
+export function dealCalcInput(d: Deal): CalcInput | null {
+  if (!d.arv || !d.sqft || !d.condition || !d.listing_by) return null;
+  return {
+    arv: d.arv,
+    sqft: d.sqft,
+    condition: d.condition,
+    findersFee: d.assignment_fee ?? 0,
+    months: d.months ?? 6,
+    listingBy: d.listing_by,
+    ratePct: d.interest_rate ?? INTEREST_RATE,
+    closing: d.closing_costs ?? CLOSING_COSTS,
+  };
 }
 
 // Sale price per square foot, rounded to the dollar.

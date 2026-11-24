@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useCallback, useEffect, useState } from "react";
 import type { Session } from "@supabase/supabase-js";
 import { dealsSupabase } from "@/lib/deals/supabaseClient";
@@ -8,7 +7,8 @@ import { addressLines, type Deal, type DirectoryRow } from "@/lib/deals/calc";
 import { Dashboard } from "./Dashboard";
 import { DealWizard } from "./DealWizard";
 import { DealDetail } from "./DealDetail";
-import { CheckIcon, btnGhost, btnPrimary, btnDark, inputCls } from "./ui";
+import { CheckIcon, btnGhost, btnPrimary, btnDark } from "./ui";
+import { DealsShell } from "./Shell";
 
 // Shown on the success screen after a deal is saved (Dominic, 2026-11-24).
 const TEAM_CONTACTS: { name: string; phone: string; email?: string }[] = [
@@ -24,64 +24,10 @@ type View =
   | { name: "detail"; id: string };
 
 export function DealsApp() {
-  const supabase = dealsSupabase();
-  const [session, setSession] = useState<Session | null>(null);
-  const [ready, setReady] = useState(false);
-
-  useEffect(() => {
-    if (!supabase) {
-      setReady(true);
-      return;
-    }
-    supabase.auth.getSession().then(({ data }) => {
-      setSession(data.session);
-      setReady(true);
-    });
-    const { data } = supabase.auth.onAuthStateChange((_event, s) => setSession(s));
-    return () => data.subscription.unsubscribe();
-  }, [supabase]);
-
-  const signOut = () => supabase?.auth.signOut();
-
   return (
-    <div className="min-h-[70vh] bg-gray-50">
-      <div className="bg-brand-black text-white">
-        <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-5">
-          <div className="flex items-center gap-3">
-            <Image src="/images/logo-white.png" alt="House Junkies" width={56} height={37} className="h-10 w-auto sm:h-12" />
-            <div>
-              <p className="text-[11px] font-bold uppercase tracking-widest text-brand-yellow sm:text-xs">House Junkies Team</p>
-              <h1 className="text-2xl font-extrabold leading-tight sm:text-3xl">Deal Tracker</h1>
-            </div>
-          </div>
-          {session && (
-            <div className="text-right text-sm">
-              <p className="font-bold text-white">
-                {session.user.user_metadata?.display_name || session.user.user_metadata?.full_name || session.user.email}
-              </p>
-              <button onClick={signOut} className="font-semibold text-brand-yellow hover:underline">
-                Sign Out
-              </button>
-            </div>
-          )}
-        </div>
-      </div>
-
-      <div className="mx-auto max-w-6xl px-4 py-6">
-        {!supabase ? (
-          <p className="rounded-xl bg-white p-6 text-gray-700 shadow-sm">
-            Supabase is not configured for this deploy. Add NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY in
-            Vercel and redeploy.
-          </p>
-        ) : !ready ? (
-          <p className="text-gray-500">Loading...</p>
-        ) : session ? (
-          <SignedIn session={session} signOut={signOut} />
-        ) : (
-          <LoginForm />
-        )}
-      </div>
-    </div>
+    <DealsShell eyebrow="House Junkies Team" title="Deal Tracker">
+      {(session, signOut) => <SignedIn session={session} signOut={signOut} />}
+    </DealsShell>
   );
 }
 
@@ -95,7 +41,8 @@ function SignedIn({ session, signOut }: { session: Session; signOut: () => void 
 
   const load = useCallback(async () => {
     const [mine, dir] = await Promise.all([
-      supabase.from("deals").select("*").order("created_at", { ascending: false }),
+      // Only your own deals here (admins can read every deal, so filter by owner).
+      supabase.from("deals").select("*").eq("created_by", session.user.id).order("created_at", { ascending: false }),
       supabase.rpc("deal_directory"),
     ]);
     const err = mine.error ?? dir.error;
@@ -103,7 +50,7 @@ function SignedIn({ session, signOut }: { session: Session; signOut: () => void 
     if (!mine.error) setMyDeals((mine.data ?? []) as Deal[]);
     if (!dir.error) setDirectory((dir.data ?? []) as DirectoryRow[]);
     setLoading(false);
-  }, [supabase]);
+  }, [supabase, session.user.id]);
 
   useEffect(() => {
     load();
@@ -215,41 +162,5 @@ function SignedIn({ session, signOut }: { session: Session; signOut: () => void 
       onAdd={() => setView({ name: "wizard" })}
       onOpen={(id) => setView({ name: "detail", id })}
     />
-  );
-}
-
-function LoginForm() {
-  const supabase = dealsSupabase()!;
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [busy, setBusy] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-
-  async function submit(e: React.FormEvent) {
-    e.preventDefault();
-    setBusy(true);
-    setError(null);
-    const { error } = await supabase.auth.signInWithPassword({ email: email.trim(), password });
-    if (error) setError(error.message);
-    setBusy(false);
-  }
-
-  return (
-    <form onSubmit={submit} className="mx-auto mt-4 max-w-sm space-y-4 rounded-2xl bg-white p-6 shadow-sm">
-      <h2 className="text-xl font-extrabold text-brand-black">Sign In</h2>
-      <label className="block">
-        <span className="mb-1 block text-sm font-semibold text-gray-700">Email</span>
-        <input type="email" required autoComplete="username" value={email} onChange={(e) => setEmail(e.target.value)} className={inputCls} />
-      </label>
-      <label className="block">
-        <span className="mb-1 block text-sm font-semibold text-gray-700">Password</span>
-        <input type="password" required autoComplete="current-password" value={password} onChange={(e) => setPassword(e.target.value)} className={inputCls} />
-      </label>
-      {error && <p className="text-sm font-semibold text-red-600">{error}</p>}
-      <button type="submit" disabled={busy} className={`${btnPrimary} w-full`}>
-        {busy ? "Signing In..." : "Sign In"}
-      </button>
-      <p className="text-xs text-gray-500">Accounts are set up by the office. There is no public sign up.</p>
-    </form>
   );
 }

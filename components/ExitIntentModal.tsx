@@ -12,7 +12,8 @@ import { LeadForm } from "./LeadForm";
 export function ExitIntentModal() {
   const [show, setShow] = useState(false);
   // Never on the internal team tool.
-  const internal = usePathname()?.startsWith("/deals") ?? false;
+  const path = usePathname() ?? "";
+  const internal = path.startsWith("/deals") || path.startsWith("/admin");
 
   useEffect(() => {
     if (internal) return;

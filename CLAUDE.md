@@ -321,6 +321,14 @@ WE ARE TRYING TO TAKE OVER, one street and one site at a time.**
 
 ## 10. Open items
 
+- /deals v3 + /admin (2026-11-24): deal page shows the live OFFER BREAKDOWN with
+  editable rehab level, timeline, interest, closing cost and finders fee
+  (`components/deals/OfferEditor.tsx`), up to 5 photos per deal (private bucket
+  `deal-photos`, path `<user id>/<deal id>/<file>.jpg`, `DealPhotos.tsx`), and Deal Info
+  that reads as fixed boxes with an EDIT button (`DealInfo.tsx`). `/admin`
+  (`AdminApp.tsx`) is a read-only view of every account and deal for admins in
+  `public.admins` (add with `select private.make_admin('email');`). Admins can read
+  every deal, so /deals filters My Deals by `created_by`. DB: `supabase/deals_v3.sql`.
 - /deals text rule (Dominic, 2026-11-24): labels are Title Case ("6 Months") or ALL CAPS;
   only questions and small helper text use normal sentence case. Filters and stat
   labels are caps. Team Deals lists every deal, the user's own included.
