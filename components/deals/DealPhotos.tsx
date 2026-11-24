@@ -75,7 +75,7 @@ export function DealPhotos({ deal, readOnly, onChanged }: { deal: Deal; readOnly
       </div>
 
       {photos.length === 0 ? (
-        <p className="mt-2 text-gray-600">{readOnly ? "No photos yet." : `Add up to ${MAX_PHOTOS} photos of the property.`}</p>
+        readOnly && <p className="mt-2 text-gray-600">No photos yet.</p>
       ) : (
         <ul className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-5">
           {photos.map((p, i) => (
