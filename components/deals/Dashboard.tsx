@@ -69,15 +69,8 @@ export function Dashboard({
         ))}
       </div>
 
-      <div className="flex flex-col gap-3 sm:flex-row">
-        <input
-          type="search"
-          placeholder="SEARCH BY ADDRESS"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className={`${inputCls} sm:flex-1`}
-        />
-        <select value={statusFilter} onChange={(e) => setStatusFilter(e.target.value as "" | DealStatus)} className={`${inputCls} sm:w-56`}>
+      <div className="flex flex-col gap-3">
+        <select value={statusFilter} onChange={(e) => setStatusFilter(e.target.value as "" | DealStatus)} className={inputCls}>
           <option value="">All Deals</option>
           {DEAL_STATUSES.map((s) => (
             <option key={s} value={s}>
@@ -85,6 +78,13 @@ export function Dashboard({
             </option>
           ))}
         </select>
+        <input
+          type="search"
+          placeholder="SEARCH BY ADDRESS"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          className={inputCls}
+        />
       </div>
 
       {error && <p className="rounded-xl bg-red-50 p-4 text-sm font-semibold text-red-700">{error}</p>}
