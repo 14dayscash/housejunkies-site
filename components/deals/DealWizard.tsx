@@ -16,6 +16,7 @@ import {
   TYPE_LABELS,
   addressLines,
   calcDeal,
+  pricePerSqft,
   usd,
   type Comp,
   type Condition,
@@ -28,6 +29,9 @@ import { CheckIcon, bigInputCls, btnGhost, btnPrimary, inputCls, moneyInput, par
 
 const STEP_COUNT = 7;
 const MAX_COMPS = 5;
+// Comps columns: address, sale price, sale date, sq ft, $/sf, remove.
+const COMP_GRID = "grid-cols-[1.8fr_1.1fr_1.1fr_0.8fr_0.9fr_28px]";
+const COMP_GRID_SM = "sm:grid-cols-[1.8fr_1.1fr_1.1fr_0.8fr_0.9fr_28px]";
 
 type CompDraft = { address: string; price: string; date: string; sqft: string };
 const emptyComp = (): CompDraft => ({ address: "", price: "", date: "", sqft: "" });
@@ -210,28 +214,37 @@ export function DealWizard({
             <MoneyField value={arv} onChange={setArv} placeholder="300,000" autoFocus big />
             <div>
               <h3 className="text-base font-extrabold text-brand-black">Comparable Properties</h3>
-              <p className="text-sm italic text-gray-500">OPTIONAL / Up to {MAX_COMPS}</p>
-              <div className="mt-3 hidden grid-cols-[2fr_1.2fr_1.2fr_0.9fr_28px] gap-2 px-1 text-xs font-bold uppercase tracking-wide text-gray-500 sm:grid">
+              <p className="text-sm italic text-gray-500">OPTIONAL / Up to {MAX_COMPS} Sold Homes</p>
+              <div className={`mt-3 hidden ${COMP_GRID} gap-2 px-1 text-xs font-bold uppercase tracking-wide text-gray-500 sm:grid`}>
                 <span>ADDRESS</span>
                 <span>SALE PRICE</span>
                 <span>SALE DATE</span>
                 <span>SQ FT</span>
+                <span>$/SF</span>
                 <span />
               </div>
               <div className="mt-2 space-y-3 sm:space-y-2">
                 {comps.map((c, i) => {
                   const set = (patch: Partial<CompDraft>) => setComps((all) => all.map((x, j) => (j === i ? { ...x, ...patch } : x)));
+                  const ppsf = pricePerSqft(parseNum(c.price), parseNum(c.sqft));
                   return (
-                    <div key={i} className="grid grid-cols-2 gap-2 rounded-xl border border-gray-200 bg-gray-50 p-3 sm:grid-cols-[2fr_1.2fr_1.2fr_0.9fr_28px] sm:border-0 sm:bg-transparent sm:p-0">
+                    <div key={i} className={`grid grid-cols-2 gap-2 rounded-xl border border-gray-200 bg-gray-50 p-3 ${COMP_GRID_SM} sm:border-0 sm:bg-transparent sm:p-0`}>
                       <input value={c.address} onChange={(e) => set({ address: e.target.value })} placeholder="ADDRESS" className={`${inputCls} col-span-2 py-2.5 sm:col-span-1`} />
                       <input inputMode="numeric" value={c.price} onChange={(e) => set({ price: moneyInput(e.target.value) })} placeholder="SALE PRICE" className={`${inputCls} py-2.5`} />
-                      <input inputMode="numeric" value={c.date} onChange={(e) => set({ date: formatDateTyping(e.target.value) })} placeholder="SALE DATE (MM/DD/YYYY)" aria-label="Sale date" className={`${inputCls} py-2.5`} />
+                      <input inputMode="numeric" value={c.date} onChange={(e) => set({ date: formatDateTyping(e.target.value) })} placeholder="SALE DATE" aria-label="Sale date" className={`${inputCls} py-2.5`} />
                       <input inputMode="numeric" value={c.sqft} onChange={(e) => set({ sqft: e.target.value.replace(/\D/g, "") })} placeholder="SQ FT" className={`${inputCls} py-2.5`} />
+                      <div
+                        aria-label="Price per square foot"
+                        title="Figured from sale price and square feet"
+                        className="flex items-center rounded-xl border border-gray-200 bg-gray-100 px-4 py-2.5 font-semibold text-gray-600"
+                      >
+                        {ppsf != null ? `$${ppsf.toLocaleString("en-US")}/SF` : "$/SF"}
+                      </div>
                       <button
                         type="button"
                         onClick={() => setComps((all) => (all.length === 1 ? [emptyComp()] : all.filter((_, j) => j !== i)))}
                         aria-label="Remove comp"
-                        className="text-right text-xl font-bold text-gray-400 hover:text-red-600 sm:text-center"
+                        className="col-span-2 text-right text-xl font-bold text-gray-400 hover:text-red-600 sm:col-span-1 sm:text-center"
                       >
                         &times;
                       </button>

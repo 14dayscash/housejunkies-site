@@ -45,8 +45,8 @@ export const MAO_PROFIT = 0.2; // our max offer leaves 20% profit on the all-in
 export const OPENING_PROFIT = 0.25; // opening offer leaves 25%
 
 export const LISTING_OPTIONS = {
-  legacy: { label: "Legacy Real Estate", rate: 0.06 },
-  self: { label: "Myself (Agent Partners)", rate: 0.03 },
+  legacy: { label: "Legacy Real Estate", short: "Legacy", rate: 0.06 },
+  self: { label: "Myself (Agent Partners)", short: "Myself", rate: 0.03 },
 } as const;
 export type ListingBy = keyof typeof LISTING_OPTIONS;
 
@@ -184,13 +184,21 @@ export function calcDeal(i: CalcInput): CalcResult {
 
 // Estimated profit for a saved deal, using the real purchase price once it
 // is entered, otherwise our max offer.
-export function savedDealProfit(d: Deal): number | null {
+// pct = profit as a percent of the all-in cost (same as the results screen).
+export function savedDealProfit(d: Deal): { profit: number; pct: number } | null {
   const purchase = d.purchase_price ?? d.max_offer;
   if (purchase == null || !d.arv || !d.listing_by) return null;
   const subtotal = purchase + (rehabCost(d.sqft, d.condition) ?? 0) + (d.closing_costs ?? CLOSING_COSTS) + (d.assignment_fee ?? 0);
   const rate = d.interest_rate ?? INTEREST_RATE;
   const allIn = subtotal * (1 + POINTS_RATE + (rate / 100 / 12) * (d.months ?? 6));
-  return d.arv - d.arv * LISTING_OPTIONS[d.listing_by].rate - allIn;
+  const profit = d.arv - d.arv * LISTING_OPTIONS[d.listing_by].rate - allIn;
+  return { profit, pct: allIn > 0 ? (profit / allIn) * 100 : 0 };
+}
+
+// Sale price per square foot, rounded to the dollar.
+export function pricePerSqft(price: number | null, sqft: number | null): number | null {
+  if (!price || !sqft) return null;
+  return Math.round(price / sqft);
 }
 
 export function usd(n: number | null | undefined) {

@@ -10,6 +10,13 @@ import { DealWizard } from "./DealWizard";
 import { DealDetail } from "./DealDetail";
 import { CheckIcon, btnGhost, btnPrimary, btnDark, inputCls } from "./ui";
 
+// Shown on the success screen after a deal is saved (Dominic, 2026-11-24).
+const TEAM_CONTACTS: { name: string; phone: string; email?: string }[] = [
+  { name: "Dominic McClelland", phone: "(559) 368-8956" },
+  { name: "Abel Ulloa", phone: "(559) 310-5004" },
+  { name: "Ciara Seaton", phone: "(559) 358-0523", email: "ciaraseaton23@gmail.com" },
+];
+
 type View =
   | { name: "dashboard" }
   | { name: "wizard"; deal?: Deal }
@@ -135,7 +142,26 @@ function SignedIn({ session, signOut }: { session: Session; signOut: () => void 
           <span className="font-bold text-brand-black">{line1}</span>
           {line2 && <span className="block text-gray-500">{line2}</span>}
         </p>
-        <p className="mt-2 font-bold uppercase tracking-wide text-gray-600">was successfully added to your deals</p>
+        <p className="mt-2 font-bold uppercase tracking-wide text-gray-600">Successfully Added to Deals</p>
+        <div className="mt-5 rounded-xl bg-gray-50 p-4 text-left text-xs leading-relaxed text-gray-600">
+          <p className="font-bold text-gray-700">Contact Abel/Dominic to Confirm Offer</p>
+          <p className="font-bold text-gray-700">Send Escrow Information to Ciara</p>
+          <div className="mt-3 grid gap-3 sm:grid-cols-3">
+            {TEAM_CONTACTS.map((c) => (
+              <div key={c.name}>
+                <p className="font-semibold text-gray-800">{c.name}</p>
+                <a href={`tel:${c.phone.replace(/\D/g, "")}`} className="block hover:underline">
+                  {c.phone}
+                </a>
+                {c.email && (
+                  <a href={`mailto:${c.email}`} className="block break-all hover:underline">
+                    {c.email}
+                  </a>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
         <div className="mt-8 grid gap-3">
           <button onClick={() => setView({ name: "detail", id: view.deal.id })} className={btnPrimary}>
             Add More Info

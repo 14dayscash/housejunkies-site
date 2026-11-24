@@ -78,10 +78,10 @@ export function Dashboard({
           className={`${inputCls} sm:flex-1`}
         />
         <select value={statusFilter} onChange={(e) => setStatusFilter(e.target.value as "" | DealStatus)} className={`${inputCls} sm:w-56`}>
-          <option value="">ALL DEALS</option>
+          <option value="">All Deals</option>
           {DEAL_STATUSES.map((s) => (
             <option key={s} value={s}>
-              {s.toUpperCase()}
+              {s}
             </option>
           ))}
         </select>
@@ -171,7 +171,7 @@ function MyDealCard({ deal, onOpen }: { deal: Deal; onOpen: () => void }) {
       <dl className="mt-4 grid grid-cols-2 gap-2">
         {stats.map((s) => (
           <div key={s.label} className="rounded-lg bg-gray-50 px-3 py-2">
-            <dt className="text-xs font-semibold text-gray-500">{s.label}</dt>
+            <dt className="text-xs font-bold uppercase tracking-wide text-gray-500">{s.label}</dt>
             <dd className={`font-bold ${s.green ? "text-green-700" : "text-brand-black"}`}>{usd(s.value)}</dd>
           </div>
         ))}

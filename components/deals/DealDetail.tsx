@@ -8,6 +8,7 @@ import {
   LISTING_OPTIONS,
   TYPE_LABELS,
   addressLines,
+  pricePerSqft,
   rehabCost,
   savedDealProfit,
   shortDate,
@@ -139,8 +140,9 @@ export function DealDetail({
     else onDeleted();
   }
 
+  const est = savedDealProfit(deal);
   const numbers = [
-    { label: "Our Max Offer", value: usd(deal.max_offer) },
+    { label: "Max Offer", value: usd(deal.max_offer) },
     { label: "Opening Offer", value: usd(deal.opening_offer) },
     { label: "You Make", value: usd(deal.assignment_fee) },
     { label: "ARV", value: usd(deal.arv) },
@@ -148,8 +150,8 @@ export function DealDetail({
     { label: "Rehab Level", value: deal.condition ? CONDITION_LABELS[deal.condition] : "-" },
     { label: "Square Feet", value: deal.sqft ? deal.sqft.toLocaleString("en-US") : "-" },
     { label: "Hold", value: deal.months ? `${deal.months} Months` : "-" },
-    { label: "Listing", value: deal.listing_by ? LISTING_OPTIONS[deal.listing_by].label : "-" },
-    { label: "Estimated Profit", value: usd(savedDealProfit(deal)) },
+    { label: "Listing", value: deal.listing_by ? LISTING_OPTIONS[deal.listing_by].short : "-" },
+    { label: "Estimated Profit", value: est ? `${usd(est.profit)} (${est.pct.toFixed(1)}%)` : "-" },
   ];
 
   const unused = (fields: FieldDef[]) => fields.filter((f) => !shown.includes(f.key));
@@ -185,13 +187,13 @@ export function DealDetail({
         <div className="flex items-center justify-between gap-3">
           <h2 className="font-display text-lg font-extrabold text-brand-black">Deal Numbers</h2>
           <button onClick={onRecalculate} className="inline-flex items-center gap-1.5 rounded-lg bg-brand-yellow px-3 py-2 text-sm font-bold text-black hover:bg-brand-yellow-dark">
-            <PencilIcon className="h-4 w-4" /> Recalculate
+            <PencilIcon className="h-4 w-4" /> RECALCULATE
           </button>
         </div>
         <dl className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-5">
           {numbers.map((n) => (
             <div key={n.label} className="rounded-lg bg-gray-50 px-3 py-2">
-              <dt className="text-xs font-semibold text-gray-500">{n.label}</dt>
+              <dt className="text-xs font-bold uppercase tracking-wide text-gray-500">{n.label}</dt>
               <dd className="font-bold text-brand-black">{n.value}</dd>
             </div>
           ))}
@@ -205,6 +207,7 @@ export function DealDetail({
                   <span className="font-semibold text-brand-black">{c.address || "-"}</span>
                   <span className="text-gray-600">
                     {usd(c.price)} &bull; {/^\d{4}-\d{2}-\d{2}/.test(c.date) ? shortDate(c.date) : c.date || "-"} &bull; {c.sqft ? `${c.sqft.toLocaleString("en-US")} SQ FT` : "- SQ FT"}
+                    {pricePerSqft(c.price, c.sqft) != null && <> &bull; ${pricePerSqft(c.price, c.sqft)!.toLocaleString("en-US")}/SF</>}
                   </span>
                 </li>
               ))}
@@ -215,7 +218,7 @@ export function DealDetail({
 
       <div className="rounded-2xl bg-white p-6 shadow-sm">
         <h2 className="font-display text-lg font-extrabold text-brand-black">Deal Info</h2>
-        {shown.length === 0 && <p className="mt-2 text-gray-600">Click ADD INFO for contact details, dates, and more!</p>}
+        {shown.length === 0 && <p className="mt-2 text-gray-600">Contact info, property details, and more!</p>}
 
         <div className="mt-4 grid gap-4 sm:grid-cols-2">
           {ALL_FIELDS.filter((f) => shown.includes(f.key)).map((f) => (
