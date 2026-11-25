@@ -337,6 +337,10 @@ WE ARE TRYING TO TAKE OVER, one street and one site at a time.**
   Finders Fees" headline (open deals only, no extra subtext), one color per status
   (`STATUS_COLORS` in `components/deals/ui.tsx`), slide/count-up/confetti motion
   (keyframes at the end of `app/globals.css`). Keep new screens in this style.
+- /deals (Dominic, 2026-11-25): Add Deal is 5 steps (Address, ARV + comps, Rehab,
+  Finders Fee, Timeline, then CALCULATE). New deals default to Flip and Legacy listing;
+  Deal Type is changed next to Status on the deal page and Listing in the offer
+  breakdown controls. Every dashboard stat box counts only the user's own deals.
 - /deals text rule (Dominic, 2026-11-24): labels are Title Case ("6 Months") or ALL CAPS;
   only questions and small helper text use normal sentence case. Filters and stat
   labels are caps. Team Deals lists every deal, the user's own included.

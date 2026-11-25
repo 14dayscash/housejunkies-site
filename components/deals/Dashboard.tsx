@@ -38,11 +38,10 @@ export function Dashboard({
 
   const counts = useMemo(() => {
     const c: Record<string, number> = {};
-    for (const d of directory) c[d.status] = (c[d.status] ?? 0) + 1;
-    // Closed counts only your own closed deals (Dominic, 2026-11-24).
-    c["Closed"] = myDeals.filter((d) => d.status === "Closed").length;
+    // Every stat box counts only your own deals (Dominic, 2026-11-25).
+    for (const d of myDeals) c[d.status] = (c[d.status] ?? 0) + 1;
     return c;
-  }, [directory, myDeals]);
+  }, [myDeals]);
 
   // Your open deals: what we would pay, and what you would make.
   const open = myDeals.filter((d) => d.status !== "Closed");

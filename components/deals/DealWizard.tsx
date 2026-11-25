@@ -10,10 +10,7 @@ import {
   CONDITION_RATES,
   HOLD_MONTHS,
   INTEREST_RATE,
-  LISTING_OPTIONS,
   MIN_FINDERS_FEE,
-  PICKER_TYPES,
-  TYPE_LABELS,
   addressLines,
   calcDeal,
   pricePerSqft,
@@ -28,7 +25,9 @@ import {
 import { OfferHeadline, OfferRows } from "./Breakdown";
 import { CheckIcon, bigInputCls, btnGhost, btnPrimary, inputCls, moneyInput, parseNum } from "./ui";
 
-const STEP_COUNT = 7;
+// Address, ARV, Rehab, Finders Fee, Timeline, then results (Dominic, 2026-11-25).
+// Deal type (default Flip) and listing (default Legacy) are changed on the deal page.
+const STEP_COUNT = 5;
 const MAX_COMPS = 5;
 // Comps columns: address, sale price, sale date, sq ft, $/sf, remove.
 const COMP_GRID = "grid-cols-[1.8fr_1.1fr_1.1fr_0.8fr_0.9fr_28px]";
@@ -51,7 +50,7 @@ export function DealWizard({
   const supabase = dealsSupabase()!;
   const [step, setStep] = useState(0);
   const [address, setAddress] = useState(deal?.address ?? "");
-  const [dealType, setDealType] = useState<DealType | null>(deal?.deal_type ?? null);
+  const [dealType, setDealType] = useState<DealType>(deal?.deal_type ?? "flip");
   const [arv, setArv] = useState(deal?.arv ? moneyInput(String(deal.arv)) : "");
   const [comps, setComps] = useState<CompDraft[]>(() =>
     deal?.comps?.length
@@ -67,7 +66,7 @@ export function DealWizard({
   const [condition, setCondition] = useState<Condition | null>(deal?.condition ?? null);
   const [finders, setFinders] = useState(deal?.assignment_fee ? moneyInput(String(deal.assignment_fee)) : "");
   const [months, setMonths] = useState<number | null>(deal?.months && (HOLD_MONTHS as readonly number[]).includes(deal.months) ? deal.months : null);
-  const [listingBy, setListingBy] = useState<ListingBy | null>(deal?.listing_by ?? null);
+  const [listingBy, setListingBy] = useState<ListingBy>(deal?.listing_by ?? "legacy");
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
 
@@ -94,7 +93,7 @@ export function DealWizard({
         condition,
         findersFee: parseNum(finders) ?? 0,
         months: months ?? 6,
-        listingBy: listingBy ?? "legacy",
+        listingBy,
         // Keep custom interest and closing costs set on the deal page.
         ratePct: deal?.interest_rate ?? INTEREST_RATE,
         closing: deal?.closing_costs ?? CLOSING_COSTS,
@@ -191,27 +190,6 @@ export function DealWizard({
       )}
 
       {step === 1 && (
-        <Screen eyebrow="Deal Type" title="What kind of deal is it?">
-          <div className="grid grid-cols-2 gap-3">
-            {PICKER_TYPES.map((t) => (
-              <OptionBox
-                key={t}
-                selected={dealType === t}
-                onClick={() => {
-                  setDealType(t);
-                  next();
-                }}
-                className="aspect-[4/3] sm:aspect-square"
-              >
-                <TypeIcon type={t} />
-                <span className="mt-2 text-lg font-extrabold">{TYPE_LABELS[t]}</span>
-              </OptionBox>
-            ))}
-          </div>
-        </Screen>
-      )}
-
-      {step === 2 && (
         <Screen eyebrow="After Repair Value" title="Estimated Property ARV">
           <form
             onSubmit={(e) => {
@@ -276,7 +254,7 @@ export function DealWizard({
         </Screen>
       )}
 
-      {step === 3 && (
+      {step === 2 && (
         <Screen eyebrow="Rehab" title="Property Square Footage">
           <form
             onSubmit={(e) => {
@@ -319,7 +297,7 @@ export function DealWizard({
         </Screen>
       )}
 
-      {step === 4 && (
+      {step === 3 && (
         <Screen eyebrow="Your Cut" title="Finders Fee" sub={`How Much You Make! (Minimum: ${usd(MIN_FINDERS_FEE)})`}>
           <form
             onSubmit={(e) => {
@@ -338,7 +316,7 @@ export function DealWizard({
         </Screen>
       )}
 
-      {step === 5 && (
+      {step === 4 && (
         <Screen eyebrow="Holding Costs" title="Project Timeline">
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
             {HOLD_MONTHS.map((m) => (
@@ -347,7 +325,7 @@ export function DealWizard({
                 selected={months === m}
                 onClick={() => {
                   setMonths(m);
-                  next();
+                  setError(null);
                 }}
                 className="py-6"
               >
@@ -356,26 +334,14 @@ export function DealWizard({
               </OptionBox>
             ))}
           </div>
-        </Screen>
-      )}
-
-      {step === 6 && (
-        <Screen eyebrow="Listing" title="Who will list the flip?">
-          <div className="grid gap-3 sm:grid-cols-2">
-            {(Object.keys(LISTING_OPTIONS) as ListingBy[]).map((k) => (
-              <OptionBox key={k} selected={listingBy === k} onClick={() => setListingBy(k)} className="py-6">
-                <span className="text-lg font-extrabold">{LISTING_OPTIONS[k].label}</span>
-              </OptionBox>
-            ))}
-          </div>
-          <button onClick={() => (listingBy ? next() : setError("Pick who will list it."))} className={`${btnPrimary} mt-6 w-full`}>
+          <button onClick={() => (months ? next() : setError("Pick the project timeline."))} className={`${btnPrimary} mt-6 w-full`}>
             <CalculatorIcon /> CALCULATE
           </button>
           <ErrorText error={error} />
         </Screen>
       )}
 
-      {step === 7 && (
+      {step === 5 && (
         <Results
           address={address}
           sqft={parseNum(sqft)}
@@ -561,39 +527,4 @@ function formatDateTyping(v: string) {
   if (d.length <= 2) return d;
   if (d.length <= 4) return `${d.slice(0, 2)}/${d.slice(2)}`;
   return `${d.slice(0, 2)}/${d.slice(2, 4)}/${d.slice(4)}`;
-}
-
-function TypeIcon({ type }: { type: DealType }) {
-  const common = { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 1.8, strokeLinecap: "round" as const, strokeLinejoin: "round" as const, className: "h-10 w-10 text-white", "aria-hidden": true };
-  if (type === "flip")
-    return (
-      <svg {...common}>
-        <path d="M3 11l9-7 9 7" />
-        <path d="M5 10v10h14V10" />
-        <path d="M9 20v-6h6v6" />
-      </svg>
-    );
-  if (type === "rental")
-    return (
-      <svg {...common}>
-        <circle cx="8" cy="15" r="4" />
-        <path d="M11 12l9-9" />
-        <path d="M17 6l3 3" />
-        <path d="M15 8l2 2" />
-      </svg>
-    );
-  if (type === "multifamily")
-    return (
-      <svg {...common}>
-        <rect x="4" y="3" width="16" height="18" rx="1" />
-        <path d="M8 7h2M14 7h2M8 11h2M14 11h2M8 15h2M14 15h2" />
-        <path d="M11 21v-3h2v3" />
-      </svg>
-    );
-  return (
-    <svg {...common}>
-      <path d="M3 20l6-9 4 5 3-4 5 8z" />
-      <circle cx="17" cy="6" r="2" />
-    </svg>
-  );
 }

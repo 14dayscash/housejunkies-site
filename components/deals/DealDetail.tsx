@@ -7,6 +7,7 @@ import {
   CONDITION_LABELS,
   DEAL_STATUSES,
   LISTING_OPTIONS,
+  PICKER_TYPES,
   TYPE_LABELS,
   addressLines,
   pricePerSqft,
@@ -17,6 +18,7 @@ import {
   type CalcResult,
   type Deal,
   type DealStatus,
+  type DealType,
 } from "@/lib/deals/calc";
 import { PencilIcon, StatusPill, inputCls, statusBar } from "./ui";
 import { OfferEditor } from "./OfferEditor";
@@ -53,8 +55,9 @@ export function DealDetail({
     signedPhotoUrls(supabase, [firstPhoto]).then((u) => setCover(u[firstPhoto] ?? null));
   }, [supabase, firstPhoto]);
 
-  async function updateStatus(status: DealStatus) {
-    const { error } = await supabase.from("deals").update({ status }).eq("id", deal.id);
+  // Status and deal type save as soon as they are picked.
+  async function updateField(patch: { status?: DealStatus; deal_type?: DealType }) {
+    const { error } = await supabase.from("deals").update(patch).eq("id", deal.id);
     if (error) setError(error.message);
     else await onChanged?.();
   }
@@ -120,16 +123,28 @@ export function DealDetail({
             <StatusPill status={deal.status} />
           </div>
         ) : (
-          <label className="mt-4 block max-w-xs">
-            <span className="mb-1 block text-xs font-bold uppercase tracking-widest text-brand-yellow">Status</span>
-            <select value={deal.status} onChange={(e) => updateStatus(e.target.value as DealStatus)} className={inputCls}>
-              {DEAL_STATUSES.map((s) => (
-                <option key={s} value={s}>
-                  {s}
-                </option>
-              ))}
-            </select>
-          </label>
+          <div className="mt-4 grid max-w-md grid-cols-2 gap-3">
+            <label className="block">
+              <span className="mb-1 block text-xs font-bold uppercase tracking-widest text-brand-yellow">Status</span>
+              <select value={deal.status} onChange={(e) => updateField({ status: e.target.value as DealStatus })} className={inputCls}>
+                {DEAL_STATUSES.map((s) => (
+                  <option key={s} value={s}>
+                    {s}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <label className="block">
+              <span className="mb-1 block text-xs font-bold uppercase tracking-widest text-brand-yellow">Deal Type</span>
+              <select value={deal.deal_type} onChange={(e) => updateField({ deal_type: e.target.value as DealType })} className={inputCls}>
+                {(deal.deal_type === "commercial" ? [...PICKER_TYPES, "commercial" as DealType] : PICKER_TYPES).map((t) => (
+                  <option key={t} value={t}>
+                    {TYPE_LABELS[t]}
+                  </option>
+                ))}
+              </select>
+            </label>
+          </div>
         )}
         </div>
       </div>
@@ -173,7 +188,7 @@ export function DealDetail({
       </div>
 
       {/* key: rebuild the editors when the saved deal changes */}
-      <OfferEditor key={`o-${deal.purchase_price}-${deal.max_offer}-${deal.months}-${deal.interest_rate}-${deal.closing_costs}-${deal.assignment_fee}-${deal.condition}`} deal={deal} readOnly={readOnly} onChanged={onChanged} onRecalculate={onRecalculate} onResult={setLive} />
+      <OfferEditor key={`o-${deal.listing_by}-${deal.purchase_price}-${deal.max_offer}-${deal.months}-${deal.interest_rate}-${deal.closing_costs}-${deal.assignment_fee}-${deal.condition}`} deal={deal} readOnly={readOnly} onChanged={onChanged} onRecalculate={onRecalculate} onResult={setLive} />
 
       <DealPhotos deal={deal} readOnly={readOnly} onChanged={onChanged} />
 

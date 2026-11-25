@@ -7,6 +7,7 @@ import {
   CONDITION_LABELS,
   CONDITION_RATES,
   HOLD_MONTHS,
+  LISTING_OPTIONS,
   MIN_FINDERS_FEE,
   calcDeal,
   dealCalcInput,
@@ -14,6 +15,7 @@ import {
   type CalcResult,
   type Condition,
   type Deal,
+  type ListingBy,
 } from "@/lib/deals/calc";
 import { OfferHeadline, OfferRows } from "./Breakdown";
 import { CheckIcon, btnPrimary, inputCls, moneyInput, parseNum } from "./ui";
@@ -43,6 +45,7 @@ export function OfferEditor({
   const [finders, setFinders] = useState(moneyInput(String(deal.assignment_fee ?? 0)));
   // Blank = use our max offer. Filled = what we actually paid or agreed to pay.
   const [purchase, setPurchase] = useState(deal.purchase_price != null ? moneyInput(String(deal.purchase_price)) : "");
+  const [listing, setListing] = useState<ListingBy>(deal.listing_by ?? "legacy");
   const [dirty, setDirty] = useState(false);
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState<{ ok: boolean; text: string } | null>(null);
@@ -57,9 +60,10 @@ export function OfferEditor({
       closing: parseNum(closing) ?? 0,
       findersFee: parseNum(finders) ?? 0,
       purchase: parseNum(purchase),
+      listingBy: listing,
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [deal, condition, months, rate, closing, finders, purchase]);
+  }, [deal, condition, months, rate, closing, finders, purchase, listing]);
 
   useEffect(() => {
     onResult?.(result);
@@ -103,6 +107,7 @@ export function OfferEditor({
         closing_costs: parseNum(closing),
         assignment_fee: fee,
         purchase_price: paid,
+        listing_by: listing,
         max_offer: result!.maxOffer,
         opening_offer: result!.openingOffer,
       })
@@ -155,6 +160,15 @@ export function OfferEditor({
             </Control>
             <Control label="Finders Fee">
               <Money value={finders} onChange={change(setFinders)} />
+            </Control>
+            <Control label="Listing" wide>
+              <select value={listing} onChange={(e) => change((v) => setListing(v as ListingBy))(e.target.value)} className={inputCls}>
+                {(Object.keys(LISTING_OPTIONS) as ListingBy[]).map((k) => (
+                  <option key={k} value={k}>
+                    {LISTING_OPTIONS[k].label} ({Math.round(LISTING_OPTIONS[k].rate * 100)}%)
+                  </option>
+                ))}
+              </select>
             </Control>
           </div>
         )}
