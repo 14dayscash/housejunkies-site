@@ -136,7 +136,7 @@ export function Dashboard({
                 {myDeals.length === 0 ? "Click Add New Deal to Start!" : "None of your deals match."}
               </p>
             ) : (
-              <ul className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+              <ul className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-4">
                 {mine.map((d, i) => (
                   <MyDealCard key={d.id} deal={d} cover={d.photos?.[0] ? covers[d.photos[0]] : undefined} index={i} onOpen={() => onOpen(d.id)} />
                 ))}
@@ -186,48 +186,49 @@ function MetaLine({ status, type, date }: { status: DealStatus; type: keyof type
   );
 }
 
+// Compact tile, two per row on phones: photo, address, status, then the
+// four numbers in small type (Dominic, 2026-11-25).
 function MyDealCard({ deal, cover, index, onOpen }: { deal: Deal; cover?: string; index: number; onOpen: () => void }) {
+  const [line1, line2] = addressLines(deal.address);
   const stats = [
-    { label: "Purchase Price", value: deal.purchase_price ?? deal.max_offer },
-    { label: "Rehab Cost", value: rehabCost(deal.sqft, deal.condition) },
+    { label: "Purchase", value: deal.purchase_price ?? deal.max_offer },
+    { label: "Rehab", value: rehabCost(deal.sqft, deal.condition) },
     { label: "Finders Fee", value: deal.assignment_fee, green: true },
     { label: "ARV", value: deal.arv },
   ];
   return (
-    <li className="hj-rise overflow-hidden rounded-2xl border border-white/10 bg-brand-charcoal transition hover:border-white/25" style={stagger(index)}>
-      <button onClick={onOpen} className="relative block aspect-[16/9] w-full overflow-hidden bg-gradient-to-br from-[#222] to-brand-black text-left">
-        {cover ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img src={cover} alt="" className="h-full w-full object-cover" />
-        ) : (
-          <span className="flex h-full w-full items-center justify-center text-white/15">
-            <HouseIcon className="h-14 w-14" />
+    <li className="hj-rise overflow-hidden rounded-xl border border-white/10 bg-brand-charcoal transition active:scale-[0.98] hover:border-white/25" style={stagger(index)}>
+      <button onClick={onOpen} className="block w-full text-left" aria-label={`Open ${deal.address}`}>
+        <span className="relative block aspect-[4/3] w-full overflow-hidden bg-gradient-to-br from-[#222] to-brand-black">
+          {cover ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img src={cover} alt="" className="h-full w-full object-cover" />
+          ) : (
+            <span className="flex h-full w-full items-center justify-center text-white/15">
+              <HouseIcon className="h-10 w-10" />
+            </span>
+          )}
+          <span className={`absolute inset-x-0 top-0 h-1 ${statusBar(deal.status)}`} />
+          <span className="absolute right-2 top-2.5 flex h-7 w-7 items-center justify-center rounded-full bg-brand-yellow text-black shadow-lg">
+            <PencilIcon className="h-3.5 w-3.5" />
           </span>
-        )}
-        <span className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/70 to-transparent" />
-        <span className={`absolute inset-x-0 top-0 h-1 ${statusBar(deal.status)}`} />
+        </span>
+        <span className="block p-2.5">
+          <span className="block truncate text-sm font-bold leading-tight text-white">{line1}</span>
+          {line2 && <span className="block truncate text-[11px] leading-tight text-gray-400">{line2}</span>}
+          <span className="mt-1.5 block">
+            <StatusPill status={deal.status} />
+          </span>
+          <span className="mt-2 grid grid-cols-2 gap-1">
+            {stats.map((s) => (
+              <span key={s.label} className="block rounded-md bg-white/5 px-1.5 py-1">
+                <span className="block text-[8px] font-bold uppercase tracking-wide text-gray-400">{s.label}</span>
+                <span className={`block truncate text-[11px] font-bold tabular-nums ${s.green ? "text-green-400" : "text-white"}`}>{usd(s.value)}</span>
+              </span>
+            ))}
+          </span>
+        </span>
       </button>
-      <div className="relative p-4">
-        <button
-          onClick={onOpen}
-          aria-label={`Edit ${deal.address}`}
-          className="absolute -top-5 right-4 flex h-10 w-10 items-center justify-center rounded-full bg-brand-yellow text-black shadow-lg transition active:scale-95 hover:bg-brand-yellow-dark"
-        >
-          <PencilIcon className="h-4 w-4" />
-        </button>
-        <button onClick={onOpen} className="block w-full pr-12 text-left">
-          <AddressBlock address={deal.address} />
-          <MetaLine status={deal.status} type={deal.deal_type} date={deal.purchase_date ?? deal.created_at} />
-        </button>
-        <dl className="mt-4 grid grid-cols-2 gap-2">
-          {stats.map((s) => (
-            <div key={s.label} className="rounded-lg bg-white/5 px-3 py-2">
-              <dt className="text-[10px] font-bold uppercase tracking-wide text-gray-400">{s.label}</dt>
-              <dd className={`font-bold tabular-nums ${s.green ? "text-green-400" : "text-white"}`}>{usd(s.value)}</dd>
-            </div>
-          ))}
-        </dl>
-      </div>
     </li>
   );
 }
