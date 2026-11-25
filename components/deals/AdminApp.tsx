@@ -262,9 +262,9 @@ function AdminDealCard({ deal, owner, cover, onOpen }: { deal: Deal; owner: stri
         <span className="relative block aspect-[16/9] w-full overflow-hidden bg-gradient-to-br from-[#222] to-brand-black">
           {cover ? (
             // eslint-disable-next-line @next/next/no-img-element
-            <img src={cover} alt="" className="h-full w-full object-cover" />
+            <img src={cover} alt="" className="absolute inset-0 h-full w-full object-cover" />
           ) : (
-            <span className="flex h-full w-full items-center justify-center text-white/15">
+            <span className="absolute inset-0 flex items-center justify-center text-white/20">
               <HouseIcon className="h-14 w-14" />
             </span>
           )}

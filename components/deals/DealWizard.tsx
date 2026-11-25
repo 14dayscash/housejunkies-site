@@ -13,6 +13,7 @@ import {
   MIN_FINDERS_FEE,
   addressLines,
   calcDeal,
+  tidyAddress,
   pricePerSqft,
   usd,
   type Comp,
@@ -123,7 +124,7 @@ export function DealWizard({
       .filter((c) => c.address.trim() || c.price || c.date || c.sqft)
       .map((c) => ({ address: c.address.trim(), price: parseNum(c.price), date: c.date, sqft: parseNum(c.sqft) }));
     const row = {
-      address: address.trim(),
+      address: tidyAddress(address),
       deal_type: dealType,
       arv: parseNum(arv),
       comps: cleanComps,

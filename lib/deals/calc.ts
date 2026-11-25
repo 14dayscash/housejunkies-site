@@ -241,6 +241,21 @@ export function shortDate(iso: string | null | undefined) {
 // "765 S C St, Tulare, CA 93274" -> ["765 S C St", "Tulare, CA 93274"]
 export function addressLines(address: string): [string, string] {
   const i = address.indexOf(",");
-  if (i === -1) return [address.trim(), ""];
-  return [address.slice(0, i).trim(), address.slice(i + 1).trim()];
+  if (i !== -1) return [address.slice(0, i).trim(), address.slice(i + 1).trim()];
+  // Typed without commas, e.g. "11539 15th Avenue Lemoore CA 93245":
+  // split after the last street word (plus a road number like "Road 56"),
+  // and put the comma back before the state.
+  const m = address
+    .trim()
+    .match(/^(.*\b(?:st|street|ave|avenue|av|rd|road|dr|drive|blvd|boulevard|ln|lane|ct|court|way|pl|place|cir|circle|ter|terrace|hwy|highway|pkwy|parkway|trl|trail|loop|row|sq)\.?(?:\s+\d+[a-z]?)?)\s+([a-z][a-z .'-]*?)[\s,]+(ca|california)\.?\s*(\d{5}(?:-\d{4})?)?$/i);
+  if (m) return [m[1], `${m[2]}, CA${m[4] ? ` ${m[4]}` : ""}`];
+  return [address.trim(), ""];
+}
+
+// Saves addresses the same way every time: "Street, City, CA 93291".
+export function tidyAddress(address: string) {
+  const a = address.trim().replace(/\s+/g, " ");
+  if (a.includes(",")) return a;
+  const [line1, line2] = addressLines(a);
+  return line2 ? `${line1}, ${line2}` : a;
 }
