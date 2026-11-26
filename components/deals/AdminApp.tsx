@@ -67,6 +67,7 @@ function AdminDashboard() {
   const supabase = dealsSupabase()!;
   const [deals, setDeals] = useState<Deal[]>([]);
   const [accounts, setAccounts] = useState<Account[]>([]);
+  const [partnerIds, setPartnerIds] = useState<Set<string>>(new Set());
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [openId, setOpenId] = useState<string | null>(null);
@@ -76,13 +77,15 @@ function AdminDashboard() {
   const [covers, setCovers] = useState<Record<string, string>>({});
 
   const load = useCallback(async () => {
-    const [d, a] = await Promise.all([
+    const [d, a, p] = await Promise.all([
       supabase.from("deals").select("*").order("created_at", { ascending: false }),
       supabase.rpc("admin_users"),
+      supabase.rpc("admin_partner_ids"),
     ]);
     setError(d.error?.message ?? a.error?.message ?? null);
     if (!d.error) setDeals((d.data ?? []) as Deal[]);
     if (!a.error) setAccounts((a.data ?? []) as Account[]);
+    if (!p.error) setPartnerIds(new Set((p.data ?? []) as string[]));
     setLoading(false);
   }, [supabase]);
 
@@ -184,6 +187,7 @@ function AdminDashboard() {
                 <div className="flex items-start justify-between gap-2">
                   <p className="font-bold text-white">{a.display_name}</p>
                   {a.is_admin && <span className="rounded-full bg-brand-yellow px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-black">Admin</span>}
+                  {partnerIds.has(a.id) && <span className="rounded-full bg-sky-500/20 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-sky-300">Partner</span>}
                 </div>
                 <p className="break-all text-sm text-gray-400">{a.email}</p>
                 <dl className="mt-3 grid grid-cols-2 gap-2 text-sm">

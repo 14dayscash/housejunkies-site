@@ -337,6 +337,14 @@ WE ARE TRYING TO TAKE OVER, one street and one site at a time.**
   Finders Fees" headline (open deals only, no extra subtext), one color per status
   (`STATUS_COLORS` in `components/deals/ui.tsx`), slide/count-up/confetti motion
   (keyframes at the end of `app/globals.css`). Keep new screens in this style.
+- /deals partners (Dominic, 2026-11-26): outside wholesalers (e.g. Evan Rocha, Central
+  Valley Homebuyer) are in `public.partners`. Same app and login; the DB limits them to
+  their own deals (`deal_directory()` returns only theirs, Team Deals is hidden) and the
+  duplicate check `find_existing_deal()` tells them only "House Junkies has already saved
+  this deal!". Team still sees partner deals; /admin tags them PARTNER. Add one with
+  `select private.add_partner('Name', 'email', 'password');`. DB: `supabase/deals_v4_partners.sql`.
+  Later plan: a public App Store build where anyone snaps a photo, submits a deal and
+  earns points for details (contact number, situation, and so on).
 - /deals (Dominic, 2026-11-25): Add Deal is 5 steps (Address, ARV + comps, Rehab,
   Finders Fee, Timeline, then CALCULATE). New deals default to Flip and Legacy listing;
   Deal Type is changed next to Status on the deal page and Listing in the offer

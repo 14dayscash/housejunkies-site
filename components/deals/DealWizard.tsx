@@ -40,11 +40,13 @@ const emptyComp = (): CompDraft => ({ address: "", price: "", date: "", sqft: ""
 export function DealWizard({
   deal,
   directory,
+  isPartner,
   onCancel,
   onSaved,
 }: {
   deal?: Deal;
   directory: DirectoryRow[];
+  isPartner?: boolean;
   onCancel: () => void;
   onSaved: (deal: Deal, isNew: boolean) => void;
 }) {
@@ -70,6 +72,7 @@ export function DealWizard({
   const [listingBy, setListingBy] = useState<ListingBy>(deal?.listing_by ?? "legacy");
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
+  const [checking, setChecking] = useState(false);
 
   // Which way the screens slide: forward slides in from the right.
   const [dir, setDir] = useState<"next" | "back">("next");
@@ -102,16 +105,27 @@ export function DealWizard({
     [arv, sqft, condition, finders, months, listingBy, deal],
   );
 
-  function submitAddress(e: React.FormEvent) {
+  async function submitAddress(e: React.FormEvent) {
     e.preventDefault();
     const a = address.trim();
     if (a.length < 5) return setError("Enter the full property address.");
-    const dupe = directory.find((r) => r.id !== deal?.id && sameAddress(r.address, a));
-    if (dupe) {
+    setChecking(true);
+    // The database does the check, so partners never get a list of our deals.
+    const { data, error: rpcError } = await supabase.rpc("find_existing_deal", { addr: tidyAddress(a), exclude_id: deal?.id ?? null });
+    setChecking(false);
+    let found = (data as { owner_label: string; is_mine: boolean }[] | null)?.[0];
+    // Fallback if the check could not run: the team list already on screen.
+    if (rpcError) {
+      const row = directory.find((r) => r.id !== deal?.id && sameAddress(r.address, a));
+      if (row) found = { owner_label: row.owner_name, is_mine: row.is_mine };
+    }
+    if (found) {
       return setError(
-        dupe.is_mine
+        found.is_mine
           ? "You already submitted this deal. You can find it under My Deals."
-          : `That deal has already been submitted by ${dupe.owner_name} please contact them to check the status!`,
+          : isPartner || found.owner_label === "House Junkies"
+            ? "House Junkies has already saved this deal!"
+            : `That deal has already been submitted by ${found.owner_label} please contact them to check the status!`,
       );
     }
     next();
@@ -183,8 +197,8 @@ export function DealWizard({
               className={bigInputCls}
             />
             <ErrorText error={error} />
-            <button type="submit" className={`${btnPrimary} w-full`}>
-              NEXT <ChevronIcon />
+            <button type="submit" disabled={checking} className={`${btnPrimary} w-full`}>
+              {checking ? "CHECKING..." : <>NEXT <ChevronIcon /></>}
             </button>
           </form>
         </Screen>

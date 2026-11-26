@@ -75,3 +75,12 @@ $$;
 -- ---------------------------------------------------------------
 -- select private.add_team_user('Dominic McClelland', 'name@example.com', 'ChangeMe2026');
 -- select private.add_team_user('Abel Ulloa', 'name@example.com', 'ChangeMe2026');
+
+-- ---------------------------------------------------------------
+-- PARTNERS (outside wholesalers): same app, but they only see their own
+-- deals, never Team Deals, and a repeat address just says
+-- "House Junkies has already saved this deal!" (needs deals_v4_partners.sql)
+-- ---------------------------------------------------------------
+-- select private.add_partner('Evan Rocha', 'name@example.com', 'ChangeMe2026');
+-- Make an existing account a partner:
+-- select private.make_partner('name@example.com');

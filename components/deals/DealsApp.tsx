@@ -40,6 +40,11 @@ function SignedIn({ session, signOut }: { session: Session; signOut: () => void 
   const [directory, setDirectory] = useState<DirectoryRow[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  // Partners (outside wholesalers) get the same app without Team Deals.
+  const [isPartner, setIsPartner] = useState(false);
+  useEffect(() => {
+    supabase.rpc("is_partner").then(({ data }) => setIsPartner(data === true));
+  }, [supabase]);
 
   const load = useCallback(async () => {
     const [mine, dir] = await Promise.all([
@@ -76,6 +81,7 @@ function SignedIn({ session, signOut }: { session: Session; signOut: () => void 
       <DealWizard
         deal={view.deal}
         directory={directory}
+        isPartner={isPartner}
         onCancel={() => (view.deal ? setView({ name: "detail", id: view.deal.id }) : toDashboard())}
         onSaved={async (saved, isNew) => {
           await load();
@@ -162,6 +168,7 @@ function SignedIn({ session, signOut }: { session: Session; signOut: () => void 
   } else {
     content = (
       <Dashboard
+        hideTeam={isPartner}
         myDeals={myDeals}
         directory={directory}
         loading={loading}

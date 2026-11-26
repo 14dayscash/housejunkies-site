@@ -23,6 +23,7 @@ export function Dashboard({
   error,
   onAdd,
   onOpen,
+  hideTeam,
 }: {
   myDeals: Deal[];
   directory: DirectoryRow[];
@@ -30,6 +31,7 @@ export function Dashboard({
   error: string | null;
   onAdd: () => void;
   onOpen: (id: string) => void;
+  hideTeam?: boolean; // partners (outside wholesalers) never see Team Deals
 }) {
   const supabase = dealsSupabase()!;
   const [search, setSearch] = useState("");
@@ -144,6 +146,7 @@ export function Dashboard({
             )}
           </section>
 
+          {!hideTeam && (
           <section>
             <h2 className="mb-3 text-xl font-extrabold text-white">Team Deals</h2>
             {others.length === 0 ? (
@@ -156,6 +159,7 @@ export function Dashboard({
               </ul>
             )}
           </section>
+          )}
         </>
       )}
     </div>
